@@ -8,12 +8,14 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 api_root = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(project_root)
 sys.path.append(api_root)
+import requests
 
 from common.AppBase import AppBase
 from common.type.Errors import *
 from common.util.get_config import get_config
 from common.gmail.check_emails import check_emails
 from api_gmail_sender.type.ResType import ResType
+from common.const.API_URL import SLACK_URL
 
 # Create instance
 config = get_config()
@@ -38,10 +40,18 @@ def lambda_handler(event, context=None):
         raise IrrelevantParamException
 
     # check new mails
-    res = check_emails(label_id)
+    mail_check_res = check_emails(label_id)
 
     # create slack thread
+    for res in mail_check_res:
+        body = {
+            'type': 'block',
+            'channel': 'C068UMGLCDQ',
+            'msg': 'testtesttest'
+        }
+        slack_res = requests.post(SLACK_URL, body)
 
+        print(slack_res)
 
     return ResType(data=res).get_response()
 

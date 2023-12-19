@@ -1,1 +1,1 @@
-SLACK = 'https://boosta.boosters-labs.com/slack/send'
+SLACK_URL = 'https://boosta.boosters-labs.com/slack/send'
