@@ -1,0 +1,10 @@
+from enum import Enum
+
+
+class EntityFirst(Enum):
+    TOTAL_UNDELIVERED_INV: str = 'TOTAL_UNDELIVERED_INV'
+    TOTAL_REQUIRED_INV: str = 'TOTAL_REQUIRED_INV'
+    TOTAL_INV: str = 'TOTAL_INV'
+    WAREHOUSE_INV: str = 'WAREHOUSE_INV'
+    TOTAL_SITE_INV: str = 'TOTAL_SITE_INV'
+    ADDED_TOTAL_SITE_INV: str = 'ADDED_TOTAL_SITE_INV'

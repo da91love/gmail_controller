@@ -1,0 +1,12 @@
+# Default ignored files
+*.idea
+/shelf/
+log/logfile.log
+/dependencies/*
+/workspace.xml
+/public/output/tiktok_post_list.json
+/public/output/tiktok_cmp_infl_list.json
+# Byte-compiled / optimized / DLL files
+__pycache__/
+#*.py[cod]
+token.json

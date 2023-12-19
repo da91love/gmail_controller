@@ -1,0 +1,1 @@
+SLACK = 'https://boosta.boosters-labs.com/slack/send'
