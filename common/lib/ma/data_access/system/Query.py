@@ -1,5 +1,15 @@
 class Query():
 
+    sql_select_infl_info = """
+        SELECT * FROM infl_info
+        WHERE gmail_thread_id='{gmail_thread_id}'
+    """
+
+    sql_insert_slack_thread_id = """
+        INSERT INTO slack_thread_history(slack_thread_id, gmail_thread_id, create_at) 
+        VALUES('{slack_thread_id}', '{gmail_thread_id}', '{create_at}')
+    """
+
     sql_select_sent_thread_id = """
         SELECT DISTINCT gmail_thread_id, gmail_msg_id, sender_email, receiver_email, create_at
         FROM mail_contact t1

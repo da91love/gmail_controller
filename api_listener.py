@@ -48,12 +48,7 @@ def check_email_get():
     params = request.args
 
     # Insert necessary data to body
-    data = {
-        'params': params,
-        'context': {
-            'http-method': 'GET'
-        }
-    }
+    data = params
 
     result = check_emails(data)
 
