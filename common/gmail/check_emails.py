@@ -43,7 +43,7 @@ def check_emails(label_id):
                             if label_id in msg_in_thread['labelIds']:
 
                                 new_gmail_msg_id = msg_in_thread.get('id')
-                                create_at = DateUtil.format_milliseconds(msg_in_thread.get('internalDate'), '%Y-%m-%d %H:%M:%S')
+                                created_at = DateUtil.format_milliseconds(msg_in_thread.get('internalDate'), '%Y-%m-%d %H:%M:%S')
                                 contents = msg_in_thread.get('snippet')
                                 receiver_email = (contact_history[0]).get('receiver_email')
 
@@ -54,7 +54,7 @@ def check_emails(label_id):
                                     'sender_email': 'eqqualberry.comm@boosters.kr',
                                     'receiver_email': receiver_email,
                                     'contents': contents,
-                                    'create_at': create_at
+                                    'created_at': created_at
                                 }
 
                                 # insert to contact db
@@ -65,7 +65,7 @@ def check_emails(label_id):
                                     sender_email='eqqualberry.comm@boosters.kr',
                                     receiver_email= receiver_email,
                                     contents=contents,
-                                    create_at=create_at,
+                                    created_at=created_at,
                                 )
 
                                 # put in into result

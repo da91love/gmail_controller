@@ -6,12 +6,12 @@ class Query():
     """
 
     sql_insert_slack_thread_id = """
-        INSERT INTO slack_thread_history(slack_thread_id, gmail_thread_id, create_at) 
-        VALUES('{slack_thread_id}', '{gmail_thread_id}', '{create_at}')
+        INSERT INTO slack_thread_history(slack_thread_id, gmail_thread_id, created_at) 
+        VALUES('{slack_thread_id}', '{gmail_thread_id}', '{created_at}')
     """
 
     sql_select_sent_thread_id = """
-        SELECT DISTINCT gmail_thread_id, gmail_msg_id, sender_email, receiver_email, create_at
+        SELECT DISTINCT gmail_thread_id, gmail_msg_id, sender_email, receiver_email, created_at
         FROM mail_contact t1
         WHERE NOT EXISTS (
             SELECT 1
@@ -27,8 +27,8 @@ class Query():
     """
 
     sql_insert_contact_history = """
-        INSERT INTO mail_contact(gmail_thread_id, gmail_msg_id, gmail_label_id, sender_email, receiver_email, contents, create_at) 
-        VALUES('{gmail_thread_id}', '{gmail_msg_id}', '{gmail_label_id}', '{sender_email}', '{receiver_email}', '{contents}', '{create_at}')
+        INSERT INTO mail_contact(gmail_thread_id, gmail_msg_id, gmail_label_id, author_unique_id, seeding_num, created_at) 
+        VALUES('{gmail_thread_id}', '{gmail_msg_id}', '{gmail_label_id}', '{author_unique_id}', '{seeding_num}', '{created_at}')
     """
 
     sql_insert_infl_info = """

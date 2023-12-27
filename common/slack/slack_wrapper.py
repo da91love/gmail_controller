@@ -32,7 +32,7 @@ def slack_wrapper(mail_res):
             AccessService.insert_slack_thread_id(
                 slack_thread_id= slack_thread_id,
                 gmail_thread_id= gmail_thread_id,
-                create_at= formatted_datetime
+                created_at= formatted_datetime
             )
 
         return True

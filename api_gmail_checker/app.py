@@ -40,7 +40,7 @@ def lambda_handler(event, context=None):
 
     # check new mails
     # mail_check_res = check_emails(label_id)
-    mail_check_res = [{'gmail_thread_id': '18c8168754f5ecf9', 'gmail_msg_id': '18c8168be511c5a2', 'gmail_label_id': 'INBOX', 'sender_email': 'eqqualberry.comm@boosters.kr', 'receiver_email': 'daseul.kim@boosters.kr', 'contents': 'bdfbdgdgd 2023년 12월 19일 (화) 오후 6:29, &lt;eqqualberry.comm@boosters.kr&gt;님이 작성: Hi daseul.kim, I hope this message finds you well😀 My name is Anna, and I represent Eqqualberry, a Korean Skincare brand', 'create_at': '2023-12-19 18:29:23'}]
+    mail_check_res = [{'gmail_thread_id': '18c8168754f5ecf9', 'gmail_msg_id': '18c8168be511c5a2', 'gmail_label_id': 'INBOX', 'sender_email': 'eqqualberry.comm@boosters.kr', 'receiver_email': 'daseul.kim@boosters.kr', 'contents': 'bdfbdgdgd 2023년 12월 19일 (화) 오후 6:29, &lt;eqqualberry.comm@boosters.kr&gt;님이 작성: Hi daseul.kim, I hope this message finds you well😀 My name is Anna, and I represent Eqqualberry, a Korean Skincare brand', 'created_at': '2023-12-19 18:29:23'}]
 
     # create slack thread
     for res in mail_check_res:

@@ -36,19 +36,19 @@ def send_remind_email():
         grouped_data = _.group_by(tg_contacts, "gmail_thread_id")
 
         # Extract the latest entry for each threadId
-        latest_sent_contacts = [_.max_by(group, lambda x: x["create_at"]) for group in grouped_data.values()]
+        latest_sent_contacts = [_.max_by(group, lambda x: x["created_at"]) for group in grouped_data.values()]
 
         re_sent_mails = []
         for latest_sent_contact in latest_sent_contacts:
-            gmail_thread_id, gmail_msg_id, sender_email, receiver_email, create_at \
-                = itemgetter('gmail_thread_id', 'gmail_msg_id', 'sender_email', 'receiver_email', 'create_at')(latest_sent_contact)
+            gmail_thread_id, gmail_msg_id, sender_email, receiver_email, created_at \
+                = itemgetter('gmail_thread_id', 'gmail_msg_id', 'sender_email', 'receiver_email', 'created_at')(latest_sent_contact)
 
             sent_num = len(grouped_data[gmail_thread_id])
 
             # if sent number is over 3, no remind send
             if sent_num < 3:
                 # remind if over 5 days # TODO: change days diff
-                if (datetime.now() - create_at).days >= 5:
+                if (datetime.now() - created_at).days >= 5:
 
                     # Extract the information you need, e.g., sender, receiver, subject, etc.
                     sender_email = sender_email
@@ -71,7 +71,7 @@ def send_remind_email():
                         sender_email=sender_email,
                         receiver_email=receiver_email,
                         contents='',
-                        create_at=formatted_datetime
+                        created_at=formatted_datetime
                     )
 
                     re_sent_mails.append({
