@@ -64,7 +64,7 @@ def lambda_handler(event, context=None):
 
     # modify label
     pic = (AccessService.select_pic(author_unique_id=author_unique_id, seeding_num=seeding_num)[0])['pic']
-    modify_label(gmail_msg_id, pic)
+    modify_label(gmail_msg_id=gmail_msg_id, label_name=pic)
 
     # insert to contact db
     AccessService.insert_contact_history(

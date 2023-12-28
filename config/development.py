@@ -29,9 +29,7 @@ config = {
             'file': {
                 'class': 'logging.FileHandler',
                 'filename': project_root + '/log/logfile.log',
-                'mode': 'a',
-                'maxBytes': 10 * 1024 * 1024,  # 10 MB
-                'backupCount': 5,
+                'mode': 'w',
                 'encoding': 'utf-8',
                 'formatter': 'general',
                 'level': 'INFO',
