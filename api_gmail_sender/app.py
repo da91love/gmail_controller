@@ -39,9 +39,9 @@ def lambda_handler(event, context=None):
     # Get data from API Gateway
     data = event
 
-    author_unique_id = data.get('author_unique_id')
-    seeding_num = data.get('seeding_num')
-    receiver_email = data.get('receiver_email')
+    author_unique_id = data.get('authorUniqueId')
+    seeding_num = data.get('seedingNum')
+    receiver_email = data.get('receiverEmail')
 
     if any(value is None for value in [author_unique_id, seeding_num, receiver_email]):
         raise IrrelevantParamException

@@ -12,14 +12,14 @@ def check_emails(label_id):
 
         # 최근 5개까지 받은 메일 쓰레드 id 표시
         service = build('gmail', 'v1', credentials=creds)
-        results = service.users().messages().list(userId='me', labelIds=['INBOX'], maxResults=5).execute()
+        results = service.users().messages().list(userId='me', labelIds=['INBOX'], maxResults=15).execute()
         msg_metas = results.get('messages', [])
 
         new_arrival_mails = []
         if not msg_metas:
             print('No messages found.')
         else:
-            # 획득한 5개 쓰레드 ID Loop
+            # 획득한 15개 쓰레드 ID Loop
             for msg_meta in msg_metas:
                 gmail_thread_id = msg_meta.get('threadId')
 
