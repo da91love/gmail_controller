@@ -36,14 +36,14 @@ class AccessService(AccessServiceBase):
             raise e
 
     @staticmethod
-    def select_infl_info(**bindings):
+    def select_slack_need_info(**bindings):
         """
         :param bindings: (tuple)
         :return: (list) sql query result
         """
         try:
             return AccessServiceBase.execute_sql(
-                sql=Query.sql_select_infl_info,
+                sql=Query.sql_select_slack_need_info,
                 bindings=bindings)
 
         except Exception as e:

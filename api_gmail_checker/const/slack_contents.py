@@ -39,3 +39,24 @@ def get_mail_arrive_slack_block(TIKTOK_URL, AUTHOR_UNIQUE_ID, EMAIL):
 			}
 		}
 	]
+
+def get_mail_reply_slack_block(gmail_label_id, contents):
+	return [
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": f"*MAIL STATUS: {gmail_label_id}*"
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": f"*・ contents* : <{contents}>"
+			}
+		}
+	]

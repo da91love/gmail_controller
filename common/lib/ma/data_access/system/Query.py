@@ -9,14 +9,19 @@ class Query():
         WHERE gmail_thread_id='{gmail_thread_id}'
     """
 
-    sql_select_infl_info = """
-        SELECT * FROM infl_contact_info_master
-        WHERE author_unique_id='{author_unique_id}' AND seeding_num='{seeding_num}'
+    sql_select_slack_need_info = """
+        SELECT tiktok_url, receiver_email, gmail_msg_id
+        FROM infl_contact_info_master
+        INNER JOIN mail_contact ON
+            infl_contact_info_master.author_unique_id = mail_contact.author_unique_id
+            AND infl_contact_info_master.seeding_num = mail_contact.seeding_num
+        WHERE infl_contact_info_master.author_unique_id = '{author_unique_id}'
+            AND infl_contact_info_master.seeding_num = {seeding_num};
     """
 
     sql_insert_slack_thread_id = """
-        INSERT INTO slack_thread_history(slack_thread_id, gmail_thread_id, created_at) 
-        VALUES('{slack_thread_id}', '{gmail_thread_id}', '{created_at}')
+        INSERT INTO slack_thread_history(slack_thread_id, gmail_thread_id, gmail_msg_id, created_at) 
+        VALUES('{slack_thread_id}', '{gmail_thread_id}', '{gmail_msg_id}', '{created_at}')
     """
 
     sql_select_sent_thread_id = """
