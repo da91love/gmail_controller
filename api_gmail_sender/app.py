@@ -14,6 +14,7 @@ from common.AppBase import AppBase
 from common.type.Errors import *
 from common.util.get_config import get_config
 from common.gmail.send_email import send_email
+from common.gmail.modify_label import modify_label
 from api_gmail_sender.type.ResType import ResType
 from api_gmail_sender.const.mail_info import *
 from api_gmail_sender.const.sender_info import *
@@ -56,10 +57,14 @@ def lambda_handler(event, context=None):
         mail_body=formatted_mail_body,
     )
 
-    # DB
+    # prepare variables
     gmail_thread_id = sent_message.get("threadId")
     gmail_msg_id = sent_message.get("id")
     formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    # modify label
+    pic = (AccessService.select_pic(author_unique_id=author_unique_id, seeding_num=seeding_num)[0])['pic']
+    modify_label(gmail_msg_id, pic)
 
     # insert to contact db
     AccessService.insert_contact_history(
@@ -71,7 +76,7 @@ def lambda_handler(event, context=None):
         created_at=formatted_datetime
     )
 
-    return ResType().get_response()
+    return ResType(data=sent_message).get_response()
 
 # sender_email = sys.argv[1]
 # receiver_email = sys.argv[2]

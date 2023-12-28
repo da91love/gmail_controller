@@ -1,4 +1,4 @@
-def get_formatted_block(TIKTOK_URL, AUTHOR_UNIQUE_ID, EMAIL):
+def get_mail_arrive_slack_block(TIKTOK_URL, AUTHOR_UNIQUE_ID, EMAIL):
 	return [
 		{
 			"type": "section",

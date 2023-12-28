@@ -1,10 +1,16 @@
+class PicNotAssignedException(Exception):
+    # 例外情報をもらってメッセージを出せるか
+    def __init__(
+            self,
+            msg="Pic is not assigned"):
+        Exception.__init__(self, msg)
+
 class IrrelevantParamException(Exception):
     # 例外情報をもらってメッセージを出せるか
     def __init__(
             self,
             msg="Requested parameter is not enough"):
         Exception.__init__(self, msg)
-
 
 class DataLockException(Exception):
     def __init__(

@@ -1,8 +1,17 @@
 class Query():
+    sql_select_pic = """
+        SELECT * FROM person_in_charge
+        WHERE author_unique_id='{author_unique_id}' and seeding_num='{seeding_num}'
+    """
+
+    sql_select_slack_thread_history = """
+        SELECT * FROM slack_thread_history
+        WHERE gmail_thread_id='{gmail_thread_id}'
+    """
 
     sql_select_infl_info = """
-        SELECT * FROM infl_info
-        WHERE gmail_thread_id='{gmail_thread_id}'
+        SELECT * FROM infl_contact_info_master
+        WHERE author_unique_id='{author_unique_id}' AND seeding_num='{seeding_num}'
     """
 
     sql_insert_slack_thread_id = """
@@ -24,6 +33,11 @@ class Query():
     sql_select_contact_num = """
         SELECT * FROM mail_contact
         WHERE gmail_thread_id='{gmail_thread_id}'
+    """
+
+    sql_insert_contents = """
+        INSERT INTO mail_contents(gmail_thread_id, gmail_msg_id, contents, created_at) 
+        VALUES('{gmail_thread_id}', '{gmail_msg_id}', '{contents}', '{created_at}')
     """
 
     sql_insert_contact_history = """
