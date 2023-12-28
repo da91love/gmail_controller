@@ -78,16 +78,14 @@ def lambda_handler(event, context=None):
 
     return ResType(data=sent_message).get_response()
 
-# sender_email = sys.argv[1]
-# receiver_email = sys.argv[2]
-# author_unique_id = sys.argv[3]
-# tiktok_url = sys.argv[4]
-#
-# result = lambda_handler({
-#     "sender_email": sender_email,
-#     "receiver_email": receiver_email,
-#     "author_unique_id": author_unique_id,
-#     "tiktok_url": tiktok_url,
-# })
-#
-# print(result)
+author_unique_id = sys.argv[1]
+seeding_num = sys.argv[2]
+receiver_email = sys.argv[3]
+
+result = lambda_handler({
+    "author_unique_id": author_unique_id,
+    "seeding_num": seeding_num,
+    "receiver_email": receiver_email,
+})
+
+print(result)
