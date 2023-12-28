@@ -83,9 +83,9 @@ seedingNum = sys.argv[2]
 receiverEmail = sys.argv[3]
 
 result = lambda_handler({
-    "author_unique_id": authorUniqueId,
-    "seeding_num": seedingNum,
-    "receiver_email": receiverEmail,
+    "authorUniqueId": authorUniqueId,
+    "seedingNum": seedingNum,
+    "receiverEmail": receiverEmail,
 })
 
 print(result)

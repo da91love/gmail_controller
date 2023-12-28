@@ -35,7 +35,7 @@ def lambda_handler(event, context=None):
 
     # Get data from API Gateway
     data = event
-    label_id = data.get('label_id')
+    label_id = data.get('labelId')
 
     if any(value is None for value in [label_id]):
         raise IrrelevantParamException
@@ -79,7 +79,7 @@ def lambda_handler(event, context=None):
 labelId = sys.argv[1]
 
 result = lambda_handler({
-    "label_id": labelId,
+    "labelId": labelId,
 })
 
 print(result)
