@@ -17,7 +17,7 @@ from common.gmail.send_email import send_email
 from common.gmail.modify_label import modify_label
 from api_gmail_sender.type.ResType import ResType
 from api_gmail_sender.const.mail_info import *
-from api_gmail_sender.const.sender_info import *
+from common.const.EMAIL import *
 
 from common.lib.ma.data_access.system.AccessService import AccessService
 
