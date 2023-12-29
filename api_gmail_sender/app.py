@@ -94,10 +94,10 @@ def lambda_handler(event, context=None):
 # receiverEmail = sys.argv[4]
 #
 # result = lambda_handler({
-#     "author_unique_id": authorUniqueId,
-#     "seeding_num": seedingNum,
-#     "tg_brand": tgBrand,
-#     "receiver_email": receiverEmail,
+#     "authorUniqueId": authorUniqueId,
+#     "seedingNum": seedingNum,
+#     "tgBrand": tgBrand,
+#     "receiverEmail": receiverEmail,
 # })
 #
 # print(result)
