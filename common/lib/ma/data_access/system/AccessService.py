@@ -105,6 +105,20 @@ class AccessService(AccessServiceBase):
             raise e
 
     @staticmethod
+    def insert_contact_status(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_insert_contact_status,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+    @staticmethod
     def insert_contact_history(**bindings):
         """
         :param bindings: (tuple)

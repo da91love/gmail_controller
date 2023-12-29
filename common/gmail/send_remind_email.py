@@ -29,10 +29,7 @@ def send_remind_email(sender_email, receiver_email, mail_subject, mail_body, gma
         # Send the message
         sent_message = service.users().messages().send(userId='me', body=raw_message).execute()
 
-        return {
-            'gmail_thread_id': gmail_thread_id,
-            'gmail_msg_id': sent_message.get('id')
-        }
+        return sent_message
 
     except Exception as e:
         raise e

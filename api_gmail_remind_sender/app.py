@@ -51,8 +51,8 @@ def lambda_handler(event, context=None):
 
     re_sent_mails = []
     for latest_sent_contact in latest_sent_contacts:
-        gmail_thread_id, gmail_msg_id, receiver_email, author_unique_id, seeding_num, created_at \
-            = itemgetter('gmail_thread_id', 'gmail_msg_id', 'receiver_email', 'author_unique_id', 'seeding_num', 'created_at')(latest_sent_contact)
+        gmail_thread_id, gmail_msg_id, receiver_email, author_unique_id, seeding_num, tg_brand, created_at \
+            = itemgetter('gmail_thread_id', 'gmail_msg_id', 'receiver_email', 'author_unique_id', 'seeding_num', 'tg_brand', 'created_at')(latest_sent_contact)
 
         sent_num = len(grouped_data[gmail_thread_id])
 
@@ -71,10 +71,11 @@ def lambda_handler(event, context=None):
                 # insert to contact db
                 AccessService.insert_contact_history(
                     gmail_thread_id=gmail_thread_id,
-                    gmail_msg_id=sent_message.get('gmail_msg_id'),
+                    gmail_msg_id=sent_message.get('id'),
                     gmail_label_id='SENT',
                     author_unique_id=author_unique_id,
                     seeding_num=seeding_num,
+                    tg_brand=tg_brand,
                     created_at=formatted_datetime
                 )
 

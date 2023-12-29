@@ -18,6 +18,7 @@ from common.gmail.modify_label import modify_label
 from api_gmail_sender.type.ResType import ResType
 from api_gmail_sender.const.mail_info import *
 from common.const.EMAIL import *
+from common.const.STATUS import *
 
 from common.lib.ma.data_access.system.AccessService import AccessService
 
@@ -76,6 +77,13 @@ def lambda_handler(event, context=None):
         seeding_num=seeding_num,
         tg_brand=tg_brand,
         created_at=formatted_datetime
+    )
+
+    # insert to status db
+    AccessService.insert_contact_status(
+        gmail_thread_id=gmail_thread_id,
+        status=status['OPEN'],
+        progress=progress['NEGOTIATING'],
     )
 
     return ResType(data=sent_message).get_response()

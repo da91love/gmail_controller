@@ -54,6 +54,7 @@ def lambda_handler(event, context=None):
                 gmail_label_id=res['gmail_label_id'],
                 author_unique_id=res['author_unique_id'],
                 seeding_num=res['seeding_num'],
+                tg_brand=res['tg_brand'],
                 created_at=res['created_at']
             )
 
