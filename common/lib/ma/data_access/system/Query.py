@@ -50,6 +50,11 @@ class Query():
         VALUES('{gmail_thread_id}', '{gmail_msg_id}', '{contents}', '{created_at}')
     """
 
+    sql_select_contact_status = """
+        SELECT * FROM contact_status
+        WHERE gmail_thread_id='{gmail_thread_id}'
+    """
+
     sql_insert_contact_status = """
         INSERT INTO contact_status(gmail_thread_id, status, progress) 
         VALUES('{gmail_thread_id}', '{status}', '{progress}')
