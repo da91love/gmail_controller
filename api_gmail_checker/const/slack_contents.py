@@ -1,4 +1,4 @@
-def get_mail_arrive_slack_block(TIKTOK_URL, AUTHOR_UNIQUE_ID, EMAIL, STATUS, PROGRESS):
+def get_mail_arrive_slack_block(TIKTOK_URL, AUTHOR_UNIQUE_ID, EMAIL, STATUS, PROGRESS, PIC):
 	return [
 		{
 			"type": "section",
@@ -49,7 +49,7 @@ def get_mail_arrive_slack_block(TIKTOK_URL, AUTHOR_UNIQUE_ID, EMAIL, STATUS, PRO
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "*・ Person In Charge* : "
+				"text": f"*・ Person In Charge* : {PIC}"
 			}
 		}
 	]
