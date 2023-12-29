@@ -51,8 +51,8 @@ class Query():
     """
 
     sql_insert_contact_history = """
-        INSERT INTO mail_contact(gmail_thread_id, gmail_msg_id, gmail_label_id, author_unique_id, seeding_num, created_at) 
-        VALUES('{gmail_thread_id}', '{gmail_msg_id}', '{gmail_label_id}', '{author_unique_id}', '{seeding_num}', '{created_at}')
+        INSERT INTO mail_contact(gmail_thread_id, gmail_msg_id, gmail_label_id, author_unique_id, seeding_num, tg_brand, created_at) 
+        VALUES('{gmail_thread_id}', '{gmail_msg_id}', '{gmail_label_id}', '{author_unique_id}', '{seeding_num}', '{tg_brand}', '{created_at}')
     """
 
     sql_insert_infl_info = """

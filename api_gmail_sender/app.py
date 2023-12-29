@@ -41,9 +41,10 @@ def lambda_handler(event, context=None):
 
     author_unique_id = data.get('authorUniqueId')
     seeding_num = data.get('seedingNum')
+    tg_brand = data.get('tgBrand')
     receiver_email = data.get('receiverEmail')
 
-    if any(value is None for value in [author_unique_id, seeding_num, receiver_email]):
+    if any(value is None for value in [author_unique_id, seeding_num, tg_brand, receiver_email]):
         raise IrrelevantParamException
 
     # format mail body
@@ -72,7 +73,8 @@ def lambda_handler(event, context=None):
         gmail_msg_id=gmail_msg_id,
         gmail_label_id='SENT',
         author_unique_id=author_unique_id,
-        seeding_num= seeding_num,
+        seeding_num=seeding_num,
+        tg_brand=tg_brand,
         created_at=formatted_datetime
     )
 
@@ -80,11 +82,13 @@ def lambda_handler(event, context=None):
 
 # authorUniqueId = sys.argv[1]
 # seedingNum = sys.argv[2]
-# receiverEmail = sys.argv[3]
+# tgBrand = sys.argv[3]
+# receiverEmail = sys.argv[4]
 #
 # result = lambda_handler({
 #     "author_unique_id": authorUniqueId,
 #     "seeding_num": seedingNum,
+#     "tg_brand": tgBrand,
 #     "receiver_email": receiverEmail,
 # })
 #
