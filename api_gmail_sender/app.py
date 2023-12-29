@@ -89,6 +89,7 @@ def lambda_handler(event, context=None):
     return ResType(data=sent_message).get_response()
 
 
+
 authorUniqueId = sys.argv[1]
 seedingNum = sys.argv[2]
 tgBrand = sys.argv[3]

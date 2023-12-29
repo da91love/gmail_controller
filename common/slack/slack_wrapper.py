@@ -47,10 +47,13 @@ def slack_wrapper(mail_res):
             slack_need_info = AccessService.select_slack_need_info(author_unique_id= author_unique_id, seeding_num=seeding_num)[0]
             receiver_email, tiktok_url, gmail_msg_id = itemgetter('receiver_email', 'tiktok_url', 'gmail_msg_id')(slack_need_info)
 
+            contact_status = AccessService.select_contact_status(gmail_thread_id=gmail_thread_id)[0]
+            status, progress = itemgetter('status', 'progress')(contact_status)
+
             slack_res = requests.post(SLACK_URL, data={
                 'type': 'block',
                 'channel': 'C068UMGLCDQ',
-                'msg': json.dumps(get_mail_arrive_slack_block(tiktok_url, author_unique_id, receiver_email))
+                'msg': json.dumps(get_mail_arrive_slack_block(tiktok_url, author_unique_id, receiver_email, status, progress))
             })
 
             if slack_res.status_code == 200:
