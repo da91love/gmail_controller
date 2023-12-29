@@ -2,6 +2,9 @@
 # import boto3
 import csv
 import uuid
+from operator import itemgetter
+from datetime import datetime
+import pydash as _
 import os
 import sys
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -14,7 +17,10 @@ from common.type.Errors import *
 from common.util.get_config import get_config
 from common.gmail.send_remind_email import send_remind_email
 from api_gmail_sender.type.ResType import ResType
-from api_gmail_sender.const.mail_info import *
+
+from common.lib.ma.data_access.system.AccessService import AccessService
+from api_gmail_remind_sender.const.mail_info import mail_info
+from common.const.EMAIL import *
 
 # Create instance
 config = get_config()
@@ -34,9 +40,48 @@ def lambda_handler(event, context=None):
     # Get data from API Gateway
     data = event
 
-    res = send_remind_email()
+    # get thread_id
+    tg_contacts = AccessService.select_sent_thread_id()
 
-    return ResType(data=res).get_response()
+    # Group data by threadId
+    grouped_data = _.group_by(tg_contacts, "gmail_thread_id")
 
-# result = lambda_handler(None)
-# print(result)
+    # Extract the latest entry for each threadId
+    latest_sent_contacts = [_.max_by(group, lambda x: x["created_at"]) for group in grouped_data.values()]
+
+    re_sent_mails = []
+    for latest_sent_contact in latest_sent_contacts:
+        gmail_thread_id, gmail_msg_id, receiver_email, author_unique_id, seeding_num, tg_brand, created_at \
+            = itemgetter('gmail_thread_id', 'gmail_msg_id', 'receiver_email', 'author_unique_id', 'seeding_num', 'tg_brand', 'created_at')(latest_sent_contact)
+
+        sent_num = len(grouped_data[gmail_thread_id])
+
+        # if sent number is over 3, no remind send
+        if sent_num < 3:
+            # remind if over 5 days # TODO: change days diff
+            if (datetime.now() - created_at).days >= 0:
+                # Extract the information you need, e.g., sender, receiver, mail_subject, etc.
+                mail_subject = mail_info[sent_num - 1]['mail_subject']
+                mail_body = mail_info[sent_num - 1]['mail_body']
+                formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+                # Send the message
+                sent_message = send_remind_email(sender_email, receiver_email, mail_subject, mail_body, gmail_thread_id)
+
+                # insert to contact db
+                AccessService.insert_contact_history(
+                    gmail_thread_id=gmail_thread_id,
+                    gmail_msg_id=sent_message.get('id'),
+                    gmail_label_id='SENT',
+                    author_unique_id=author_unique_id,
+                    seeding_num=seeding_num,
+                    tg_brand=tg_brand,
+                    created_at=formatted_datetime
+                )
+
+                re_sent_mails.append(sent_message)
+
+    return ResType(data=re_sent_mails).get_response()
+
+result = lambda_handler(None)
+print(result)
