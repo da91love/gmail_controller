@@ -3,14 +3,7 @@ from common.gmail.Authenticate import Authenticate
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import base64
-from operator import itemgetter
-from datetime import datetime
-import pydash as _
 import logging
-
-from common.lib.ma.data_access.system.AccessService import AccessService
-from api_gmail_remind_sender.const.mail_info import mail_info
-from common.const.EMAIL import *
 
 # call instancese
 logger = logging.getLogger()
@@ -44,15 +37,19 @@ def send_remind_email(sender_email, receiver_email, mail_subject, mail_body, gma
     except Exception as e:
         raise e
 
-def _create_message(receiver_email, mail_subject, mail_body, thread_id):
-    message = MIMEMultipart()
-    message['to'] = receiver_email
-    message['mail_subject'] = mail_subject
-    # message['threadId'] = thread_id
+def _create_message(sender, to, subject, body, thread_id):
+    try:
+        """Create a MIMEText message for an email."""
+        message = MIMEMultipart()
+        message['to'] = to
+        message['from'] = sender
+        message['subject'] = subject
 
-    # Attach the HTML body
-    body_html = MIMEText(mail_body, 'html')
-    message.attach(body_html)
+        msg = MIMEText(body, 'html')
+        message.attach(msg)
 
-    raw_message = base64.urlsafe_b64encode(message.as_bytes()).decode('utf-8')
-    return {'raw': raw_message, 'threadId': thread_id}
+        raw_message = base64.urlsafe_b64encode(message.as_bytes()).decode('utf-8')
+
+        return {'raw': raw_message, 'threadId': thread_id}
+    except Exception as e:
+        raise e
