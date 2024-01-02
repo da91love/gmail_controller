@@ -8,7 +8,7 @@ class Slack:
         pass
 
 
-    def add_post(self,channel_id, msg_type, msg_body, thread_ts):
+    def add_post(self,channel_id, msg_type, msg_body):
         try:
             slack_res = requests.post(SLACK_ADD_POST_URL, data={
                 'type': msg_type,
@@ -42,6 +42,7 @@ class Slack:
                 'type': msg_type,
                 'channel': channel_id,
                 'msg': msg_body,
+                'thread_ts': thread_ts
             })
 
             return slack_res
