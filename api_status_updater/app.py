@@ -86,10 +86,5 @@ def lambda_handler(event, context=None):
 
     return ResType(data=updated_data).get_response()
 
-# labelId = sys.argv[1]
-#
-# result = lambda_handler({
-#     "labelId": labelId,
-# })
-#
-# print(result)
+result = lambda_handler(None)
+print(result)
