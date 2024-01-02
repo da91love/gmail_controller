@@ -6,7 +6,7 @@ import pydash as _
 
 from common.lib.ma.data_access.system.AccessService import AccessService
 from api_gmail_checker.const.slack_contents import *
-from common.slack import Slack
+from common.slack.Slack import Slack
 
 def slack_wrapper(mail_res):
     try:
