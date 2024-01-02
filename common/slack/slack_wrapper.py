@@ -41,9 +41,12 @@ def slack_wrapper(mail_res):
                 slack_thread_id = slack_thread_history[0]['slack_thread_id']
                 msg = json.dumps(get_mail_reply_slack_block(gmail_label_id, contents))
 
-                # sent이면 메세지 내용 수정
+                # sent이면 메세지 그린색, INBOX면 빨강으로 수정
                 if gmail_label_id == 'SENT':
                     update_msg = json.dumps(get_mail_sent_slack_block(tiktok_url, author_unique_id, receiver_email, status, progress, pic))
+                    slack_res = slack.update_post('C068UMGLCDQ', 'block', update_msg, slack_thread_id)
+                else:
+                    update_msg = json.dumps(get_mail_arrive_slack_block(tiktok_url, author_unique_id, receiver_email, status, progress, pic))
                     slack_res = slack.update_post('C068UMGLCDQ', 'block', update_msg, slack_thread_id)
 
                 slack_res = slack.add_reply('C068UMGLCDQ', 'block', msg, slack_thread_id)
