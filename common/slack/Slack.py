@@ -3,6 +3,7 @@ import json
 
 from api_gmail_checker.const.slack_contents import *
 from common.const.API_URL import *
+
 class Slack:
     def __init__(self):
         pass
