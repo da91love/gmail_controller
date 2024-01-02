@@ -83,5 +83,5 @@ def lambda_handler(event, context=None):
 
     return ResType(data=re_sent_mails).get_response()
 
-# result = lambda_handler(None)
-# print(result)
+result = lambda_handler(None)
+print(result)

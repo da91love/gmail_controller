@@ -18,6 +18,7 @@ from api_gmail_checker.type.ResType import ResType
 from common.slack.Slack import Slack
 from common.const.SLACK import *
 from common.slack.SlackMsgCreator import SlackMsgCreator
+from common.gmail.modify_label import modify_label
 from common.lib.ma.data_access.system.AccessService import AccessService
 
 # Create instance
@@ -56,12 +57,13 @@ def lambda_handler(event, context=None):
         author_unique_id, receiver_email, tiktok_url, pic = itemgetter('author_unique_id', 'receiver_email', 'tiktok_url', 'pic')(slack_need_info)
 
         slack_id_info = AccessService.select_slack_thread_history(gmail_thread_id=gmail_thread_id)[0]
-        slack_thread_id = itemgetter('slack_thread_id')(slack_id_info)
+        slack_thread_id, gmail_msg_id = itemgetter('slack_thread_id', 'gmail_msg_id')(slack_id_info)
 
         status, progress = itemgetter('status', 'progress')(status_data[0])
 
         is_reply_done = True if contact_data[-1]['gmail_label_id'] == 'SENT' else False
 
+        # Modify slack status
         update_msg = json.dumps(SlackMsgCreator.get_slack_post_block(
             TIKTOK_URL= tiktok_url,
             AUTHOR_UNIQUE_ID= author_unique_id,
@@ -75,6 +77,9 @@ def lambda_handler(event, context=None):
         # update slack
         slack.update_post(CHANNEL_ID, MSG_TYPE['BLOCK'], update_msg, slack_thread_id)
 
+        # update gmail label
+        modify_label(gmail_msg_id=gmail_msg_id, add_label_names=[status, progress, pic])
+
         # append data
         updated_data.append({
             'gmail_thread_id': gmail_thread_id,
@@ -85,6 +90,7 @@ def lambda_handler(event, context=None):
         })
 
     return ResType(data=updated_data).get_response()
+
 
 # result = lambda_handler(None)
 # print(result)

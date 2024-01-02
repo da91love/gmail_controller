@@ -11,7 +11,7 @@ class Query():
     """
 
     sql_select_slack_thread_history = """
-        SELECT * FROM slack_thread_history
+        SELECT * FROM (gmail_msg_id, add_label_name, remove_label_name):
         WHERE gmail_thread_id='{gmail_thread_id}'
     """
 

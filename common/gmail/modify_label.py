@@ -6,23 +6,24 @@ import base64
 import pydash as _
 
 from common.type.Errors import PicNotAssignedException
-from common.const.STATUS import *
 
-def modify_label(gmail_msg_id, label_name):
+def modify_label(gmail_msg_id, add_label_names, remove_label_names):
     try:
         authenticate = Authenticate()
         creds = authenticate.get_authenticate()
         service = build('gmail', 'v1', credentials=creds)
 
         labels = service.users().labels().list(userId='me').execute()
-        status_label_id = (_.filter_(labels['labels'], {'name': status['OPEN']}))[0]['id']
-        progress_label_id = (_.filter_(labels['labels'], {'name': progress['NEGOTIATING']}))[0]['id']
 
-        tg_label_id = (_.filter_(labels['labels'], {'name': label_name}))[0]['id']
+        add_label_ids = [(_.filter_(labels['labels'], {'name': label_name})) [0]['id']for label_name in add_label_names]
+        remove_label_ids = [(_.filter_(labels['labels'], {'name': label_name}))[0]['id'] for label_name in remove_label_names]
 
-        addLabelIds = {'addLabelIds': [progress_label_id, status_label_id, tg_label_id]}
+        modified_label_ids = {
+            'removeLabelIds': [remove_label_ids],
+            'addLabelIds': [add_label_ids],
+        }
 
-        service.users().messages().modify(userId='me', id=gmail_msg_id, body=addLabelIds).execute()
+        service.users().messages().modify(userId='me', id=gmail_msg_id, body=modified_label_ids).execute()
 
     except IndexError as e:
         raise PicNotAssignedException

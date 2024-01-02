@@ -66,7 +66,7 @@ def lambda_handler(event, context=None):
 
     # modify label
     pic = (AccessService.select_pic(author_unique_id=author_unique_id, seeding_num=seeding_num)[0])['pic']
-    modify_label(gmail_msg_id=gmail_msg_id, label_name=pic)
+    modify_label(gmail_msg_id=gmail_msg_id, add_label_names=[status.OPEN, progress.NEGOTIATE, pic])
 
     # insert to contact db
     AccessService.insert_contact_history(
@@ -88,16 +88,18 @@ def lambda_handler(event, context=None):
 
     return ResType(data=sent_message).get_response()
 
-# authorUniqueId = sys.argv[1]
-# seedingNum = sys.argv[2]
-# tgBrand = sys.argv[3]
-# receiverEmail = sys.argv[4]
-#
-# result = lambda_handler({
-#     "authorUniqueId": authorUniqueId,
-#     "seedingNum": seedingNum,
-#     "tgBrand": tgBrand,
-#     "receiverEmail": receiverEmail,
-# })
-#
-# print(result)
+
+
+authorUniqueId = sys.argv[1]
+seedingNum = sys.argv[2]
+tgBrand = sys.argv[3]
+receiverEmail = sys.argv[4]
+
+result = lambda_handler({
+    "authorUniqueId": authorUniqueId,
+    "seedingNum": seedingNum,
+    "tgBrand": tgBrand,
+    "receiverEmail": receiverEmail,
+})
+
+print(result)
