@@ -45,12 +45,12 @@ def slack_wrapper(mail_res):
                 # sent이면 메세지 그린색, INBOX면 빨강으로 수정
                 if gmail_label_id == 'SENT':
                     update_msg = json.dumps(get_mail_sent_slack_block(tiktok_url, author_unique_id, receiver_email, status, progress, pic))
-                    slack_res = slack.update_post(CHANNEL_ID, MSG_TYPE, update_msg, slack_thread_id)
+                    slack_res = slack.update_post(CHANNEL_ID, MSG_TYPE['BLOCK'], update_msg, slack_thread_id)
                 else:
                     update_msg = json.dumps(get_mail_arrive_slack_block(tiktok_url, author_unique_id, receiver_email, status, progress, pic))
-                    slack_res = slack.update_post(CHANNEL_ID, MSG_TYPE, update_msg, slack_thread_id)
+                    slack_res = slack.update_post(CHANNEL_ID, MSG_TYPE['BLOCK'], update_msg, slack_thread_id)
 
-                slack_res = slack.add_reply(CHANNEL_ID, MSG_TYPE, msg, slack_thread_id)
+                slack_res = slack.add_reply(CHANNEL_ID, MSG_TYPE['BLOCK'], msg, slack_thread_id)
 
                 if slack_res.status_code == 200:
                     formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -64,14 +64,14 @@ def slack_wrapper(mail_res):
 
         else:
             msg = json.dumps(get_mail_arrive_slack_block(tiktok_url, author_unique_id, receiver_email, status, progress, pic))
-            slack_res = slack.add_post(CHANNEL_ID, MSG_TYPE, msg)
+            slack_res = slack.add_post(CHANNEL_ID, MSG_TYPE['BLOCK'], msg)
 
             if slack_res.status_code == 200:
                 slack_thread_id = slack_res.text
 
                 # create slack reply
                 reply_msg = json.dumps(get_mail_reply_slack_block(gmail_label_id, contents))
-                slack_res = slack.add_reply(CHANNEL_ID, MSG_TYPE, reply_msg, slack_thread_id)
+                slack_res = slack.add_reply(CHANNEL_ID, MSG_TYPE['BLOCK'], reply_msg, slack_thread_id)
 
                 formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 

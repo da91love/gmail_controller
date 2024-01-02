@@ -41,22 +41,24 @@ def lambda_handler(event, context=None):
     # declare instance
     slack = Slack()
 
-
     # 10분이내 업데이트된 status 데이터 취득
     status_data = AccessService.select_status_in_10_min()
 
     # update slack
+    updated_data = []
     for sd in status_data:
         gmail_thread_id = sd['gmail_thread_id']
 
         contact_data = AccessService.select_contacts(gmail_thread_id=gmail_thread_id)
-        author_unique_id, seeding_num, tg_brand = itemgetter('author_unique_id', 'seeding_num', 'tg_brand')(contact_data)[0]
+        author_unique_id, seeding_num, tg_brand = itemgetter('author_unique_id', 'seeding_num', 'tg_brand')(contact_data[0])
 
         slack_need_info = AccessService.select_slack_need_info(author_unique_id=author_unique_id, seeding_num=seeding_num, tg_brand=tg_brand)[0]
         author_unique_id, receiver_email, tiktok_url, pic = itemgetter('author_unique_id', 'receiver_email', 'tiktok_url', 'pic')(slack_need_info)
 
-        status_info = AccessService.select_slack_thread_history(gmail_thread_id=gmail_thread_id)[0]
-        status, progress, slack_thread_id = itemgetter('status', 'progress', 'slack_thread_id')(status_info)
+        slack_id_info = AccessService.select_slack_thread_history(gmail_thread_id=gmail_thread_id)[0]
+        slack_thread_id = itemgetter('slack_thread_id')(slack_id_info)
+
+        status, progress = itemgetter('status', 'progress')(status_data[0])
 
         is_reply_done = True if contact_data[-1]['gmail_label_id'] == 'SENT' else False
 
@@ -70,9 +72,19 @@ def lambda_handler(event, context=None):
             REPLY_DONE= is_reply_done,
         ))
 
-        slack_res = slack.update_post(CHANNEL_ID, MSG_TYPE, update_msg, slack_thread_id)
+        # update slack
+        slack.update_post(CHANNEL_ID, MSG_TYPE['BLOCK'], update_msg, slack_thread_id)
 
-    return ResType(data=[]).get_response()
+        # append data
+        updated_data.append({
+            'gmail_thread_id': gmail_thread_id,
+            'author_unique_id': author_unique_id,
+            'slack_thread_id': slack_thread_id,
+            'status': status,
+            'progress': progress
+        })
+
+    return ResType(data=updated_data).get_response()
 
 # labelId = sys.argv[1]
 #

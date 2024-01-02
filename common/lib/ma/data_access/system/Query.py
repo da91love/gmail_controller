@@ -17,7 +17,7 @@ class Query():
 
     sql_select_slack_need_info = """           
         SELECT 
-            mc.author_unique_id
+            mc.author_unique_id,
             ici.receiver_email,
             ici.tiktok_url,
             pic.pic
