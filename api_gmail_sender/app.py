@@ -51,6 +51,10 @@ def lambda_handler(event, context=None):
     if any(value is None for value in [author_unique_id, seeding_num, tg_brand, receiver_email]):
         raise IrrelevantParamException
 
+    # modify label, if pic is not registered process end
+    pic = (AccessService.select_pic(author_unique_id=author_unique_id, seeding_num=seeding_num)[0])['pic']
+
+    # send mail
     # format mail body
     formatted_mail_body = mail_body.format(author_unique_id)
 
@@ -68,7 +72,6 @@ def lambda_handler(event, context=None):
     formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     # modify label
-    pic = (AccessService.select_pic(author_unique_id=author_unique_id, seeding_num=seeding_num)[0])['pic']
     labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[status['OPEN'], progress['NEGOTIATING'], pic])
 
     # insert to contact db
