@@ -14,7 +14,7 @@ from common.AppBase import AppBase
 from common.type.Errors import *
 from common.util.get_config import get_config
 from common.gmail.send_email import send_email
-from common.gmail.modify_label import modify_label
+from common.gmail.LabelControl import LabelControl
 from api_gmail_sender.type.ResType import ResType
 from api_gmail_sender.const.mail_info import *
 from common.const.EMAIL import *
@@ -45,6 +45,9 @@ def lambda_handler(event, context=None):
     tg_brand = data.get('tgBrand')
     receiver_email = data.get('receiverEmail')
 
+    # declare instance
+    labelControl = LabelControl()
+
     if any(value is None for value in [author_unique_id, seeding_num, tg_brand, receiver_email]):
         raise IrrelevantParamException
 
@@ -66,7 +69,7 @@ def lambda_handler(event, context=None):
 
     # modify label
     pic = (AccessService.select_pic(author_unique_id=author_unique_id, seeding_num=seeding_num)[0])['pic']
-    modify_label(gmail_msg_id=gmail_msg_id, add_label_names=[status.OPEN, progress.NEGOTIATE, pic])
+    labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[status['OPEN'], progress['NEGOTIATING'], pic])
 
     # insert to contact db
     AccessService.insert_contact_history(
