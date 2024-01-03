@@ -1,3 +1,5 @@
+from common.const.STATUS import *
+
 class SlackMsgCreator:
     @staticmethod
     def get_slack_post_block(TIKTOK_URL, AUTHOR_UNIQUE_ID, EMAIL, STATUS, PROGRESS, PIC, REPLY_DONE):
@@ -6,7 +8,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*Coversation with <{TIKTOK_URL}|{AUTHOR_UNIQUE_ID}> is started!*"
+                    "text": f"{'~Coversation with <'+TIKTOK_URL+'|'+AUTHOR_UNIQUE_ID+'> is started!~' if STATUS == status['CLOSE'] else '*Coversation with <'+TIKTOK_URL+'|'+AUTHOR_UNIQUE_ID+'> is started!*'}"
                 }
             },
             {
