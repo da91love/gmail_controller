@@ -78,10 +78,10 @@ def lambda_handler(event, context=None):
     return ResType(data=db_inserted_res).get_response()
 
 
-labelId = sys.argv[1]
-
-result = lambda_handler({
-    "labelId": labelId,
-})
-
-print(result)
+# labelId = sys.argv[1]
+#
+# result = lambda_handler({
+#     "labelId": labelId,
+# })
+#
+# print(result)
