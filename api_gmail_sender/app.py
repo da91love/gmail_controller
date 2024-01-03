@@ -93,16 +93,16 @@ def lambda_handler(event, context=None):
 
 
 
-# authorUniqueId = sys.argv[1]
-# seedingNum = sys.argv[2]
-# tgBrand = sys.argv[3]
-# receiverEmail = sys.argv[4]
-#
-# result = lambda_handler({
-#     "authorUniqueId": authorUniqueId,
-#     "seedingNum": seedingNum,
-#     "tgBrand": tgBrand,
-#     "receiverEmail": receiverEmail,
-# })
-#
-# print(result)
+authorUniqueId = sys.argv[1]
+seedingNum = sys.argv[2]
+tgBrand = sys.argv[3]
+receiverEmail = sys.argv[4]
+
+result = lambda_handler({
+    "authorUniqueId": authorUniqueId,
+    "seedingNum": seedingNum,
+    "tgBrand": tgBrand,
+    "receiverEmail": receiverEmail,
+})
+
+print(result)

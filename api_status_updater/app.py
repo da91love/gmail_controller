@@ -96,5 +96,5 @@ def lambda_handler(event, context=None):
     return ResType(data=updated_data).get_response()
 
 
-# result = lambda_handler(None)
-# print(result)
+result = lambda_handler(None)
+print(result)
