@@ -52,7 +52,7 @@ def lambda_handler(event, context=None):
         raise IrrelevantParamException
 
     # modify label, if pic is not registered process end
-    pic = (AccessService.select_pic(author_unique_id=author_unique_id, seeding_num=seeding_num)[0])['pic']
+    pic = (AccessService.select_pic(author_unique_id=author_unique_id, seeding_num=seeding_num, tg_brand=tg_brand)[0])['pic']
 
     # send mail
     # format mail body

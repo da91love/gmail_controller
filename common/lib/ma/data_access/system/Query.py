@@ -1,7 +1,7 @@
 class Query():
 
     sql_select_thread_id_by_email = """
-    SELECT mc.gmail_thread_id, latest_emails.receiver_email
+    SELECT mc.gmail_thread_id, mc.author_unique_id, mc.seeding_num, mc.tg_brand, latest_emails.receiver_email
     FROM mail_contact mc
     JOIN (
             SELECT *
@@ -26,7 +26,7 @@ class Query():
 
     sql_select_pic = """
         SELECT * FROM person_in_charge
-        WHERE author_unique_id='{author_unique_id}' and seeding_num='{seeding_num}'
+        WHERE author_unique_id='{author_unique_id}' and seeding_num='{seeding_num}' and tg_brand='{tg_brand}'
     """
 
     sql_select_slack_thread_history = """
