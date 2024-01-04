@@ -1,4 +1,23 @@
 class Query():
+
+    sql_select_thread_id_by_email = """
+    SELECT mc.gmail_thread_id, latest_emails.receiver_email
+    FROM mail_contact mc
+    JOIN (
+            SELECT *
+            FROM infl_contact_info_master
+            WHERE (receiver_email, created_at) IN (
+                SELECT receiver_email, MAX(created_at)
+                FROM infl_contact_info_master
+                GROUP BY receiver_email
+            )
+    ) AS latest_emails
+    ON mc.author_unique_id = latest_emails.author_unique_id
+        AND mc.seeding_num = latest_emails.seeding_num
+        AND mc.tg_brand = latest_emails.tg_brand
+    WHERE latest_emails.receiver_email = '{receiver_email}';
+    """
+
     sql_select_status_in_10_min = """
         SELECT *
         FROM contact_status
@@ -88,4 +107,14 @@ class Query():
     sql_insert_infl_info = """
         INSERT INTO infl_info(gmail_thread_id, author_unique_id, receiver_email, tiktok_url) 
         VALUES('{gmail_thread_id}', '{author_unique_id}', '{receiver_email}', '{tiktok_url}')
+    """
+
+    sql_update_mail_contact_thread_id = """
+        UPDATE mail_contact SET gmail_thread_id = '{new_gmail_thread_id}', gmail_msg_id = '{new_gmail_thread_id}'
+        WHERE gmail_thread_id = '{old_gmail_thread_id}'
+    """
+
+    sql_update_contact_status_thread_id = """
+        UPDATE contact_status SET gmail_thread_id = '{new_gmail_thread_id}'
+        WHERE gmail_thread_id = '{old_gmail_thread_id}'
     """

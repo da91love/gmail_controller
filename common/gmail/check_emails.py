@@ -1,9 +1,11 @@
 from googleapiclient.discovery import build
 from datetime import datetime
+import pydash as _
 
 from common.lib.ma.data_access.system.AccessService import AccessService
 from common.gmail.Authenticate import Authenticate
 from common.util.DateUtil import DateUtil
+from common.const.EMAIL import *
 
 def check_emails(label_id):
     try:
@@ -26,13 +28,14 @@ def check_emails(label_id):
                 # db에서 thread_id로 contact 횟수 검색
                 contact_history = AccessService.select_contacts(gmail_thread_id=gmail_thread_id)
 
+                # db에 등록되지 않은 메일 처리
+                # 우리가 보낸 메일 말고 다른 메일 스레드로 송신되는 이슈 발생
+                mails_in_thread = service.users().threads().get(userId='me', id=gmail_thread_id).execute()
+                msgs_in_thread = mails_in_thread.get('messages')
+
+                # db에 등록된 메일 처리
                 # db에 등록되지 않을 mail이 검색됐을 때 무시하기위해 len(contact_history) > 0 조건 추가
                 if len(contact_history) > 0:
-
-                    # get emails by threadId
-                    mails_in_thread = service.users().threads().get(userId='me', id=gmail_thread_id).execute()
-                    msgs_in_thread = mails_in_thread.get('messages')
-
                     # mail thread 개수가 db 內 컨택 개수보다 많을 시 새로운 메일이 도착했다는 의미의 조건식
                     if len(msgs_in_thread) > len(contact_history):
                         msg_ids_fr_db = [ i['gmail_msg_id'] for i in contact_history]
@@ -64,6 +67,45 @@ def check_emails(label_id):
 
                                     # put in into result
                                     new_arrival_mails.append(result)
+
+                    else:
+                        sender_in_thread = _.filter_(msgs_in_thread[0]['payload']['headers'], {'name': 'from'})
+                        receiver_in_thread = _.filter_(msgs_in_thread[0]['payload']['headers'], {'name': 'from'})
+
+                        if sender_in_thread == sender_email:
+                            # 기존 thread id 검색
+                            old_gmail_thread_id = AccessService.select_thread_id_by_email(receiver_email=receiver_in_thread)[0]['gmail_thread_id']
+
+                            # 기존 thread id update
+                            AccessService.update_gmail_mail_contact_thread_id(new_gmail_thread_id=gmail_thread_id, old_gmail_thread_id=old_gmail_thread_id)
+                            AccessService.update_gmail_contact_status_thread_id(new_gmail_thread_id=gmail_thread_id, old_gmail_thread_id=old_gmail_thread_id)
+
+                            for msg_in_thread in msgs_in_thread:
+                                # 파라미터로 전해진 labelId로 필터링
+                                if label_id in msg_in_thread['labelIds']:
+                                    new_gmail_msg_id = msg_in_thread.get('id')
+                                    created_at = DateUtil.format_milliseconds(msg_in_thread.get('internalDate'),
+                                                                              '%Y-%m-%d %H:%M:%S')
+                                    contents = msg_in_thread.get('snippet')
+                                    receiver_email = (contact_history[0]).get('receiver_email')
+                                    author_unique_id = (contact_history[0]).get('author_unique_id')
+                                    seeding_num = (contact_history[0]).get('seeding_num')
+                                    tg_brand = (contact_history[0]).get('tg_brand')
+
+                                    result = {
+                                        'gmail_thread_id': gmail_thread_id,
+                                        'gmail_msg_id': new_gmail_msg_id,
+                                        'gmail_label_id': label_id,
+                                        'author_unique_id': author_unique_id,
+                                        'seeding_num': seeding_num,
+                                        'tg_brand': tg_brand,
+                                        'contents': contents,
+                                        'created_at': created_at
+                                    }
+
+                                    # put in into result
+                                    new_arrival_mails.append(result)
+
 
         return new_arrival_mails
     except Exception as e:
