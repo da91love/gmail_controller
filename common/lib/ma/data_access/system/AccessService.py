@@ -8,6 +8,46 @@ class AccessService(AccessServiceBase):
     """
     All function's name should start with below 4 verbs: select insert update delete
     """
+
+    @staticmethod
+    def select_thread_id_by_email(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_select_thread_id_by_email,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+    @staticmethod
+    def update_gmail_contact_status_thread_id(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_update_contact_status_thread_id,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+    @staticmethod
+    def update_gmail_mail_contact_thread_id(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_update_mail_contact_thread_id,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
     @staticmethod
     def select_status_in_10_min(**bindings):
         """

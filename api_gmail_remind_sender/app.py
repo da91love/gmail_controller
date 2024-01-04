@@ -29,7 +29,7 @@ config = get_config()
 # s3_bucket_name = config['S3']['s3_bucket_name']
 
 @AppBase
-def lambda_handler(event, context=None):
+def app_api_gmail_remind_sender(event, context=None):
     """
     lambda_handler : This functions will be implemented in lambda
     :param event: (dict)
@@ -83,5 +83,5 @@ def lambda_handler(event, context=None):
 
     return ResType(data=re_sent_mails).get_response()
 
-result = lambda_handler(None)
+result = app_api_gmail_remind_sender(None)
 print(result)

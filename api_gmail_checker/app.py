@@ -25,7 +25,7 @@ config = get_config()
 # s3_bucket_name = config['S3']['s3_bucket_name']
 
 @AppBase
-def lambda_handler(event, context=None):
+def app_api_gmail_checker(event, context=None):
     """
     lambda_handler : This functions will be implemented in lambda
     :param event: (dict)
@@ -77,11 +77,11 @@ def lambda_handler(event, context=None):
 
     return ResType(data=db_inserted_res).get_response()
 
-
 labelId = sys.argv[1]
 
-result = lambda_handler({
+result = app_api_gmail_checker({
     "labelId": labelId,
 })
 
 print(result)
+

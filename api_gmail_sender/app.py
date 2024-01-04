@@ -29,7 +29,7 @@ config = get_config()
 # s3_bucket_name = config['S3']['s3_bucket_name']
 
 @AppBase
-def lambda_handler(event, context=None):
+def app_api_gmail_sender(event, context=None):
     """
     lambda_handler : This functions will be implemented in lambda
     :param event: (dict)
@@ -52,7 +52,7 @@ def lambda_handler(event, context=None):
         raise IrrelevantParamException
 
     # modify label, if pic is not registered process end
-    pic = (AccessService.select_pic(author_unique_id=author_unique_id, seeding_num=seeding_num)[0])['pic']
+    pic = (AccessService.select_pic(author_unique_id=author_unique_id, seeding_num=seeding_num, tg_brand=tg_brand)[0])['pic']
 
     # send mail
     # format mail body
@@ -94,14 +94,12 @@ def lambda_handler(event, context=None):
 
     return ResType(data=sent_message).get_response()
 
-
-
 authorUniqueId = sys.argv[1]
 seedingNum = sys.argv[2]
 tgBrand = sys.argv[3]
 receiverEmail = sys.argv[4]
 
-result = lambda_handler({
+result = app_api_gmail_sender({
     "authorUniqueId": authorUniqueId,
     "seedingNum": seedingNum,
     "tgBrand": tgBrand,
