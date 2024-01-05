@@ -5,10 +5,10 @@ from flask import Flask, jsonify, abort, make_response, request
 from flask_cors import CORS
 
 # import apis
-from api_gmail_checker.app import lambda_handler as check_emails
-from api_gmail_sender.app import lambda_handler as send_email
-from api_gmail_remind_sender.app import lambda_handler as send_remind_email
-from api_status_updater.app import lambda_handler as update_status
+from api_gmail_checker.app import app_api_gmail_checker as check_emails
+from api_gmail_sender.app import app_api_gmail_sender as send_email
+from api_gmail_remind_sender.app import app_api_gmail_remind_sender as send_remind_email
+from api_status_updater.app import app_api_status_updater as update_status
 
 
 os.path.dirname(sys.modules['__main__'].__file__)
