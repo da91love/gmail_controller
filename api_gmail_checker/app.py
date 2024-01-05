@@ -38,6 +38,9 @@ def app_api_gmail_checker(event, context=None):
     label_id = data.get('labelId')
     gmail_thread_ids = data.get('gmailThreadIds')
 
+    print("##################labelId :" + labelId)
+    print("##################gmailThreadIds :" + gmailThreadIds)
+
     if any(value is None for value in [label_id]):
         raise IrrelevantParamException
 
