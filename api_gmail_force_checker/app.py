@@ -82,7 +82,7 @@ def app_api_gmail_force_checker(event, context=None):
 # labelId = sys.argv[1]
 # gmailThreadIds = sys.argv[2]
 #
-# result = app_api_gmail_checker({
+# result = app_api_gmail_force_checker({
 #     "labelId": labelId,
 #     "gmailThreadIds": gmailThreadIds
 # })
