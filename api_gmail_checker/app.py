@@ -81,6 +81,9 @@ def app_api_gmail_checker(event, context=None):
 labelId = sys.argv[1]
 gmailThreadIds = sys.argv[2]
 
+print("##################labelId :" + labelId)
+print("##################gmailThreadIds :" + gmailThreadIds)
+
 result = app_api_gmail_checker({
     "labelId": labelId,
     "gmailThreadIds": gmailThreadIds
