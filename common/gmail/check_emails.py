@@ -15,30 +15,25 @@ from common.gmail.LabelControl import LabelControl
 # Create instances
 logger = get_logger()
 
-def check_emails(label_id, gmail_thread_ids):
+def check_emails(label_id):
     try:
         authenticate = Authenticate()
         creds = authenticate.get_authenticate()
-        service = build('gmail', 'v1', credentials=creds)
 
         # 최근 5개까지 받은 메일 쓰레드 id 표시
-        thread_ids = None
-        if not gmail_thread_ids:
-            service = build('gmail', 'v1', credentials=creds)
-            results = service.users().messages().list(userId='me', labelIds=['INBOX'], maxResults=15).execute()
-            msg_metas = results.get('messages', [])
-
-            thread_ids = [msg_meta.get('threadId') for msg_meta in msg_metas]
-        else:
-            thread_ids = gmail_thread_ids
+        service = build('gmail', 'v1', credentials=creds)
+        results = service.users().messages().list(userId='me', labelIds=['INBOX'], maxResults=15).execute()
+        msg_metas = results.get('messages', [])
 
         new_arrival_mails = []
-        if not thread_ids:
+        if not msg_metas:
             print('No messages found.')
         else:
             # 획득한 15개 쓰레드 ID Loop
-            for gmail_thread_id in thread_ids:
+            for msg_meta in msg_metas:
                 try:
+                    gmail_thread_id = msg_meta.get('threadId')
+
                     # db에서 thread_id로 contact 횟수 검색
                     contact_history = AccessService.select_contacts(gmail_thread_id=gmail_thread_id)
 
