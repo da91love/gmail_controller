@@ -36,12 +36,13 @@ def app_api_gmail_checker(event, context=None):
     # Get data from API Gateway
     data = event
     label_id = data.get('labelId')
+    gmail_thread_ids = data.get('gmailThreadIds')
 
     if any(value is None for value in [label_id]):
         raise IrrelevantParamException
 
     # check new mails
-    mail_check_res = check_emails(label_id)
+    mail_check_res = check_emails(label_id=label_id, gmail_thread_ids=gmail_thread_ids)
     # mail_check_res = [{'gmail_thread_id': '18c8168754f5ecf9', 'gmail_msg_id': '18c8168be511c5a2', 'gmail_label_id': 'INBOX', 'sender_email': 'eqqualberry.comm@boosters.kr', 'receiver_email': 'daseul.kim@boosters.kr', 'contents': 'bdfbdgdgd 2023년 12월 19일 (화) 오후 6:29, &lt;eqqualberry.comm@boosters.kr&gt;님이 작성: Hi daseul.kim, I hope this message finds you well😀 My name is Anna, and I represent Eqqualberry, a Korean Skincare brand', 'created_at': '2023-12-19 18:29:23'}]
 
     db_inserted_res = []
@@ -79,9 +80,11 @@ def app_api_gmail_checker(event, context=None):
 
 
 # labelId = sys.argv[1]
+# gmailThreadIds = sys.argv[2]
 #
 # result = app_api_gmail_checker({
 #     "labelId": labelId,
+#     "gmailThreadIds": gmailThreadIds
 # })
 #
 # print(result)

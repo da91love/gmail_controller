@@ -60,17 +60,13 @@ def send_remind_mail_get():
 
     return make_response(jsonify(result))
 
-@api.route('/check-emails', methods=['get'])  # TODO : Insert any URL
+@api.route('/check-emails', methods=['post'])  # TODO : Insert any URL
 def check_email_get():
     # Get body, headers
-    # body = request.json
-    # headers = request.headers
-    params = request.args
+    body = request.json
+    headers = request.headers
 
-    # Insert necessary data to body
-    data = params
-
-    result = check_emails(data)
+    result = check_emails(body)
 
     return make_response(jsonify(result))
 
