@@ -20,9 +20,9 @@ def check_emails(label_id):
         authenticate = Authenticate()
         creds = authenticate.get_authenticate()
 
-        # 최근 10개까지 받은 메일 쓰레드 id 표시
+        # 최근 15개까지 받은 메일 쓰레드 id 표시
         service = build('gmail', 'v1', credentials=creds)
-        results = service.users().messages().list(userId='me', labelIds=[label_id], maxResults=10).execute()
+        results = service.users().messages().list(userId='me', labelIds=[label_id], maxResults=15).execute()
         msg_metas = results.get('messages', [])
 
         new_arrival_mails = []
