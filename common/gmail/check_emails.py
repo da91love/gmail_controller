@@ -20,16 +20,16 @@ def check_emails(label_id):
         authenticate = Authenticate()
         creds = authenticate.get_authenticate()
 
-        # 최근 5개까지 받은 메일 쓰레드 id 표시
+        # 최근 15개까지 받은 메일 쓰레드 id 표시
         service = build('gmail', 'v1', credentials=creds)
-        results = service.users().messages().list(userId='me', labelIds=['INBOX'], maxResults=15).execute()
+        results = service.users().messages().list(userId='me', labelIds=[label_id], maxResults=15).execute()
         msg_metas = results.get('messages', [])
 
         new_arrival_mails = []
         if not msg_metas:
             print('No messages found.')
         else:
-            # 획득한 15개 쓰레드 ID Loop
+            # 획득한 쓰레드 ID Loop
             for msg_meta in msg_metas:
                 try:
                     gmail_thread_id = msg_meta.get('threadId')
@@ -42,7 +42,7 @@ def check_emails(label_id):
                     mails_in_thread = service.users().threads().get(userId='me', id=gmail_thread_id).execute()
                     msgs_in_thread = mails_in_thread.get('messages')
 
-                    # db에 등록된 메일 처리
+                    # db에 등록된 메일 처리10
                     # db에 등록되지 않을 mail이 검색됐을 때 무시하기위해 len(contact_history) > 0 조건 추가
                     if len(contact_history) > 0:
                         # mail thread 개수가 db 內 컨택 개수보다 많을 시 새로운 메일이 도착했다는 의미의 조건식
@@ -92,9 +92,9 @@ def check_emails(label_id):
                             # 기존 thread id 검색
                             old_gmail_thread_info = AccessService.select_thread_id_by_email(receiver_email=receiver_in_mail_thread)
 
-                            # db에서 이메일 검색이 안될 시 우리가 컨택한적 없는 외부 컨택이므로 무시
-                            # 혹은 시스템 구축 전 수동으로 보낸 메일이므로 무시
-                            if len(old_gmail_thread_info) > 0:
+                            # old_gmail_thread_info 0일 경우: db에서 이메일 검색이 안될 시 우리가 컨택한적 없는 외부 컨택이므로 무시 혹은 시스템 구축 전 수동으로 보낸 메일이므로 무시
+                            # old_gmail_thread_info 1보다 클 경우: 정상적인 플로우라면 old_gmail_thread_info 한 건만 검색되어야 하는데 복수건 검색될 경우 update시 primary에러 발생하므로 무시
+                            if len(old_gmail_thread_info) == 1:
                                 old_gmail_thread_id, author_unique_id, seeding_num, tg_brand = \
                                     itemgetter('gmail_thread_id', 'author_unique_id', 'seeding_num', 'tg_brand')(old_gmail_thread_info[0])
 
