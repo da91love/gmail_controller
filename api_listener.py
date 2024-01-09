@@ -71,7 +71,7 @@ def check_email_post():
 
     return make_response(jsonify(result))
 
-@api.route('/check-emails', methods=['post'])  # TODO : Insert any URL
+@api.route('/force-check-emails', methods=['post'])  # TODO : Insert any URL
 def force_check_emails_post():
     # Get body, headers
     body = request.json
