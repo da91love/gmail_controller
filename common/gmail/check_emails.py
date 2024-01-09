@@ -22,7 +22,7 @@ def check_emails(label_id):
 
         # 최근 15개까지 받은 메일 쓰레드 id 표시
         service = build('gmail', 'v1', credentials=creds)
-        results = service.users().messages().list(userId='me', labelIds=[label_id], maxResults=15).execute()
+        results = service.users().messages().list(userId='me', labelIds=[label_id], maxResults=10).execute()
         msg_metas = results.get('messages', [])
 
         new_arrival_mails = []
@@ -37,14 +37,12 @@ def check_emails(label_id):
                     # db에서 thread_id로 contact 횟수 검색
                     contact_history = AccessService.select_contacts(gmail_thread_id=gmail_thread_id)
 
-                    # db에 등록되지 않은 메일 처리
-                    # 우리가 보낸 메일 말고 다른 메일 스레드로 송신되는 이슈 발생
-                    mails_in_thread = service.users().threads().get(userId='me', id=gmail_thread_id).execute()
-                    msgs_in_thread = mails_in_thread.get('messages')
-
-                    # db에 등록된 메일 처리10
+                    # db에 등록된 메일 처리
                     # db에 등록되지 않을 mail이 검색됐을 때 무시하기위해 len(contact_history) > 0 조건 추가
                     if len(contact_history) > 0:
+                        mails_in_thread = service.users().threads().get(userId='me', id=gmail_thread_id).execute()
+                        msgs_in_thread = mails_in_thread.get('messages')
+
                         # mail thread 개수가 db 內 컨택 개수보다 많을 시 새로운 메일이 도착했다는 의미의 조건식
                         if len(msgs_in_thread) > len(contact_history):
                             msg_ids_fr_db = [ i['gmail_msg_id'] for i in contact_history]
@@ -77,7 +75,11 @@ def check_emails(label_id):
                                         # put in into result
                                         new_arrival_mails.append(result)
 
-                    else:
+                    # SENT 일 시 이미 쓰레드를 타고 있기 때문에 abnormal thread handling 필요없음
+                    elif len(contact_history) > 0 and label_id == 'INBOX':
+                        mails_in_thread = service.users().threads().get(userId='me', id=gmail_thread_id).execute()
+                        msgs_in_thread = mails_in_thread.get('messages')
+
                         # 메일 스레드의 처음 시작이 eqqualberry.comm 이 맞는지 확인
                         sender_list = _.filter_(msgs_in_thread[0]['payload']['headers'], lambda x: x['name'] in ['from', 'From'])
                         receiver_list = _.filter_(msgs_in_thread[0]['payload']['headers'], lambda x: x['name'] in ['to', 'To'])
@@ -88,7 +90,7 @@ def check_emails(label_id):
                         sender_in_mail_thread = LogicUtil.extract_email(sender_in_mail_value_thread)
                         receiver_in_mail_thread = LogicUtil.extract_email(receiver_in_mail_value_thread)
 
-                        if sender_in_mail_thread == sender_email:
+                        if sender_in_mail_thread == SENDER_EMAIL:
                             # 기존 thread id 검색
                             old_gmail_thread_info = AccessService.select_thread_id_by_email(receiver_email=receiver_in_mail_thread)
 
