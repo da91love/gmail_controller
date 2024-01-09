@@ -93,7 +93,7 @@ def force_check_emails(label_id, gmail_thread_ids):
                         sender_in_mail_thread = LogicUtil.extract_email(sender_in_mail_value_thread)
                         receiver_in_mail_thread = LogicUtil.extract_email(receiver_in_mail_value_thread)
 
-                        if sender_in_mail_thread == sender_email:
+                        if sender_in_mail_thread == SENDER_EMAIL:
                             # 기존 thread id 검색
                             old_gmail_thread_info = AccessService.select_thread_id_by_email(receiver_email=receiver_in_mail_thread)
 

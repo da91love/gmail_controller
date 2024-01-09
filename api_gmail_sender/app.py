@@ -60,7 +60,7 @@ def app_api_gmail_sender(event, context=None):
 
     # send gmail
     sent_message = send_email(
-        sender_email= sender_email,
+        sender_email= SENDER_EMAIL,
         receiver_email=receiver_email,
         mail_subject=mail_subject,
         mail_body=formatted_mail_body,

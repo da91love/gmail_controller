@@ -15,7 +15,7 @@ class Query():
     ON mc.author_unique_id = latest_emails.author_unique_id
         AND mc.seeding_num = latest_emails.seeding_num
         AND mc.tg_brand = latest_emails.tg_brand
-    WHERE latest_emails.receiver_email = '{receiver_email}';
+    WHERE latest_emails.receiver_email = '{receiver_email}'
     """
 
     sql_select_status_in_10_min = """
