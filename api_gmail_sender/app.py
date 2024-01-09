@@ -53,7 +53,7 @@ def app_api_gmail_sender(event, context=None):
     pic = (AccessService.select_pic(t_key=t_key)[0])['pic']
     infl_contact_info = AccessService.select_infl_contact_info(t_key=t_key)[0]
 
-    author_unique_id, receiver_email = itemgetter('gmail_thread_id', 'receiver_email')(infl_contact_info)
+    author_unique_id, receiver_email = itemgetter('author_unique_id', 'receiver_email')(infl_contact_info)
 
     # send mail
     # format mail body

@@ -51,9 +51,7 @@ def app_api_gmail_checker(event, context=None):
                 gmail_thread_id=res['gmail_thread_id'],
                 gmail_msg_id=res['gmail_msg_id'],
                 gmail_label_id=res['gmail_label_id'],
-                author_unique_id=res['author_unique_id'],
-                seeding_num=res['seeding_num'],
-                tg_brand=res['tg_brand'],
+                t_key=res['t_key'],
                 created_at=res['created_at']
             )
 

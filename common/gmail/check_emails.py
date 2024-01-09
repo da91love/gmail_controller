@@ -57,19 +57,13 @@ def check_emails(label_id):
                                         created_at = DateUtil.format_milliseconds(msg_in_thread.get('internalDate'), '%Y-%m-%d %H:%M:%S')
                                         contents = msg_in_thread.get('snippet')
                                         receiver_email = (contact_history[0]).get('receiver_email')
-                                        author_unique_id = (contact_history[0]).get('author_unique_id')
-                                        seeding_num = (contact_history[0]).get('seeding_num')
-                                        tg_brand = (contact_history[0]).get('tg_brand')
-                                        channel = (contact_history[0]).get('channel')
+                                        t_key = (contact_history[0]).get('t_key')
 
                                         result = {
                                             'gmail_thread_id': gmail_thread_id,
                                             'gmail_msg_id': new_gmail_msg_id,
                                             'gmail_label_id': label_id,
-                                            'author_unique_id': author_unique_id,
-                                            'seeding_num': seeding_num,
-                                            'tg_brand': tg_brand,
-                                            'channel': channel,
+                                            't_key': t_key,
                                             'contents': contents,
                                             'created_at': created_at
                                         }
@@ -99,8 +93,7 @@ def check_emails(label_id):
                             # old_gmail_thread_info 0일 경우: db에서 이메일 검색이 안될 시 우리가 컨택한적 없는 외부 컨택이므로 무시 혹은 시스템 구축 전 수동으로 보낸 메일이므로 무시
                             # old_gmail_thread_info 1보다 클 경우: 정상적인 플로우라면 old_gmail_thread_info 한 건만 검색되어야 하는데 복수건 검색될 경우 update시 primary에러 발생하므로 무시
                             if len(old_gmail_thread_info) == 1:
-                                old_gmail_thread_id, author_unique_id, seeding_num, tg_brand = \
-                                    itemgetter('gmail_thread_id', 'author_unique_id', 'seeding_num', 'tg_brand')(old_gmail_thread_info[0])
+                                old_gmail_thread_id, t_key = itemgetter('gmail_thread_id', 't_key')(old_gmail_thread_info[0])
 
                                 # 기존 thread id update
                                 AccessService.update_gmail_mail_contact_thread_id(new_gmail_thread_id=gmail_thread_id, old_gmail_thread_id=old_gmail_thread_id)
@@ -113,8 +106,7 @@ def check_emails(label_id):
                                 status_data = AccessService.select_contacts_status(gmail_thread_id=gmail_thread_id)
                                 status, progress = itemgetter('status', 'progress')(status_data[0])
 
-                                pic = (AccessService.select_pic(author_unique_id=author_unique_id, seeding_num=seeding_num,
-                                                                tg_brand=tg_brand)[0])['pic']
+                                pic = (AccessService.select_pic(t_key=t_key)[0])['pic']
 
                                 LabelControl().add_label(gmail_msg_id=new_gmail_msg_id, add_label_names=[status, progress, pic])
 
@@ -130,9 +122,7 @@ def check_emails(label_id):
                                             'gmail_thread_id': gmail_thread_id,
                                             'gmail_msg_id': gmail_msg_id,
                                             'gmail_label_id': label_id,
-                                            'author_unique_id': author_unique_id,
-                                            'seeding_num': seeding_num,
-                                            'tg_brand': tg_brand,
+                                            't_key': t_key,
                                             'contents': contents,
                                             'created_at': created_at
                                         }
