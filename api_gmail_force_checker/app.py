@@ -14,7 +14,7 @@ from common.AppBase import AppBase
 from common.type.Errors import *
 from common.util.get_config import get_config
 from api_gmail_checker.type.ResType import ResType
-from common.gmail.force_check_emails import force_check_emails
+from common.gmail.check_emails import check_emails
 from common.slack.slack_wrapper import slack_wrapper
 from common.lib.ma.data_access.system.AccessService import AccessService
 
@@ -25,7 +25,7 @@ config = get_config()
 # s3_bucket_name = config['S3']['s3_bucket_name']
 
 @AppBase
-def app_api_gmail_force_checker(event, context=None):
+def app_api_force_gmail_checker(event, context=None):
     """
     lambda_handler : This functions will be implemented in lambda
     :param event: (dict)
@@ -36,14 +36,12 @@ def app_api_gmail_force_checker(event, context=None):
     # Get data from API Gateway
     data = event
     label_id = data.get('labelId')
-    gmail_thread_ids = data.get('gmailThreadIds')
 
     if any(value is None for value in [label_id]):
         raise IrrelevantParamException
 
     # check new mails
-    mail_check_res = force_check_emails(label_id=label_id, gmail_thread_ids=gmail_thread_ids)
-    # mail_check_res = [{'gmail_thread_id': '18c8168754f5ecf9', 'gmail_msg_id': '18c8168be511c5a2', 'gmail_label_id': 'INBOX', 'sender_email': 'eqqualberry.comm@boosters.kr', 'receiver_email': 'daseul.kim@boosters.kr', 'contents': 'bdfbdgdgd 2023년 12월 19일 (화) 오후 6:29, &lt;eqqualberry.comm@boosters.kr&gt;님이 작성: Hi daseul.kim, I hope this message finds you well😀 My name is Anna, and I represent Eqqualberry, a Korean Skincare brand', 'created_at': '2023-12-19 18:29:23'}]
+    mail_check_res = check_emails(label_id)
 
     db_inserted_res = []
     for res in mail_check_res:
@@ -53,9 +51,7 @@ def app_api_gmail_force_checker(event, context=None):
                 gmail_thread_id=res['gmail_thread_id'],
                 gmail_msg_id=res['gmail_msg_id'],
                 gmail_label_id=res['gmail_label_id'],
-                author_unique_id=res['author_unique_id'],
-                seeding_num=res['seeding_num'],
-                tg_brand=res['tg_brand'],
+                t_key=res['t_key'],
                 created_at=res['created_at']
             )
 
@@ -78,13 +74,11 @@ def app_api_gmail_force_checker(event, context=None):
 
     return ResType(data=db_inserted_res).get_response()
 
-
 # labelId = sys.argv[1]
-# gmailThreadIds = sys.argv[2]
 #
-# result = app_api_gmail_force_checker({
+# result = app_api_gmail_checker({
 #     "labelId": labelId,
-#     "gmailThreadIds": gmailThreadIds
 # })
 #
 # print(result)
+

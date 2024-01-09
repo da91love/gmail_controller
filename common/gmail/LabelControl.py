@@ -47,7 +47,9 @@ class LabelControl:
                 'removeLabelIds': modify_remove_labels_ad_id,
             }
 
-            self.service.users().messages().modify(userId='me', id=gmail_msg_id, body=modified_label_ids).execute()
+            # modify_remove_labels_ad_id 비어 있으면 gmail api 에러발생
+            if modify_remove_labels_ad_id:
+                self.service.users().messages().modify(userId='me', id=gmail_msg_id, body=modified_label_ids).execute()
 
         except IndexError as e:
             raise PicNotAssignedException

@@ -45,7 +45,7 @@ def app_api_status_updater(event, context=None):
     labelControl = LabelControl()
 
     # 10분이내 업데이트된 status 데이터 취득
-    status_data = AccessService.select_status_in_10_min()
+    status_data = AccessService.select_status_in_60_min()
 
     updated_data = []
     if len(status_data) > 0:
@@ -57,10 +57,10 @@ def app_api_status_updater(event, context=None):
 
             # gmail 및 slack 공통 데이터 미리 취득
             contact_data = AccessService.select_contacts(gmail_thread_id=gmail_thread_id)
-            gmail_msg_id, author_unique_id, seeding_num, tg_brand = itemgetter('gmail_msg_id', 'author_unique_id', 'seeding_num', 'tg_brand')(contact_data[0])
+            gmail_msg_id, t_key = itemgetter('gmail_msg_id', 't_key')(contact_data[0])
 
-            slack_need_info = AccessService.select_slack_need_info(author_unique_id=author_unique_id, seeding_num=seeding_num,tg_brand=tg_brand)[0]
-            receiver_email, tiktok_url, pic = itemgetter('receiver_email','tiktok_url', 'pic')(slack_need_info)
+            slack_need_info = AccessService.select_slack_need_info(t_key=t_key)[0]
+            author_unique_id, receiver_email, tiktok_url, pic = itemgetter('author_unique_id', 'receiver_email', 'tiktok_url', 'pic')(slack_need_info)
 
             # 아직 답장이 안온 경우는 Slack 존재하지 않으므로 pass
             slack_id_info = AccessService.select_slack_thread_history(gmail_thread_id=gmail_thread_id)

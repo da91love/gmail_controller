@@ -1,7 +1,12 @@
 class Query():
+    sql_select_infl_contact_info = """
+        SELECT *
+        FROM infl_contact_info_master
+        WHERE t_key = '{t_key}'
+    """
 
     sql_select_thread_id_by_email = """
-    SELECT mc.gmail_thread_id, mc.author_unique_id, mc.seeding_num, mc.tg_brand, latest_emails.receiver_email
+    SELECT mc.gmail_thread_id, mc.t_key, latest_emails.receiver_email
     FROM mail_contact mc
     JOIN (
             SELECT *
@@ -12,21 +17,19 @@ class Query():
                 GROUP BY receiver_email
             )
     ) AS latest_emails
-    ON mc.author_unique_id = latest_emails.author_unique_id
-        AND mc.seeding_num = latest_emails.seeding_num
-        AND mc.tg_brand = latest_emails.tg_brand
+    ON mc.t_key = latest_emails.t_key
     WHERE latest_emails.receiver_email = '{receiver_email}'
     """
 
-    sql_select_status_in_10_min = """
+    sql_select_status_in_60_min = """
         SELECT *
         FROM contact_status
-        WHERE TIMESTAMPDIFF(MINUTE, created_at, NOW()) <= 10;
+        WHERE TIMESTAMPDIFF(MINUTE, created_at, NOW()) <= 60;
     """
 
     sql_select_pic = """
         SELECT * FROM person_in_charge
-        WHERE author_unique_id='{author_unique_id}' and seeding_num='{seeding_num}' and tg_brand='{tg_brand}'
+        WHERE t_key='{t_key}'
     """
 
     sql_select_slack_thread_history = """
@@ -34,28 +37,23 @@ class Query():
         WHERE gmail_thread_id='{gmail_thread_id}'
     """
 
-    sql_select_slack_need_info = """           
+    sql_select_slack_need_info = """
         SELECT 
-            mc.author_unique_id,
+            mc.t_key,
+            ici.author_unique_id,
             ici.receiver_email,
             ici.tiktok_url,
             pic.pic
         FROM 
             mail_contact mc
         INNER JOIN 
-            infl_contact_info_master ici ON mc.author_unique_id = ici.author_unique_id
-                                        AND mc.seeding_num = ici.seeding_num
-                                        AND mc.tg_brand = ici.tg_brand
+            infl_contact_info_master ici ON mc.t_key = ici.t_key
         INNER JOIN 
-            person_in_charge pic ON mc.author_unique_id = pic.author_unique_id
-                                  AND mc.seeding_num = pic.seeding_num
-                                  AND mc.tg_brand = pic.tg_brand
+            person_in_charge pic ON mc.t_key = pic.t_key
         WHERE 
-            mc.author_unique_id = '{author_unique_id}'
-            AND mc.seeding_num = {seeding_num}
-            AND mc.tg_brand = '{tg_brand}'
+            mc.t_key = '{t_key}'
         GROUP BY
-          gmail_thread_id;    
+          gmail_thread_id   
     """
 
     sql_insert_slack_thread_id = """
@@ -65,9 +63,9 @@ class Query():
 
     # INBOX 라벨이 붙지않은 메일 스레드
     sql_select_sent_thread_id = """
-        SELECT m.gmail_thread_id, m.gmail_msg_id, m.author_unique_id, m.seeding_num, m.tg_brand, i.receiver_email, i.tiktok_url, m.created_at
+        SELECT m.gmail_thread_id, m.gmail_msg_id, m.t_key, i.receiver_email, i.tiktok_url, m.created_at
         FROM (
-            SELECT DISTINCT gmail_thread_id, gmail_msg_id, author_unique_id, seeding_num, tg_brand, created_at
+            SELECT DISTINCT gmail_thread_id, gmail_msg_id, t_key, created_at
             FROM mail_contact t1
             WHERE NOT EXISTS (
                 SELECT 1
@@ -76,7 +74,7 @@ class Query():
                 AND t2.gmail_label_id = 'INBOX'
             )
         ) m
-        JOIN infl_contact_info_master i ON m.author_unique_id = i.author_unique_id AND m.seeding_num = i.seeding_num
+        JOIN infl_contact_info_master i ON m.t_key = i.t_key
     """
 
     sql_select_mail_contact = """
@@ -100,8 +98,8 @@ class Query():
     """
 
     sql_insert_contact_history = """
-        INSERT INTO mail_contact(gmail_thread_id, gmail_msg_id, gmail_label_id, author_unique_id, seeding_num, tg_brand, created_at) 
-        VALUES('{gmail_thread_id}', '{gmail_msg_id}', '{gmail_label_id}', '{author_unique_id}', '{seeding_num}', '{tg_brand}', '{created_at}')
+        INSERT INTO mail_contact(gmail_thread_id, gmail_msg_id, gmail_label_id, t_key, created_at) 
+        VALUES('{gmail_thread_id}', '{gmail_msg_id}', '{gmail_label_id}', '{t_key}', '{created_at}')
     """
 
     sql_insert_infl_info = """

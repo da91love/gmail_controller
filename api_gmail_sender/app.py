@@ -3,6 +3,7 @@
 import csv
 import uuid
 from datetime import datetime
+from operator import itemgetter
 import os
 import sys
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,19 +41,19 @@ def app_api_gmail_sender(event, context=None):
     # Get data from API Gateway
     data = event
 
-    author_unique_id = data.get('authorUniqueId')
-    seeding_num = data.get('seedingNum')
-    tg_brand = data.get('tgBrand')
-    receiver_email = data.get('receiverEmail')
+    t_key = data.get('tKey')
 
     # declare instance
     labelControl = LabelControl()
 
-    if any(value is None for value in [author_unique_id, seeding_num, tg_brand, receiver_email]):
+    if any(value is None for value in [t_key]):
         raise IrrelevantParamException
 
     # modify label, if pic is not registered process end
-    pic = (AccessService.select_pic(author_unique_id=author_unique_id, seeding_num=seeding_num, tg_brand=tg_brand)[0])['pic']
+    pic = (AccessService.select_pic(t_key=t_key)[0])['pic']
+    infl_contact_info = AccessService.select_infl_contact_info(t_key=t_key)[0]
+
+    author_unique_id, receiver_email = itemgetter('author_unique_id', 'receiver_email')(infl_contact_info)
 
     # send mail
     # format mail body
@@ -79,9 +80,7 @@ def app_api_gmail_sender(event, context=None):
         gmail_thread_id=gmail_thread_id,
         gmail_msg_id=gmail_msg_id,
         gmail_label_id='SENT',
-        author_unique_id=author_unique_id,
-        seeding_num=seeding_num,
-        tg_brand=tg_brand,
+        t_key=t_key,
         created_at=formatted_datetime
     )
 
@@ -106,4 +105,11 @@ result = app_api_gmail_sender({
     "receiverEmail": receiverEmail,
 })
 
+tKey = sys.argv[1]
+
+result = app_api_gmail_sender({
+    "tKey": tKey,
+})
+
 print(result)
+

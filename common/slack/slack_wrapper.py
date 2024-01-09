@@ -13,10 +13,8 @@ def slack_wrapper(mail_res):
     try:
         gmail_thread_id = mail_res.get('gmail_thread_id')
         gmail_msg_id = mail_res.get('gmail_msg_id')
-        author_unique_id = mail_res.get('author_unique_id')
         gmail_label_id = mail_res.get('gmail_label_id')
-        seeding_num = mail_res.get('seeding_num')
-        tg_brand = mail_res.get('tg_brand')
+        t_key = mail_res.get('t_key')
         contents = mail_res.get('contents')
 
         # declare instance
@@ -27,8 +25,8 @@ def slack_wrapper(mail_res):
 
         # Slack에 채워넣을 데이터 취득
         ## 메일, 틱톡 url 등
-        slack_need_info = AccessService.select_slack_need_info(author_unique_id=author_unique_id, seeding_num=seeding_num, tg_brand=tg_brand)[0]
-        receiver_email, tiktok_url, pic = itemgetter('receiver_email', 'tiktok_url', 'pic')(slack_need_info)
+        slack_need_info = AccessService.select_slack_need_info(t_key=t_key)[0]
+        author_unique_id, receiver_email, tiktok_url, pic = itemgetter('author_unique_id', 'receiver_email', 'tiktok_url', 'pic')(slack_need_info)
 
         ## status 데이터 취득
         contact_status = AccessService.select_contacts_status(gmail_thread_id=gmail_thread_id)[0]
