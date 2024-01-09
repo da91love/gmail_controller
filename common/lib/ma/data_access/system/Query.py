@@ -63,9 +63,9 @@ class Query():
 
     # INBOX 라벨이 붙지않은 메일 스레드
     sql_select_sent_thread_id = """
-        SELECT m.gmail_thread_id, m.gmail_msg_id, m.author_unique_id, m.seeding_num, m.tg_brand, i.receiver_email, i.tiktok_url, m.created_at
+        SELECT m.gmail_thread_id, m.gmail_msg_id, m.t_key, i.receiver_email, i.tiktok_url, m.created_at
         FROM (
-            SELECT DISTINCT gmail_thread_id, gmail_msg_id, author_unique_id, seeding_num, tg_brand, created_at
+            SELECT DISTINCT gmail_thread_id, gmail_msg_id, t_key, created_at
             FROM mail_contact t1
             WHERE NOT EXISTS (
                 SELECT 1
@@ -74,7 +74,7 @@ class Query():
                 AND t2.gmail_label_id = 'INBOX'
             )
         ) m
-        JOIN infl_contact_info_master i ON m.author_unique_id = i.author_unique_id AND m.seeding_num = i.seeding_num
+        JOIN infl_contact_info_master i ON m.t_key = i.t_key
     """
 
     sql_select_mail_contact = """

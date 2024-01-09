@@ -6,7 +6,7 @@ from flask_cors import CORS
 
 # import apis
 from api_gmail_checker.app import app_api_gmail_checker as check_emails
-from api_gmail_force_checker.app import app_api_gmail_force_checker as force_check_emails
+from api_gmail_force_checker.app import app_api_force_gmail_checker as force_check_emails
 from api_gmail_sender.app import app_api_gmail_sender as send_email
 from api_gmail_remind_sender.app import app_api_gmail_remind_sender as send_remind_email
 from api_status_updater.app import app_api_status_updater as update_status
