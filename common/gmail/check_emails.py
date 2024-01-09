@@ -60,6 +60,7 @@ def check_emails(label_id):
                                         author_unique_id = (contact_history[0]).get('author_unique_id')
                                         seeding_num = (contact_history[0]).get('seeding_num')
                                         tg_brand = (contact_history[0]).get('tg_brand')
+                                        channel = (contact_history[0]).get('channel')
 
                                         result = {
                                             'gmail_thread_id': gmail_thread_id,
@@ -68,6 +69,7 @@ def check_emails(label_id):
                                             'author_unique_id': author_unique_id,
                                             'seeding_num': seeding_num,
                                             'tg_brand': tg_brand,
+                                            'channel': channel,
                                             'contents': contents,
                                             'created_at': created_at
                                         }

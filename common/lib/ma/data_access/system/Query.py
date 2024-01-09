@@ -1,4 +1,9 @@
 class Query():
+    sql_select_infl_contact_info = """
+        SELECT *
+        FROM infl_contact_info_master
+        WHERE t_key = '{t_key}'
+    """
 
     sql_select_thread_id_by_email = """
     SELECT mc.gmail_thread_id, mc.author_unique_id, mc.seeding_num, mc.tg_brand, latest_emails.receiver_email
@@ -15,6 +20,7 @@ class Query():
     ON mc.author_unique_id = latest_emails.author_unique_id
         AND mc.seeding_num = latest_emails.seeding_num
         AND mc.tg_brand = latest_emails.tg_brand
+        AND mc.channel = latest_emails.channel
     WHERE latest_emails.receiver_email = '{receiver_email}'
     """
 
@@ -26,7 +32,7 @@ class Query():
 
     sql_select_pic = """
         SELECT * FROM person_in_charge
-        WHERE author_unique_id='{author_unique_id}' and seeding_num='{seeding_num}' and tg_brand='{tg_brand}'
+        WHERE t_key='{t_key}'
     """
 
     sql_select_slack_thread_history = """
@@ -34,7 +40,7 @@ class Query():
         WHERE gmail_thread_id='{gmail_thread_id}'
     """
 
-    sql_select_slack_need_info = """           
+    sql_select_slack_need_info = """
         SELECT 
             mc.author_unique_id,
             ici.receiver_email,
@@ -100,8 +106,8 @@ class Query():
     """
 
     sql_insert_contact_history = """
-        INSERT INTO mail_contact(gmail_thread_id, gmail_msg_id, gmail_label_id, author_unique_id, seeding_num, tg_brand, created_at) 
-        VALUES('{gmail_thread_id}', '{gmail_msg_id}', '{gmail_label_id}', '{author_unique_id}', '{seeding_num}', '{tg_brand}', '{created_at}')
+        INSERT INTO mail_contact(gmail_thread_id, gmail_msg_id, gmail_label_id, t_ley, created_at) 
+        VALUES('{gmail_thread_id}', '{gmail_msg_id}', '{gmail_label_id}', '{t_ley}', '{created_at}')
     """
 
     sql_insert_infl_info = """
