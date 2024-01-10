@@ -45,14 +45,15 @@ def app_api_status_updater(event, context=None):
     labelControl = LabelControl()
 
     # 10분이내 업데이트된 status 데이터 취득
-    status_data = AccessService.select_status_in_60_min()
+    status_data = AccessService.select_status_in_x_min()
 
     updated_data = []
     if len(status_data) > 0:
-        status, progress = itemgetter('status', 'progress')(status_data[0])
+
 
         # update slack
         for sd in status_data:
+            status, progress = itemgetter('status', 'progress')(sd)
             gmail_thread_id = sd['gmail_thread_id']
 
             # gmail 및 slack 공통 데이터 미리 취득

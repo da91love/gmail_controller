@@ -63,14 +63,14 @@ class AccessService(AccessServiceBase):
         except Exception as e:
             raise e
     @staticmethod
-    def select_status_in_60_min(**bindings):
+    def select_status_in_x_min(**bindings):
         """
         :param bindings: (tuple)
         :return: (list) sql query result
         """
         try:
             return AccessServiceBase.execute_sql(
-                sql=Query.sql_select_status_in_60_min,
+                sql=Query.sql_select_status_in_x_min,
                 bindings=bindings)
 
         except Exception as e:
