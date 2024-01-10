@@ -93,18 +93,6 @@ def app_api_gmail_sender(event, context=None):
 
     return ResType(data=sent_message).get_response()
 
-authorUniqueId = sys.argv[1]
-seedingNum = sys.argv[2]
-tgBrand = sys.argv[3]
-receiverEmail = sys.argv[4]
-
-result = app_api_gmail_sender({
-    "authorUniqueId": authorUniqueId,
-    "seedingNum": seedingNum,
-    "tgBrand": tgBrand,
-    "receiverEmail": receiverEmail,
-})
-
 tKey = sys.argv[1]
 
 result = app_api_gmail_sender({
