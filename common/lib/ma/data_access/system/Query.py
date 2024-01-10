@@ -21,10 +21,10 @@ class Query():
     WHERE latest_emails.receiver_email = '{receiver_email}'
     """
 
-    sql_select_status_in_60_min = """
+    sql_select_status_in_x_min = """
         SELECT *
         FROM contact_status
-        WHERE TIMESTAMPDIFF(MINUTE, created_at, NOW()) <= 60;
+        WHERE TIMESTAMPDIFF(MINUTE, created_at, NOW()) <= 20;
     """
 
     sql_select_pic = """
