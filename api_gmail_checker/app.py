@@ -74,11 +74,11 @@ def app_api_gmail_checker(event, context=None):
 
     return ResType(data=db_inserted_res).get_response()
 
-# labelId = sys.argv[1]
-#
-# result = app_api_gmail_checker({
-#     "labelId": labelId,
-# })
-#
-# print(result)
+labelId = sys.argv[1]
+
+result = app_api_gmail_checker({
+    "labelId": labelId,
+})
+
+print(result)
 

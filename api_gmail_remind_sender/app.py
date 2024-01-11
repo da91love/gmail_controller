@@ -84,5 +84,5 @@ def app_api_gmail_remind_sender(event, context=None):
 
     return ResType(data=re_sent_mails).get_response()
 
-# result = app_api_gmail_remind_sender(None)
-# print(result)
+result = app_api_gmail_remind_sender(None)
+print(result)
