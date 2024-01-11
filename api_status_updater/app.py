@@ -72,13 +72,13 @@ def app_api_status_updater(event, context=None):
 
                 # Modify slack status
                 update_msg = json.dumps(SlackMsgCreator.get_slack_post_block(
-                    TIKTOK_URL= tiktok_url,
-                    AUTHOR_UNIQUE_ID= author_unique_id,
-                    EMAIL= receiver_email,
-                    STATUS= status,
-                    PROGRESS= progress,
-                    PIC= pic,
-                    REPLY_DONE= is_reply_done,
+                    tiktok_url= tiktok_url,
+                    author_unique_id= author_unique_id,
+                    receiver_email= receiver_email,
+                    status= status,
+                    progress= progress,
+                    pic= pic,
+                    is_reply_done= is_reply_done,
                 ))
 
                 # update slack
