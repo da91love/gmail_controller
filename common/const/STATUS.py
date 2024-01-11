@@ -1,11 +1,11 @@
-status = {
+STATUS = {
     'OPEN': 'open',
     'CLOSE': 'close',
     'PENDING': 'pending',
     'TBD': 'tbd',
 }
 
-progress = {
+PROGRESS = {
     'NEGOTIATING': 'negotiating',
     'CONTRACT': 'contract',
     'DELIVERY': 'delivery',
