@@ -2,13 +2,13 @@ from common.const.STATUS import *
 
 class SlackMsgCreator:
     @staticmethod
-    def get_slack_post_block(TIKTOK_URL, AUTHOR_UNIQUE_ID, EMAIL, STATUS, PROGRESS, PIC, REPLY_DONE):
+    def get_slack_post_block(tiktok_url, author_unique_id, receiver_email, status, progress, pic, is_reply_done):
         return [
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"{'~Coversation with <'+TIKTOK_URL+'|'+AUTHOR_UNIQUE_ID+'> is started!~' if STATUS == status['CLOSE'] else '*Coversation with <'+TIKTOK_URL+'|'+AUTHOR_UNIQUE_ID+'> is started!*'}"
+                    "text": f"{'~Coversation with <'+tiktok_url+'|'+author_unique_id+'> is started!~' if status == STATUS['CLOSE'] else '*Coversation with <'+tiktok_url+'|'+author_unique_id+'> is started!*'}"
                 }
             },
             {
@@ -18,42 +18,42 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*・ Influence name* : <{TIKTOK_URL}|{AUTHOR_UNIQUE_ID}>"
+                    "text": f"*・ Influence name* : <{tiktok_url}|{author_unique_id}>"
                 }
             },
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*・ Mail address* : {EMAIL}"
+                    "text": f"*・ Mail address* : {receiver_email}"
                 }
             },
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*・ Reply* : {'*REPLY DONE* 🟢' if REPLY_DONE else '*REPLY NECESSARY* 🔴'}"
+                    "text": f"*・ Reply* : {'*REPLY DONE* 🟢' if is_reply_done else '*REPLY NECESSARY* 🔴'}"
                 }
             },
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*・ STATUS* : {STATUS}"
+                    "text": f"*・ status* : {status}"
                 }
             },
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*・ PROGRESS* : {PROGRESS}"
+                    "text": f"*・ progress* : {progress}"
                 }
             },
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*・ Person In Charge* : {PIC}"
+                    "text": f"*・ Person In Charge* : {pic}"
                 }
             }
         ]
@@ -65,7 +65,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*MAIL STATUS: {gmail_label_id}*"
+                    "text": f"*MAIL status: {gmail_label_id}*"
                 }
             },
             {

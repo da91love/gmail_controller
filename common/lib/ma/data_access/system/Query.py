@@ -24,7 +24,7 @@ class Query():
     sql_select_status_in_x_min = """
         SELECT *
         FROM contact_status
-        WHERE TIMESTAMPDIFF(MINUTE, created_at, NOW()) <= 20;
+        WHERE TIMESTAMPDIFF(MINUTE, created_at, NOW()) <= 60;
     """
 
     sql_select_pic = """
