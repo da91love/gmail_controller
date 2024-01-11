@@ -3,7 +3,6 @@ from operator import itemgetter
 import pydash as _
 
 from common.lib.ma.data_access.system.AccessService import AccessService
-from api_gmail_checker.const.slack_contents import
 from common.slack.SlackMsgCreator import SlackMsgCreator
 from common.slack.Slack import Slack
 from common.const.SLACK import *

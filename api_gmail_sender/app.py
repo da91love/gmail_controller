@@ -93,11 +93,11 @@ def app_api_gmail_sender(event, context=None):
 
     return ResType(data=sent_message).get_response()
 
-tKey = sys.argv[1]
-
-result = app_api_gmail_sender({
-    "tKey": tKey,
-})
-
-print(result)
+# tKey = sys.argv[1]
+#
+# result = app_api_gmail_sender({
+#     "tKey": tKey,
+# })
+#
+# print(result)
 

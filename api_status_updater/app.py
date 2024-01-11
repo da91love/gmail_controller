@@ -96,5 +96,5 @@ def app_api_status_updater(event, context=None):
 
     return ResType(data=updated_data).get_response()
 
-result = app_api_status_updater(None)
-print(result)
+# result = app_api_status_updater(None)
+# print(result)
