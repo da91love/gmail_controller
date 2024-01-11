@@ -1,9 +1,11 @@
+import json
+
 from common.const.STATUS import *
 
 class SlackMsgCreator:
     @staticmethod
     def get_slack_post_block(tiktok_url, author_unique_id, receiver_email, status, progress, pic, is_reply_done):
-        return [
+        return json.dumps([
             {
                 "type": "section",
                 "text": {
@@ -56,11 +58,11 @@ class SlackMsgCreator:
                     "text": f"*・ Person In Charge* : {pic}"
                 }
             }
-        ]
+        ])
 
     @staticmethod
     def get_slack_reply_block(gmail_label_id, contents):
-        return [
+        return json.dumps([
             {
                 "type": "section",
                 "text": {
@@ -78,4 +80,4 @@ class SlackMsgCreator:
                     "text": f"*・ contents* : <{contents}>"
                 }
             }
-        ]
+        ])

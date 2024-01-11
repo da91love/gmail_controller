@@ -71,7 +71,7 @@ def app_api_status_updater(event, context=None):
                 is_reply_done = True if contact_data[-1]['gmail_label_id'] == 'SENT' else False
 
                 # Modify slack status
-                update_msg = json.dumps(SlackMsgCreator.get_slack_post_block(
+                update_msg = SlackMsgCreator.get_slack_post_block(
                     tiktok_url= tiktok_url,
                     author_unique_id= author_unique_id,
                     receiver_email= receiver_email,
@@ -79,7 +79,7 @@ def app_api_status_updater(event, context=None):
                     progress= progress,
                     pic= pic,
                     is_reply_done= is_reply_done,
-                ))
+                )
 
                 # update slack
                 slack.update_post(CHANNEL_ID, MSG_TYPE['BLOCK'], update_msg, slack_thread_id)
