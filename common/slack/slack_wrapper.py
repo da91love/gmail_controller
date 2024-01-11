@@ -33,9 +33,8 @@ def slack_wrapper(mail_res):
 
         # Slack thread
         if len(slack_thread_history) > 0:
-            if len(_.filter_(slack_thread_history, {'gmail_msg_id': gmail_msg_id})) > 0:
-                pass
-            else:
+            # 이미 reply 처리된 gmail_msg_id 존재시 pass
+            if len(_.filter_(slack_thread_history, {'gmail_msg_id': gmail_msg_id})) == 0:
                 slack_thread_id = slack_thread_history[0]['slack_thread_id']
                 msg = SlackMsgCreator.get_slack_reply_block(gmail_label_id, contents)
 

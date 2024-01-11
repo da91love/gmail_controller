@@ -24,16 +24,15 @@ def check_emails(label_id):
         service = build('gmail', 'v1', credentials=creds)
         results = service.users().messages().list(userId='me', labelIds=[label_id], maxResults=10).execute()
         msg_metas = results.get('messages', [])
+        gmail_thread_ids = _.uniq([msg['threadId'] for msg in msg_metas])
 
         new_arrival_mails = []
         if not msg_metas:
             print('No messages found.')
         else:
             # 획득한 쓰레드 ID Loop
-            for msg_meta in msg_metas:
+            for gmail_thread_id in gmail_thread_ids:
                 try:
-                    gmail_thread_id = msg_meta.get('threadId')
-
                     # db에서 thread_id로 contact 횟수 검색
                     contact_history = AccessService.select_contacts(gmail_thread_id=gmail_thread_id)
 
