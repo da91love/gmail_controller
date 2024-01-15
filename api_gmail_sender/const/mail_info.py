@@ -22,8 +22,6 @@ mail_body = '''
 
 <span>&nbsp;</span>
 <div>Tiktok: @eqqualberry_us</div>
-<div>Instagram: @eqqualberry_us</div>
-<div>Amazon:
-    <a href="https://www.amazon.com/EQQUALBERRY-Swimming-Hydrating-Soothing-Exfoliating/dp/B0CMC6S4BM/ref=sr_1_1?crid=PTHT0YRGQKLW&keywords=equalberry+swimming+pool+toner&qid=1702868384&sprefix=equalberry+swimming+pool+toner%2Caps%2C270&sr=8-1" target="_blank">Click Amazon Link</a>
-</div>
+<div>Instagram: eqqualberry_us</div>
+<div>Check out "#eqqualberrySwimmingPoolToner" in Amazon😉</div>
 '''
