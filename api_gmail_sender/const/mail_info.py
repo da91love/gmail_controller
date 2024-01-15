@@ -16,12 +16,12 @@ mail_body = '''
 <div>Our slogan, "Experience Radiance: For Skin Care That's Healthy and Balanced," aligns seamlessly with your beauty philosophy, reflecting the authenticity and depth that resonate with your followers.</div>
 <br/>
 <div>We're excited about the prospect of collaborating with you on a TikTok post featuring our Swimming Pool Toner. In recognition of your creativity and influence, we're more than happy to discuss fair compensation. 💖</div>
-<div>Please let us know if this opportunity resonates with you. Looking forward to the possibility of creating something remarkable together!</div>
+<div>Let us know if this opportunity resonates with you. Looking forward to the possibility of creating something remarkable together!</div>
+<div>Please check out <b>"#eqqualberrySwimmingPoolToner"</b> in Amazon for detail product information😉</div>
 <br/>
 <div>Warmest regards, 🌷Anna</div>
 
 <span>&nbsp;</span>
 <div>Tiktok: @eqqualberry_us</div>
 <div>Instagram: eqqualberry_us</div>
-<div>Check out "#eqqualberrySwimmingPoolToner" in Amazon😉</div>
 '''
