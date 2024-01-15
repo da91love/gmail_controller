@@ -17,7 +17,7 @@ mail_body = '''
 <br/>
 <div>We're excited about the prospect of collaborating with you on a TikTok post featuring our Swimming Pool Toner. In recognition of your creativity and influence, we're more than happy to discuss fair compensation. 💖</div>
 <div>Let us know if this opportunity resonates with you. Looking forward to the possibility of creating something remarkable together!</div>
-<div>Please check out <b>"#eqqualberrySwimmingPoolToner"</b> in Amazon for detail product information😉</div>
+<div>Please check out <b>"#eqqualberrySwimmingPoolToner"</b> in Amazon for product details😉</div>
 <br/>
 <div>Warmest regards, 🌷Anna</div>
 
