@@ -55,7 +55,7 @@ def check_emails(label_id):
                                         new_gmail_msg_id = msg_in_thread.get('id')
                                         created_at = DateUtil.format_milliseconds(msg_in_thread.get('internalDate'), '%Y-%m-%d %H:%M:%S')
                                         contents = msg_in_thread.get('snippet')
-                                        receiver_email = (contact_history[0]).get('receiver_email')
+                                        is_reply_done = True if contact_history[-1]['gmail_label_id'] == 'SENT' else False
                                         t_key = (contact_history[0]).get('t_key')
 
                                         result = {
@@ -64,6 +64,7 @@ def check_emails(label_id):
                                             'gmail_label_id': label_id,
                                             't_key': t_key,
                                             'contents': contents,
+                                            'is_reply_done': is_reply_done,
                                             'created_at': created_at
                                         }
 
@@ -116,6 +117,7 @@ def check_emails(label_id):
                                         created_at = DateUtil.format_milliseconds(msg_in_thread.get('internalDate'),
                                                                                   '%Y-%m-%d %H:%M:%S')
                                         contents = msg_in_thread.get('snippet')
+                                        is_reply_done = True if contact_history[-1]['gmail_label_id'] == 'SENT' else False
 
                                         result = {
                                             'gmail_thread_id': gmail_thread_id,
@@ -123,6 +125,7 @@ def check_emails(label_id):
                                             'gmail_label_id': label_id,
                                             't_key': t_key,
                                             'contents': contents,
+                                            'is_reply_done': is_reply_done,
                                             'created_at': created_at
                                         }
 
