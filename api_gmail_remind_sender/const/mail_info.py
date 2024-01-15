@@ -1,23 +1,34 @@
 mail_info = [{
-        "mail_subject": 'Hi There! Remind from EQQUALBERRY😀',
+        "mail_subject": 'Join Our TikTok Seeding Program!😀',
         "mail_body": '''
-            <div>HI! I am Anna😄 I’m following up my last contact. I wanted to check and see if you’re still interested in receiving Eqqualberry products and be a part of our PR list.</div>
+            <div>HI! I am Anna😄 I hope you had a chance to review our previous invitation to join our TikTok Seeding Program. We believe that your influence in the skincare community can greatly benefit from this collaboration.</div>
             <br/>
-            <div>If you are, let me know your skin type and skin concerns so I can put products suitable for your skin type. In addition, please provide a mailing address and phone number for delivery purposes.</div>
+            <div>This is a final reminder to express your interest and join our program. Don't miss out on the opportunity to showcase our latest skincare products to your followers and be a part of our exclusive influencer community.</div>
             <br/>
-            <div>Plus, if you could let us know your rate card, it would be much appreciated.<br/>I look forward to hearing from you!</div>
+            <div>If you have any questions or need more information, feel free to reach out. We value your partnership and look forward to hearing from you soon!</div>
             <div>Best,Regard</div>
         '''
     },
     {
-        "mail_subject": 'Hi There! LAST remind from EQQUALBERRY😉',
+        "mail_subject": "Be the First to Experience Eqqualberry's New Skincare Products on TikTok!",
+        "mail_body": '''
+            <div>HI! I am Anna😄 We wanted to reach out one more time to offer you exclusive access to our upcoming skincare product launches through our TikTok Seeding Program.</div>
+            <br/>
+            <div>By participating, you'll be among the first to experience and share these products with your followers, gaining early access before they hit the market.</div>
+            <br/>
+            <div>If you are interested in this exclusive opportunity, please let us know at your earliest convenience. We can't wait to see your creativity in action!</div>
+            <div>Best,Regard</div>
+        '''
+    },
+    {
+        "mail_subject": "Last Call to Join Eqqualberry's TikTok Seeding Program!😉",
         "mail_body": '''
             <div>Hello, I am Anna😄 </div>
             <br/>
-            <div>Hope you’re doing well. </div>
+            <div>This is the final call to join our TikTok Seeding Program! We have been eagerly anticipating your response and would love to have you as part of our exclusive group of influencers.</div>
             <br/>
-            <div>We would love to collaborate with you and if you could let us know your rate card, it would be much appreciated. </div>
-            <div>This offer will be the final contact not to bother you🥲 </div>
+            <div>The deadline is approaching, and we don't want you to miss out on this exciting opportunity. If you're ready to take your TikTok content to the next level and showcase our skincare products, now is the time to let us know.</div>
+            <div>We appreciate your time and consideration. Looking forward to having you on board!🥲 </div>
             <br/>
             <div>Thank you🙃 </div>
             <br/>
