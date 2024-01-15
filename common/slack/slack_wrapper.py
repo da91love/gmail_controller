@@ -14,6 +14,7 @@ def slack_wrapper(mail_res):
         gmail_label_id = mail_res.get('gmail_label_id')
         t_key = mail_res.get('t_key')
         contents = mail_res.get('contents')
+        is_reply_done = mail_res.get('is_reply_done')
 
         # declare instance
         slack = Slack()
@@ -25,7 +26,6 @@ def slack_wrapper(mail_res):
         ## 메일, 틱톡 url 등
         slack_need_info = AccessService.select_slack_need_info(t_key=t_key)[0]
         author_unique_id, receiver_email, tiktok_url, pic = itemgetter('author_unique_id', 'receiver_email', 'tiktok_url', 'pic')(slack_need_info)
-        is_reply_done = True if gmail_label_id == 'SENT' else False
 
         ## status 데이터 취득
         contact_status = AccessService.select_contacts_status(gmail_thread_id=gmail_thread_id)[0]
