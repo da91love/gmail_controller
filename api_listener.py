@@ -10,6 +10,7 @@ from api_gmail_force_checker.app import app_api_force_gmail_checker as force_che
 from api_gmail_sender.app import app_api_gmail_sender as send_email
 from api_gmail_remind_sender.app import app_api_gmail_remind_sender as send_remind_email
 from api_status_updater.app import app_api_status_updater as update_status
+from api_delivery_tracker.app import app_api_delivery_tracker as track_delivery
 
 
 os.path.dirname(sys.modules['__main__'].__file__)
@@ -24,6 +25,17 @@ cors = CORS(api)
 # This flask API is only used for the development stage.
 # DO NOT deploy on production
 """
+
+@api.route('/track-delivery', methods=['post'])  # TODO : Insert any URL
+def track_delivery_post():
+    # Get body, headers
+    # body = request.json
+    # headers = request.headers
+
+    result = track_delivery(None)
+
+    return make_response(jsonify(result))
+
 
 @api.route('/update-status', methods=['get'])  # TODO : Insert any URL
 def update_status_get():
