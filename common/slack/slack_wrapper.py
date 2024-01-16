@@ -14,7 +14,6 @@ def slack_wrapper(mail_res):
         gmail_label_id = mail_res.get('gmail_label_id')
         t_key = mail_res.get('t_key')
         contents = mail_res.get('contents')
-        is_reply_done = mail_res.get('is_reply_done')
 
         # declare instance
         slack = Slack()
@@ -30,6 +29,9 @@ def slack_wrapper(mail_res):
         ## status 데이터 취득
         contact_status = AccessService.select_contacts_status(gmail_thread_id=gmail_thread_id)[0]
         status, progress = itemgetter('status', 'progress')(contact_status)
+
+        ## is reply done
+        is_reply_done = True if gmail_label_id == 'SENT' else False
 
         # Slack thread
         if len(slack_thread_history) > 0:
