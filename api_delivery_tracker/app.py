@@ -92,11 +92,6 @@ def app_api_delivery_tracker(event, context=None):
 
     return ResType(data=result).get_response()
 
-# labelId = sys.argv[1]
-#
-# result = app_api_gmail_checker({
-#     "labelId": labelId,
-# })
-#
+# result = app_api_delivery_tracker(None)
 # print(result)
 
