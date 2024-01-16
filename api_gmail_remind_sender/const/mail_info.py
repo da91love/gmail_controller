@@ -1,5 +1,5 @@
 mail_info = [{
-        "mail_subject": "Join Eqqualberry's TikTok Seeding Program!😀",
+        "mail_subject": "Join Eqqualberry's TikTok Paid Collaboration!💲",
         "mail_body": '''
             <div>HI! I am Anna😄 I hope you had a chance to review our previous invitation to join our TikTok Seeding Program. We believe that your influence in the skincare community can greatly benefit from this collaboration.</div>
             <br/>
@@ -10,7 +10,7 @@ mail_info = [{
         '''
     },
     {
-        "mail_subject": "Be the First to Experience Eqqualberry's New Skincare Products on TikTok!",
+        "mail_subject": "Exciting Opportunity: Proposal for a Eqqualberry's Paid Collaboration💸!",
         "mail_body": '''
             <div>HI! I am Anna😄 We wanted to reach out one more time to offer you exclusive access to our upcoming skincare product launches through our TikTok Seeding Program.</div>
             <br/>
@@ -21,7 +21,7 @@ mail_info = [{
         '''
     },
     {
-        "mail_subject": "Last Call to Join Eqqualberry's TikTok Seeding Program!😉",
+        "mail_subject": "Last Call to Join Eqqualberry's TikTok Paid Collaboration!🤑",
         "mail_body": '''
             <div>Hello, I am Anna😄 </div>
             <br/>

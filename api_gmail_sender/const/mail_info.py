@@ -1,4 +1,4 @@
-mail_subject = '🌟Elevate Your Glow: Special Collaboration Offer with Eqqualberry Toner💙'
+mail_subject = '🌟Elevate Your Glow: Paid Collaboration Offer with Eqqualberry Toner💙'
 mail_body = '''
 <div>Hi {},</div>
 <br/>
