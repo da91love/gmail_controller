@@ -8,7 +8,59 @@ class AccessService(AccessServiceBase):
     """
     All function's name should start with below 4 verbs: select insert update delete
     """
+    @staticmethod
+    def select_delivery_history(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_select_delivery_history,
+                bindings=bindings)
 
+        except Exception as e:
+            raise e
+
+    @staticmethod
+    def update_delivery_master(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_update_delivery_master,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+    @staticmethod
+    def insert_delivery_history(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_insert_delivery_history,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+    @staticmethod
+    def select_delivery_info(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_select_delivery_info,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
     @staticmethod
     def select_infl_contact_info(**bindings):
         """
