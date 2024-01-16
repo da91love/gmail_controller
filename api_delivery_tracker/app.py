@@ -37,7 +37,7 @@ def app_api_delivery_tracker(event, context=None):
     # label_id = data.get('labelId')
 
     amazon = Amazon()
-    test = amazon.get_tracking_details('9374889718925905020176')
+    test = amazon.get_tracking_details('9374889718025540446710')
 
     return ResType(data=test).get_response()
 
