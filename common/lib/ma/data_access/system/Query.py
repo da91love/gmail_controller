@@ -1,4 +1,26 @@
 class Query():
+    sql_select_delivery_history = """
+        SELECT *
+        FROM delivery_tracking_history
+        WHERE invoice_id = '{invoice_id}'
+    """
+
+    sql_update_delivery_master = """
+        UPDATE delivery_info_master SET delivery_status = '{delivery_status}'
+        WHERE order_id = '{order_id}' AND invoice_id = '{invoice_id}';
+    """
+
+    sql_insert_delivery_history = """
+        INSERT INTO delivery_tracking_history (order_id, invoice_id, delivery_status, event_time) 
+        VALUES('{order_id}', '{invoice_id}', '{delivery_status}', '{event_time}')
+    """
+
+    sql_select_delivery_info = """
+        SELECT order_id, invoice_id, courier
+        FROM delivery_info_master
+        WHERE delivery_status != 'Delivered'
+    """
+
     sql_select_infl_contact_info = """
         SELECT *
         FROM infl_contact_info_master
