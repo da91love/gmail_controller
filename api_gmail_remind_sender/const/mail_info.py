@@ -1,5 +1,5 @@
 mail_info = [{
-        "mail_subject": 'Join Our TikTok Seeding Program!😀',
+        "mail_subject": "Join Eqqualberry's TikTok Seeding Program!😀",
         "mail_body": '''
             <div>HI! I am Anna😄 I hope you had a chance to review our previous invitation to join our TikTok Seeding Program. We believe that your influence in the skincare community can greatly benefit from this collaboration.</div>
             <br/>
