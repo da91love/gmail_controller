@@ -94,4 +94,3 @@ def app_api_gmail_sender(event, context=None):
 
 result = app_api_gmail_sender(None)
 print(result)
-
