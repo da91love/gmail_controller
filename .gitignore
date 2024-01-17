@@ -2,6 +2,7 @@
 *.idea
 /shelf/
 log/logfile.log
+log/errorLogfile.log
 /dependencies/*
 /workspace.xml
 /public/output/tiktok_post_list.json
