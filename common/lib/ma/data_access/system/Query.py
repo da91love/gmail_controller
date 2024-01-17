@@ -87,16 +87,11 @@ class Query():
     sql_select_sent_thread_id = """
         SELECT m.gmail_thread_id, m.gmail_msg_id, m.t_key, i.receiver_email, i.tiktok_url, cs.status, m.created_at
         FROM (
-            SELECT gmail_thread_id, gmail_msg_id, t_key, created_at
-            FROM mail_contact t1
-            WHERE NOT EXISTS (
-                SELECT 1
-                FROM mail_contact t2
-                WHERE t2.gmail_thread_id = t1.gmail_thread_id
-                AND t2.gmail_label_id = 'INBOX'
-            )
-            GROUP BY t1.gmail_thread_id
-        ) m
+			SELECT DISTINCT t1.*
+			FROM mail_contact t1
+			LEFT JOIN mail_contact t2 ON t1.gmail_thread_id = t2.gmail_thread_id AND t2.gmail_label_id = 'INBOX'
+			WHERE t2.gmail_label_id IS NULL
+		) m
         JOIN infl_contact_info_master i ON m.t_key = i.t_key
         JOIN contact_status cs ON cs.gmail_thread_id = m.gmail_thread_id
     """
