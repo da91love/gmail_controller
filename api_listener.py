@@ -96,12 +96,12 @@ def force_check_emails_post():
 @api.route('/send-email', methods=['post'])  # TODO : Insert any URL
 def send_email_post():
     # Get body, headers
-    body = request.json
-    headers = request.headers
+    # body = request.json
+    # headers = request.headers
 
     # Insert necessary data to body
-    data = None
-    result = send_email(body)
+    # data = None
+    result = send_email(None)
 
     return make_response(jsonify(result))
 

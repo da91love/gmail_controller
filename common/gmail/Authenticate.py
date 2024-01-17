@@ -9,10 +9,8 @@ project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(_
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.compose', 'https://www.googleapis.com/auth/gmail.modify']
 
 class Authenticate:
-    _instance = None  # Keep instance reference
-
-    def __init__(self):
-        self.auth = None
+    _instance = None
+    _auth = None
 
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
@@ -20,10 +18,11 @@ class Authenticate:
         return cls._instance
 
     def get_authenticate(self):
-        if self.auth:
-            return self.auth
+        if Authenticate._auth:
+            return Authenticate._auth
         else:
-            return self._create_authenticate()
+            Authenticate._auth = self._create_authenticate()
+            return Authenticate._auth
 
     def _create_authenticate(self):
         creds = None

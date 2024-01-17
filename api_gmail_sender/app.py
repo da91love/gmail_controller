@@ -40,64 +40,58 @@ def app_api_gmail_sender(event, context=None):
 
     # Get data from API Gateway
     data = event
-
-    t_key = data.get('tKey')
+    tg_infls = AccessService.select_infl_first_contact()
 
     # declare instance
     labelControl = LabelControl()
 
-    if any(value is None for value in [t_key]):
-        raise IrrelevantParamException
+    sent_done_tg = []
+    for tg_infl in tg_infls:
 
-    # modify label, if pic is not registered process end
-    pic = (AccessService.select_pic(t_key=t_key)[0])['pic']
-    infl_contact_info = AccessService.select_infl_contact_info(t_key=t_key)[0]
+        # modify label, if pic is not registered process end
+        t_key, author_unique_id, receiver_email, pic = itemgetter('t_key', 'author_unique_id', 'receiver_email', 'pic')(tg_infl)
 
-    author_unique_id, receiver_email = itemgetter('author_unique_id', 'receiver_email')(infl_contact_info)
+        # send mail
+        # format mail body
+        formatted_mail_body = mail_body.format(author_unique_id)
 
-    # send mail
-    # format mail body
-    formatted_mail_body = mail_body.format(author_unique_id)
+        # send gmail
+        sent_message = send_email(
+            sender_email=SENDER_EMAIL,
+            receiver_email=receiver_email,
+            mail_subject=mail_subject,
+            mail_body=formatted_mail_body,
+        )
 
-    # send gmail
-    sent_message = send_email(
-        sender_email= SENDER_EMAIL,
-        receiver_email=receiver_email,
-        mail_subject=mail_subject,
-        mail_body=formatted_mail_body,
-    )
+        # prepare variables
+        gmail_thread_id = sent_message.get("threadId")
+        gmail_msg_id = sent_message.get("id")
+        formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-    # prepare variables
-    gmail_thread_id = sent_message.get("threadId")
-    gmail_msg_id = sent_message.get("id")
-    formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        # modify label
+        labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[STATUS['OPEN'], PROGRESS['NEGOTIATING'], pic])
 
-    # modify label
-    labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[STATUS['OPEN'], PROGRESS['NEGOTIATING'], pic])
+        # insert to contact db
+        AccessService.insert_contact_history(
+            gmail_thread_id=gmail_thread_id,
+            gmail_msg_id=gmail_msg_id,
+            gmail_label_id='SENT',
+            t_key=t_key,
+            created_at=formatted_datetime
+        )
 
-    # insert to contact db
-    AccessService.insert_contact_history(
-        gmail_thread_id=gmail_thread_id,
-        gmail_msg_id=gmail_msg_id,
-        gmail_label_id='SENT',
-        t_key=t_key,
-        created_at=formatted_datetime
-    )
+        # insert to status db
+        AccessService.insert_contact_status(
+            gmail_thread_id=gmail_thread_id,
+            status=STATUS['OPEN'],
+            progress=PROGRESS['NEGOTIATING'],
+        )
 
-    # insert to status db
-    AccessService.insert_contact_status(
-        gmail_thread_id=gmail_thread_id,
-        status=STATUS['OPEN'],
-        progress=PROGRESS['NEGOTIATING'],
-    )
+        # append result
+        sent_done_tg.append(sent_message)
 
-    return ResType(data=sent_message).get_response()
+    return ResType(data=sent_done_tg).get_response()
 
-tKey = sys.argv[1]
-
-result = app_api_gmail_sender({
-    "tKey": tKey,
-})
-
+result = app_api_gmail_sender(None)
 print(result)
 

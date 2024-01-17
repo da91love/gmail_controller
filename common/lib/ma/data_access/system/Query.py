@@ -1,4 +1,14 @@
 class Query():
+    sql_select_infl_first_contact= """
+        SELECT m.*, pi.pic
+        FROM (
+            SELECT *
+            FROM infl_contact_info_master
+            WHERE t_key NOT IN (SELECT DISTINCT t_key FROM mail_contact)
+        ) m
+        join person_in_charge pi on pi.t_key = m.t_key;
+    """
+
     sql_select_delivery_history = """
         SELECT *
         FROM delivery_tracking_history
