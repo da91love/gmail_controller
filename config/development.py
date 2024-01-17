@@ -39,6 +39,14 @@ config = {
                 'formatter': 'general',
                 'level': 'INFO',
             },
+            'error_file': {
+                        'class': 'logging.FileHandler',
+                        'filename': project_root + '/log/errorLogfile.log',
+                        'mode': 'w',
+                        'encoding': 'utf-8',
+                        'formatter': 'general',
+                        'level': 'ERROR',  # Set the level to capture only ERROR messages
+            }
         },
         'root': {
             'handlers': ('console', 'file'),
