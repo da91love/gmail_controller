@@ -37,7 +37,7 @@ def app_api_delivery_tracker(event, context=None):
 
     # Get data from API Gateway
     eventdata = event
-    logger.error('hahaha')
+
     tracking_tg_invoices = AccessService.select_delivery_info()
 
     # declare instances
