@@ -62,7 +62,8 @@ def app_api_gmail_remind_sender(event, context=None):
             # if sent number is over 5, no remind send
             if sent_num < 4:
                 # remind if over 5 days # TODO: change days diff
-                if (datetime.now() - created_at).days >= 3:
+                day_diff = (datetime.now() - created_at).days
+                if day_diff >= 3:
                     # Extract the information you need, e.g., sender, receiver, mail_subject, etc.
                     mail_subject = mail_info[sent_num - 1]['mail_subject']
                     mail_body = mail_info[sent_num - 1]['mail_body']
