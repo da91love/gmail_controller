@@ -2,6 +2,7 @@
 import requests
 from datetime import datetime
 
+from common.type.Errors import AmzApiAuthenticationException
 from common.const.API_URL import *
 from common.util.get_config import get_config
 
@@ -27,7 +28,9 @@ class Amazon:
 
             if res.status_code == 200:
                 res_json = res.json()
-                return res_json
+                payload = (res_json.get('payload')).get('eventHistory')
+
+                return payload
 
         except Exception as e:
             raise e
@@ -63,6 +66,9 @@ class Amazon:
 
                 return access_token
 
+            elif res.status_code == 401:
+                raise AmzApiAuthenticationException
+
         except Exception as e:
             raise e
 
@@ -88,6 +94,9 @@ class Amazon:
                 access_token = json_res['restrictedDataToken']
 
                 return access_token
+
+            elif res.status_code == 401:
+                raise AmzApiAuthenticationException
 
         except Exception as e:
             raise e

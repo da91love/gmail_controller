@@ -21,7 +21,9 @@ class Rincos:
 
             if res.status_code == 200:
                 res_json = res.json()
-                return res_json
+                payload = res_json.get('result')
+
+                return payload
 
         except Exception as e:
             raise e

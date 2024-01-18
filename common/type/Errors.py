@@ -1,3 +1,11 @@
+class AmzApiAuthenticationException(Exception):
+    # 例外情報をもらってメッセージを出せるか
+    def __init__(
+            self,
+            msg="Client authentication failed"):
+        Exception.__init__(self, msg)
+
+
 class PicNotAssignedException(Exception):
     # 例外情報をもらってメッセージを出せるか
     def __init__(
