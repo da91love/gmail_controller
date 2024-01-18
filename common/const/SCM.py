@@ -1,0 +1,4 @@
+COURIER = {
+    'AMAZON': 'AMAZON',
+    'RINCOS': 'RINCOS'
+}
