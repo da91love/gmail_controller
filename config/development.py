@@ -14,9 +14,9 @@ config = {
             }
     },
     'AMZN': {
-        'refresh_token': 'Atzr|IwEBIJF8jjpLK8fxPoimh3QCM6DSd1rQVD5llNKx67E0kxPYsn7CZlJmv9Vr1t8VZW3v8SBTbPb6tocZK2wtc8hpIqliWRkGNoJxLrBkt7XlmtIzh03BBfRfntlz7-1_CoTzvBZViTdMjYB7yXw9OHhIbZdG2u4vL_KbTmoH2GnNDweLTGUkdGw9mokP45BkfPAWshYVrm3CHIuQyjCpHDW1Q4jLJ8T2MfRH2IH8o1kIsrPdtMH8dX56f21S9t1tV1PhAby9XmiJ-hgNwrjW9Yq2Njgf2uaq_JvsWBvoYlxYVFs-Eia0f8kNJDUOF5APFZzfyTQ',
-        'client_id': 'amzn1.application-oa2-client.71eccd90ab3b4ed48a5cb7853d7db7f3',
-        'client_secret': 'amzn1.oa2-cs.v1.c9a9346ef9605297d55dcc3e48795ada9f9b74ea51a2bad17ddb9363b3e0391a'
+        'refresh_token': 'Atzr|IwEBILT5klw3ky9rvvkTFd_qeQo5-bzWvAGy40jqu3OK8cJFxA78qi8wUkRal-EXjLABZ9qVKmHJejkYXhNclFCdom1rVfhXWVkIeElaVYDxil12i5FZhWPqjIRYmYa8MHH5oyrs6Diu2ET75xvpME4Lm88XXbdtHHB6efrzjI42zk3EnxuQ3itDE7HCJSb2mmBL4K4ghL-By2m0uF7L7hQA9WMaKZbhmE5W4dTk97OBbCcVXMaUjBWgrpG_dCgfD-_n4dYJLrLU4U2I2_EKZPY7HVf9gD2cFZSVGhuGcI3S7FyiGwouUITmir_o9QCphP4YvDviT7fZcgCH_Zb4LDei-6QBtSXHHkJtNPbQBTtzzL-Jiw',
+        'client_id': 'amzn1.application-oa2-client.a143a078306b4e65a2e22722b9c98294',
+        'client_secret': 'amzn1.oa2-cs.v1.894d9446a7b93c1ce56197abd74de800a55708bf0034198ef1975c5d15e04cfa'
     },
     'LOG_CONFIG': {
         'version': 1,
