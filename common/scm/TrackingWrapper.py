@@ -39,7 +39,6 @@ class TrackingWrapper:
 
                         uploaded_history.append(d)
                     except IntegrityError as e:
-                        logger.error(e)
                         continue
 
                 # update data in delivery master
