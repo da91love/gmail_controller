@@ -50,7 +50,6 @@ def app_api_status_updater(event, context=None):
     updated_data = []
     if len(status_data) > 0:
 
-
         # update slack
         for sd in status_data:
             status, progress = itemgetter('status', 'progress')(sd)
