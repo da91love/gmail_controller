@@ -54,56 +54,6 @@ def app_api_delivery_tracker(event, context=None):
     except Exception as e:
         raise e
 
-    # # declare instances
-    # rincos = Rincos()
-    # amazon = Amazon()
-    #
-    # result = []
-    # for invoices in tracking_tg_invoices:
-    #     courier = invoices['courier']
-    #     order_id = invoices['order_id']
-    #     invoice_id = invoices['invoice_id']
-    #
-    #     # select delivery history
-    #     delivery_history = AccessService.select_delivery_history(invoice_id=invoice_id)
-    #
-    #     data = []
-    #     if courier == 'RINCOS':
-    #         res = rincos.get_tracking_details(invoice_id=invoice_id)
-    #         history = res['result']
-    #
-    #         data = rincos.convert_2_bsts_db(history)
-    #
-    #     elif courier == 'AMAZON':
-    #         res = amazon.get_tracking_details(invoice_id=invoice_id)
-    #         history = res['payload']['eventHistory']
-    #
-    #         data = amazon.convert_2_bsts_db(history)
-    #
-    #     if len(delivery_history) < len(data):
-    #         # insert to data into delivery history tb
-    #         for d in data:
-    #             try:
-    #                 AccessService.insert_delivery_history(
-    #                     order_id=order_id,
-    #                     invoice_id=invoice_id,
-    #                     delivery_status=d['delivery_status'],
-    #                     event_time=d['event_time']
-    #                 )
-    #             except IntegrityError as e:
-    #                 logger.error(e)
-    #                 continue
-    #
-    #         # update data in delivery master
-    #         AccessService.update_delivery_master(
-    #             order_id=order_id,
-    #             invoice_id=invoice_id,
-    #             delivery_status=data[-1]['delivery_status'],
-    #         )
-    #
-    #         # append to result
-    #         result.append(invoice_id)
-
     return ResType(data=result).get_response()
 
 result = app_api_delivery_tracker(None)
