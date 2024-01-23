@@ -11,6 +11,7 @@ from api_gmail_sender.app import app_api_gmail_sender as send_email
 from api_gmail_remind_sender.app import app_api_gmail_remind_sender as send_remind_email
 from api_status_updater.app import app_api_status_updater as update_status
 from api_delivery_tracker.app import app_api_delivery_tracker as track_delivery
+from api_gmail_converting_sender.app import app_api_gmail_converting_sender as send_converting_email
 
 
 os.path.dirname(sys.modules['__main__'].__file__)
@@ -26,6 +27,15 @@ cors = CORS(api)
 # DO NOT deploy on production
 """
 
+@api.route('/send-converting-mail', methods=['get'])  # TODO : Insert any URL
+def send_converting_email_post():
+    # Get body, headers
+    # body = request.json
+    # headers = request.headers
+
+    result = send_converting_email(None)
+
+    return make_response(jsonify(result))
 @api.route('/track-delivery', methods=['post'])  # TODO : Insert any URL
 def track_delivery_post():
     # Get body, headers

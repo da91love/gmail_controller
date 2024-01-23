@@ -43,45 +43,50 @@ def app_api_gmail_remind_sender(event, context=None):
 
     # get thread_id
     tg_contacts = AccessService.select_sent_thread_id()
+    cnt_num_by_tkey = AccessService.select_contact_num_by_tkey()
 
     # Group data by threadId
-    grouped_data = _.group_by(tg_contacts, "gmail_thread_id")
+    cnts_grouped_by_tid = _.group_by(tg_contacts, "gmail_thread_id")
+    cntc_num_grouped_by_tkey = _.group_by(cnt_num_by_tkey, "t_key")
 
     # Extract the latest entry for each threadId
-    latest_sent_contacts = [_.max_by(group, lambda x: x["created_at"]) for group in grouped_data.values()]
+    latest_sent_contacts = [_.max_by(group, lambda x: x["created_at"]) for group in cnts_grouped_by_tid.values()]
 
     re_sent_mails = []
     for latest_sent_contact in latest_sent_contacts:
         gmail_thread_id, gmail_msg_id, receiver_email, t_key, status, created_at \
             = itemgetter('gmail_thread_id', 'gmail_msg_id', 'receiver_email', 't_key', 'status', 'created_at')(latest_sent_contact)
 
-        sent_num = len(grouped_data[gmail_thread_id])
+        is_cnt_bf = True if cntc_num_grouped_by_tkey[t_key][0]['thread_count'] > 1 else False
+        sent_num = len(cnts_grouped_by_tid[gmail_thread_id])
 
-        # only send remind status open
-        if status == STATUS['OPEN']:
-            # if sent number is over 5, no remind send
-            if sent_num < 4:
-                # remind if over 5 days # TODO: change days diff
-                day_diff = (datetime.now() - created_at).days
-                if day_diff >= 3:
-                    # Extract the information you need, e.g., sender, receiver, mail_subject, etc.
-                    mail_subject = mail_info[sent_num - 1]['mail_subject']
-                    mail_body = mail_info[sent_num - 1]['mail_body']
-                    formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        # 이메일 전환으로 이미 보낸 이력이 있을 경우 remind 보내지 않음
+        if not is_cnt_bf:
+            # only send remind status open
+            if status == STATUS['OPEN']:
+                # if sent number is over 5, no remind send
+                if sent_num < 3:
+                    # remind if over 5 days # TODO: change days diff
+                    day_diff = (datetime.now() - created_at).days
+                    if day_diff >= 3:
+                        # Extract the information you need, e.g., sender, receiver, mail_subject, etc.
+                        mail_subject = mail_info[sent_num - 1]['mail_subject']
+                        mail_body = mail_info[sent_num - 1]['mail_body']
+                        formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-                    # Send the message
-                    sent_message = send_remind_email(SENDER_EMAIL, receiver_email, mail_subject, mail_body, gmail_thread_id)
+                        # Send the message
+                        sent_message = send_remind_email(SENDER_EMAIL, receiver_email, mail_subject, mail_body, gmail_thread_id)
 
-                    # insert to contact db
-                    AccessService.insert_contact_history(
-                        gmail_thread_id=gmail_thread_id,
-                        gmail_msg_id=sent_message.get('id'),
-                        gmail_label_id='SENT',
-                        t_key=t_key,
-                        created_at=formatted_datetime
-                    )
+                        # insert to contact db
+                        AccessService.insert_contact_history(
+                            gmail_thread_id=gmail_thread_id,
+                            gmail_msg_id=sent_message.get('id'),
+                            gmail_label_id='SENT',
+                            t_key=t_key,
+                            created_at=formatted_datetime
+                        )
 
-                    re_sent_mails.append(sent_message)
+                        re_sent_mails.append(sent_message)
 
     return ResType(data=re_sent_mails).get_response()
 

@@ -4,10 +4,50 @@ from .Query import Query
 
 
 class AccessService(AccessServiceBase):
-
+    
     """
     All function's name should start with below 4 verbs: select insert update delete
     """
+    @staticmethod
+    def select_latest_thread_id_by_tkey(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_select_latest_thread_id_by_tkey,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+    @staticmethod
+    def select_contact_num_by_tkey(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_select_contact_num_by_tkey,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+    @staticmethod
+    def select_past_on_contact_infl(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_select_past_on_contact_infl,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
     @staticmethod
     def select_infl_first_contact(**bindings):
         """
@@ -114,6 +154,21 @@ class AccessService(AccessServiceBase):
 
         except Exception as e:
             raise e
+
+    @staticmethod
+    def update_slack_thread_id(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_update_slack_thread_id,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
     @staticmethod
     def update_gmail_mail_contact_thread_id(**bindings):
         """
