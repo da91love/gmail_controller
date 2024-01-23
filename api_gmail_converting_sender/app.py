@@ -16,8 +16,8 @@ from common.type.Errors import *
 from common.util.get_config import get_config
 from common.gmail.send_email import send_email
 from common.gmail.LabelControl import LabelControl
-from api_gmail_converting_sender.type.ResType import ResType
-from api_gmail_converting_sender.const.mail_info import *
+from api_gmail_sender.type.ResType import ResType
+from api_gmail_sender.const.mail_info import *
 from common.const.EMAIL import *
 from common.const.STATUS import *
 
@@ -30,7 +30,7 @@ config = get_config()
 # s3_bucket_name = config['S3']['s3_bucket_name']
 
 @AppBase
-def app_api_gmail_sender(event, context=None):
+def app_api_gmail_converting_sender(event, context=None):
     """
     lambda_handler : This functions will be implemented in lambda
     :param event: (dict)
@@ -40,6 +40,7 @@ def app_api_gmail_sender(event, context=None):
 
     # Get data from API Gateway
     data = event
+    # 과거에 답장온 회수가 1회 이상이고, status가 open인 대상에게 메일 변경 안내 메일 송신
     tg_infls = AccessService.select_past_on_contact_infl(tg_date='2024-01-23')
 
     # declare instance

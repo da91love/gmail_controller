@@ -1,4 +1,18 @@
 class Query():
+    select_past_on_contact_infl= """
+        SELECT mc.t_key, ic.author_unique_id, ic.receiver_email, pic.pic
+        FROM (
+            SELECT *
+            FROM mail_contact
+            WHERE gmail_label_id = 'INBOX' AND created_at < '{tg_date}'
+            GROUP BY gmail_thread_id
+        ) mc
+        JOIN contact_status cs ON cs.gmail_thread_id = mc.gmail_thread_id
+        JOIN infl_contact_info_master ic ON ic.t_key = mc.t_key
+        JOIN person_in_charge pic ON pic.t_key = mc.t_key
+        WHERE cs.status = 'open'
+    """
+
     sql_select_infl_first_contact= """
         SELECT m.*, pi.pic
         FROM (
