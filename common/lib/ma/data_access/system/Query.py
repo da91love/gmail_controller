@@ -1,6 +1,6 @@
 class Query():
-    select_latest_thread_id_by_tkey= """
-        SELECT t1.*
+    sql_select_latest_thread_id_by_tkey= """
+        SELECT t1.t_key, t1.gmail_thread_id
         FROM mail_contact t1
         JOIN (
             SELECT t_key, MAX(created_at) AS max_created_at
@@ -9,7 +9,7 @@ class Query():
         ) t2 ON t1.t_key = t2.t_key AND t1.created_at = t2.max_created_at
     """
 
-    select_contact_num_by_tkey= """
+    sql_select_contact_num_by_tkey= """
         SELECT
             t_key,
             COUNT(DISTINCT gmail_thread_id) AS thread_count
@@ -17,7 +17,7 @@ class Query():
         GROUP BY t_key;
     """
 
-    select_past_on_contact_infl= """
+    sql_select_past_on_contact_infl= """
         SELECT mc.t_key, ic.author_unique_id, ic.receiver_email, pic.pic
         FROM (
             SELECT *

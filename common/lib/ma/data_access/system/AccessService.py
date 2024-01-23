@@ -9,14 +9,14 @@ class AccessService(AccessServiceBase):
     All function's name should start with below 4 verbs: select insert update delete
     """
     @staticmethod
-    def select_contact_num_by_tkey(**bindings):
+    def select_latest_thread_id_by_tkey(**bindings):
         """
         :param bindings: (tuple)
         :return: (list) sql query result
         """
         try:
             return AccessServiceBase.execute_sql(
-                sql=Query.select_contact_num_by_tkey,
+                sql=Query.sql_select_latest_thread_id_by_tkey,
                 bindings=bindings)
 
         except Exception as e:
@@ -29,7 +29,7 @@ class AccessService(AccessServiceBase):
         """
         try:
             return AccessServiceBase.execute_sql(
-                sql=Query.select_contact_num_by_tkey,
+                sql=Query.sql_select_contact_num_by_tkey,
                 bindings=bindings)
 
         except Exception as e:
@@ -43,7 +43,7 @@ class AccessService(AccessServiceBase):
         """
         try:
             return AccessServiceBase.execute_sql(
-                sql=Query.select_past_on_contact_infl,
+                sql=Query.sql_select_past_on_contact_infl,
                 bindings=bindings)
 
         except Exception as e:

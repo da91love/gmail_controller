@@ -16,8 +16,8 @@ from common.type.Errors import *
 from common.util.get_config import get_config
 from common.gmail.send_email import send_email
 from common.gmail.LabelControl import LabelControl
-from api_gmail_converting_sender.type.ResType import ResType
-from api_gmail_converting_sender.const.mail_info import *
+from api_gmail_sender.type.ResType import ResType
+from api_gmail_sender.const.mail_info import *
 from common.const.EMAIL import *
 from common.const.STATUS import *
 
@@ -40,7 +40,7 @@ def app_api_gmail_sender(event, context=None):
 
     # Get data from API Gateway
     data = event
-    tg_infls = AccessService.select_past_on_contact_infl(tg_date='2024-01-23')
+    tg_infls = AccessService.select_infl_first_contact()
 
     # declare instance
     labelControl = LabelControl()

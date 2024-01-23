@@ -4,6 +4,7 @@ import csv
 import uuid
 from datetime import datetime
 from operator import itemgetter
+import pydash as _
 import os
 import sys
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,6 +43,7 @@ def app_api_gmail_converting_sender(event, context=None):
     data = event
     # 과거에 답장온 회수가 1회 이상이고, status가 open인 대상에게 메일 변경 안내 메일 송신
     tg_infls = AccessService.select_past_on_contact_infl(tg_date='2024-01-23')
+    old_thread_id_by_tkey = _.group_by(AccessService.select_latest_thread_id_by_tkey(), "t_key")
 
     # declare instance
     labelControl = LabelControl()
@@ -70,11 +72,7 @@ def app_api_gmail_converting_sender(event, context=None):
         formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
         # get old t_key
-        old_gmail_thread_id = AccessService.select_contact_num_by_tkey('''
-            SELECT t_key, gmail_thread_id
-            FROM mail_contact
-            GROUP BY t_key;
-        ''')
+        old_gmail_thread_id = old_thread_id_by_tkey[t_key][0]['gmail_thread_id']
 
         # modify label
         labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[STATUS['OPEN'], PROGRESS['NEGOTIATING'], pic])
