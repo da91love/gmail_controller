@@ -69,6 +69,13 @@ def app_api_gmail_converting_sender(event, context=None):
         gmail_msg_id = sent_message.get("id")
         formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
+        # get old t_key
+        old_gmail_thread_id = AccessService.select_contact_num_by_tkey('''
+            SELECT t_key, gmail_thread_id
+            FROM mail_contact
+            GROUP BY t_key;
+        ''')
+
         # modify label
         labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[STATUS['OPEN'], PROGRESS['NEGOTIATING'], pic])
 
@@ -81,11 +88,16 @@ def app_api_gmail_converting_sender(event, context=None):
             created_at=formatted_datetime
         )
 
-        # insert to status db
-        AccessService.insert_contact_status(
-            gmail_thread_id=gmail_thread_id,
-            status=STATUS['OPEN'],
-            progress=PROGRESS['NEGOTIATING'],
+        # update status db
+        AccessService.update_gmail_contact_status_thread_id(
+            new_gmail_thread_id=gmail_thread_id,
+            old_gmail_thread_id=old_gmail_thread_id,
+        )
+
+        # update slack db
+        AccessService.update_slack_thread_id(
+            new_gmail_thread_id=gmail_thread_id,
+            old_gmail_thread_id=old_gmail_thread_id,
         )
 
         # append result

@@ -1,4 +1,14 @@
 class Query():
+    select_latest_thread_id_by_tkey= """
+        SELECT t1.*
+        FROM mail_contact t1
+        JOIN (
+            SELECT t_key, MAX(created_at) AS max_created_at
+            FROM mail_contact
+            GROUP BY t_key
+        ) t2 ON t1.t_key = t2.t_key AND t1.created_at = t2.max_created_at
+    """
+
     select_contact_num_by_tkey= """
         SELECT
             t_key,
@@ -165,5 +175,10 @@ class Query():
 
     sql_update_contact_status_thread_id = """
         UPDATE contact_status SET gmail_thread_id = '{new_gmail_thread_id}'
+        WHERE gmail_thread_id = '{old_gmail_thread_id}'
+    """
+
+    sql_update_slack_thread_id = """
+        UPDATE slack_thread_history SET gmail_thread_id = '{new_gmail_thread_id}'
         WHERE gmail_thread_id = '{old_gmail_thread_id}'
     """

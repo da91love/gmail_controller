@@ -65,7 +65,7 @@ def app_api_gmail_remind_sender(event, context=None):
             # only send remind status open
             if status == STATUS['OPEN']:
                 # if sent number is over 5, no remind send
-                if sent_num < 4:
+                if sent_num < 3:
                     # remind if over 5 days # TODO: change days diff
                     day_diff = (datetime.now() - created_at).days
                     if day_diff >= 3:

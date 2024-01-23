@@ -4,10 +4,23 @@ from .Query import Query
 
 
 class AccessService(AccessServiceBase):
-
+    
     """
     All function's name should start with below 4 verbs: select insert update delete
     """
+    @staticmethod
+    def select_contact_num_by_tkey(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.select_contact_num_by_tkey,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
     @staticmethod
     def select_contact_num_by_tkey(**bindings):
         """
@@ -141,6 +154,21 @@ class AccessService(AccessServiceBase):
 
         except Exception as e:
             raise e
+
+    @staticmethod
+    def update_slack_thread_id(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_update_slack_thread_id,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
     @staticmethod
     def update_gmail_mail_contact_thread_id(**bindings):
         """
