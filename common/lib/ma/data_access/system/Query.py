@@ -1,4 +1,12 @@
 class Query():
+    select_contact_num_by_tkey= """
+        SELECT
+            t_key,
+            COUNT(DISTINCT gmail_thread_id) AS thread_count
+        FROM mail_contact
+        GROUP BY t_key;
+    """
+
     select_past_on_contact_infl= """
         SELECT mc.t_key, ic.author_unique_id, ic.receiver_email, pic.pic
         FROM (
