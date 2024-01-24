@@ -1,4 +1,33 @@
 class Query():
+    sql_update_mail_contents_thread_id = """
+        UPDATE mail_contents SET gmail_thread_id = '{new_gmail_thread_id}'
+        WHERE gmail_thread_id = '{old_gmail_thread_id}'
+    """
+
+    sql_update_mail_contact_thread_id = """
+        UPDATE mail_contact SET gmail_thread_id = '{new_gmail_thread_id}'
+        WHERE gmail_thread_id = '{old_gmail_thread_id}'
+    """
+    # sql_update_mail_contact_thread_id = """
+    #     UPDATE mail_contact SET gmail_thread_id = '{new_gmail_thread_id}', gmail_msg_id = '{new_gmail_thread_id}'
+    #     WHERE gmail_thread_id = '{old_gmail_thread_id}'
+    # """
+
+    sql_update_contact_status_thread_id = """
+        UPDATE contact_status SET gmail_thread_id = '{new_gmail_thread_id}'
+        WHERE gmail_thread_id = '{old_gmail_thread_id}'
+    """
+
+    sql_update_slack_thread_id = """
+        UPDATE slack_thread_history SET gmail_thread_id = '{new_gmail_thread_id}'
+        WHERE gmail_thread_id = '{old_gmail_thread_id}'
+    """
+
+    sql_update_delivery_master = """
+        UPDATE delivery_info_master SET delivery_status = '{delivery_status}'
+        WHERE order_id = '{order_id}' AND invoice_id = '{invoice_id}';
+    """
+
     sql_select_latest_thread_id_by_tkey= """
         SELECT t1.t_key, t1.gmail_thread_id
         FROM mail_contact t1
@@ -45,11 +74,6 @@ class Query():
         SELECT *
         FROM delivery_tracking_history
         WHERE invoice_id = '{invoice_id}'
-    """
-
-    sql_update_delivery_master = """
-        UPDATE delivery_info_master SET delivery_status = '{delivery_status}'
-        WHERE order_id = '{order_id}' AND invoice_id = '{invoice_id}';
     """
 
     sql_insert_delivery_history = """
@@ -168,17 +192,3 @@ class Query():
         VALUES('{gmail_thread_id}', '{author_unique_id}', '{receiver_email}', '{tiktok_url}')
     """
 
-    sql_update_mail_contact_thread_id = """
-        UPDATE mail_contact SET gmail_thread_id = '{new_gmail_thread_id}', gmail_msg_id = '{new_gmail_thread_id}'
-        WHERE gmail_thread_id = '{old_gmail_thread_id}'
-    """
-
-    sql_update_contact_status_thread_id = """
-        UPDATE contact_status SET gmail_thread_id = '{new_gmail_thread_id}'
-        WHERE gmail_thread_id = '{old_gmail_thread_id}'
-    """
-
-    sql_update_slack_thread_id = """
-        UPDATE slack_thread_history SET gmail_thread_id = '{new_gmail_thread_id}'
-        WHERE gmail_thread_id = '{old_gmail_thread_id}'
-    """

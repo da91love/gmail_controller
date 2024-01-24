@@ -16,7 +16,9 @@ from common.AppBase import AppBase
 from common.type.Errors import *
 from common.util.get_config import get_config
 from common.gmail.send_remind_email import send_remind_email
+from common.gmail.send_email import send_email
 from api_gmail_sender.type.ResType import ResType
+from googleapiclient.errors import HttpError
 
 from common.lib.ma.data_access.system.AccessService import AccessService
 from api_gmail_remind_sender.const.mail_info import mail_info
@@ -75,16 +77,48 @@ def app_api_gmail_remind_sender(event, context=None):
                         formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
                         # Send the message
-                        sent_message = send_remind_email(SENDER_EMAIL, receiver_email, mail_subject, mail_body, gmail_thread_id)
+                        # 이전 스레드가 존재할시 기존 스레드에 엮어서 보내고
+                        try:
+                            sent_message = send_remind_email(SENDER_EMAIL, receiver_email, mail_subject, mail_body, gmail_thread_id)
 
-                        # insert to contact db
-                        AccessService.insert_contact_history(
-                            gmail_thread_id=gmail_thread_id,
-                            gmail_msg_id=sent_message.get('id'),
-                            gmail_label_id='SENT',
-                            t_key=t_key,
-                            created_at=formatted_datetime
-                        )
+                            # insert to contact db
+                            AccessService.insert_contact_history(
+                                gmail_thread_id=gmail_thread_id,
+                                gmail_msg_id=sent_message.get('id'),
+                                gmail_label_id='SENT',
+                                t_key=t_key,
+                                created_at=formatted_datetime
+                            )
+                        # 기존 스레드 존재하지 않아 에러 발생 시 새로운 메일로 송신
+                        except HttpError as e:
+                            sent_message = send_email(SENDER_EMAIL, receiver_email, mail_subject, mail_body)
+
+                            # prepare variables
+                            new_gmail_thread_id = sent_message.get("threadId")
+                            gmail_msg_id = sent_message.get("id")
+
+                            # update existing old thread_id
+                            AccessService.update_gmail_mail_contact_thread_id(
+                                new_gmail_thread_id=new_gmail_thread_id,
+                                old_gmail_thread_id=gmail_thread_id
+                            )
+                            AccessService.update_gmail_contact_status_thread_id(
+                                new_gmail_thread_id=new_gmail_thread_id,
+                                old_gmail_thread_id=gmail_thread_id
+                            )
+                            AccessService.update_gmail_mail_contents_thread_id(
+                                new_gmail_thread_id=new_gmail_thread_id,
+                                old_gmail_thread_id=gmail_thread_id
+                            )
+
+                            # insert to contact db
+                            AccessService.insert_contact_history(
+                                gmail_thread_id=new_gmail_thread_id,
+                                gmail_msg_id=gmail_msg_id,
+                                gmail_label_id='SENT',
+                                t_key=t_key,
+                                created_at=formatted_datetime
+                            )
 
                         re_sent_mails.append(sent_message)
 
