@@ -44,7 +44,7 @@ def app_api_status_updater(event, context=None):
     slack = Slack()
     labelControl = LabelControl()
 
-    # 10분이내 업데이트된 status 데이터 취득
+    # 20분이내 업데이트된 status 데이터 취득
     status_data = AccessService.select_status_in_x_min()
 
     updated_data = []
