@@ -6,6 +6,7 @@ from operator import itemgetter
 import os
 import sys
 from mysql.connector.errors import *
+from googleapiclient.errors import HttpError
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 api_root = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(project_root)
@@ -84,9 +85,13 @@ def app_api_status_updater(event, context=None):
                 slack.update_post(CHANNEL_ID, MSG_TYPE['BLOCK'], update_msg, slack_thread_id)
 
             # update gmail label
-            mail_labels = check_label(gmail_msg_id=gmail_msg_id)
-            labelControl.remove_label(gmail_msg_id=gmail_msg_id,remove_label_ids=mail_labels)
-            labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[status, progress, pic])
+            # 이미 삭제된 메일에 대해 label 변경 처리시 에러처리
+            try:
+                mail_labels = check_label(gmail_msg_id=gmail_msg_id)
+                labelControl.remove_label(gmail_msg_id=gmail_msg_id,remove_label_ids=mail_labels)
+                labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[status, progress, pic])
+            except HttpError as e:
+                pass
 
             # append data
             updated_data.append({
