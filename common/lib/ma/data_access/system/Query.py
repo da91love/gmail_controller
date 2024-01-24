@@ -151,7 +151,7 @@ class Query():
 
     # INBOX 라벨이 붙지않은 메일 스레드
     sql_select_sent_thread_id = """
-        SELECT m.gmail_thread_id, m.gmail_msg_id, m.t_key, i.receiver_email, i.tiktok_url, cs.status, m.created_at
+        SELECT m.gmail_thread_id, m.gmail_msg_id, m.t_key, i.receiver_email, i.tiktok_url, cs.status, pi.pic, m.created_at
         FROM (
 			SELECT DISTINCT t1.*
 			FROM mail_contact t1
@@ -160,6 +160,7 @@ class Query():
 		) m
         JOIN infl_contact_info_master i ON m.t_key = i.t_key
         JOIN contact_status cs ON cs.gmail_thread_id = m.gmail_thread_id
+        JOIN person_in_charge pi ON pi.t_key = m.t_key
     """
 
     sql_select_mail_contact = """
