@@ -74,8 +74,41 @@ def app_api_gmail_converting_sender(event, context=None):
         # get old t_key
         old_gmail_thread_id = old_thread_id_by_tkey[t_key][0]['gmail_thread_id']
 
+        # status
+        ## 기존꺼 삭제
+        AccessService.delete_temp_status(old_gmail_thread_id=old_gmail_thread_id)
+        ## 새로운거 없으면 추가
+        contact_status = AccessService.select_contacts_status(gmail_thread_id=gmail_thread_id)
+        if len(contact_status) < 1:
+            AccessService.insert_contact_status(
+                gmail_thread_id=gmail_thread_id,
+                status='open',
+                progress='negotiating'
+            )
+
+        # update slack
+        AccessService.update_slack_thread_id(
+            new_gmail_thread_id=gmail_thread_id,
+            old_gmail_thread_id=old_gmail_thread_id
+        )
+
+        # update mail contents
+        AccessService.update_gmail_mail_contents_thread_id(
+            new_gmail_thread_id=gmail_thread_id,
+            old_gmail_thread_id=old_gmail_thread_id
+        )
+
+        # update mail contact
+        AccessService.update_gmail_mail_contact_thread_id(
+            new_gmail_thread_id=gmail_thread_id,
+            old_gmail_thread_id=old_gmail_thread_id
+        )
+
         # modify label
-        labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[STATUS['OPEN'], PROGRESS['NEGOTIATING'], pic])
+        labelControl.add_label(
+            gmail_msg_id=gmail_msg_id,
+            add_label_names=[STATUS['OPEN'], PROGRESS['NEGOTIATING'], pic]
+        )
 
         # insert to contact db
         AccessService.insert_contact_history(
@@ -84,18 +117,6 @@ def app_api_gmail_converting_sender(event, context=None):
             gmail_label_id='SENT',
             t_key=t_key,
             created_at=formatted_datetime
-        )
-
-        # update status db
-        AccessService.update_gmail_contact_status_thread_id(
-            new_gmail_thread_id=gmail_thread_id,
-            old_gmail_thread_id=old_gmail_thread_id,
-        )
-
-        # update slack db
-        AccessService.update_slack_thread_id(
-            new_gmail_thread_id=gmail_thread_id,
-            old_gmail_thread_id=old_gmail_thread_id,
         )
 
         # append result

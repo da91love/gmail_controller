@@ -1,4 +1,12 @@
 class Query():
+    sql_delete_temp = """
+        DELETE FROM contact_status where gmail_thread_id='{old_gmail_thread_id}';
+    """
+
+    sql_temp = """
+        SELECT * FROM mail_contact 
+    """
+
     sql_update_mail_contents_thread_id = """
         UPDATE mail_contents SET gmail_thread_id = '{new_gmail_thread_id}'
         WHERE gmail_thread_id = '{old_gmail_thread_id}'

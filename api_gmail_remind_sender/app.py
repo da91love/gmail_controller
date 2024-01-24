@@ -107,16 +107,14 @@ def app_api_gmail_remind_sender(event, context=None):
                                 # modify label
                                 labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[STATUS['OPEN'], PROGRESS['NEGOTIATING'], pic])
 
-                                # update existing old thread_id
-                                AccessService.update_gmail_mail_contact_thread_id(
-                                    new_gmail_thread_id=new_gmail_thread_id,
-                                    old_gmail_thread_id=gmail_thread_id
-                                )
+                                # update status
                                 AccessService.update_gmail_contact_status_thread_id(
                                     new_gmail_thread_id=new_gmail_thread_id,
                                     old_gmail_thread_id=gmail_thread_id
                                 )
-                                AccessService.update_gmail_mail_contents_thread_id(
+
+                                # update contact
+                                AccessService.update_gmail_mail_contact_thread_id(
                                     new_gmail_thread_id=new_gmail_thread_id,
                                     old_gmail_thread_id=gmail_thread_id
                                 )
