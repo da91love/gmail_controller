@@ -30,8 +30,6 @@ config = get_config()
 # get config data
 # s3_bucket_name = config['S3']['s3_bucket_name']
 
-
-
 # 과거에 답장온 회수가 1회 이상이고, status가 open인 대상에게 메일 변경 안내 메일 송신
 all_contact = AccessService.select_temp()
 contact_history_by_group = _.group_by(all_contact, 't_key')
@@ -70,5 +68,3 @@ for t_key in contact_history_by_group:
 
             loop += 1
             print(loop)
-
-

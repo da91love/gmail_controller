@@ -57,8 +57,9 @@ def app_api_status_updater(event, context=None):
             gmail_thread_id = sd['gmail_thread_id']
 
             # gmail 및 slack 공통 데이터 미리 취득
+            ## gmail_msg_id는 가장 최근 msg_id를 가져와야 하므로 contact_data[-1]
             contact_data = AccessService.select_contacts(gmail_thread_id=gmail_thread_id)
-            gmail_msg_id, t_key = itemgetter('gmail_msg_id', 't_key')(contact_data[0])
+            gmail_msg_id, t_key = itemgetter('gmail_msg_id', 't_key')(contact_data[-1])
 
             slack_need_info = AccessService.select_slack_need_info(t_key=t_key)[0]
             author_unique_id, receiver_email, tiktok_url, pic = itemgetter('author_unique_id', 'receiver_email', 'tiktok_url', 'pic')(slack_need_info)
