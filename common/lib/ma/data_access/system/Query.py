@@ -1,4 +1,79 @@
 class Query():
+    sql_delete_temp = """
+        DELETE FROM contact_status where gmail_thread_id='{old_gmail_thread_id}';
+    """
+
+    sql_temp = """
+        SELECT * FROM mail_contact 
+    """
+
+    sql_select_infl_info_by_email = """
+        SELECT *
+        FROM infl_contact_info_master
+        WHERE receiver_email = '{receiver_email}'
+    """
+
+    sql_update_mail_contents_thread_id = """
+        UPDATE mail_contents SET gmail_thread_id = '{new_gmail_thread_id}'
+        WHERE gmail_thread_id = '{old_gmail_thread_id}'
+    """
+
+    sql_update_mail_contact_thread_id = """
+        UPDATE mail_contact SET gmail_thread_id = '{new_gmail_thread_id}'
+        WHERE gmail_thread_id = '{old_gmail_thread_id}'
+    """
+    # sql_update_mail_contact_thread_id = """
+    #     UPDATE mail_contact SET gmail_thread_id = '{new_gmail_thread_id}', gmail_msg_id = '{new_gmail_thread_id}'
+    #     WHERE gmail_thread_id = '{old_gmail_thread_id}'
+    # """
+
+    sql_update_contact_status_thread_id = """
+        UPDATE contact_status SET gmail_thread_id = '{new_gmail_thread_id}'
+        WHERE gmail_thread_id = '{old_gmail_thread_id}'
+    """
+
+    sql_update_slack_thread_id = """
+        UPDATE slack_thread_history SET gmail_thread_id = '{new_gmail_thread_id}'
+        WHERE gmail_thread_id = '{old_gmail_thread_id}'
+    """
+
+    sql_update_delivery_master = """
+        UPDATE delivery_info_master SET delivery_status = '{delivery_status}'
+        WHERE order_id = '{order_id}' AND invoice_id = '{invoice_id}';
+    """
+
+    sql_select_latest_thread_id_by_tkey= """
+        SELECT t1.t_key, t1.gmail_thread_id
+        FROM mail_contact t1
+        JOIN (
+            SELECT t_key, MAX(created_at) AS max_created_at
+            FROM mail_contact
+            GROUP BY t_key
+        ) t2 ON t1.t_key = t2.t_key AND t1.created_at = t2.max_created_at
+    """
+
+    sql_select_contact_num_by_tkey= """
+        SELECT
+            t_key,
+            COUNT(DISTINCT gmail_thread_id) AS thread_count
+        FROM mail_contact
+        GROUP BY t_key;
+    """
+
+    sql_select_past_on_contact_infl= """
+        SELECT mc.t_key, ic.author_unique_id, ic.receiver_email, pic.pic
+        FROM (
+            SELECT *
+            FROM mail_contact
+            WHERE gmail_label_id = 'INBOX' AND created_at < '{tg_date}'
+            GROUP BY gmail_thread_id
+        ) mc
+        JOIN contact_status cs ON cs.gmail_thread_id = mc.gmail_thread_id
+        JOIN infl_contact_info_master ic ON ic.t_key = mc.t_key
+        JOIN person_in_charge pic ON pic.t_key = mc.t_key
+        WHERE cs.status = 'open'
+    """
+
     sql_select_infl_first_contact= """
         SELECT m.*, pi.pic
         FROM (
@@ -13,11 +88,6 @@ class Query():
         SELECT *
         FROM delivery_tracking_history
         WHERE invoice_id = '{invoice_id}'
-    """
-
-    sql_update_delivery_master = """
-        UPDATE delivery_info_master SET delivery_status = '{delivery_status}'
-        WHERE order_id = '{order_id}' AND invoice_id = '{invoice_id}';
     """
 
     sql_insert_delivery_history = """
@@ -56,7 +126,7 @@ class Query():
     sql_select_status_in_x_min = """
         SELECT *
         FROM contact_status
-        WHERE TIMESTAMPDIFF(MINUTE, created_at, NOW()) <= 10;
+        WHERE TIMESTAMPDIFF(MINUTE, created_at, NOW()) <= 20;
     """
 
     sql_select_pic = """
@@ -95,7 +165,7 @@ class Query():
 
     # INBOX 라벨이 붙지않은 메일 스레드
     sql_select_sent_thread_id = """
-        SELECT m.gmail_thread_id, m.gmail_msg_id, m.t_key, i.receiver_email, i.tiktok_url, cs.status, m.created_at
+        SELECT m.gmail_thread_id, m.gmail_msg_id, m.t_key, i.receiver_email, i.tiktok_url, cs.status, pi.pic, m.created_at
         FROM (
 			SELECT DISTINCT t1.*
 			FROM mail_contact t1
@@ -104,6 +174,7 @@ class Query():
 		) m
         JOIN infl_contact_info_master i ON m.t_key = i.t_key
         JOIN contact_status cs ON cs.gmail_thread_id = m.gmail_thread_id
+        JOIN person_in_charge pi ON pi.t_key = m.t_key
     """
 
     sql_select_mail_contact = """
@@ -136,12 +207,3 @@ class Query():
         VALUES('{gmail_thread_id}', '{author_unique_id}', '{receiver_email}', '{tiktok_url}')
     """
 
-    sql_update_mail_contact_thread_id = """
-        UPDATE mail_contact SET gmail_thread_id = '{new_gmail_thread_id}', gmail_msg_id = '{new_gmail_thread_id}'
-        WHERE gmail_thread_id = '{old_gmail_thread_id}'
-    """
-
-    sql_update_contact_status_thread_id = """
-        UPDATE contact_status SET gmail_thread_id = '{new_gmail_thread_id}'
-        WHERE gmail_thread_id = '{old_gmail_thread_id}'
-    """

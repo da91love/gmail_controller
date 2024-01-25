@@ -31,7 +31,7 @@ config = get_config()
 # s3_bucket_name = config['S3']['s3_bucket_name']
 
 @AppBase
-def app_api_gmail_sender(event, context=None):
+def app_api_gmail_converting_sender(event, context=None):
     """
     lambda_handler : This functions will be implemented in lambda
     :param event: (dict)
@@ -41,7 +41,9 @@ def app_api_gmail_sender(event, context=None):
 
     # Get data from API Gateway
     data = event
-    tg_infls = AccessService.select_infl_first_contact()
+    # 과거에 답장온 회수가 1회 이상이고, status가 open인 대상에게 메일 변경 안내 메일 송신
+    tg_infls = AccessService.select_past_on_contact_infl(tg_date='2024-01-23')
+    old_thread_id_by_tkey = _.group_by(AccessService.select_latest_thread_id_by_tkey(), "t_key")
 
     # declare instance
     labelControl = LabelControl()
@@ -69,8 +71,44 @@ def app_api_gmail_sender(event, context=None):
         gmail_msg_id = sent_message.get("id")
         formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
+        # get old t_key
+        old_gmail_thread_id = old_thread_id_by_tkey[t_key][0]['gmail_thread_id']
+
+        # status
+        ## 기존꺼 삭제
+        AccessService.delete_temp_status(old_gmail_thread_id=old_gmail_thread_id)
+        ## 새로운거 없으면 추가
+        contact_status = AccessService.select_contacts_status(gmail_thread_id=gmail_thread_id)
+        if len(contact_status) < 1:
+            AccessService.insert_contact_status(
+                gmail_thread_id=gmail_thread_id,
+                status='open',
+                progress='negotiating'
+            )
+
+        # update slack
+        AccessService.update_slack_thread_id(
+            new_gmail_thread_id=gmail_thread_id,
+            old_gmail_thread_id=old_gmail_thread_id
+        )
+
+        # update mail contents
+        AccessService.update_gmail_mail_contents_thread_id(
+            new_gmail_thread_id=gmail_thread_id,
+            old_gmail_thread_id=old_gmail_thread_id
+        )
+
+        # update mail contact
+        AccessService.update_gmail_mail_contact_thread_id(
+            new_gmail_thread_id=gmail_thread_id,
+            old_gmail_thread_id=old_gmail_thread_id
+        )
+
         # modify label
-        labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[STATUS['OPEN'], PROGRESS['NEGOTIATING'], pic])
+        labelControl.add_label(
+            gmail_msg_id=gmail_msg_id,
+            add_label_names=[STATUS['OPEN'], PROGRESS['NEGOTIATING'], pic]
+        )
 
         # insert to contact db
         AccessService.insert_contact_history(
@@ -79,13 +117,6 @@ def app_api_gmail_sender(event, context=None):
             gmail_label_id='SENT',
             t_key=t_key,
             created_at=formatted_datetime
-        )
-
-        # insert to status db
-        AccessService.insert_contact_status(
-            gmail_thread_id=gmail_thread_id,
-            status=STATUS['OPEN'],
-            progress=PROGRESS['NEGOTIATING'],
         )
 
         # append result

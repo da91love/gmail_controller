@@ -4,10 +4,161 @@ from .Query import Query
 
 
 class AccessService(AccessServiceBase):
-
+    
     """
     All function's name should start with below 4 verbs: select insert update delete
     """
+
+    @staticmethod
+    def select_infl_info_by_email(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_select_infl_info_by_email,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+    @staticmethod
+    def delete_temp_status(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_delete_temp,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+    @staticmethod
+    def select_temp(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_temp,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+    @staticmethod
+    def update_gmail_mail_contents_thread_id(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_update_mail_contents_thread_id,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+    @staticmethod
+    def update_delivery_master(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_update_delivery_master,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+    @staticmethod
+    def update_gmail_contact_status_thread_id(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_update_contact_status_thread_id,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+    @staticmethod
+    def update_slack_thread_id(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_update_slack_thread_id,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+    @staticmethod
+    def update_gmail_mail_contact_thread_id(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_update_mail_contact_thread_id,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+    @staticmethod
+    def select_latest_thread_id_by_tkey(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_select_latest_thread_id_by_tkey,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+    @staticmethod
+    def select_contact_num_by_tkey(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_select_contact_num_by_tkey,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+    @staticmethod
+    def select_past_on_contact_infl(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_select_past_on_contact_infl,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
     @staticmethod
     def select_infl_first_contact(**bindings):
         """
@@ -35,19 +186,7 @@ class AccessService(AccessServiceBase):
         except Exception as e:
             raise e
 
-    @staticmethod
-    def update_delivery_master(**bindings):
-        """
-        :param bindings: (tuple)
-        :return: (list) sql query result
-        """
-        try:
-            return AccessServiceBase.execute_sql(
-                sql=Query.sql_update_delivery_master,
-                bindings=bindings)
 
-        except Exception as e:
-            raise e
     @staticmethod
     def insert_delivery_history(**bindings):
         """
@@ -101,32 +240,7 @@ class AccessService(AccessServiceBase):
 
         except Exception as e:
             raise e
-    @staticmethod
-    def update_gmail_contact_status_thread_id(**bindings):
-        """
-        :param bindings: (tuple)
-        :return: (list) sql query result
-        """
-        try:
-            return AccessServiceBase.execute_sql(
-                sql=Query.sql_update_contact_status_thread_id,
-                bindings=bindings)
 
-        except Exception as e:
-            raise e
-    @staticmethod
-    def update_gmail_mail_contact_thread_id(**bindings):
-        """
-        :param bindings: (tuple)
-        :return: (list) sql query result
-        """
-        try:
-            return AccessServiceBase.execute_sql(
-                sql=Query.sql_update_mail_contact_thread_id,
-                bindings=bindings)
-
-        except Exception as e:
-            raise e
     @staticmethod
     def select_status_in_x_min(**bindings):
         """

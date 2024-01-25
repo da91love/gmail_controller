@@ -2,7 +2,7 @@ mail_subject = '🌟Elevate Your Glow: Paid Collaboration Offer with Eqqualberry
 mail_body = '''
 <div>Hi {},</div>
 <br/>
-<div>I trust this message finds you in good spirits. My name is Anna, and I represent Eqqualberry, a distinguished Korean Skincare brand that places a strong emphasis on balanced skincare, delving into the depth of quality and user comfort. Your remarkable TikTok account recently caught our eye, and we couldn't help but be captivated by your genuine passion for beauty products. 🌈</div>
+<div>I trust this message finds you in good spirits. My name is Jennifer, and I represent Eqqualberry, a distinguished Korean Skincare brand that places a strong emphasis on balanced skincare, delving into the depth of quality and user comfort. Your remarkable TikTok account recently caught our eye, and we couldn't help but be captivated by your genuine passion for beauty products. 🌈</div>
 <br/>
 <div>We're thrilled to introduce you to our standout product, the Eqqualberry Swimming Pool Toner—a skincare gem meticulously crafted with the power of Protease for delicate exfoliation and a blend of five antioxidant-rich berries paired with hyaluronic acid for deep hydration. Designed for sensitive, dry, or combination skin, the results are nothing short of radiant. ✨</div>
 <br/>
@@ -19,7 +19,7 @@ mail_body = '''
 <div>Let us know if this opportunity resonates with you. Looking forward to the possibility of creating something remarkable together!</div>
 <div>Please check out <b>"#eqqualberrySwimmingPoolToner"</b> in Amazon for product details😉</div>
 <br/>
-<div>Warmest regards, 🌷Anna</div>
+<div>Warmest regards, 🌷Jennifer</div>
 
 <span>&nbsp;</span>
 <div>Tiktok: @eqqualberry_us</div>

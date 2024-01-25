@@ -6,6 +6,7 @@ from operator import itemgetter
 import os
 import sys
 from mysql.connector.errors import *
+from googleapiclient.errors import HttpError
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 api_root = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(project_root)
@@ -44,7 +45,7 @@ def app_api_status_updater(event, context=None):
     slack = Slack()
     labelControl = LabelControl()
 
-    # 10분이내 업데이트된 status 데이터 취득
+    # 20분이내 업데이트된 status 데이터 취득
     status_data = AccessService.select_status_in_x_min()
 
     updated_data = []
@@ -56,8 +57,9 @@ def app_api_status_updater(event, context=None):
             gmail_thread_id = sd['gmail_thread_id']
 
             # gmail 및 slack 공통 데이터 미리 취득
+            ## gmail_msg_id는 가장 최근 msg_id를 가져와야 하므로 contact_data[-1]
             contact_data = AccessService.select_contacts(gmail_thread_id=gmail_thread_id)
-            gmail_msg_id, t_key = itemgetter('gmail_msg_id', 't_key')(contact_data[0])
+            gmail_msg_id, t_key = itemgetter('gmail_msg_id', 't_key')(contact_data[-1])
 
             slack_need_info = AccessService.select_slack_need_info(t_key=t_key)[0]
             author_unique_id, receiver_email, tiktok_url, pic = itemgetter('author_unique_id', 'receiver_email', 'tiktok_url', 'pic')(slack_need_info)
@@ -84,9 +86,13 @@ def app_api_status_updater(event, context=None):
                 slack.update_post(CHANNEL_ID, MSG_TYPE['BLOCK'], update_msg, slack_thread_id)
 
             # update gmail label
-            mail_labels = check_label(gmail_msg_id=gmail_msg_id)
-            labelControl.remove_label(gmail_msg_id=gmail_msg_id,remove_label_ids=mail_labels)
-            labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[status, progress, pic])
+            # 이미 삭제된 메일에 대해 label 변경 처리시 에러처리
+            try:
+                mail_labels = check_label(gmail_msg_id=gmail_msg_id)
+                labelControl.remove_label(gmail_msg_id=gmail_msg_id,remove_label_ids=mail_labels)
+                labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[status, progress, pic])
+            except HttpError as e:
+                pass
 
             # append data
             updated_data.append({
