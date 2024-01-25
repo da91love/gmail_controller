@@ -70,7 +70,7 @@ def check_emails(label_id):
                                         new_arrival_mails.append(result)
 
                     # SENT 일 시 이미 쓰레드를 타고 있기 때문에 abnormal thread handling 필요없음
-                    elif len(contact_history) > 0 and label_id == 'INBOX':
+                    elif len(contact_history) == 0 and label_id == 'INBOX':
                         mails_in_thread = service.users().threads().get(userId='me', id=gmail_thread_id).execute()
                         msgs_in_thread = mails_in_thread.get('messages')
 

@@ -4,6 +4,7 @@ import csv
 import uuid
 from datetime import datetime
 from operator import itemgetter
+import pydash as _
 import os
 import sys
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,6 +42,7 @@ def app_api_gmail_sender(event, context=None):
     # Get data from API Gateway
     data = event
     tg_infls = AccessService.select_infl_first_contact()
+    tg_infls = _.filter_(tg_infls, {'receiver_email': 'daseul.kim@boosters.kr'})
 
     # declare instance
     labelControl = LabelControl()
