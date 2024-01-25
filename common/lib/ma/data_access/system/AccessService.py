@@ -10,6 +10,20 @@ class AccessService(AccessServiceBase):
     """
 
     @staticmethod
+    def select_infl_info_by_email(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_select_infl_info_by_email,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+    @staticmethod
     def delete_temp_status(**bindings):
         """
         :param bindings: (tuple)
