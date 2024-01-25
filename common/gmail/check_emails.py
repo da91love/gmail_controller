@@ -43,9 +43,14 @@ def check_emails(label_id):
                         mails_in_thread = service.users().threads().get(userId='me', id=gmail_thread_id).execute()
                         msgs_in_thread = mails_in_thread.get('messages')
 
-                        # mail thread 개수가 db 內 컨택 개수보다 많을 시 새로운 메일이 도착했다는 의미의 조건식
-                        if len(msgs_in_thread) > len(contact_history):
-                            msg_ids_fr_db = [ i['gmail_msg_id'] for i in contact_history]
+                        msg_ids_in_db = [ch.get('gmail_msg_id') for ch in contact_history]
+                        msg_ids_in_srv = [ch.get('id') for ch in msgs_in_thread]
+
+                        diff_db_srv = _.difference(msg_ids_in_srv, msg_ids_in_db)
+
+                        # 서버에 디비에 저장되지 않은 메세지 ID 존재 시
+                        if len(diff_db_srv) >= 1:
+                            msg_ids_fr_db = [i['gmail_msg_id'] for i in contact_history]
 
                             for msg_in_thread in msgs_in_thread:
                                 # db에는 등록되지 않은 신규 msg id 필터링
