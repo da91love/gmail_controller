@@ -7,6 +7,12 @@ class Query():
         SELECT * FROM mail_contact 
     """
 
+    sql_select_infl_info_by_email = """
+        SELECT *
+        FROM infl_contact_info_master
+        WHERE receiver_email = '{receiver_email}'
+    """
+
     sql_update_mail_contents_thread_id = """
         UPDATE mail_contents SET gmail_thread_id = '{new_gmail_thread_id}'
         WHERE gmail_thread_id = '{old_gmail_thread_id}'

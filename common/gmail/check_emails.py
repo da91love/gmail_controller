@@ -9,6 +9,7 @@ from common.lib.ma.data_access.system.AccessService import AccessService
 from common.gmail.Authenticate import Authenticate
 from common.util.DateUtil import DateUtil
 from common.const.EMAIL import *
+from common.const.STATUS import *
 from common.util.LogicUtil import LogicUtil
 from common.gmail.LabelControl import LabelControl
 
@@ -87,10 +88,11 @@ def check_emails(label_id):
                         if sender_in_mail_thread == SENDER_EMAIL:
                             # 기존 thread id 검색
                             old_gmail_thread_info = AccessService.select_thread_id_by_email(receiver_email=receiver_in_mail_thread)
+                            infl_contact_info = AccessService.select_infl_info_by_email(receiver_email=receiver_in_mail_thread)
 
                             # old_gmail_thread_info 0일 경우: db에서 이메일 검색이 안될 시 우리가 컨택한적 없는 외부 컨택이므로 무시 혹은 시스템 구축 전 수동으로 보낸 메일이므로 무시
                             # old_gmail_thread_info 1보다 클 경우: 정상적인 플로우라면 old_gmail_thread_info 한 건만 검색되어야 하는데 복수건 검색될 경우 update시 primary에러 발생하므로 무시
-                            if len(old_gmail_thread_info) == 1:
+                            if len(old_gmail_thread_info) >= 1:
                                 old_gmail_thread_id, t_key = itemgetter('gmail_thread_id', 't_key')(old_gmail_thread_info[0])
 
                                 # 기존 thread id update
@@ -127,6 +129,38 @@ def check_emails(label_id):
 
                                         # put in into result
                                         new_arrival_mails.append(result)
+
+                            # contact DB에서 검색 안된다 하더라도 우리 일리스트에 존재하면 검증된 메일이므로 핸들링
+                            elif len(old_gmail_thread_info) < 1 and len(infl_contact_info) == 1:
+                                t_key = itemgetter('t_key')(infl_contact_info[0])
+                                gmail_thread_id = msgs_in_thread[0].get('threadId')
+
+                                # DB 신규 등록
+                                AccessService.insert_contact_status(
+                                    gmail_thread_id=gmail_thread_id,
+                                    status=STATUS['OPEN'],
+                                    progress=PROGRESS['NEGOTIATING']
+                                )
+
+                                for msg_in_thread in msgs_in_thread:
+                                    if label_id in msg_in_thread['labelIds']:
+                                        new_gmail_msg_id = msg_in_thread.get('id')
+                                        created_at = DateUtil.format_milliseconds(msg_in_thread.get('internalDate'), '%Y-%m-%d %H:%M:%S')
+                                        contents = msg_in_thread.get('snippet')
+
+                                        result = {
+                                            'gmail_thread_id': gmail_thread_id,
+                                            'gmail_msg_id': new_gmail_msg_id,
+                                            'gmail_label_id': label_id,
+                                            't_key': t_key,
+                                            'contents': contents,
+                                            'created_at': created_at
+                                        }
+
+                                        # put in into result
+                                        new_arrival_mails.append(result)
+
+
 
                 except IndexError:
                     logger.error('error in gmail thread check')
