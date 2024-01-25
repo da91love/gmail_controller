@@ -68,7 +68,7 @@ def app_api_gmail_remind_sender(event, context=None):
         sent_num = len(cnts_grouped_by_tid[gmail_thread_id])
 
         # remind 메일 송신은 300회로 한정
-        if remind_mails_num < 10:
+        if remind_mails_num < 300:
             # 이메일 전환으로 이미 보낸 이력이 있을 경우 remind 보내지 않음
             if not is_cnt_bf:
                 # only send remind status open
