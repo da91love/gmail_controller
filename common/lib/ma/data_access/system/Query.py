@@ -7,6 +7,10 @@ class Query():
         SELECT * FROM mail_contact 
     """
 
+    sql_select_post_info = """
+        SELECT * FROM post_info_master
+    """
+
     sql_select_infl_info_by_email = """
         SELECT *
         FROM infl_contact_info_master
