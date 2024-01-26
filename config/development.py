@@ -13,6 +13,10 @@ config = {
                 'ssl_disabled': True
             }
     },
+    'TIKAPI': {
+        'api_key': 'enee9qPIfAc0B3INftVKZCMnWvOPqivueTzFM87d4mRmNr1e',
+        'account_key': 'lcg6taQkMqXHP6CntOnH67qxEAoiaMJXLKu5kREdp9GXzerx'
+    },
     'AMZN': {
         'refresh_token': 'Atzr|IwEBIFC_OYwgw4WFb0cNDvHmLXE-Wi2Y3o-rKn86HwqT3cOfHVULKVNHqMTp88B5tZXGsEN0fQb06EgBHX2cxD_WOxSeETEboHU3CxIsboPxgtmbHOT3_NPCmTjLDBPPCNl9S9q61fuTxkixSa0EeVkjdvjQwWt82FAkEr5RdGf6kp3w1r1fs-xlr2xZpBvl90hh4_pQx6qbTxLrgs8QTiTXd_MR2BnP6QUbEV64MdE4-JIRNefUT1yK26U_e9zbKYWDkQTmtFVRisVD_dndQMziPZPOuGkwca1S9xf0tjvP670A8bQnC7GRzQbfRf9G962_O5MtPXbPdTdKFsyFXz---_Sp2XciGa4DAYlZ5cBJ_qmxQA',
         'client_id': 'amzn1.application-oa2-client.a143a078306b4e65a2e22722b9c98294',
