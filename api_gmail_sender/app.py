@@ -56,7 +56,7 @@ def app_api_gmail_sender(event, context=None):
         # format mail body
         # 1차 시기에 송신한 메일들 별도로 처리하기 위한 로직 추가
         msg_subject = mail_subject_4_old if 'old' in t_key else mail_subject
-        msg_body = mail_body.format(mail_body_4_old) if 'old' in t_key else mail_body.format(mail_body)
+        msg_body = mail_body_4_old.format(author_unique_id) if 'old' in t_key else mail_body.format(author_unique_id)
 
         # send gmail
         sent_message = send_email(
