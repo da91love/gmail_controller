@@ -7,6 +7,15 @@ class Query():
         SELECT * FROM mail_contact 
     """
 
+    sql_select_posting_history = """
+        SELECT * FROM posting_history
+    """
+
+    sql_insert_posting_history = """
+        INSERT INTO posting_history (post_id, posted_time, collect_count, comment_count, digg_count, play_count, share_count, tags) 
+        VALUES('{post_id}', '{posted_time}', '{collect_count}', '{comment_count}', '{digg_count}', '{play_count}', '{share_count}', '{tags}')
+    """
+
     sql_select_post_info = """
         SELECT * FROM post_info_master
     """

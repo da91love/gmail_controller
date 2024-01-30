@@ -12,6 +12,7 @@ def get_post_stat(id_set: set):
     User = api.user(accountKey=account_key)
 
     id = id_set[0]
+    logger.info('get post info via Tikapi done: ' + str(id))
 
     try:
         response = User.posts.video(id=id)
