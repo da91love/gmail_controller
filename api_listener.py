@@ -12,6 +12,7 @@ from api_gmail_remind_sender.app import app_api_gmail_remind_sender as send_remi
 from api_status_updater.app import app_api_status_updater as update_status
 from api_delivery_tracker.app import app_api_delivery_tracker as track_delivery
 from api_gmail_converting_sender.app import app_api_gmail_converting_sender as send_converting_email
+from api_post_stat_tracker.app import app_api_post_stat_tracker as track_post_stat
 
 
 os.path.dirname(sys.modules['__main__'].__file__)
@@ -26,7 +27,15 @@ cors = CORS(api)
 # This flask API is only used for the development stage.
 # DO NOT deploy on production
 """
+@api.route('/track-post-stat', methods=['get'])  # TODO : Insert any URL
+def send_converting_email_get():
+    # Get body, headers
+    # body = request.json
+    # headers = request.headers
 
+    result = track_post_stat(None)
+
+    return make_response(jsonify(result))
 @api.route('/send-converting-mail', methods=['get'])  # TODO : Insert any URL
 def send_converting_email_post():
     # Get body, headers

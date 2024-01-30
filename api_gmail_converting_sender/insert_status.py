@@ -38,9 +38,10 @@ loop = 0
 for thread_id in contact_history_by_group:
     # status
     ## 기존꺼 삭제
-    AccessService.delete_temp_status(old_gmail_thread_id=thread_id)
-    ## 새로운거 없으면 추가
-    AccessService.insert_contact_status(gmail_thread_id=thread_id, status='open', progress='negotiating')
+    status_info = AccessService.select_contacts_status(gmail_thread_id=thread_id)
+    if len(status_info) == 0:
+        ## 새로운거 없으면 추가
+        AccessService.insert_contact_status(gmail_thread_id=thread_id, status='open', progress='negotiating')
 
-    loop += 1
-    print(loop)
+        loop += 1
+        print(loop)
