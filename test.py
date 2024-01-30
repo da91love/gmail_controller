@@ -1,43 +1,31 @@
-# import boto3
-from multiprocessing import Pool, Queue, Manager
-import os
-import sys
-project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-api_root = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(project_root)
-sys.path.append(api_root)
-
-
-from api_post_stat_tracker.get_post_stat import get_post_stat
+from tikapi import TikAPI, ValidationException, ResponseException
 from common.util.get_config import get_config
 from common.util.logger_get import get_logger
-from common.lib.ma.data_access.system.AccessService import AccessService
 
-# Create instance
 config = get_config()
 logger = get_logger()
 
-if __name__ == "__main__":
-    posts_info = [i['post_id'] for i in AccessService.select_post_info()]
 
-    with Manager() as manager:
-        # Create a multiprocessing pool with a specified number of processes
-        num_processes = 10  # Adjust this based on your system's capabilities
-        pool = Pool(processes=num_processes)
+api_key = config['TIKAPI']['api_key']
+account_key = config['TIKAPI']['account_key']
+api = TikAPI(api_key)
+User = api.user(accountKey=account_key)
 
-        # multi process sentiments
-        try:
-            # Use the pool to send requests to the API URLs
-            args = [(i,) for i in posts_info]
-            entity_results = pool.map(get_post_stat, args)
-        except Exception as e:
-            print("Exception in worker processes:", e)
-        finally:
-            # Close the pool and wait for the worker processes to finish
-            pool.close()
-            pool.join()
+try:
+    response = api.public.search(
+        category="general",
+        query="cosrx",
+        country='us'
+    )
 
-    # Get result from manager
-    sentiment_results = list(entity_results)
+    while(response):
+        res = response.json()
+        nextCursor = response.json().get('nextCursor')
+        print("Getting next items ", nextCursor)
+        response = response.next_items()
 
-    print(sentiment_results)
+except ValidationException as e:
+    print(e, e.field)
+
+except ResponseException as e:
+    print(e, e.response.status_code)
