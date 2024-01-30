@@ -17,8 +17,8 @@ from common.type.Errors import *
 from common.util.get_config import get_config
 from common.gmail.send_email import send_email
 from common.gmail.LabelControl import LabelControl
-from api_gmail_sender.type.ResType import ResType
-from api_gmail_sender.const.mail_info import *
+from api_gmail_converting_sender.type.ResType import ResType
+from api_gmail_converting_sender.const.mail_info import *
 from common.const.EMAIL import *
 from common.const.STATUS import *
 
@@ -42,7 +42,7 @@ def app_api_gmail_converting_sender(event, context=None):
     # Get data from API Gateway
     data = event
     # 과거에 답장온 회수가 1회 이상이고, status가 open인 대상에게 메일 변경 안내 메일 송신
-    tg_infls = AccessService.select_past_on_contact_infl(tg_date='2024-01-23')
+    tg_infls = AccessService.select_past_on_contact_infl(tg_date='2024-01-28')
     old_thread_id_by_tkey = _.group_by(AccessService.select_latest_thread_id_by_tkey(), "t_key")
 
     # declare instance
@@ -75,6 +75,9 @@ def app_api_gmail_converting_sender(event, context=None):
         old_gmail_thread_id = old_thread_id_by_tkey[t_key][0]['gmail_thread_id']
 
         # status
+        ## 기존 status 데이터 취득
+        old_status_info = AccessService.select_contacts_status(gmail_thread_id=old_gmail_thread_id)
+        old_status, old_progress = itemgetter('status', 'progress')(old_status_info[0])
         ## 기존꺼 삭제
         AccessService.delete_temp_status(old_gmail_thread_id=old_gmail_thread_id)
         ## 새로운거 없으면 추가
@@ -82,8 +85,8 @@ def app_api_gmail_converting_sender(event, context=None):
         if len(contact_status) < 1:
             AccessService.insert_contact_status(
                 gmail_thread_id=gmail_thread_id,
-                status='open',
-                progress='negotiating'
+                status=old_status,
+                progress=old_progress
             )
 
         # update slack
@@ -107,7 +110,7 @@ def app_api_gmail_converting_sender(event, context=None):
         # modify label
         labelControl.add_label(
             gmail_msg_id=gmail_msg_id,
-            add_label_names=[STATUS['OPEN'], PROGRESS['NEGOTIATING'], pic]
+            add_label_names=[old_status, old_progress, pic]
         )
 
         # insert to contact db
