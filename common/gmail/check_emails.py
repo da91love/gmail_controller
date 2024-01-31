@@ -63,8 +63,7 @@ def check_emails(label_id):
 
                                         new_gmail_msg_id = msg_in_thread.get('id')
                                         created_at = DateUtil.format_milliseconds(msg_in_thread.get('internalDate'), '%Y-%m-%d %H:%M:%S')
-                                        contents = msg_in_thread.get('snippet')
-                                        contents = EncodingUtil.encode_byte_to_str(msg_in_thread.get('payload').get('body').get('data'))
+                                        contents = get_gmail_contents(msg_in_thread)
                                         t_key = (contact_history[0]).get('t_key')
 
                                         result = {
@@ -125,7 +124,7 @@ def check_emails(label_id):
                                         gmail_msg_id = msg_in_thread.get('id')
                                         created_at = DateUtil.format_milliseconds(msg_in_thread.get('internalDate'),
                                                                                   '%Y-%m-%d %H:%M:%S')
-                                        contents = msg_in_thread.get('snippet')
+                                        contents = get_gmail_contents(msg_in_thread)
 
                                         result = {
                                             'gmail_thread_id': gmail_thread_id,
@@ -155,7 +154,7 @@ def check_emails(label_id):
                                     if label_id in msg_in_thread['labelIds']:
                                         new_gmail_msg_id = msg_in_thread.get('id')
                                         created_at = DateUtil.format_milliseconds(msg_in_thread.get('internalDate'), '%Y-%m-%d %H:%M:%S')
-                                        contents = msg_in_thread.get('snippet')
+                                        contents = get_gmail_contents(msg_in_thread)
 
                                         result = {
                                             'gmail_thread_id': gmail_thread_id,
