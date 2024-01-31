@@ -10,6 +10,10 @@ def get_gmail_contents(mail_thread_obj):
             return StrUtil.clean_mail_body(decoded)
         else:
             return mail_thread_obj.get('snippet')
+
+    except TypeError:
+        return mail_thread_obj.get('snippet')
+
     except Exception as e:
         raise e
 
