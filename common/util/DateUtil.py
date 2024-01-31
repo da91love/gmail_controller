@@ -33,6 +33,20 @@ class DateUtil:
         return formatted_date_time
 
     @staticmethod
+    def ten_digit_2_Ymdhms(ten_digit):
+        # Convert the string to an integer
+        timestamp = int(ten_digit)
+
+        # Convert the Unix timestamp to a datetime object
+        datetime_object = datetime.utcfromtimestamp(timestamp)
+
+        # Format the datetime object as a string in "yyyy-MM-dd hh:mm:ss" format
+        formatted_date_time = datetime_object.strftime('%Y-%m-%d %H:%M:%S')
+
+        # Print the formatted date and time
+        return formatted_date_time
+
+    @staticmethod
     def format_milliseconds(milliseconds, format):
 
         timestamp_milliseconds = float(milliseconds)

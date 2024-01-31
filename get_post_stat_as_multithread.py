@@ -65,23 +65,24 @@ if __name__ == "__main__":
         # TODO: data 비었을 시 errorhandling 필요
         payload = post_stat['data']['itemInfo']['itemStruct']
 
-        post_id = payload['id']
-        posted_time = DateUtil.ten_digit_2_Ymd(payload['createTime'])
-        collect_count = payload['stats']['collectCount']
-        comment_count = payload['stats']['commentCount']
-        digg_count = payload['stats']['diggCount']
-        play_count = payload['stats']['playCount']
-        share_count = payload['stats']['shareCount']
-        tags = ','.join([d['hashtagName'] for d in payload.get('textExtra')]) if payload.get('textExtra') else ''
+        if payload:
+            post_id = payload['id']
+            posted_time = DateUtil.ten_digit_2_Ymdhms(payload['createTime'])
+            collect_count = payload['stats']['collectCount']
+            comment_count = payload['stats']['commentCount']
+            digg_count = payload['stats']['diggCount']
+            play_count = payload['stats']['playCount']
+            share_count = payload['stats']['shareCount']
+            tags = ','.join([d['hashtagName'] for d in payload.get('textExtra')]) if payload.get('textExtra') else ''
 
-        AccessService.insert_posting_history(
-            post_id=post_id,
-            posted_time=posted_time,
-            collect_count=collect_count,
-            comment_count=comment_count,
-            digg_count=digg_count,
-            play_count=play_count,
-            share_count=share_count,
-            tags=tags
-        )
+            AccessService.insert_posting_history(
+                post_id=post_id,
+                posted_time=posted_time,
+                collect_count=collect_count,
+                comment_count=comment_count,
+                digg_count=digg_count,
+                play_count=play_count,
+                share_count=share_count,
+                tags=tags
+            )
 
