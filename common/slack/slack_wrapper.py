@@ -12,6 +12,7 @@ def slack_wrapper(mail_res):
         gmail_thread_id = mail_res.get('gmail_thread_id')
         gmail_msg_id = mail_res.get('gmail_msg_id')
         gmail_label_id = mail_res.get('gmail_label_id')
+        created_at = mail_res.get('created_at')
         t_key = mail_res.get('t_key')
         contents = mail_res.get('contents')
 
@@ -38,7 +39,7 @@ def slack_wrapper(mail_res):
             # 이미 reply 처리된 gmail_msg_id 존재시 pass
             if len(_.filter_(slack_thread_history, {'gmail_msg_id': gmail_msg_id})) == 0:
                 slack_thread_id = slack_thread_history[0]['slack_thread_id']
-                msg = SlackMsgCreator.get_slack_reply_block(gmail_label_id, contents)
+                msg = SlackMsgCreator.get_slack_reply_block(gmail_label_id, created_at, contents)
 
                 update_msg = SlackMsgCreator.get_slack_post_block(tiktok_url, author_unique_id, receiver_email, status, progress, pic, is_reply_done)
                 slack.update_post(CHANNEL_ID, MSG_TYPE['BLOCK'], update_msg, slack_thread_id)
@@ -63,7 +64,7 @@ def slack_wrapper(mail_res):
                 slack_thread_id = slack_res.text
 
                 # create slack reply
-                reply_msg = SlackMsgCreator.get_slack_reply_block(gmail_label_id, contents)
+                reply_msg = SlackMsgCreator.get_slack_reply_block(gmail_label_id, created_at, contents)
                 slack.add_reply(CHANNEL_ID, MSG_TYPE['BLOCK'], reply_msg, slack_thread_id)
 
                 formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
