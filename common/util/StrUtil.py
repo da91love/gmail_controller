@@ -7,4 +7,5 @@ class StrUtil:
         # Use regular expression to remove lines starting with ">"
         remove_quote = re.sub(r'^>.*$', '', text, flags=re.MULTILINE)
         remove = remove_quote.replace('\r', '').replace('\n', '')
-        return remove
+        escaped_value = remove.replace("'", "''")
+        return escaped_value
