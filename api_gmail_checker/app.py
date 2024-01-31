@@ -46,19 +46,19 @@ def app_api_gmail_checker(event, context=None):
     db_inserted_res = []
     for res in mail_check_res:
         try:
+            AccessService.insert_contents(
+                gmail_thread_id=res['gmail_thread_id'],
+                gmail_msg_id=res['gmail_msg_id'],
+                contents=res['contents'],
+                created_at=res['created_at']
+            )
+
             # insert to contact db
             AccessService.insert_contact_history(
                 gmail_thread_id=res['gmail_thread_id'],
                 gmail_msg_id=res['gmail_msg_id'],
                 gmail_label_id=res['gmail_label_id'],
                 t_key=res['t_key'],
-                created_at=res['created_at']
-            )
-
-            AccessService.insert_contents(
-                gmail_thread_id=res['gmail_thread_id'],
-                gmail_msg_id=res['gmail_msg_id'],
-                contents=res['contents'],
                 created_at=res['created_at']
             )
 
