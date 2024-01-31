@@ -61,14 +61,14 @@ def app_api_gmail_remind_sender(event, context=None):
     remind_mails = []
     remind_mails_num = 0
     for latest_sent_contact in latest_sent_contacts:
-        gmail_thread_id, gmail_msg_id, receiver_email, t_key, status, pic, created_at \
-            = itemgetter('gmail_thread_id', 'gmail_msg_id', 'receiver_email', 't_key', 'status', 'pic', 'created_at')(latest_sent_contact)
+        gmail_thread_id, gmail_msg_id, receiver_email, t_key, status, progress, pic, created_at \
+            = itemgetter('gmail_thread_id', 'gmail_msg_id', 'receiver_email', 't_key', 'status', 'progress','pic', 'created_at')(latest_sent_contact)
 
         is_cnt_bf = True if cntc_num_grouped_by_tkey[t_key][0]['thread_count'] > 1 else False
         sent_num = len(cnts_grouped_by_tid[gmail_thread_id])
 
         # remind 메일 송신은 300회로 한정
-        if remind_mails_num < 300:
+        if remind_mails_num < 200:
             # 이메일 전환으로 이미 보낸 이력이 있을 경우 remind 보내지 않음
             if not is_cnt_bf:
                 # only send remind status open
@@ -104,9 +104,6 @@ def app_api_gmail_remind_sender(event, context=None):
                                 new_gmail_thread_id = sent_message.get("threadId")
                                 gmail_msg_id = sent_message.get("id")
 
-                                ## 기존 status 데이터 취득
-                                old_status_info = AccessService.select_contacts_status(gmail_thread_id=gmail_thread_id)
-                                old_status, old_progress = itemgetter('status', 'progress')(old_status_info[0])
                                 ## 기존꺼 삭제
                                 AccessService.delete_temp_status(old_gmail_thread_id=gmail_thread_id)
                                 ## 새로운거 없으면 추가
@@ -114,12 +111,12 @@ def app_api_gmail_remind_sender(event, context=None):
                                 if len(contact_status) < 1:
                                     AccessService.insert_contact_status(
                                         gmail_thread_id=new_gmail_thread_id,
-                                        status=old_status,
-                                        progress=old_progress
+                                        status=status,
+                                        progress=progress
                                     )
 
                                 # modify label
-                                labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[old_status, old_progress, pic])
+                                labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[status, progress, pic])
 
                                 # update contact
                                 AccessService.update_gmail_mail_contact_thread_id(
