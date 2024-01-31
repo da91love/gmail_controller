@@ -43,7 +43,7 @@ def check_emails(label_id):
                     # db에 등록된 메일 처리
                     # db에 등록되지 않을 mail이 검색됐을 때 무시하기위해 len(contact_history) > 0 조건 추가
                     if len(contact_history) > 0:
-                        mails_in_thread = service.users().threads().get(userId='me', id=gmail_thread_id).execute()
+                        mails_in_thread = service.users().threads().get(userId='me', id=gmail_thread_id, format='full').execute()
                         msgs_in_thread = mails_in_thread.get('messages')
 
                         msg_ids_in_db = [ch.get('gmail_msg_id') for ch in contact_history]
