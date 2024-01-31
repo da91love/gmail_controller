@@ -10,6 +10,7 @@ from common.lib.ma.data_access.system.AccessService import AccessService
 from common.gmail.Authenticate import Authenticate
 from common.gmail.get_gmail_contents import get_gmail_contents
 from common.util.DateUtil import DateUtil
+from common.util.StrUtil import StrUtil
 from common.const.EMAIL import *
 from common.const.STATUS import *
 from common.util.LogicUtil import LogicUtil
