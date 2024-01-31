@@ -2,15 +2,18 @@ from googleapiclient.discovery import build
 from datetime import datetime
 from operator import itemgetter
 import pydash as _
+import base64
 
 from common.util.logger_get import get_logger
 
 from common.lib.ma.data_access.system.AccessService import AccessService
 from common.gmail.Authenticate import Authenticate
+from common.gmail.get_gmail_contents import get_gmail_contents
 from common.util.DateUtil import DateUtil
 from common.const.EMAIL import *
 from common.const.STATUS import *
 from common.util.LogicUtil import LogicUtil
+from common.util.EncodingUtil import EncodingUtil
 from common.gmail.LabelControl import LabelControl
 
 # Create instances
@@ -61,6 +64,7 @@ def check_emails(label_id):
                                         new_gmail_msg_id = msg_in_thread.get('id')
                                         created_at = DateUtil.format_milliseconds(msg_in_thread.get('internalDate'), '%Y-%m-%d %H:%M:%S')
                                         contents = msg_in_thread.get('snippet')
+                                        contents = EncodingUtil.encode_byte_to_str(msg_in_thread.get('payload').get('body').get('data'))
                                         t_key = (contact_history[0]).get('t_key')
 
                                         result = {
