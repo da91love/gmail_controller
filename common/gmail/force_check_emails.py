@@ -7,6 +7,7 @@ from common.util.logger_get import get_logger
 
 from common.lib.ma.data_access.system.AccessService import AccessService
 from common.gmail.Authenticate import Authenticate
+from common.gmail.get_gmail_contents import get_gmail_contents
 from common.util.DateUtil import DateUtil
 from common.const.EMAIL import *
 from common.util.LogicUtil import LogicUtil
@@ -62,7 +63,7 @@ def force_check_emails(label_id, gmail_thread_ids):
 
                                         new_gmail_msg_id = msg_in_thread.get('id')
                                         created_at = DateUtil.format_milliseconds(msg_in_thread.get('internalDate'), '%Y-%m-%d %H:%M:%S')
-                                        contents = msg_in_thread.get('snippet')
+                                        contents = get_gmail_contents(msg_in_thread)
                                         receiver_email = (contact_history[0]).get('receiver_email')
                                         author_unique_id = (contact_history[0]).get('author_unique_id')
                                         seeding_num = (contact_history[0]).get('seeding_num')
@@ -125,7 +126,7 @@ def force_check_emails(label_id, gmail_thread_ids):
                                         gmail_msg_id = msg_in_thread.get('id')
                                         created_at = DateUtil.format_milliseconds(msg_in_thread.get('internalDate'),
                                                                                   '%Y-%m-%d %H:%M:%S')
-                                        contents = msg_in_thread.get('snippet')
+                                        contents = get_gmail_contents(msg_in_thread)
 
                                         result = {
                                             'gmail_thread_id': gmail_thread_id,
