@@ -9,8 +9,7 @@ api_root = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(project_root)
 sys.path.append(api_root)
 
-
-from api_post_stat_tracker.get_post_stat import get_post_stat
+from common.tiktok.get_post_stat import get_post_stat
 from common.util.get_config import get_config
 from common.util.logger_get import get_logger
 from common.lib.ma.data_access.system.AccessService import AccessService
