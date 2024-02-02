@@ -7,6 +7,11 @@ class Query():
         SELECT * FROM mail_contact 
     """
 
+    sql_insert_profile_stats = """
+        INSERT INTO tiktok_profile_stat(id, author_unique_id, digg_count, follower_count, following_count, friend_count, heart, heart_count, video_count) 
+        VALUES('{id}','{author_unique_id}','{digg_count}','{follower_count}', '{following_count}', '{friend_count}', '{heart}', '{heart_count}', '{video_count}')
+    """
+
     sql_select_posting_history = """
         SELECT * FROM posting_history
     """
