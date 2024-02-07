@@ -7,6 +7,19 @@ class Query():
         SELECT * FROM mail_contact 
     """
 
+    sql_select_contents_by_thread = """
+        SELECT * FROM mail_contents
+        WHERE gmail_thread_id = {gmail_thread_id}
+    """
+
+    sql_select_follow_up_tg_list = """
+        SELECT icim.author_unique_id, pim.t_key, ch.gmail_thread_id, icim.receiver_email
+        FROM post_info_master pim
+        JOIN mail_contact ch ON ch.t_key = pim.t_key
+        JOIN infl_contact_info_master icim ON icim.t_key = pim.t_key
+        GROUP BY pim.t_key
+    """
+
     sql_insert_profile_stats = """
         INSERT INTO tiktok_profile_stat(id, author_unique_id, digg_count, follower_count, following_count, friend_count, heart, heart_count, video_count) 
         VALUES('{id}','{author_unique_id}','{digg_count}','{follower_count}', '{following_count}', '{friend_count}', '{heart}', '{heart_count}', '{video_count}')

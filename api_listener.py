@@ -8,7 +8,7 @@ from flask_cors import CORS
 from api_gmail_checker.app import app_api_gmail_checker as check_emails
 from api_gmail_force_checker.app import app_api_force_gmail_checker as force_check_emails
 from api_gmail_sender.app import app_api_gmail_sender as send_email
-from api_gmail_remind_sender.app import app_api_gmail_remind_sender as send_remind_email
+from api_gmail_remind_sender.app import app_api_gmail_remind_sender as send_re_email
 from api_status_updater.app import app_api_status_updater as update_status
 from api_delivery_tracker.app import app_api_delivery_tracker as track_delivery
 from api_gmail_converting_sender.app import app_api_gmail_converting_sender as send_converting_email
@@ -88,7 +88,7 @@ def send_remind_mail_get():
         }
     }
 
-    result = send_remind_email(data)
+    result = send_re_email(data)
 
     return make_response(jsonify(result))
 

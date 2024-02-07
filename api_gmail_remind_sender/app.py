@@ -16,7 +16,7 @@ sys.path.append(api_root)
 from common.AppBase import AppBase
 from common.type.Errors import *
 from common.util.get_config import get_config
-from common.gmail.send_remind_email import send_remind_email
+from common.gmail.send_re_email import send_re_email
 from common.gmail.send_email import send_email
 from api_gmail_sender.type.ResType import ResType
 from common.gmail.LabelControl import LabelControl
@@ -86,7 +86,7 @@ def app_api_gmail_remind_sender(event, context=None):
                             # Send the message
                             # 이전 스레드가 존재할시 기존 스레드에 엮어서 보내고
                             try:
-                                sent_message = send_remind_email(SENDER_EMAIL, receiver_email, mail_subject, mail_body, gmail_thread_id)
+                                sent_message = send_re_email(SENDER_EMAIL, receiver_email, mail_subject, mail_body, gmail_thread_id)
 
                                 # insert to contact db
                                 AccessService.insert_contact_history(
