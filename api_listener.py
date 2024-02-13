@@ -13,6 +13,7 @@ from api_status_updater.app import app_api_status_updater as update_status
 from api_delivery_tracker.app import app_api_delivery_tracker as track_delivery
 from api_gmail_converting_sender.app import app_api_gmail_converting_sender as send_converting_email
 from api_tiktok_profile_updater.app import app_api_tiktok_profile_updater as get_profile_stat
+from api_gmail_follow_up_sender.app import app_api_gmail_follow_up_sender as send_follow_up
 
 
 os.path.dirname(sys.modules['__main__'].__file__)
@@ -27,6 +28,14 @@ cors = CORS(api)
 # This flask API is only used for the development stage.
 # DO NOT deploy on production
 """
+@api.route('/send-follow-up', methods=['get'])  # TODO : Insert any URL
+def send_follow_up_get():
+    # Get body, headers
+    # body = request.json
+    # headers = request.headers
+
+    result = send_follow_up(None)
+
 @api.route('/get-profile-stat', methods=['get'])  # TODO : Insert any URL
 def get_profile_stat_get():
     # Get body, headers
