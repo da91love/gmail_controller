@@ -28,7 +28,7 @@ class Query():
     sql_select_follow_up_tg_list = """
         select pim.post_id, pim.t_key, pim.seeding_source_type, pim.tiktok_url, ph.posted_time
         from post_info_master pim
-        left join posting_history ph on ph.post_id = pim.post_id
+        join posting_history ph on ph.post_id = pim.post_id
         where pim.seeding_source_type = 'bsts'
         group by pim.post_id
     """
