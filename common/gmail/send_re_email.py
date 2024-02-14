@@ -8,7 +8,7 @@ import logging
 # call instancese
 logger = logging.getLogger()
 
-def send_remind_email(sender_email, receiver_email, mail_subject, mail_body, gmail_thread_id):
+def send_re_email(sender_email, receiver_email, mail_subject, mail_body, gmail_thread_id):
     """
 
     :param sender_email:

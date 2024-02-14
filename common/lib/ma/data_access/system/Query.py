@@ -7,6 +7,32 @@ class Query():
         SELECT * FROM mail_contact 
     """
 
+    sql_insert_follow_up_check = """
+        INSERT INTO follow_up_check (t_key, is_follow_up_done) 
+        VALUES('{t_key}', true)
+    """
+
+    sql_select_follow_up_mail_info_by_tkey = """
+        select mc.gmail_thread_id, ici.receiver_email
+        from mail_contact mc
+        join infl_contact_info_master ici on ici.t_key = mc.t_key
+        where mc.t_key='{t_key}'
+        group by mc.gmail_thread_id
+    """
+
+    sql_select_follow_up_by_thread = """
+        SELECT * FROM follow_up_check
+        WHERE t_key = '{t_key}'
+    """
+
+    sql_select_follow_up_tg_list = """
+        select pim.post_id, pim.t_key, pim.seeding_source_type, pim.tiktok_url, ph.posted_time
+        from post_info_master pim
+        left join posting_history ph on ph.post_id = pim.post_id
+        where pim.seeding_source_type = 'bsts'
+        group by pim.post_id
+    """
+
     sql_insert_profile_stats = """
         INSERT INTO tiktok_profile_stat(id, author_unique_id, digg_count, follower_count, following_count, friend_count, heart, heart_count, video_count) 
         VALUES('{id}','{author_unique_id}','{digg_count}','{follower_count}', '{following_count}', '{friend_count}', '{heart}', '{heart_count}', '{video_count}')
