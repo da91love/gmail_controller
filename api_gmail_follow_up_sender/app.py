@@ -43,6 +43,7 @@ def app_api_gmail_follow_up_sender(event, context=None):
     """
 
     # post master db에 포함된 인원 추출
+    # eoeo이나 피키는 쿼리에서 필터링
     data = event
     tg_infls = AccessService.select_follow_up_tg_list()
 
@@ -56,9 +57,10 @@ def app_api_gmail_follow_up_sender(event, context=None):
         if not is_follow_up_done:
 
             # post 업로드 3일 후 메일
-            day_diff = (datetime.now() - posted_time).days
+            day_diff = (datetime.now() - (posted_time or datetime.now())).days
             if day_diff > 3:
                 # t_key로 메일 스레드 추출
+                # follow_up_mail_info가 1보다 작으면 eoeo이나 picky에서 온 인원들로 메일주소 자체가 없어 메일 송신하지 않음
                 follow_up_mail_info = AccessService.select_follow_up_mail_info_by_tkey(t_key=t_key)
                 gmail_thread_id, receiver_email = itemgetter('gmail_thread_id', 'receiver_email')(follow_up_mail_info[0])
 
@@ -106,7 +108,7 @@ def app_api_gmail_follow_up_sender(event, context=None):
                         'gmail_label_id': gmail_label_id,
                         'created_at': formatted_datetime,
                         't_key': t_key,
-                        'contents': mail_body,
+                        'contents': formatted_mail_body,
                     }
 
                     # create slack thread

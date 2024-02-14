@@ -14,7 +14,7 @@ mail_body = '''
 <div>This would be a huge help for us💖</div>
 <br/>
 <div>Warmest regards, 🌷Jennifer</div>
-<span>&nbsp;</span>
+<br/>
 <div>Tiktok: @eqqualberry_us</div>
 <div>Instagram: eqqualberry_us</div>
 '''

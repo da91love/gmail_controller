@@ -36,6 +36,8 @@ def send_follow_up_get():
 
     result = send_follow_up(None)
 
+    return make_response(jsonify(result))
+
 @api.route('/get-profile-stat', methods=['get'])  # TODO : Insert any URL
 def get_profile_stat_get():
     # Get body, headers
