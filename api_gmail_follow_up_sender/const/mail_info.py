@@ -7,6 +7,9 @@ mail_body = '''
 <div>I would appreciate if you could capture and send the viewer’s location/country information of our video :)</div>
 <div>Also, I wonder if it would be possible for us to re-post the video on our TikTok sub-account.</div>
 <br/>
+<div>The tiktok url of the video is below</div>
+<div>・{}</div>
+<br/>
 <div>I'll make sure to tag your account when I upload it.</div>
 <div>This would be a huge help for us💖</div>
 <br/>
