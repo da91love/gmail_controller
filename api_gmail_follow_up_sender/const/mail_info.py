@@ -5,7 +5,7 @@ mail_body = '''
 <div>We really feel thankful to your post and cooperation😉</div>
 <br/>
 <div>I would appreciate if you could capture and send the viewer’s location/country information of our video :)</div>
-<div>Also, I wonder if it would be possible for us to re-post the video on our TikTok sub-account.</div>
+<div>Also, I wonder if it would be possible for us to re-post the video on our TikTok sub-account and other channels.</div>
 <br/>
 <div>The tiktok url of the video is below</div>
 <div>・{}</div>
