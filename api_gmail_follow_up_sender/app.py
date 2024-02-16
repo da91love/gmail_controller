@@ -49,6 +49,7 @@ def app_api_gmail_follow_up_sender(event, context=None):
 
     # for loop로 위에서 추출된 인원 중 mail_contents에 follow-up메일 송신한 적 없는 사람 추출
     sent_done_tg = []
+    loop = 1
     for tg_infl in tg_infls:
         t_key, tiktok_url, posted_time = itemgetter('t_key', 'tiktok_url', 'posted_time')(tg_infl)
 
@@ -115,6 +116,7 @@ def app_api_gmail_follow_up_sender(event, context=None):
                     slack_wrapper(slack_params)
 
                     sent_done_tg.append(sent_message)
+                    loop += 1
 
     return ResType(data=sent_done_tg).get_response()
 
