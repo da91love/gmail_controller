@@ -7,7 +7,7 @@ class EmailMsgCreator:
         if seeding_num == 1:
             subject = '🌟Elevate Your Glow: Paid Collaboration Offer with Eqqualberry Toner💙'
             body = f'''
-                <div>Hi ${author_unique_id},</div>
+                <div>Hi {author_unique_id},</div>
                 <br/>
                 <div>I trust this message finds you in good spirits. My name is Jennifer, and I represent Eqqualberry, a distinguished Korean Skincare brand that places a strong emphasis on balanced skincare, delving into the depth of quality and user comfort. Your remarkable TikTok account recently caught our eye, and we couldn't help but be captivated by your genuine passion for beauty products. 🌈</div>
                 <br/>
