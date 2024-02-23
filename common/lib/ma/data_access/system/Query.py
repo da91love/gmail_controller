@@ -38,8 +38,17 @@ class Query():
         VALUES('{id}','{author_unique_id}','{digg_count}','{follower_count}', '{following_count}', '{friend_count}', '{heart}', '{heart_count}', '{video_count}')
     """
 
+    sql_select_mega_posting_history = """
+        SELECT * FROM mega_posting_history
+    """
+
     sql_select_posting_history = """
         SELECT * FROM posting_history
+    """
+
+    sql_insert_mega_posting_history = """
+        INSERT INTO mega_posting_history (post_id, posted_time, collect_count, comment_count, digg_count, play_count, share_count, tags) 
+        VALUES('{post_id}', '{posted_time}', '{collect_count}', '{comment_count}', '{digg_count}', '{play_count}', '{share_count}', '{tags}')
     """
 
     sql_insert_posting_history = """
@@ -50,6 +59,11 @@ class Query():
     sql_select_post_info = """
         SELECT * FROM post_info_master
     """
+
+    sql_select_mega_post_info = """
+        SELECT * FROM mega_post_info_master
+    """
+
 
     sql_select_infl_info_by_email = """
         SELECT *
