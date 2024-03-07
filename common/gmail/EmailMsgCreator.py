@@ -35,13 +35,14 @@ class EmailMsgCreator:
                 <div>Instagram: eqqualberry_us</div>
             '''
         elif seeding_num == 2:
-            subject = 'Collaboration with Eqqualberry🌟'
+            subject = 'Re-Collaboration with Eqqualberry🌟'
             body = f'''
-                <div>Hi, I'm Jennifer from Eqqualberry.</div>
+                <div>Hi {author_unique_id},</div>
+                <div>I'm Jennifer from Eqqualberry.</div>
+                <div>The previous video you posted was really great! I appreciate and respect it a lot😌</div>
+                <div>So I'd like to suggest a second collaboration🔥</div>
                 <br/>
-                <div>As I mentioned earlier, due to our system I start a new email thread to discuss additional contract details.</div>
-                <br/>
-                <div>Let's discuss next step of collaboration through this email thread!</div>
+                <div>If you have an interest, Let's discuss next step of collaboration through this email thread!</div>
                 <div>Warmest regards, 🌷Jennifer</div>
 
                 <span>&nbsp;</span>
@@ -49,8 +50,21 @@ class EmailMsgCreator:
                 <div>Instagram: eqqualberry_us</div>
             '''
 
-
         return {
             'subject': subject,
             'body': body,
         }
+
+    # body = f'''
+    #      <div>Hi {author_unique_id},</div>
+    #      <div>I'm Jennifer from Eqqualberry.</div>
+    #      <br/>
+    #      <div>As I mentioned earlier, due to our system I start a new email thread to discuss additional contract details.</div>
+    #      <br/>
+    #      <div>Let's discuss next step of collaboration through this email thread!</div>
+    #      <div>Warmest regards, 🌷Jennifer</div>
+    #
+    #      <span>&nbsp;</span>
+    #      <div>Tiktok: @eqqualberry_us</div>
+    #      <div>Instagram: eqqualberry_us</div>
+    #  '''

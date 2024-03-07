@@ -5,7 +5,7 @@ config = {
     'name': 'development',
     'DB': {
             'mysql': {
-                'db_host': '3.36.197.228',
+                'db_host': '13.125.110.215',
                 'db_database': 'mna',
                 'db_port': '3306',
                 'db_user': 'mna',
