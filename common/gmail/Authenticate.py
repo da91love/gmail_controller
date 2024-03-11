@@ -9,27 +9,27 @@ project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(_
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.compose', 'https://www.googleapis.com/auth/gmail.modify']
 
 class Authenticate:
-    # _instance = None
-    # _auth = None
+    _instance = None
+    _auth = {}
 
     def __init__(self, sender_email):
         self.sender_email = sender_email
 
-    # def __new__(cls, *args, **kwargs):
-    #     if not cls._instance:
-    #         cls._instance = object.__new__(cls, *args, **kwargs)
-    #     return cls._instance
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = object.__new__(cls)
+        return cls._instance
 
     # 싱글톤일때는 아래 get_authenticate 사용
-    # def get_authenticate(self):
-    #     if Authenticate._auth:
-    #         return Authenticate._auth
-    #     else:
-    #         Authenticate._auth = self._create_authenticate()
-    #         return Authenticate._auth
-
     def get_authenticate(self):
-        return self._create_authenticate()
+        if Authenticate._auth.get(self.sender_email):
+            return Authenticate._auth.get(self.sender_email)
+        else:
+            Authenticate._auth[self.sender_email] = self._create_authenticate()
+            return Authenticate._auth.get(self.sender_email)
+
+    # def get_authenticate(self):
+    #     return self._create_authenticate()
 
     def _create_authenticate(self):
         creds = None
