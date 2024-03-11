@@ -33,8 +33,9 @@ class Authenticate:
 
     def _create_authenticate(self):
         creds = None
-        if os.path.exists(project_root + f'/config/gmail_token/{self.sender_email}' + '/token.json'):
-            creds = Credentials.from_authorized_user_file(project_root + f'/config/gmail_token/{self.sender_email}' + '/token.json')
+        token_path = project_root + f'/config/gmail_token/{self.sender_email}' + '/token.json'
+        if os.path.exists(token_path):
+            creds = Credentials.from_authorized_user_file(token_path)
         if not creds or not creds.valid:
             if creds and creds.expired and creds.refresh_token:
                 creds.refresh(Request())
@@ -42,7 +43,7 @@ class Authenticate:
                 flow = InstalledAppFlow.from_client_secrets_file(
                     project_root + "/common/public/input/credentials.json", SCOPES)
                 creds = flow.run_local_server(port=0)
-            with open(project_root + '/token.json', 'w') as token:
+            with open(token_path, 'w') as token:
                 token.write(creds.to_json())
         return creds
 
