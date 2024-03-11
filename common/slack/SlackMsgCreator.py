@@ -68,20 +68,27 @@ class SlackMsgCreator:
         ])
 
     @staticmethod
-    def get_slack_reply_block(gmail_label_id, created_at, contents):
+    def get_slack_reply_block(gmail_label_id, sender_email, created_at, contents):
         return json.dumps([
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*MAIL status: {gmail_label_id}*"
+                    "text": f"* MAIL status: {gmail_label_id}*"
                 }
             },
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*MAIL time: {created_at}*"
+                    "text": f"* Sender mail address: {sender_email}*"
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"* MAIL time: {created_at}*"
                 }
             },
             {
