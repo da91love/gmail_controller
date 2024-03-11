@@ -43,8 +43,6 @@ def app_api_gmail_sender(event, context=None):
     data = event
     tg_infls = AccessService.select_infl_first_contact()
 
-    # declare instance
-    labelControl = LabelControl()
 
     sent_done_tg = []
     for tg_infl in tg_infls:
@@ -52,6 +50,9 @@ def app_api_gmail_sender(event, context=None):
         # modify label, if pic is not registered process end
         t_key, author_unique_id, seeding_num, receiver_email, sender_email, pic \
             = itemgetter('t_key', 'author_unique_id', 'seeding_num', 'receiver_email', 'sender_email', 'pic')(tg_infl)
+
+        # declare instance
+        labelControl = LabelControl(sender_email)
 
         # send mail
         # format mail body

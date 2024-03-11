@@ -20,9 +20,9 @@ from common.gmail.LabelControl import LabelControl
 # Create instances
 logger = get_logger()
 
-def check_emails(label_id):
+def check_emails(label_id, sender_email):
     try:
-        authenticate = Authenticate()
+        authenticate = Authenticate(sender_email)
         creds = authenticate.get_authenticate()
 
         # 최근 15개까지 받은 메일 쓰레드 id 표시

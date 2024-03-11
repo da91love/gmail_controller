@@ -45,14 +45,15 @@ def app_api_gmail_converting_sender(event, context=None):
     tg_infls = AccessService.select_past_on_contact_infl(tg_date='2024-03-11')
     old_thread_id_by_tkey = _.group_by(AccessService.select_latest_thread_id_by_tkey(), "t_key")
 
-    # declare instance
-    labelControl = LabelControl()
-
     sent_done_tg = []
     for tg_infl in tg_infls:
 
         # modify label, if pic is not registered process end
-        t_key, author_unique_id, receiver_email, pic = itemgetter('t_key', 'author_unique_id', 'receiver_email', 'pic')(tg_infl)
+        t_key, author_unique_id, receiver_email, sender_email, pic \
+            = itemgetter('t_key', 'author_unique_id', 'receiver_email', 'sender_email', 'pic')(tg_infl)
+
+        # declare instance
+        labelControl = LabelControl(sender_email)
 
         # send mail
         # format mail body
@@ -60,7 +61,7 @@ def app_api_gmail_converting_sender(event, context=None):
 
         # send gmail
         sent_message = send_email(
-            sender_email=SENDER_EMAIL,
+            sender_email=sender_email,
             receiver_email=receiver_email,
             mail_subject=mail_subject,
             mail_body=formatted_mail_body,

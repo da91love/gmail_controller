@@ -63,7 +63,8 @@ def app_api_gmail_follow_up_sender(event, context=None):
                 # t_key로 메일 스레드 추출
                 # follow_up_mail_info가 1보다 작으면 eoeo이나 picky에서 온 인원들로 메일주소 자체가 없어 메일 송신하지 않음
                 follow_up_mail_info = AccessService.select_follow_up_mail_info_by_tkey(t_key=t_key)
-                gmail_thread_id, receiver_email = itemgetter('gmail_thread_id', 'receiver_email')(follow_up_mail_info[0])
+                gmail_thread_id, receiver_email, sender_email \
+                    = itemgetter('gmail_thread_id', 'receiver_email', 'sender_email')(follow_up_mail_info[0])
 
                 # create mail body
                 formatted_mail_body = mail_body.format(tiktok_url)
@@ -71,9 +72,9 @@ def app_api_gmail_follow_up_sender(event, context=None):
                 # 메일 송신
                 sent_message = None
                 try:
-                    sent_message = send_re_email(SENDER_EMAIL, receiver_email, mail_subject, formatted_mail_body, gmail_thread_id)
+                    sent_message = send_re_email(sender_email, receiver_email, mail_subject, formatted_mail_body, gmail_thread_id)
                 except HttpError:
-                    sent_message = send_email(SENDER_EMAIL, receiver_email, mail_subject, formatted_mail_body)
+                    sent_message = send_email(sender_email, receiver_email, mail_subject, formatted_mail_body)
 
                     # prepare variables
                     new_gmail_thread_id = sent_message.get("threadId")

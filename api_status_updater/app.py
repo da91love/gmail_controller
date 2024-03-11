@@ -20,7 +20,6 @@ from common.slack.Slack import Slack
 from common.const.SLACK import *
 from common.slack.SlackMsgCreator import SlackMsgCreator
 from common.gmail.LabelControl import LabelControl
-from common.gmail.check_label import check_label
 from common.lib.ma.data_access.system.AccessService import AccessService
 
 # Create instance
@@ -43,7 +42,6 @@ def app_api_status_updater(event, context=None):
 
     # declare instance
     slack = Slack()
-    labelControl = LabelControl()
 
     # 20분이내 업데이트된 status 데이터 취득
     status_data = AccessService.select_status_in_x_min()
@@ -62,7 +60,11 @@ def app_api_status_updater(event, context=None):
             gmail_msg_id, t_key = itemgetter('gmail_msg_id', 't_key')(contact_data[-1])
 
             slack_need_info = AccessService.select_slack_need_info(t_key=t_key)[0]
-            author_unique_id, receiver_email, tiktok_url, pic = itemgetter('author_unique_id', 'receiver_email', 'tiktok_url', 'pic')(slack_need_info)
+            author_unique_id, receiver_email, sender_email, tiktok_url, pic \
+                = itemgetter('author_unique_id', 'receiver_email', 'sender_email', 'tiktok_url', 'pic')(slack_need_info)
+
+            # declare instace
+            labelControl = LabelControl(sender_email)
 
             # 아직 답장이 안온 경우는 Slack 존재하지 않으므로 pass
             slack_id_info = AccessService.select_slack_thread_history(gmail_thread_id=gmail_thread_id)
@@ -88,7 +90,7 @@ def app_api_status_updater(event, context=None):
             # update gmail label
             # 이미 삭제된 메일에 대해 label 변경 처리시 에러처리
             try:
-                mail_labels = check_label(gmail_msg_id=gmail_msg_id)
+                mail_labels = labelControl.check_label(gmail_msg_id=gmail_msg_id)
                 labelControl.remove_label(gmail_msg_id=gmail_msg_id,remove_label_ids=mail_labels)
                 labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[status, progress, pic])
             except HttpError as e:
