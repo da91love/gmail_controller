@@ -44,9 +44,6 @@ def app_api_gmail_remind_sender(event, context=None):
     # Get data from API Gateway
     data = event
 
-    # declare instance
-    labelControl = LabelControl()
-
     # get thread_id
     tg_contacts = AccessService.select_sent_thread_id()
     cnt_num_by_tkey = AccessService.select_contact_num_by_tkey()
@@ -61,11 +58,14 @@ def app_api_gmail_remind_sender(event, context=None):
     remind_mails = []
     remind_mails_num = 0
     for latest_sent_contact in latest_sent_contacts:
-        gmail_thread_id, gmail_msg_id, receiver_email, t_key, status, progress, pic, created_at \
-            = itemgetter('gmail_thread_id', 'gmail_msg_id', 'receiver_email', 't_key', 'status', 'progress','pic', 'created_at')(latest_sent_contact)
+        gmail_thread_id, gmail_msg_id, receiver_email, sender_email, t_key, status, progress, pic, created_at \
+            = itemgetter('gmail_thread_id', 'gmail_msg_id', 'receiver_email', 'sender_email', 't_key', 'status', 'progress','pic', 'created_at')(latest_sent_contact)
 
         is_cnt_bf = True if cntc_num_grouped_by_tkey[t_key][0]['thread_count'] > 1 else False
         sent_num = len(cnts_grouped_by_tid[gmail_thread_id])
+
+        # declare instance
+        labelControl = LabelControl(sender_email)
 
         # remind 메일 송신은 300회로 한정
         if remind_mails_num < 200:
@@ -86,7 +86,7 @@ def app_api_gmail_remind_sender(event, context=None):
                             # Send the message
                             # 이전 스레드가 존재할시 기존 스레드에 엮어서 보내고
                             try:
-                                sent_message = send_re_email(SENDER_EMAIL, receiver_email, mail_subject, mail_body, gmail_thread_id)
+                                sent_message = send_re_email(sender_email, receiver_email, mail_subject, mail_body, gmail_thread_id)
 
                                 # insert to contact db
                                 AccessService.insert_contact_history(
@@ -98,7 +98,7 @@ def app_api_gmail_remind_sender(event, context=None):
                                 )
                             # 기존 스레드 존재하지 않아 에러 발생 시 새로운 메일로 송신
                             except HttpError as e:
-                                sent_message = send_email(SENDER_EMAIL, receiver_email, mail_subject, mail_body)
+                                sent_message = send_email(sender_email, receiver_email, mail_subject, mail_body)
 
                                 # prepare variables
                                 new_gmail_thread_id = sent_message.get("threadId")

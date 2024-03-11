@@ -7,9 +7,9 @@ import pydash as _
 
 from common.type.Errors import PicNotAssignedException
 
-def check_label(gmail_msg_id):
+def check_label(gmail_msg_id, sender_email):
     try:
-        authenticate = Authenticate()
+        authenticate = Authenticate(sender_email)
         creds = authenticate.get_authenticate()
         service = build('gmail', 'v1', credentials=creds)
 

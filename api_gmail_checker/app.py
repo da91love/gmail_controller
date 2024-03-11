@@ -36,12 +36,13 @@ def app_api_gmail_checker(event, context=None):
     # Get data from API Gateway
     data = event
     label_id = data.get('labelId')
+    sender_email = data.get('senderEmail')
 
     if any(value is None for value in [label_id]):
         raise IrrelevantParamException
 
     # check new mails
-    mail_check_res = check_emails(label_id)
+    mail_check_res = check_emails(label_id, sender_email)
 
     db_inserted_res = []
     for res in mail_check_res:
@@ -75,10 +76,11 @@ def app_api_gmail_checker(event, context=None):
     return ResType(data=db_inserted_res).get_response()
 
 labelId = sys.argv[1]
+senderEmail = sys.argv[2]
 
 result = app_api_gmail_checker({
     "labelId": labelId,
+    "senderEmail": senderEmail
 })
 
 print(result)
-

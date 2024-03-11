@@ -16,9 +16,9 @@ from common.gmail.LabelControl import LabelControl
 # Create instances
 logger = get_logger()
 
-def force_check_emails(label_id, gmail_thread_ids):
+def force_check_emails(label_id, gmail_thread_ids, sender_email):
     try:
-        authenticate = Authenticate()
+        authenticate = Authenticate(sender_email)
         creds = authenticate.get_authenticate()
         service = build('gmail', 'v1', credentials=creds)
 
