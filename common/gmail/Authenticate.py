@@ -33,7 +33,7 @@ class Authenticate:
 
     def _create_authenticate(self):
         creds = None
-        token_path = project_root + f'/config/gmail_token/{self.sender_email}' + '/token.json'
+        token_path = project_root + f'/config/gmail_token/{self.sender_email}/token.json'
         if os.path.exists(token_path):
             creds = Credentials.from_authorized_user_file(token_path)
         if not creds or not creds.valid:
