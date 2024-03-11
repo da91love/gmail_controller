@@ -12,6 +12,9 @@ class Authenticate:
     _instance = None
     _auth = None
 
+    def __init__(self, sender_email):
+        self.sender_email = sender_email
+
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
             cls._instance = object.__new__(cls, *args, **kwargs)
@@ -26,8 +29,8 @@ class Authenticate:
 
     def _create_authenticate(self):
         creds = None
-        if os.path.exists(project_root + '/token.json'):
-            creds = Credentials.from_authorized_user_file(project_root + '/token.json')
+        if os.path.exists(project_root + f'/config/gmail_token/{self.sender_email}' + '/token.json'):
+            creds = Credentials.from_authorized_user_file(project_root + f'/config/gmail_token/{self.sender_email}' + '/token.json')
         if not creds or not creds.valid:
             if creds and creds.expired and creds.refresh_token:
                 creds.refresh(Request())
