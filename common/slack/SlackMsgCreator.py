@@ -4,7 +4,7 @@ from common.const.STATUS import *
 
 class SlackMsgCreator:
     @staticmethod
-    def get_slack_post_block(tiktok_url, author_unique_id, receiver_email, status, progress, pic, is_reply_done):
+    def get_slack_post_block(tiktok_url, author_unique_id, receiver_email, sender_email, status, progress, pic, is_reply_done):
         return json.dumps([
             {
                 "type": "section",
@@ -27,7 +27,14 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*・ Mail address* : {receiver_email}"
+                    "text": f"*・ Receiver mail address* : {receiver_email}"
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"*・ Sender mail address* : {sender_email}"
                 }
             },
             {

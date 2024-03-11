@@ -25,7 +25,8 @@ def slack_wrapper(mail_res):
         # Slack에 채워넣을 데이터 취득
         ## 메일, 틱톡 url 등
         slack_need_info = AccessService.select_slack_need_info(t_key=t_key)[0]
-        author_unique_id, receiver_email, tiktok_url, pic = itemgetter('author_unique_id', 'receiver_email', 'tiktok_url', 'pic')(slack_need_info)
+        author_unique_id, receiver_email, sender_email, tiktok_url, pic \
+            = itemgetter('author_unique_id', 'receiver_email', 'sender_email', 'tiktok_url', 'pic')(slack_need_info)
 
         ## status 데이터 취득
         contact_status = AccessService.select_contacts_status(gmail_thread_id=gmail_thread_id)[0]
@@ -41,7 +42,16 @@ def slack_wrapper(mail_res):
                 slack_thread_id = slack_thread_history[0]['slack_thread_id']
                 msg = SlackMsgCreator.get_slack_reply_block(gmail_label_id, created_at, contents)
 
-                update_msg = SlackMsgCreator.get_slack_post_block(tiktok_url, author_unique_id, receiver_email, status, progress, pic, is_reply_done)
+                update_msg = SlackMsgCreator.get_slack_post_block(
+                    tiktok_url=tiktok_url,
+                    author_unique_id=author_unique_id,
+                    receiver_email=receiver_email,
+                    sender_email=sender_email,
+                    status=status,
+                    progress=progress,
+                    pic=pic,
+                    is_reply_done=is_reply_done,
+                )
                 slack.update_post(CHANNEL_ID, MSG_TYPE['BLOCK'], update_msg, slack_thread_id)
 
                 slack_res = slack.add_reply(CHANNEL_ID, MSG_TYPE['BLOCK'], msg, slack_thread_id)
@@ -57,7 +67,16 @@ def slack_wrapper(mail_res):
                     )
 
         else:
-            msg = SlackMsgCreator.get_slack_post_block(tiktok_url, author_unique_id, receiver_email, status, progress, pic, is_reply_done)
+            msg = SlackMsgCreator.get_slack_post_block(
+                tiktok_url=tiktok_url,
+                author_unique_id=author_unique_id,
+                receiver_email=receiver_email,
+                sender_email=sender_email,
+                status=status,
+                progress=progress,
+                pic=pic,
+                is_reply_done=is_reply_done,
+            )
             slack_res = slack.add_post(CHANNEL_ID, MSG_TYPE['BLOCK'], msg)
 
             if slack_res.status_code == 200:

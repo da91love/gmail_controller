@@ -78,6 +78,7 @@ def app_api_status_updater(event, context=None):
                     tiktok_url= tiktok_url,
                     author_unique_id= author_unique_id,
                     receiver_email= receiver_email,
+                    sender_email=sender_email,
                     status= status,
                     progress= progress,
                     pic= pic,
