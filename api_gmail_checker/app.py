@@ -4,6 +4,7 @@ import csv
 import uuid
 import os
 import sys
+import traceback
 from mysql.connector.errors import *
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 api_root = os.path.dirname(os.path.abspath(__file__))
@@ -13,6 +14,7 @@ sys.path.append(api_root)
 from common.AppBase import AppBase
 from common.type.Errors import *
 from common.util.get_config import get_config
+from common.util.logger_get import get_logger
 from api_gmail_checker.type.ResType import ResType
 from common.gmail.check_emails import check_emails
 from common.slack.slack_wrapper import slack_wrapper
@@ -20,6 +22,7 @@ from common.lib.ma.data_access.system.AccessService import AccessService
 
 # Create instance
 config = get_config()
+logger = get_logger()
 
 # get config data
 # s3_bucket_name = config['S3']['s3_bucket_name']
@@ -75,6 +78,7 @@ def app_api_gmail_checker(event, context=None):
 
         # 내부 슬랙 서버 에러시 해당 loop 패스
         except SlackApiInternalException:
+            logger.error(traceback.format_exc())
             pass
 
     return ResType(data=db_inserted_res).get_response()
