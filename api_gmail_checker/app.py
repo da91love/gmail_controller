@@ -47,6 +47,9 @@ def app_api_gmail_checker(event, context=None):
     db_inserted_res = []
     for res in mail_check_res:
         try:
+            # create slack thread
+            slack_wrapper(res)
+
             AccessService.insert_contents(
                 gmail_thread_id=res['gmail_thread_id'],
                 gmail_msg_id=res['gmail_msg_id'],
@@ -63,14 +66,15 @@ def app_api_gmail_checker(event, context=None):
                 created_at=res['created_at']
             )
 
-            # create slack thread
-            slack_wrapper(res)
-
             # put into list
             db_inserted_res.append(res)
 
         # 데이터베이스 primary key 중복 오류
         except IntegrityError:
+            pass
+
+        # 내부 슬랙 서버 에러시 해당 loop 패스
+        except SlackApiInternalException:
             pass
 
     return ResType(data=db_inserted_res).get_response()

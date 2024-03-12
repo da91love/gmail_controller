@@ -75,9 +75,9 @@ def app_api_status_updater(event, context=None):
 
                 # Modify slack status
                 update_msg = SlackMsgCreator.get_slack_post_block(
-                    tiktok_url= tiktok_url,
-                    author_unique_id= author_unique_id,
-                    receiver_email= receiver_email,
+                    tiktok_url=tiktok_url,
+                    author_unique_id=author_unique_id,
+                    receiver_email=receiver_email,
                     sender_email=sender_email,
                     status= status,
                     progress= progress,
