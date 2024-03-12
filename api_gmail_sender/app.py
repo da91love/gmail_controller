@@ -43,64 +43,66 @@ def app_api_gmail_sender(event, context=None):
     data = event
     tg_infls = AccessService.select_infl_first_contact()
 
-
     sent_done_tg = []
+    loop = 0
     for tg_infl in tg_infls:
+        if loop <= 100:
 
-        # modify label, if pic is not registered process end
-        t_key, author_unique_id, seeding_num, receiver_email, sender_email, pic \
-            = itemgetter('t_key', 'author_unique_id', 'seeding_num', 'receiver_email', 'sender_email', 'pic')(tg_infl)
+            # modify label, if pic is not registered process end
+            t_key, author_unique_id, seeding_num, receiver_email, sender_email, pic \
+                = itemgetter('t_key', 'author_unique_id', 'seeding_num', 'receiver_email', 'sender_email', 'pic')(tg_infl)
 
-        # declare instance
-        labelControl = LabelControl(sender_email)
+            # declare instance
+            labelControl = LabelControl(sender_email)
 
-        # send mail
-        # format mail body
-        # 1차 시기에 송신한 메일들 별도로 처리하기 위한 로직 추가
-        # msg_subject = mail_subject_4_old if 'old' in t_key else mail_subject
-        # msg_body = mail_body_4_old.format(author_unique_id) if 'old' in t_key else mail_body.format(author_unique_id)
-        msg = EmailMsgCreator.get_send_mail_msg(author_unique_id=author_unique_id, seeding_num=seeding_num)
-        msg_subject = msg.get('subject')
-        msg_body = msg.get('body')
+            # send mail
+            # format mail body
+            # 1차 시기에 송신한 메일들 별도로 처리하기 위한 로직 추가
+            # msg_subject = mail_subject_4_old if 'old' in t_key else mail_subject
+            # msg_body = mail_body_4_old.format(author_unique_id) if 'old' in t_key else mail_body.format(author_unique_id)
+            msg = EmailMsgCreator.get_send_mail_msg(author_unique_id=author_unique_id, seeding_num=seeding_num)
+            msg_subject = msg.get('subject')
+            msg_body = msg.get('body')
 
-        # seeding_num 2차 이상일 시 기존 메일 스레드에 붙여서 보내기
-        # if seeding_num == 1:
-        # send gmail
-        sent_message = send_email(
-            sender_email=sender_email,
-            receiver_email=receiver_email,
-            mail_subject=msg_subject,
-            mail_body=msg_body,
-        )
+            # seeding_num 2차 이상일 시 기존 메일 스레드에 붙여서 보내기
+            # if seeding_num == 1:
+            # send gmail
+            sent_message = send_email(
+                sender_email=sender_email,
+                receiver_email=receiver_email,
+                mail_subject=msg_subject,
+                mail_body=msg_body,
+            )
 
-        # prepare variables
-        gmail_thread_id = sent_message.get("threadId")
-        gmail_msg_id = sent_message.get("id")
-        formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            # prepare variables
+            gmail_thread_id = sent_message.get("threadId")
+            gmail_msg_id = sent_message.get("id")
+            formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        # modify label
-        labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[STATUS['OPEN'], PROGRESS['NEGOTIATING'], pic])
+            # modify label
+            labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[STATUS['OPEN'], PROGRESS['NEGOTIATING'], pic])
 
-        # insert to contact db
-        AccessService.insert_contact_history(
-            gmail_thread_id=gmail_thread_id,
-            gmail_msg_id=gmail_msg_id,
-            gmail_label_id='SENT',
-            t_key=t_key,
-            created_at=formatted_datetime
-        )
+            # insert to contact db
+            AccessService.insert_contact_history(
+                gmail_thread_id=gmail_thread_id,
+                gmail_msg_id=gmail_msg_id,
+                gmail_label_id='SENT',
+                t_key=t_key,
+                created_at=formatted_datetime
+            )
 
-        # insert to status db
-        AccessService.insert_contact_status(
-            gmail_thread_id=gmail_thread_id,
-            status=STATUS['OPEN'],
-            progress=PROGRESS['NEGOTIATING'],
-        )
+            # insert to status db
+            AccessService.insert_contact_status(
+                gmail_thread_id=gmail_thread_id,
+                status=STATUS['OPEN'],
+                progress=PROGRESS['NEGOTIATING'],
+            )
 
-        # append result
-        sent_done_tg.append(sent_message)
+            # append result
+            sent_done_tg.append(sent_message)
+            loop += 1
 
-        # elif seeding_num == 2:
+            # elif seeding_num == 2:
 
 
 
