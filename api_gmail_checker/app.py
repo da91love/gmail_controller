@@ -73,6 +73,10 @@ def app_api_gmail_checker(event, context=None):
         except IntegrityError:
             pass
 
+        # 내부 슬랙 서버 에러시 해당 loop 패스
+        except SlackApiInternalException:
+            pass
+
     return ResType(data=db_inserted_res).get_response()
 
 # labelId = sys.argv[1]
