@@ -16,9 +16,9 @@ def get_gmail_contents(mail_thread_obj):
                 # Extract text from the parsed HTML
                 text = soup.get_text()
 
-                return StrUtil.clean_mail_body(text)
+                return text
             else:
-                return StrUtil.clean_mail_body(decoded)
+                return decoded
         else:
             return mail_thread_obj.get('snippet')
 

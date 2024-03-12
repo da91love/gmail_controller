@@ -8,6 +8,7 @@ from common.lib.ma.data_access.system.AccessService import AccessService
 from common.slack.SlackMsgCreator import SlackMsgCreator
 from common.slack.Slack import Slack
 from common.const.SLACK import *
+from common.util.StrUtil import StrUtil
 
 logger = get_logger()
 
@@ -56,16 +57,20 @@ def slack_wrapper(mail_res):
                 )
                 slack_update_res = slack.update_post(CHANNEL_ID, MSG_TYPE['BLOCK'], update_msg, slack_thread_id)
                 if slack_update_res.status_code == 200:
-                    reply_msg = SlackMsgCreator.get_slack_reply_block(
-                        gmail_label_id=gmail_label_id,
-                        sender_email=sender_email,
-                        created_at=created_at,
-                        contents=contents,
-                    )
 
-                    slack_reply_res = slack.add_reply(CHANNEL_ID, MSG_TYPE['BLOCK'], reply_msg, slack_thread_id)
+                    reply_res_status_codes = []
+                    for contents_chunk in StrUtil.split_string_into_chunks(contents):
+                        reply_msg = SlackMsgCreator.get_slack_reply_block(
+                            gmail_label_id=gmail_label_id,
+                            sender_email=sender_email,
+                            created_at=created_at,
+                            contents=contents_chunk,
+                        )
 
-                    if slack_reply_res.status_code == 200:
+                        slack_reply_res = slack.add_reply(CHANNEL_ID, MSG_TYPE['BLOCK'], reply_msg, slack_thread_id)
+                        reply_res_status_codes.append(slack_reply_res.status_code)
+
+                    if not any(value != 200 for value in reply_res_status_codes):
                         formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
                         AccessService.insert_slack_thread_id(
@@ -97,16 +102,19 @@ def slack_wrapper(mail_res):
             if slack_res.status_code == 200:
                 slack_thread_id = slack_res.text
 
-                # create slack reply
-                reply_msg = SlackMsgCreator.get_slack_reply_block(
-                    gmail_label_id=gmail_label_id,
-                    sender_email=sender_email,
-                    created_at=created_at,
-                    contents=contents,
-                )
-                slack_reply_res = slack.add_reply(CHANNEL_ID, MSG_TYPE['BLOCK'], reply_msg, slack_thread_id)
+                reply_res_status_codes = []
+                for contents_chunk in StrUtil.split_string_into_chunks(contents):
+                    reply_msg = SlackMsgCreator.get_slack_reply_block(
+                        gmail_label_id=gmail_label_id,
+                        sender_email=sender_email,
+                        created_at=created_at,
+                        contents=contents_chunk,
+                    )
 
-                if slack_reply_res.status_code == 200:
+                    slack_reply_res = slack.add_reply(CHANNEL_ID, MSG_TYPE['BLOCK'], reply_msg, slack_thread_id)
+                    reply_res_status_codes.append(slack_reply_res.status_code)
+
+                if not any(value != 200 for value in reply_res_status_codes):
                     formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
                     AccessService.insert_slack_thread_id(
