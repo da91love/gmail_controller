@@ -19,6 +19,7 @@ from api_gmail_checker.type.ResType import ResType
 from common.gmail.check_emails import check_emails
 from common.slack.slack_wrapper import slack_wrapper
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.util.StrUtil import StrUtil
 
 # Create instance
 config = get_config()
@@ -56,7 +57,7 @@ def app_api_gmail_checker(event, context=None):
             AccessService.insert_contents(
                 gmail_thread_id=res['gmail_thread_id'],
                 gmail_msg_id=res['gmail_msg_id'],
-                contents=res['contents'],
+                contents=StrUtil.clean_mail_body(res['contents']),
                 created_at=res['created_at']
             )
 
