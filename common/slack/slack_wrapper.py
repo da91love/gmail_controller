@@ -41,14 +41,6 @@ def slack_wrapper(mail_res):
             # 이미 reply 처리된 gmail_msg_id 존재시 pass
             if len(_.filter_(slack_thread_history, {'gmail_msg_id': gmail_msg_id})) == 0:
                 slack_thread_id = slack_thread_history[0]['slack_thread_id']
-
-                msg = SlackMsgCreator.get_slack_reply_block(
-                    gmail_label_id=tiktok_url,
-                    sender_email=sender_email,
-                    created_at=created_at,
-                    contents=contents,
-                )
-
                 update_msg = SlackMsgCreator.get_slack_post_block(
                     tiktok_url=tiktok_url,
                     author_unique_id=author_unique_id,
@@ -59,19 +51,28 @@ def slack_wrapper(mail_res):
                     pic=pic,
                     is_reply_done=is_reply_done,
                 )
-                slack.update_post(CHANNEL_ID, MSG_TYPE['BLOCK'], update_msg, slack_thread_id)
-
-                slack_res = slack.add_reply(CHANNEL_ID, MSG_TYPE['BLOCK'], msg, slack_thread_id)
-
-                if slack_res.status_code == 200:
-                    formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-                    AccessService.insert_slack_thread_id(
-                        slack_thread_id=slack_thread_id,
-                        gmail_thread_id=gmail_thread_id,
-                        gmail_msg_id=gmail_msg_id,
-                        created_at=formatted_datetime
+                slack_update_res = slack.update_post(CHANNEL_ID, MSG_TYPE['BLOCK'], update_msg, slack_thread_id)
+                if slack_update_res.status_code == 200:
+                    msg = SlackMsgCreator.get_slack_reply_block(
+                        gmail_label_id=gmail_label_id,
+                        sender_email=sender_email,
+                        created_at=created_at,
+                        contents=contents,
                     )
+
+                    slack_reply_res = slack.add_reply(CHANNEL_ID, MSG_TYPE['BLOCK'], msg, slack_thread_id)
+
+                    if slack_reply_res.status_code == 200:
+                        formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+                        AccessService.insert_slack_thread_id(
+                            slack_thread_id=slack_thread_id,
+                            gmail_thread_id=gmail_thread_id,
+                            gmail_msg_id=gmail_msg_id,
+                            created_at=formatted_datetime
+                        )
+                    else:
+                        raise SlackApiInternalException
                 else:
                     raise SlackApiInternalException
 
@@ -93,7 +94,7 @@ def slack_wrapper(mail_res):
 
                 # create slack reply
                 reply_msg = SlackMsgCreator.get_slack_reply_block(
-                    gmail_label_id=tiktok_url,
+                    gmail_label_id=gmail_label_id,
                     sender_email=sender_email,
                     created_at=created_at,
                     contents=contents,
