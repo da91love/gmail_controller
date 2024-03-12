@@ -98,16 +98,19 @@ def slack_wrapper(mail_res):
                     created_at=created_at,
                     contents=contents,
                 )
-                slack.add_reply(CHANNEL_ID, MSG_TYPE['BLOCK'], reply_msg, slack_thread_id)
+                slack_reply_res = slack.add_reply(CHANNEL_ID, MSG_TYPE['BLOCK'], reply_msg, slack_thread_id)
 
-                formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                if slack_reply_res.status_code == 200:
+                    formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-                AccessService.insert_slack_thread_id(
-                    slack_thread_id= slack_thread_id,
-                    gmail_thread_id= gmail_thread_id,
-                    gmail_msg_id=gmail_msg_id,
-                    created_at= formatted_datetime
-                )
+                    AccessService.insert_slack_thread_id(
+                        slack_thread_id=slack_thread_id,
+                        gmail_thread_id=gmail_thread_id,
+                        gmail_msg_id=gmail_msg_id,
+                        created_at=formatted_datetime
+                    )
+                else:
+                    raise SlackApiInternalException
 
             else:
                 raise SlackApiInternalException
