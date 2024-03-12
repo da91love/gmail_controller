@@ -1,4 +1,5 @@
 import json
+import html
 
 from common.const.STATUS import *
 
@@ -69,26 +70,28 @@ class SlackMsgCreator:
 
     @staticmethod
     def get_slack_reply_block(gmail_label_id, sender_email, created_at, contents):
+        contents = html.unescape(contents)
+
         return json.dumps([
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*・ MAIL status: {gmail_label_id}*"
+                    "text": f"*・ MAIL status:* {gmail_label_id}"
                 }
             },
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*・ Sender mail address: {sender_email}*"
+                    "text": f"*・ Sender mail address:* {sender_email}"
                 }
             },
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*・ MAIL time: {created_at}*"
+                    "text": f"*・ MAIL time:* {created_at}"
                 }
             },
             {
@@ -98,7 +101,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*・ contents* : <{contents}>"
+                    "text": f"*・ contents* : {contents}"
                 }
             }
         ])

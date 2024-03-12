@@ -75,8 +75,8 @@ def slack_wrapper(mail_res):
                             created_at=formatted_datetime
                         )
                     else:
-                        logger.error(author_unique_id, receiver_email)
                         logger.error(contents)
+                        logger.error(reply_msg)
                         raise SlackApiInternalException(msg=slack_reply_res.text)
                 else:
                     raise SlackApiInternalException(msg=slack_update_res.text)
