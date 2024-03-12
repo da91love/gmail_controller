@@ -53,14 +53,14 @@ def slack_wrapper(mail_res):
                 )
                 slack_update_res = slack.update_post(CHANNEL_ID, MSG_TYPE['BLOCK'], update_msg, slack_thread_id)
                 if slack_update_res.status_code == 200:
-                    msg = SlackMsgCreator.get_slack_reply_block(
+                    reply_msg = SlackMsgCreator.get_slack_reply_block(
                         gmail_label_id=gmail_label_id,
                         sender_email=sender_email,
                         created_at=created_at,
                         contents=contents,
                     )
 
-                    slack_reply_res = slack.add_reply(CHANNEL_ID, MSG_TYPE['BLOCK'], msg, slack_thread_id)
+                    slack_reply_res = slack.add_reply(CHANNEL_ID, MSG_TYPE['BLOCK'], reply_msg, slack_thread_id)
 
                     if slack_reply_res.status_code == 200:
                         formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -77,7 +77,7 @@ def slack_wrapper(mail_res):
                     raise SlackApiInternalException
 
         else:
-            msg = SlackMsgCreator.get_slack_post_block(
+            post_msg = SlackMsgCreator.get_slack_post_block(
                 tiktok_url=tiktok_url,
                 author_unique_id=author_unique_id,
                 receiver_email=receiver_email,
@@ -87,7 +87,7 @@ def slack_wrapper(mail_res):
                 pic=pic,
                 is_reply_done=is_reply_done,
             )
-            slack_res = slack.add_post(CHANNEL_ID, MSG_TYPE['BLOCK'], msg)
+            slack_res = slack.add_post(CHANNEL_ID, MSG_TYPE['BLOCK'], post_msg)
 
             if slack_res.status_code == 200:
                 slack_thread_id = slack_res.text
