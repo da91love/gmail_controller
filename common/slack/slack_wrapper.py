@@ -2,11 +2,14 @@ from datetime import datetime
 from operator import itemgetter
 import pydash as _
 
+from common.util.logger_get import get_logger
 from common.type.Errors import *
 from common.lib.ma.data_access.system.AccessService import AccessService
 from common.slack.SlackMsgCreator import SlackMsgCreator
 from common.slack.Slack import Slack
 from common.const.SLACK import *
+
+logger = get_logger()
 
 def slack_wrapper(mail_res):
     try:
@@ -72,7 +75,7 @@ def slack_wrapper(mail_res):
                             created_at=formatted_datetime
                         )
                     else:
-                        print(reply_msg)
+                        logger.error(reply_msg)
                         raise SlackApiInternalException(msg=slack_reply_res.text)
                 else:
                     raise SlackApiInternalException(msg=slack_update_res.text)
