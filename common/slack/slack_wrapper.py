@@ -72,9 +72,9 @@ def slack_wrapper(mail_res):
                             created_at=formatted_datetime
                         )
                     else:
-                        raise SlackApiInternalException
+                        raise SlackApiInternalException(msg=slack_reply_res.text)
                 else:
-                    raise SlackApiInternalException
+                    raise SlackApiInternalException(msg=slack_update_res.text)
 
         else:
             post_msg = SlackMsgCreator.get_slack_post_block(
@@ -111,10 +111,10 @@ def slack_wrapper(mail_res):
                         created_at=formatted_datetime
                     )
                 else:
-                    raise SlackApiInternalException
+                    raise SlackApiInternalException(msg=slack_reply_res.text)
 
             else:
-                raise SlackApiInternalException
+                raise SlackApiInternalException(msg=slack_res.text)
 
             return True
     except Exception as e:
