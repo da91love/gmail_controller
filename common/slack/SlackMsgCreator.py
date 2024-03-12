@@ -74,21 +74,21 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"* MAIL status: {gmail_label_id}*"
+                    "text": f"*・ MAIL status: {gmail_label_id}*"
                 }
             },
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"* Sender mail address: {sender_email}*"
+                    "text": f"*・ Sender mail address: {sender_email}*"
                 }
             },
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"* MAIL time: {created_at}*"
+                    "text": f"*・ MAIL time: {created_at}*"
                 }
             },
             {
