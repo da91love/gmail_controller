@@ -2,6 +2,7 @@ from datetime import datetime
 from operator import itemgetter
 import pydash as _
 
+from common.type.Errors import SlackApiInternalException
 from common.lib.ma.data_access.system.AccessService import AccessService
 from common.slack.SlackMsgCreator import SlackMsgCreator
 from common.slack.Slack import Slack
@@ -71,6 +72,8 @@ def slack_wrapper(mail_res):
                         gmail_msg_id=gmail_msg_id,
                         created_at=formatted_datetime
                     )
+                else:
+                    raise SlackApiInternalException
 
         else:
             msg = SlackMsgCreator.get_slack_post_block(
@@ -105,6 +108,9 @@ def slack_wrapper(mail_res):
                     gmail_msg_id=gmail_msg_id,
                     created_at= formatted_datetime
                 )
+
+            else:
+                raise SlackApiInternalException
 
             return True
     except Exception as e:

@@ -47,6 +47,9 @@ def app_api_gmail_checker(event, context=None):
     db_inserted_res = []
     for res in mail_check_res:
         try:
+            # create slack thread
+            slack_wrapper(res)
+
             AccessService.insert_contents(
                 gmail_thread_id=res['gmail_thread_id'],
                 gmail_msg_id=res['gmail_msg_id'],
@@ -62,9 +65,6 @@ def app_api_gmail_checker(event, context=None):
                 t_key=res['t_key'],
                 created_at=res['created_at']
             )
-
-            # create slack thread
-            slack_wrapper(res)
 
             # put into list
             db_inserted_res.append(res)

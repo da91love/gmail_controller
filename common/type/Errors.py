@@ -1,3 +1,12 @@
+
+class SlackApiInternalException(Exception):
+    # 例外情報をもらってメッセージを出せるか
+    def __init__(
+            self,
+            msg="Slack api server internally failed"):
+        Exception.__init__(self, msg)
+
+
 class AmzApiAuthenticationException(Exception):
     # 例外情報をもらってメッセージを出せるか
     def __init__(
