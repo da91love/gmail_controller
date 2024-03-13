@@ -14,7 +14,6 @@ sys.path.append(project_root)
 sys.path.append(api_root)
 
 from common.AppBase import AppBase
-from common.type.Errors import *
 from common.util.get_config import get_config
 from common.gmail.send_re_email import send_re_email
 from common.gmail.send_email import send_email
@@ -22,8 +21,7 @@ from common.gmail.update_gmail_thread_id import update_gmail_thread_id
 from common.slack.slack_wrapper import slack_wrapper
 from api_gmail_follow_up_sender.type.ResType import ResType
 from api_gmail_follow_up_sender.const.mail_info import *
-from common.const.EMAIL import *
-from common.const.STATUS import *
+from common.const.SLACK import *
 
 from common.lib.ma.data_access.system.AccessService import AccessService
 
@@ -114,7 +112,7 @@ def app_api_gmail_follow_up_sender(event, context=None):
                     }
 
                     # create slack thread
-                    slack_wrapper(slack_params)
+                    slack_wrapper(slack_info=slack_params, slack_chn_id=SLACK_CONTACT_CHANNEL_ID)
 
                     sent_done_tg.append(sent_message)
                     loop += 1
