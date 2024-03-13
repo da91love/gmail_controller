@@ -13,6 +13,7 @@ sys.path.append(api_root)
 
 from common.AppBase import AppBase
 from common.type.Errors import *
+from common.const.SLACK import *
 from common.util.get_config import get_config
 from common.util.logger_get import get_logger
 from api_gmail_checker.type.ResType import ResType
@@ -52,7 +53,7 @@ def app_api_gmail_checker(event, context=None):
     for res in mail_check_res:
         try:
             # create slack thread
-            slack_wrapper(res)
+            slack_wrapper(slack_info=res, slack_chn_id=SLACK_CONTACT_CHANNEL_ID)
 
             AccessService.insert_contents(
                 gmail_thread_id=res['gmail_thread_id'],

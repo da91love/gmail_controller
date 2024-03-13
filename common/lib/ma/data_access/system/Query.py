@@ -7,6 +7,18 @@ class Query():
         SELECT * FROM mail_contact 
     """
 
+    sql_select_mia= """
+        select *
+        from (
+            select mc.*, ici.author_unique_id, ici.receiver_email, ici.sender_email, ici.tiktok_url, pic.pic, cs.status, cs.progress
+            from mail_contact mc
+            join contact_status cs on cs.gmail_thread_id = mc.gmail_thread_id
+            join infl_contact_info_master ici on ici.t_key = mc.t_key
+            join person_in_charge pic on pic.t_key = mc.t_key
+        ) tg
+        where tg.status = 'open' and tg.progress <> 'deal_finish'
+    """
+
     sql_insert_follow_up_check = """
         INSERT INTO follow_up_check (t_key, is_follow_up_done) 
         VALUES('{t_key}', true)
