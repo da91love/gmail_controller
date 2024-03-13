@@ -86,7 +86,7 @@ def app_api_status_updater(event, context=None):
                 )
 
                 # update slack
-                slack.update_post(CHANNEL_ID, MSG_TYPE['BLOCK'], update_msg, slack_thread_id)
+                slack.update_post(SLACK_CONTACT_CHANNEL_ID, MSG_TYPE['BLOCK'], update_msg, slack_thread_id)
 
             # update gmail label
             # 이미 삭제된 메일에 대해 label 변경 처리시 에러처리
