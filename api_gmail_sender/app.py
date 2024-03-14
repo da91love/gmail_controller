@@ -46,7 +46,7 @@ def app_api_gmail_sender(event, context=None):
     sent_done_tg = []
     loop = 0
     for tg_infl in tg_infls:
-        if loop <= 100:
+        if loop <= 150:
 
             # modify label, if pic is not registered process end
             t_key, author_unique_id, seeding_num, receiver_email, sender_email, pic \
