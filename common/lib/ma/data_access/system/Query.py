@@ -246,6 +246,7 @@ class Query():
         JOIN infl_contact_info_master i ON m.t_key = i.t_key
         JOIN contact_status cs ON cs.gmail_thread_id = m.gmail_thread_id
         JOIN person_in_charge pi ON pi.t_key = m.t_key
+        WHERE m.created_at > '2024-03-11'
     """
 
     sql_select_mail_contact = """
