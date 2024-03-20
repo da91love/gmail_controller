@@ -14,6 +14,7 @@ from api_delivery_tracker.app import app_api_delivery_tracker as track_delivery
 from api_gmail_converting_sender.app import app_api_gmail_converting_sender as send_converting_email
 from api_tiktok_profile_updater.app import app_api_tiktok_profile_updater as get_profile_stat
 from api_gmail_follow_up_sender.app import app_api_gmail_follow_up_sender as send_follow_up
+from api_mia_reminder.app import app_api_mia_reminder as remind_mia
 
 
 os.path.dirname(sys.modules['__main__'].__file__)
@@ -28,6 +29,16 @@ cors = CORS(api)
 # This flask API is only used for the development stage.
 # DO NOT deploy on production
 """
+@api.route('/remind-mia', methods=['get'])  # TODO : Insert any URL
+def remind_mia_get():
+    # Get body, headers
+    # body = request.json
+    # headers = request.headers
+
+    result = remind_mia(None)
+
+    return make_response(jsonify(result))
+
 @api.route('/send-follow-up', methods=['get'])  # TODO : Insert any URL
 def send_follow_up_get():
     # Get body, headers

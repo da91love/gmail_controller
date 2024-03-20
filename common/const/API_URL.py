@@ -1,6 +1,6 @@
 SLACK_API = {
     'ADD_POST': 'https://boosta.boosters-labs.com/slack/send',
-    'UPDATE_POST': 'https://mna.boosters-labs.com/slack/update'
+    'UPDATE_POST': 'https://boosta.boosters-labs.com/slack/update'
 }
 
 AMZN_API = {

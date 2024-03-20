@@ -7,13 +7,25 @@ class Query():
         SELECT * FROM mail_contact 
     """
 
+    sql_select_mia= """
+        select *
+        from (
+            select mc.*, ici.author_unique_id, ici.receiver_email, ici.sender_email, ici.tiktok_url, pic.pic, cs.status, cs.progress
+            from mail_contact mc
+            join contact_status cs on cs.gmail_thread_id = mc.gmail_thread_id
+            join infl_contact_info_master ici on ici.t_key = mc.t_key
+            join person_in_charge pic on pic.t_key = mc.t_key
+        ) tg
+        where tg.status = 'open' and tg.progress <> 'deal_finish'
+    """
+
     sql_insert_follow_up_check = """
         INSERT INTO follow_up_check (t_key, is_follow_up_done) 
         VALUES('{t_key}', true)
     """
 
     sql_select_follow_up_mail_info_by_tkey = """
-        select mc.gmail_thread_id, ici.receiver_email
+        select mc.gmail_thread_id, ici.receiver_email, ici.sender_email
         from mail_contact mc
         join infl_contact_info_master ici on ici.t_key = mc.t_key
         where mc.t_key='{t_key}'
@@ -119,7 +131,7 @@ class Query():
     """
 
     sql_select_past_on_contact_infl= """
-        SELECT mc.t_key, ic.author_unique_id, ic.receiver_email, pic.pic
+        SELECT mc.t_key, ic.author_unique_id, ic.receiver_email, ic.sender_email, pic.pic
         FROM (
             SELECT *
             FROM mail_contact
@@ -202,6 +214,7 @@ class Query():
             mc.t_key,
             ici.author_unique_id,
             ici.receiver_email,
+            ici.sender_email,
             ici.tiktok_url,
             pic.pic
         FROM 
@@ -223,7 +236,7 @@ class Query():
 
     # INBOX 라벨이 붙지않은 메일 스레드
     sql_select_sent_thread_id = """
-        SELECT m.gmail_thread_id, m.gmail_msg_id, m.t_key, i.receiver_email, i.tiktok_url, cs.status, cs.progress, pi.pic, m.created_at
+        SELECT m.gmail_thread_id, m.gmail_msg_id, m.t_key, i.receiver_email, i.sender_email, i.tiktok_url, cs.status, cs.progress, pi.pic, m.created_at
         FROM (
 			SELECT DISTINCT t1.*
 			FROM mail_contact t1
@@ -233,6 +246,7 @@ class Query():
         JOIN infl_contact_info_master i ON m.t_key = i.t_key
         JOIN contact_status cs ON cs.gmail_thread_id = m.gmail_thread_id
         JOIN person_in_charge pi ON pi.t_key = m.t_key
+        WHERE m.created_at > '2024-03-11'
     """
 
     sql_select_mail_contact = """

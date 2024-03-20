@@ -14,7 +14,6 @@ sys.path.append(project_root)
 sys.path.append(api_root)
 
 from common.AppBase import AppBase
-from common.type.Errors import *
 from common.util.get_config import get_config
 from common.gmail.send_re_email import send_re_email
 from common.gmail.send_email import send_email
@@ -22,8 +21,7 @@ from common.gmail.update_gmail_thread_id import update_gmail_thread_id
 from common.slack.slack_wrapper import slack_wrapper
 from api_gmail_follow_up_sender.type.ResType import ResType
 from api_gmail_follow_up_sender.const.mail_info import *
-from common.const.EMAIL import *
-from common.const.STATUS import *
+from common.const.SLACK import *
 
 from common.lib.ma.data_access.system.AccessService import AccessService
 
@@ -63,7 +61,8 @@ def app_api_gmail_follow_up_sender(event, context=None):
                 # t_key로 메일 스레드 추출
                 # follow_up_mail_info가 1보다 작으면 eoeo이나 picky에서 온 인원들로 메일주소 자체가 없어 메일 송신하지 않음
                 follow_up_mail_info = AccessService.select_follow_up_mail_info_by_tkey(t_key=t_key)
-                gmail_thread_id, receiver_email = itemgetter('gmail_thread_id', 'receiver_email')(follow_up_mail_info[0])
+                gmail_thread_id, receiver_email, sender_email \
+                    = itemgetter('gmail_thread_id', 'receiver_email', 'sender_email')(follow_up_mail_info[0])
 
                 # create mail body
                 formatted_mail_body = mail_body.format(tiktok_url)
@@ -71,9 +70,9 @@ def app_api_gmail_follow_up_sender(event, context=None):
                 # 메일 송신
                 sent_message = None
                 try:
-                    sent_message = send_re_email(SENDER_EMAIL, receiver_email, mail_subject, formatted_mail_body, gmail_thread_id)
+                    sent_message = send_re_email(sender_email, receiver_email, mail_subject, formatted_mail_body, gmail_thread_id)
                 except HttpError:
-                    sent_message = send_email(SENDER_EMAIL, receiver_email, mail_subject, formatted_mail_body)
+                    sent_message = send_email(sender_email, receiver_email, mail_subject, formatted_mail_body)
 
                     # prepare variables
                     new_gmail_thread_id = sent_message.get("threadId")
@@ -113,7 +112,7 @@ def app_api_gmail_follow_up_sender(event, context=None):
                     }
 
                     # create slack thread
-                    slack_wrapper(slack_params)
+                    slack_wrapper(slack_info=slack_params, slack_chn_id=SLACK_CONTACT_CHANNEL_ID)
 
                     sent_done_tg.append(sent_message)
                     loop += 1

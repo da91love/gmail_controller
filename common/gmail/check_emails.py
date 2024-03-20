@@ -20,9 +20,9 @@ from common.gmail.LabelControl import LabelControl
 # Create instances
 logger = get_logger()
 
-def check_emails(label_id):
+def check_emails(label_id, sender_email):
     try:
-        authenticate = Authenticate()
+        authenticate = Authenticate(sender_email)
         creds = authenticate.get_authenticate()
 
         # 최근 15개까지 받은 메일 쓰레드 id 표시
@@ -117,7 +117,8 @@ def check_emails(label_id):
 
                                 pic = (AccessService.select_pic(t_key=t_key)[0])['pic']
 
-                                LabelControl().add_label(gmail_msg_id=new_gmail_msg_id, add_label_names=[status, progress, pic])
+                                labelcontrol = LabelControl(sender_email)
+                                labelcontrol.add_label(gmail_msg_id=new_gmail_msg_id, add_label_names=[status, progress, pic])
 
                                 for msg_in_thread in msgs_in_thread:
                                     # 파라미터로 전해진 labelId로 필터링

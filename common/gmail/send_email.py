@@ -15,7 +15,7 @@ def send_email(sender_email, receiver_email, mail_subject, mail_body):
     :return:
     """
     try:
-        authenticate = Authenticate()
+        authenticate = Authenticate(sender_email)
         creds = authenticate.get_authenticate()
         service = build('gmail', 'v1', credentials=creds)
 

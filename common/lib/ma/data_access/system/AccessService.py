@@ -10,6 +10,20 @@ class AccessService(AccessServiceBase):
     """
 
     @staticmethod
+    def select_mia(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_select_mia,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+    @staticmethod
     def insert_follow_up_check(**bindings):
         """
         :param bindings: (tuple)
