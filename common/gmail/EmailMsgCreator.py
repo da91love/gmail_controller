@@ -5,15 +5,18 @@ class EmailMsgCreator:
         body = None
 
         if seeding_num == 1:
-            subject = 'Paid Collaboration Opportunity with Eqqualberry Toner'
+            subject = 'Paid Opportunity with the Best Kbeauty Toner - Eqqualberry'
             body = f'''
                 <div>Hi {author_unique_id},</div>
                 <br/>
-                <div>I trust this message finds you well. My name is Jennifer, and I represent Eqqualberry, a distinguished Korean Skincare brand that places a strong emphasis on balanced skincare, delving into the depth of quality and user comfort. Your remarkable TikTok account recently caught our eye, and we couldn't help but be captivated by your genuine passion for beauty products.</div>
+                <div>This is Jennifer, I’m a brand manager here in Eqqualberry.</div>
+                <div>Eqqualberry is a distinguished Korean Skincare brand. We at Eqqualberry believe in a strong emphasis on balanced skincare, delving into the depth of quality and user comfort.</div>
                 <br/>
-                <div><b>Recently, we were amazed by how much attention @charinecheungg's recent TikTok video featuring our product received.</b> It's not just about the number of views; the huge amount of likes, comments, and saves clearly shows how interested TikTok viewers are in our product. Because of this, many other TikTok influencers are reaching out to us, excited about collaborating. I'm thrilled to have the opportunity to introduce our product to you in such a positive situation: <b>Eqqualberry Swimming Pool Toner- Currently ranked 14th overall for toner on Amazon.</b></div>
+                <div>Your TikTok channel recently caught our eye, and we couldn’t help but be captivated by your genuine passion for beauty products. Recently, we went viral and were amazed by how much attention @charinecheungg’s collaboration with us has gotten. It’s not just about the number of views; the huge amount of likes, comments, and saves clearly shows how interested TikTok viewers are in our product.</div>
                 <br/>
-                <div>To provide you with a clearer picture, we've attached the key benefits of our product.</div>
+                <div>That being said, we’d love to introduce to you our product <b>“Eqqualberry, Swimming Pool Toner”. Currently ranked 14th overall for toner on Amazon.</b></div>
+                <br/>
+                <div>To provide you with a clearer picture, we've attached the key benefits of our product😉</div>
                 <br/>
                 <div><b>* Key Benefits:</b></div>
                 <ul>
@@ -23,10 +26,9 @@ class EmailMsgCreator:
                 <li>Refines pores and reduces blackheads</li>
                 <li>Fungal acne and acne safe</li>
                 </ul>
-                <div>We're excited about the prospect of collaborating with you on a TikTok post featuring our Swimming Pool Toner. In recognition of your creativity and influence, we're more than happy to discuss fair compensation.😉</div>
+                <div>Please check out <b>"#eqqualberrySwimmingPoolToner"</b> in Amazon for product details.</div>
                 <br/>
-                <div>Let us know if this opportunity resonates with you. Looking forward to the possibility of creating something remarkable together!</div>
-                <div>Please check out <b>"#eqqualberrySwimmingPoolToner"</b> in Amazon for product details😉</div>
+                <div>We truly looking forward to potentially collaborating with you, and if you are interested we’d love to speak next steps soon!</div>
                 <br/>
                 <div>Warmest regards, Jennifer</div>
                 
