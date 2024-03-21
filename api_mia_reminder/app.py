@@ -66,7 +66,7 @@ def app_api_mia_reminder(event, context=None):
 
             # 마지막 contact에서 3일 이상 지난 mia
             day_diff = (datetime.now() - created_at).days
-            if day_diff > 3:
+            if day_diff > 5:
                 post_msg = SlackMsgCreator.get_slack_remind_post_block(
                     tiktok_url=tiktok_url,
                     gmail_label_id=gmail_label_id,
