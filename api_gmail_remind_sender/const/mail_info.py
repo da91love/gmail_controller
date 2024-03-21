@@ -1,12 +1,12 @@
 mail_info = [{
-        "mail_subject": "Join Eqqualberry's TikTok Paid Collaboration!💲",
+        "mail_subject": "Paid Collaboration with Eqqualberry's TikTok ",
         "mail_body": '''
             <div>HI! I am Jennifer😄 I hope you had a chance to review our previous invitation to join our TikTok Seeding Program. We believe that your influence in the skincare community can greatly benefit from this collaboration.</div>
             <br/>
             <div>This is a last reminder to join our program. Don't miss out on the opportunity to showcase our latest skincare products to your followers and be a part of our exclusive influencer community.</div>
             <br/>
             <div>If you have any questions or need more information, feel free to reach out. We value your partnership and look forward to hearing from you soon!</div>
-            <div>Best Regard, 🌷Jennifer</div>
+            <div>Best Regard, Jennifer</div>
         '''
     },
     {
