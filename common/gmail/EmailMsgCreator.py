@@ -52,6 +52,22 @@ class EmailMsgCreator:
                 <div>Instagram: eqqualberry_us</div>
             '''
 
+        elif seeding_num == 3:
+            subject = 'Re-Collaboration offer with Eqqualberry'
+            body = f'''
+                <div>Hi {author_unique_id},</div>
+                <div>I'm Jennifer from Eqqualberry.</div>
+                <div>The previous video you posted was really great! I appreciate and respect it a lot.</div>
+                <div>So I'd like to suggest a third collaboration.</div>
+                <br/>
+                <div>If you have an interest, Let's discuss next step of collaboration through this email thread!</div>
+                <div>Warmest regards, Jennifer</div>
+
+                <span>&nbsp;</span>
+                <div>Tiktok: @eqqualberry_us</div>
+                <div>Instagram: eqqualberry_us</div>
+            '''
+
         return {
             'subject': subject,
             'body': body,
