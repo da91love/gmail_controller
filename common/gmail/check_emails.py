@@ -1,5 +1,6 @@
 from googleapiclient.discovery import build
 from datetime import datetime
+from googleapiclient.errors import HttpError
 from operator import itemgetter
 import pydash as _
 import base64
@@ -177,6 +178,8 @@ def check_emails(label_id, sender_email):
                     continue
 
         return new_arrival_mails
+
     except Exception as e:
+        logger.error(f'error from {sender_email}')
         raise e
 
