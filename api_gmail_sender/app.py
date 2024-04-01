@@ -93,7 +93,7 @@ def app_api_gmail_sender(event, context=None):
 
             # insert to status db
             AccessService.insert_contact_status(
-                gmail_thread_id=gmail_thread_id,
+                t_key=t_key,
                 status=STATUS['OPEN'],
                 progress=PROGRESS['NEGOTIATING'],
             )

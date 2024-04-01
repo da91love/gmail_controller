@@ -101,18 +101,17 @@ def force_check_emails(label_id, gmail_thread_ids, sender_email):
                             # db에서 이메일 검색이 안될 시 우리가 컨택한적 없는 외부 컨택이므로 무시
                             # 혹은 시스템 구축 전 수동으로 보낸 메일이므로 무시
                             if len(old_gmail_thread_info) > 0:
-                                old_gmail_thread_id, author_unique_id, seeding_num, tg_brand = \
-                                    itemgetter('gmail_thread_id', 'author_unique_id', 'seeding_num', 'tg_brand')(old_gmail_thread_info[0])
+                                t_key, old_gmail_thread_id, author_unique_id, seeding_num, tg_brand = \
+                                    itemgetter('t_key', 'gmail_thread_id', 'author_unique_id', 'seeding_num', 'tg_brand')(old_gmail_thread_info[0])
 
                                 # 기존 thread id update
                                 AccessService.update_gmail_mail_contact_thread_id(new_gmail_thread_id=gmail_thread_id, old_gmail_thread_id=old_gmail_thread_id)
-                                AccessService.update_gmail_contact_status_thread_id(new_gmail_thread_id=gmail_thread_id, old_gmail_thread_id=old_gmail_thread_id)
 
                                 # gmail label update
                                 # modify label
                                 new_gmail_msg_id = _.last(msgs_in_thread).get('id')
 
-                                status_data = AccessService.select_contacts_status(gmail_thread_id=gmail_thread_id)
+                                status_data = AccessService.select_contacts_status(t_key=t_key)
                                 status, progress = itemgetter('status', 'progress')(status_data[0])
 
                                 pic = (AccessService.select_pic(author_unique_id=author_unique_id, seeding_num=seeding_num,

@@ -75,21 +75,6 @@ def app_api_gmail_converting_sender(event, context=None):
         # get old t_key
         old_gmail_thread_id = old_thread_id_by_tkey[t_key][0]['gmail_thread_id']
 
-        # status
-        ## 기존 status 데이터 취득
-        old_status_info = AccessService.select_contacts_status(gmail_thread_id=old_gmail_thread_id)
-        old_status, old_progress = itemgetter('status', 'progress')(old_status_info[0])
-        ## 기존꺼 삭제
-        AccessService.delete_temp_status(old_gmail_thread_id=old_gmail_thread_id)
-        ## 새로운거 없으면 추가
-        contact_status = AccessService.select_contacts_status(gmail_thread_id=gmail_thread_id)
-        if len(contact_status) < 1:
-            AccessService.insert_contact_status(
-                gmail_thread_id=gmail_thread_id,
-                status=old_status,
-                progress=old_progress
-            )
-
         # update slack
         AccessService.update_slack_thread_id(
             new_gmail_thread_id=gmail_thread_id,

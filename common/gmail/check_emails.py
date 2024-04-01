@@ -107,13 +107,12 @@ def check_emails(label_id, sender_email):
 
                                 # 기존 thread id update
                                 AccessService.update_gmail_mail_contact_thread_id(new_gmail_thread_id=gmail_thread_id, old_gmail_thread_id=old_gmail_thread_id)
-                                AccessService.update_gmail_contact_status_thread_id(new_gmail_thread_id=gmail_thread_id, old_gmail_thread_id=old_gmail_thread_id)
 
                                 # gmail label update
                                 # modify label
                                 new_gmail_msg_id = _.last(msgs_in_thread).get('id')
 
-                                status_data = AccessService.select_contacts_status(gmail_thread_id=gmail_thread_id)
+                                status_data = AccessService.select_contacts_status(t_key=t_key)
                                 status, progress = itemgetter('status', 'progress')(status_data[0])
 
                                 pic = (AccessService.select_pic(t_key=t_key)[0])['pic']
@@ -148,7 +147,7 @@ def check_emails(label_id, sender_email):
 
                                 # DB 신규 등록
                                 AccessService.insert_contact_status(
-                                    gmail_thread_id=gmail_thread_id,
+                                    t_key=t_key,
                                     status=STATUS['OPEN'],
                                     progress=PROGRESS['NEGOTIATING']
                                 )

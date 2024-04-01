@@ -12,7 +12,7 @@ class Query():
         from (
             select mc.*, ici.author_unique_id, ici.receiver_email, ici.sender_email, ici.tiktok_url, pic.pic, cs.status, cs.progress
             from mail_contact mc
-            join contact_status cs on cs.gmail_thread_id = mc.gmail_thread_id
+            join contact_status cs on cs.t_key = mc.t_key
             join infl_contact_info_master ici on ici.t_key = mc.t_key
             join person_in_charge pic on pic.t_key = mc.t_key
         ) tg
@@ -97,11 +97,6 @@ class Query():
     #     WHERE gmail_thread_id = '{old_gmail_thread_id}'
     # """
 
-    sql_update_contact_status_thread_id = """
-        UPDATE contact_status SET gmail_thread_id = '{new_gmail_thread_id}'
-        WHERE gmail_thread_id = '{old_gmail_thread_id}'
-    """
-
     sql_update_slack_thread_id = """
         UPDATE slack_thread_history SET gmail_thread_id = '{new_gmail_thread_id}'
         WHERE gmail_thread_id = '{old_gmail_thread_id}'
@@ -138,7 +133,7 @@ class Query():
             WHERE gmail_label_id = 'INBOX' AND created_at < '{tg_date}'
             GROUP BY gmail_thread_id
         ) mc
-        JOIN contact_status cs ON cs.gmail_thread_id = mc.gmail_thread_id
+        JOIN contact_status cs ON cs.t_key = mc.t_key
         JOIN infl_contact_info_master ic ON ic.t_key = mc.t_key
         JOIN person_in_charge pic ON pic.t_key = mc.t_key
         WHERE cs.status = 'open'
@@ -244,7 +239,7 @@ class Query():
 			WHERE t2.gmail_label_id IS NULL
 		) m
         JOIN infl_contact_info_master i ON m.t_key = i.t_key
-        JOIN contact_status cs ON cs.gmail_thread_id = m.gmail_thread_id
+        JOIN contact_status cs ON cs.t_key = m.t_key
         JOIN person_in_charge pi ON pi.t_key = m.t_key
         WHERE m.created_at > '2024-03-11'
     """
@@ -261,12 +256,12 @@ class Query():
 
     sql_select_contacts_status = """
         SELECT * FROM contact_status
-        WHERE gmail_thread_id='{gmail_thread_id}'
+        WHERE t_key='{t_key}'
     """
 
     sql_insert_contact_status = """
-        INSERT INTO contact_status(gmail_thread_id, status, progress) 
-        VALUES('{gmail_thread_id}', '{status}', '{progress}')
+        INSERT INTO contact_status(t_key, status, progress) 
+        VALUES('{t_key}', '{status}', '{progress}')
     """
 
     sql_insert_contact_history = """

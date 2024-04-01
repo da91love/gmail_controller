@@ -34,7 +34,7 @@ def slack_wrapper(slack_info, slack_chn_id):
             = itemgetter('author_unique_id', 'receiver_email', 'sender_email', 'tiktok_url', 'pic')(slack_need_info)
 
         ## status 데이터 취득
-        contact_status = AccessService.select_contacts_status(gmail_thread_id=gmail_thread_id)[0]
+        contact_status = AccessService.select_contacts_status(t_key=t_key)[0]
         status, progress = itemgetter('status', 'progress')(contact_status)
 
         ## is reply done

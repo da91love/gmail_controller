@@ -49,22 +49,6 @@ for t_key in contact_history_by_group:
             print('new_gmail_thread_id: '+new_gmail_thread_id)
             print('old_gmail_thread_id: '+old_gmail_thread_id)
 
-            # status
-            ## 기존 status 데이터 취득
-            old_status_info = AccessService.select_contacts_status(gmail_thread_id=old_gmail_thread_id)
-            if len(old_status_info) > 0:
-                old_status, old_progress = itemgetter('status', 'progress')(old_status_info[0])
-            else:
-                status_info = AccessService.select_contacts_status(gmail_thread_id=new_gmail_thread_id)
-                old_status, old_progress = itemgetter('status', 'progress')(status_info[0])
-
-            ## 기존꺼 삭제
-            AccessService.delete_temp_status(old_gmail_thread_id=old_gmail_thread_id)
-            ## 새로운거 없으면 추가
-            contact_status = AccessService.select_contacts_status(gmail_thread_id=new_gmail_thread_id)
-            if len(contact_status) < 1:
-                AccessService.insert_contact_status(gmail_thread_id=new_gmail_thread_id, status=old_status, progress=old_progress)
-
             # slack
             AccessService.update_slack_thread_id(new_gmail_thread_id=new_gmail_thread_id, old_gmail_thread_id=old_gmail_thread_id)
 
