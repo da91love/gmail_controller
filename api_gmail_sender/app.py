@@ -108,6 +108,5 @@ def app_api_gmail_sender(event, context=None):
 
     return ResType(data=sent_done_tg).get_response()
 
-# result = app_api_gmail_sender(None)
-# print(result)
-
+result = app_api_gmail_sender(None)
+print(result)
