@@ -8,12 +8,6 @@ def update_gmail_thread_id(old_gmail_thread_id, new_gmail_thread_id):
         print('new_gmail_thread_id: ' + new_gmail_thread_id)
         print('old_gmail_thread_id: ' + old_gmail_thread_id)
 
-        # slack
-        AccessService.update_slack_thread_id(
-            new_gmail_thread_id=new_gmail_thread_id,
-            old_gmail_thread_id=old_gmail_thread_id
-        )
-
         # mail contents
         AccessService.update_gmail_mail_contents_thread_id(
             new_gmail_thread_id=new_gmail_thread_id,

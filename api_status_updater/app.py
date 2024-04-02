@@ -67,7 +67,7 @@ def app_api_status_updater(event, context=None):
             labelControl = LabelControl(sender_email)
 
             # 아직 답장이 안온 경우는 Slack 존재하지 않으므로 pass
-            slack_id_info = AccessService.select_slack_thread_history(gmail_thread_id=gmail_thread_id)
+            slack_id_info = AccessService.select_slack_thread_history(t_key=t_key)
             if len(slack_id_info) > 0:
                 slack_thread_id = itemgetter('slack_thread_id')(slack_id_info[0])
 

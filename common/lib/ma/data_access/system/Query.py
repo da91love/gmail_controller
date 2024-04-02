@@ -97,11 +97,6 @@ class Query():
     #     WHERE gmail_thread_id = '{old_gmail_thread_id}'
     # """
 
-    sql_update_slack_thread_id = """
-        UPDATE slack_thread_history SET gmail_thread_id = '{new_gmail_thread_id}'
-        WHERE gmail_thread_id = '{old_gmail_thread_id}'
-    """
-
     sql_update_delivery_master = """
         UPDATE delivery_info_master SET delivery_status = '{delivery_status}'
         WHERE order_id = '{order_id}' AND invoice_id = '{invoice_id}';
@@ -201,7 +196,7 @@ class Query():
 
     sql_select_slack_thread_history = """
         SELECT * FROM slack_thread_history
-        WHERE gmail_thread_id='{gmail_thread_id}'
+        WHERE t_key='{t_key}'
     """
 
     sql_select_slack_need_info = """
@@ -225,8 +220,8 @@ class Query():
     """
 
     sql_insert_slack_thread_id = """
-        INSERT INTO slack_thread_history(slack_thread_id, gmail_thread_id, gmail_msg_id, created_at) 
-        VALUES('{slack_thread_id}', '{gmail_thread_id}', '{gmail_msg_id}', '{created_at}')
+        INSERT INTO slack_thread_history(slack_thread_id, t_key, gmail_msg_id, created_at) 
+        VALUES('{slack_thread_id}', '{t_key}', '{gmail_msg_id}', '{created_at}')
     """
 
     # INBOX 라벨이 붙지않은 메일 스레드

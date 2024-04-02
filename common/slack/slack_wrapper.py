@@ -25,7 +25,7 @@ def slack_wrapper(slack_info, slack_chn_id):
         slack = Slack()
 
         # Slack history 데이터 취득
-        slack_thread_history = AccessService.select_slack_thread_history(gmail_thread_id=gmail_thread_id)
+        slack_thread_history = AccessService.select_slack_thread_history(t_key=t_key)
 
         # Slack에 채워넣을 데이터 취득
         ## 메일, 틱톡 url 등
@@ -74,7 +74,7 @@ def slack_wrapper(slack_info, slack_chn_id):
                     # if slack reply does not have error
                     AccessService.insert_slack_thread_id(
                         slack_thread_id=slack_thread_id,
-                        gmail_thread_id=gmail_thread_id,
+                        t_key=t_key,
                         gmail_msg_id=gmail_msg_id,
                         created_at=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                     )
@@ -113,7 +113,7 @@ def slack_wrapper(slack_info, slack_chn_id):
                 # if slack reply does not have error
                 AccessService.insert_slack_thread_id(
                     slack_thread_id=slack_thread_id,
-                    gmail_thread_id=gmail_thread_id,
+                    t_key=t_key,
                     gmail_msg_id=gmail_msg_id,
                     created_at=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 )

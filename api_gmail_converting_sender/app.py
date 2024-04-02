@@ -75,12 +75,6 @@ def app_api_gmail_converting_sender(event, context=None):
         # get old t_key
         old_gmail_thread_id = old_thread_id_by_tkey[t_key][0]['gmail_thread_id']
 
-        # update slack
-        AccessService.update_slack_thread_id(
-            new_gmail_thread_id=gmail_thread_id,
-            old_gmail_thread_id=old_gmail_thread_id
-        )
-
         # update mail contents
         AccessService.update_gmail_mail_contents_thread_id(
             new_gmail_thread_id=gmail_thread_id,
