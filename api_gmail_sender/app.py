@@ -49,8 +49,8 @@ def app_api_gmail_sender(event, context=None):
         if loop <= 150:
 
             # modify label, if pic is not registered process end
-            t_key, author_unique_id, seeding_num, receiver_email, sender_email, pic \
-                = itemgetter('t_key', 'author_unique_id', 'seeding_num', 'receiver_email', 'sender_email', 'pic')(tg_infl)
+            t_key, author_unique_id, tg_country, seeding_num, receiver_email, sender_email, pic \
+                = itemgetter('t_key', 'author_unique_id', 'tg_country', 'seeding_num', 'receiver_email', 'sender_email', 'pic')(tg_infl)
 
             # declare instance
             labelControl = LabelControl(sender_email)
@@ -80,7 +80,7 @@ def app_api_gmail_sender(event, context=None):
             formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
             # modify label
-            labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[STATUS['OPEN'], PROGRESS['NEGOTIATING'], pic])
+            labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[STATUS['OPEN'], PROGRESS['NEGOTIATING'], pic, tg_country])
 
             # insert to contact db
             AccessService.insert_contact_history(
