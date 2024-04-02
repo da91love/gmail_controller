@@ -62,5 +62,5 @@ def app_api_tiktok_profile_updater(event, context=None):
 
     return ResType().get_response()
 
-# result = app_api_delivery_tracker(None)
-# print(result)
+result = app_api_tiktok_profile_updater(None)
+print(result)
