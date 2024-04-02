@@ -40,7 +40,7 @@ def check_emails(label_id, sender_email):
             for gmail_thread_id in gmail_thread_ids:
                 try:
                     # db에서 thread_id로 contact 횟수 검색
-                    contact_history = AccessService.select_contacts(gmail_thread_id=gmail_thread_id)
+                    contact_history = AccessService.select_contacts_by_gti(gmail_thread_id=gmail_thread_id)
 
                     # db에 등록된 메일 처리
                     # db에 등록되지 않을 mail이 검색됐을 때 무시하기위해 len(contact_history) > 0 조건 추가

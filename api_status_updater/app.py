@@ -52,23 +52,25 @@ def app_api_status_updater(event, context=None):
         # update slack
         for sd in status_data:
             status, progress = itemgetter('status', 'progress')(sd)
-            gmail_thread_id = sd['gmail_thread_id']
+            t_key = sd['t_key']
 
-            # gmail 및 slack 공통 데이터 미리 취득
-            ## gmail_msg_id는 가장 최근 msg_id를 가져와야 하므로 contact_data[-1]
-            contact_data = AccessService.select_contacts(gmail_thread_id=gmail_thread_id)
-            gmail_msg_id, t_key = itemgetter('gmail_msg_id', 't_key')(contact_data[-1])
-
-            slack_need_info = AccessService.select_slack_need_info(t_key=t_key)[0]
-            author_unique_id, receiver_email, sender_email, tiktok_url, pic \
-                = itemgetter('author_unique_id', 'receiver_email', 'sender_email', 'tiktok_url', 'pic')(slack_need_info)
-
-            # declare instace
-            labelControl = LabelControl(sender_email)
 
             # 아직 답장이 안온 경우는 Slack 존재하지 않으므로 pass
             slack_id_info = AccessService.select_slack_thread_history(t_key=t_key)
             if len(slack_id_info) > 0:
+                # gmail 및 slack 공통 데이터 미리 취득
+                ## gmail label은 gmail_msg_id 별로 걸려 있는데, 가장 처음 메일에 걸려있는 라벨 삭제해야하므로 contact_data[0]
+                contact_data = AccessService.select_contacts_by_tkey(t_key=t_key)
+                gmail_msg_id = itemgetter('gmail_msg_id')(contact_data[0])
+
+                slack_need_info = AccessService.select_slack_need_info(t_key=t_key)[0]
+                author_unique_id, receiver_email, sender_email, tiktok_url, pic \
+                    = itemgetter('author_unique_id', 'receiver_email', 'sender_email', 'tiktok_url', 'pic')(
+                    slack_need_info)
+
+                # declare instace
+                labelControl = LabelControl(sender_email)
+
                 slack_thread_id = itemgetter('slack_thread_id')(slack_id_info[0])
 
                 is_reply_done = True if contact_data[-1]['gmail_label_id'] == 'SENT' else False
@@ -79,28 +81,28 @@ def app_api_status_updater(event, context=None):
                     author_unique_id=author_unique_id,
                     receiver_email=receiver_email,
                     sender_email=sender_email,
-                    status= status,
-                    progress= progress,
-                    pic= pic,
-                    is_reply_done= is_reply_done,
+                    status=status,
+                    progress=progress,
+                    pic=pic,
+                    is_reply_done=is_reply_done,
                 )
 
                 # update slack
                 slack.update_post(SLACK_CONTACT_CHANNEL_ID, MSG_TYPE['BLOCK'], update_msg, slack_thread_id)
 
-            # update gmail label
-            # 이미 삭제된 메일에 대해 label 변경 처리시 에러처리
-            try:
-                mail_labels = labelControl.check_label(gmail_msg_id=gmail_msg_id)
-                labelControl.remove_label(gmail_msg_id=gmail_msg_id,remove_label_ids=mail_labels)
-                labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[status, progress, pic])
-            except HttpError as e:
-                pass
+                # update gmail label
+                # 이미 삭제된 메일에 대해 label 변경 처리시 에러처리
+                try:
+                    mail_label_ids = labelControl.check_label(gmail_msg_id=gmail_msg_id)
+                    labelControl.remove_label(gmail_msg_id=gmail_msg_id,remove_label_ids=mail_label_ids)
+                    labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[status, progress, pic])
+                except HttpError as e:
+                    pass
 
-            # append data
-            updated_data.append({
-                'gmail_thread_id': gmail_thread_id
-            })
+                # append data
+                updated_data.append({
+                    't_key': t_key
+                })
 
     return ResType(data=updated_data).get_response()
 

@@ -461,14 +461,28 @@ class AccessService(AccessServiceBase):
             raise e
 
     @staticmethod
-    def select_contacts(**bindings):
+    def select_contacts_by_gti(**bindings):
         """
         :param bindings: (tuple)
         :return: (list) sql query result
         """
         try:
             return AccessServiceBase.execute_sql(
-                sql=Query.sql_select_mail_contact,
+                sql=Query.sql_select_mail_contact_by_gti,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+    @staticmethod
+    def select_contacts_by_tkey(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_select_mail_contact_by_tkey,
                 bindings=bindings)
 
         except Exception as e:

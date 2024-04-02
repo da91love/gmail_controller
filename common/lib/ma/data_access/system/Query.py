@@ -239,9 +239,14 @@ class Query():
         WHERE m.created_at > '2024-03-11'
     """
 
-    sql_select_mail_contact = """
+    sql_select_mail_contact_by_gti = """
         SELECT * FROM mail_contact
         WHERE gmail_thread_id='{gmail_thread_id}'
+    """
+
+    sql_select_mail_contact_by_tkey = """
+        SELECT * FROM mail_contact
+        WHERE t_key='{t_key}'
     """
 
     sql_insert_contents = """

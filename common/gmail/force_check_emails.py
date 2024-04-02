@@ -41,7 +41,7 @@ def force_check_emails(label_id, gmail_thread_ids, sender_email):
             for gmail_thread_id in thread_ids:
                 try:
                     # db에서 thread_id로 contact 횟수 검색
-                    contact_history = AccessService.select_contacts(gmail_thread_id=gmail_thread_id)
+                    contact_history = AccessService.select_contacts_by_gti(gmail_thread_id=gmail_thread_id)
 
                     # db에 등록되지 않은 메일 처리
                     # 우리가 보낸 메일 말고 다른 메일 스레드로 송신되는 이슈 발생
