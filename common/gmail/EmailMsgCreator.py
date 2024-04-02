@@ -10,13 +10,15 @@ class EmailMsgCreator:
                 <div>Hi {author_unique_id},</div>
                 <br/>
                 <div>This is Jennifer, I’m a brand manager here in Eqqualberry.</div>
-                <div>Eqqualberry is a distinguished Korean Skincare brand. We at Eqqualberry believe in a strong emphasis on balanced skincare, delving into the depth of quality and user comfort.</div>
+                <div><b>We’re a Korean skincare brand</b>, and we at Eqqualberry believe in a strong emphasis on balanced skincare, we are committed to creating clean beauty that is all natural and free from harsh chemicals!</div>
                 <br/>
-                <div>Your TikTok channel recently caught our eye, and we couldn’t help but be captivated by your genuine passion for beauty products. Recently, we went viral and were amazed by how much attention @charinecheungg’s collaboration with us has gotten. It’s not just about the number of views; the huge amount of likes, comments, and saves clearly shows how interested TikTok viewers are in our product.</div>
+                <div>Your TikTok channel recently caught our eye, and we couldn’t help but be captivated by your genuine passion for beauty products.</div>
                 <br/>
-                <div>That being said, we’d love to introduce to you our product <b>“Eqqualberry, Swimming Pool Toner”. Currently ranked 14th overall for toner on Amazon.</b></div>
+                <div>Recently, we went viral and were amazed by how much attention @charinecheungg’s collaboration with us has gotten. It’s not just about the number of views but we were able to see that many TikTok viewers were genuinely interested and are in need of our product. As a result, <b>Eqqualberry’s Swimming Pool Toner is currently ranked 14th overall for toner on Amazon US.</b></div>
                 <br/>
-                <div>To provide you with a clearer picture, we've attached the key benefits of our product😉</div>
+                <div>We are excited to share with you that we have <b>recently launched our product on Shopee</b> and this will be available across the Southeast Asian market as well, and <b>we’d love to collaborate with you as one of the first few creators to introduce our product to your audience!😉</b></div>
+                <br/>
+                <div>To provide you with a clearer picture, please see the following key benefits on our toner!</div>
                 <br/>
                 <div><b>* Key Benefits:</b></div>
                 <ul>
