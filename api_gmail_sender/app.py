@@ -5,6 +5,7 @@ import uuid
 from datetime import datetime
 from operator import itemgetter
 import pydash as _
+from googleapiclient.errors import HttpError
 import os
 import sys
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -67,12 +68,16 @@ def app_api_gmail_sender(event, context=None):
             # seeding_num 2차 이상일 시 기존 메일 스레드에 붙여서 보내기
             # if seeding_num == 1:
             # send gmail
-            sent_message = send_email(
-                sender_email=sender_email,
-                receiver_email=receiver_email,
-                mail_subject=msg_subject,
-                mail_body=msg_body,
-            )
+            try:
+                sent_message = send_email(
+                    sender_email=sender_email,
+                    receiver_email=receiver_email,
+                    mail_subject=msg_subject,
+                    mail_body=msg_body,
+                )
+            # mail 잘못됐을 때 에러나는 문제
+            except HttpError as e:
+                continue
 
             # prepare variables
             gmail_thread_id = sent_message.get("threadId")
