@@ -13,15 +13,18 @@ class EmailMsgCreator:
                 <div>I’m reaching out to you with an exciting collaboration opportunity that I believe aligns perfectly with your channel and your audience’s interests.</div>
                 <div>Our slogan, “TRAVELING BECOMES EASIER,” aligns seamlessly with your content, reflecting the authenticity and depth that resonate with you and your audience.</div>
                 <br/>
-                <div><b>Branden is currently the #1 best-selling compression packing cube in Korea😊 </b> Currently, we’ve reached 4100,000 in sales with 35,000 of 5stars reviews in the market.</div>
+                <div><b>Branden is currently the #1 best-selling compression packing cube in Korea😊 </b> </div>
+                <div>We’ve reached 400,000 in sales with 35,000 of 5stars reviews in the market, Also many Korean celebrities and mega-creators have collaborated with us</div>
+                <div>And finally, <b>We’re planning to launch in Amazon US this coming April!</b></div>
                 <br/>
-                <div>Many Korean celebrities and mega-creators have also collaborated with us as they really loved our product after using it.</div>
-                <br/>
-                <div>For several years, we’ve extensively focused on developing compression packing cubes. We pride ourselves with the quality of our products compared to any other competitors out in the market and we’ve also received so many positive reviews and feedback from our consumers as it’s so easy for us.</b></div>
+                <div>For several years, we’ve extensively focused on developing compression packing cubes. </div>
+                <div/We pride ourselves with the quality of our products compared to any other competitors out in the market and we’ve also received so many positive reviews and feedback from our consumers as it’s so easy for us.</b></div>
                 <br/>
                 <div>To help you better understand our product’s unique compression feature, kindly check out our official global tiktok channel below.</div>
                 <br/>
-                <div>With our product’s unique compression feature and your creative touch, we believe we can create even more compelling and genuine content together. If you’re interested in exploring this collaboration further, we’d love to discuss next steps at your earliest convenience. Please let us know your thoughts and looking forward to speaking with you.</div>
+                <div>With our product’s unique compression feature and your creative touch, we believe we can create even more compelling and genuine content together. </div>
+                <div>If you’re interested in exploring this collaboration further, we’d love to discuss next steps at your earliest convenience. </div>
+                <div>Please let us know your thoughts and looking forward to speaking with you.</div>
                 <br/>
                 <div>Warmest regards, Grace</div>
                 
