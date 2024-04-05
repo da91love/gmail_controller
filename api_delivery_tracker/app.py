@@ -56,5 +56,5 @@ def app_api_delivery_tracker(event, context=None):
 
     return ResType(data=result).get_response()
 
-# result = app_api_delivery_tracker(None)
-# print(result)
+result = app_api_delivery_tracker(None)
+print(result)

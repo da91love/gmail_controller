@@ -85,13 +85,13 @@ def app_api_gmail_checker(event, context=None):
 
     return ResType(data=db_inserted_res).get_response()
 
-# labelId = sys.argv[1]
-# senderEmail = sys.argv[2]
-#
-# result = app_api_gmail_checker({
-#     "labelId": labelId,
-#     "senderEmail": senderEmail
-# })
-#
-# print(result)
+labelId = sys.argv[1]
+senderEmail = sys.argv[2]
+
+result = app_api_gmail_checker({
+    "labelId": labelId,
+    "senderEmail": senderEmail
+})
+
+print(result)
 
