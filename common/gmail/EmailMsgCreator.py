@@ -5,7 +5,7 @@ class EmailMsgCreator:
         body = None
 
         if seeding_num == 1:
-            subject = 'Paid Opportunity with the Best Kbeauty Toner - Eqqualberry'
+            subject = '[Paid Collaboration Opportunity with the Best Packing Organizer - Branden]'
             body = f'''
                 <div>Hi {author_unique_id},</div>
                 <br/>
@@ -29,8 +29,8 @@ class EmailMsgCreator:
                 <div>Warmest regards, Grace</div>
                 
                 <span>&nbsp;</span>
-                <div>Tiktok: @branden_official</div>
-                <div>Instagram: branden.seoul</div>
+                <div><b>Tiktok: @branden_official</b></div>
+                <div><b>Instagram: branden.seoul</b></div>
             '''
         elif seeding_num == 2:
             subject = 'Re-Collaboration offer with Branden'
