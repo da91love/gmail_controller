@@ -1,6 +1,6 @@
 mail_subject = '🌟Follow-up request💙'
 mail_body = '''
-<div>Hi! I am Jennifer from Eqqualberry.</div>
+<div>Hi! I am grace from Branden.</div>
 <br/>
 <div>We really feel thankful to your post and cooperation😉</div>
 <br/>
@@ -15,6 +15,6 @@ mail_body = '''
 <br/>
 <div>Warmest regards, 🌷Jennifer</div>
 <br/>
-<div>Tiktok: @eqqualberry_us</div>
-<div>Instagram: eqqualberry_us</div>
+<div><b>Tiktok: @branden_official</b></div>
+<div><b>Instagram: branden.seoul</b></div>
 '''
