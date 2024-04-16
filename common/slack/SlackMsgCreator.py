@@ -113,7 +113,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "*CONTACT REMIND: contact with below user has been over 3days. Please check out the status.*"
+                    "text": "*CONTACT REMIND: contact with below user has been over 5days. Please check out the status.*"
                 }
             },
             {
