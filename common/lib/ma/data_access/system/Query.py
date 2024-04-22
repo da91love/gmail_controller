@@ -141,7 +141,8 @@ class Query():
             FROM infl_contact_info_master
             WHERE t_key NOT IN (SELECT DISTINCT t_key FROM mail_contact)
         ) m
-        join person_in_charge pi on pi.t_key = m.t_key;
+        join person_in_charge pi on pi.t_key = m.t_key
+        ORDER BY m.id ASC
     """
 
     sql_select_delivery_history = """
