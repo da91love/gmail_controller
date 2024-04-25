@@ -7,6 +7,20 @@ class Query():
         SELECT * FROM mail_contact 
     """
 
+    sql_select_pic_email_match="""
+        SELECT * FROM pic_email_match
+    """
+
+    sql_insert_pic="""
+        INSERT INTO person_in_charge(t_key, pic) 
+        VALUES('{t_key}','{pic}')
+    """
+
+    sql_insert_infl_contact_info="""
+        INSERT INTO infl_contact_info_master(t_key, author_unique_id, seeding_num, tg_brand, channel, tg_country, receiver_email, tiktok_url, source_type, sender_email) 
+        VALUES('{t_key}','{author_unique_id}','{seeding_num}','{tg_brand}','{channel}', '{tg_country}', '{receiver_email}', '{tiktok_url}', '{source_type}', '{sender_email}')
+    """
+
     sql_select_mia= """
         select *
         from (
