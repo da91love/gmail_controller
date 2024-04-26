@@ -14,16 +14,12 @@ sys.path.append(project_root)
 sys.path.append(api_root)
 
 from common.AppBase import AppBase
-from common.type.Errors import *
 from common.util.get_config import get_config
-from common.gmail.send_email import send_email
-from common.gmail.LabelControl import LabelControl
 from api_gmail_sender.type.ResType import ResType
-from api_gmail_sender.const.mail_info import *
-from common.const.EMAIL import *
-from common.const.STATUS import *
 from common.lib.ma.data_access.system.AccessService import AccessService
-from common.gmail.EmailMsgCreator import EmailMsgCreator
+from common.const.SLACK import *
+from common.slack.Slack import Slack
+from common.slack.SlackMsgCreator import SlackMsgCreator
 
 # Create instance
 config = get_config()
@@ -32,7 +28,7 @@ config = get_config()
 # s3_bucket_name = config['S3']['s3_bucket_name']
 
 @AppBase
-def app_api_gmail_sender(event, context=None):
+def app_api_kpi_checker(event, context=None):
     """
     lambda_handler : This functions will be implemented in lambda
     :param event: (dict)
@@ -42,76 +38,37 @@ def app_api_gmail_sender(event, context=None):
 
     # Get data from API Gateway
     data = event
-    tg_infls = AccessService.select_infl_first_contact()
+    pic_email_matches = AccessService.select_pic_email_match()
 
-    sent_done_tg = []
-    loop = 0
-    for tg_infl in tg_infls:
-        if loop <= 150:
+    # 연락횟수 count
+    cnct_num_sum = 0
+    today = datetime.now().strftime('%Y-%m-%d')
+    for pic_email_match in pic_email_matches:
+        sender_email = pic_email_match['sender_email']
 
-            # modify label, if pic is not registered process end
-            t_key, author_unique_id, seeding_num, receiver_email, sender_email, pic \
-                = itemgetter('t_key', 'author_unique_id', 'seeding_num', 'receiver_email', 'sender_email', 'pic')(tg_infl)
+        contacts_by_sender_email = AccessService.select_today_contacts(
+            today=today,
+            sender_email=sender_email
+        )
 
-            # declare instance
-            labelControl = LabelControl(sender_email)
+        cnct_num_sum += len(contacts_by_sender_email)
 
-            # send mail
-            # format mail body
-            # 1차 시기에 송신한 메일들 별도로 처리하기 위한 로직 추가
-            # msg_subject = mail_subject_4_old if 'old' in t_key else mail_subject
-            # msg_body = mail_body_4_old.format(author_unique_id) if 'old' in t_key else mail_body.format(author_unique_id)
-            msg = EmailMsgCreator.get_send_mail_msg(author_unique_id=author_unique_id, seeding_num=seeding_num)
-            msg_subject = msg.get('subject')
-            msg_body = msg.get('body')
+    # 계약횟수 count
+    delivery_num = len(AccessService.select_delivery_info_master(today=today))
 
-            # seeding_num 2차 이상일 시 기존 메일 스레드에 붙여서 보내기
-            # if seeding_num == 1:
-            # send gmail
-            try:
-                sent_message = send_email(
-                    sender_email=sender_email,
-                    receiver_email=receiver_email,
-                    mail_subject=msg_subject,
-                    mail_body=msg_body,
-                )
-            # mail 잘못됐을 때 에러나는 문제
-            except HttpError as e:
-                continue
+    post_msg = SlackMsgCreator.get_slack_kpi_post_block(
+        today=today,
+        cnct_count=cnct_num_sum,
+        delivery_count=delivery_num
+    )
 
-            # prepare variables
-            gmail_thread_id = sent_message.get("threadId")
-            gmail_msg_id = sent_message.get("id")
-            formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    # declare instance
+    slack = Slack()
 
-            # modify label
-            labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[STATUS['OPEN'], PROGRESS['NEGOTIATING'], pic])
-
-            # insert to contact db
-            AccessService.insert_contact_history(
-                gmail_thread_id=gmail_thread_id,
-                gmail_msg_id=gmail_msg_id,
-                gmail_label_id='SENT',
-                t_key=t_key,
-                created_at=formatted_datetime
-            )
-
-            # insert to status db
-            AccessService.insert_contact_status(
-                gmail_thread_id=gmail_thread_id,
-                status=STATUS['OPEN'],
-                progress=PROGRESS['NEGOTIATING'],
-            )
-
-            # append result
-            sent_done_tg.append(sent_message)
-            loop += 1
-
-            # elif seeding_num == 2:
+    slack.add_post(SLACK_GLOBAL_SEEDING_CHANNEL_ID, MSG_TYPE['BLOCK'], post_msg)
 
 
-
-    return ResType(data=sent_done_tg).get_response()
+    return ResType(data={}).get_response()
 
 # result = app_api_gmail_sender(None)
 # print(result)
