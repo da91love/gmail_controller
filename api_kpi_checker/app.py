@@ -32,7 +32,7 @@ config = get_config()
 # s3_bucket_name = config['S3']['s3_bucket_name']
 
 @AppBase
-def app_api_gmail_sender(event, context=None):
+def app_kpi_checker(event, context=None):
     """
     lambda_handler : This functions will be implemented in lambda
     :param event: (dict)
@@ -113,6 +113,6 @@ def app_api_gmail_sender(event, context=None):
 
     return ResType(data=sent_done_tg).get_response()
 
-# result = app_api_gmail_sender(None)
-# print(result)
+result = app_kpi_checker(None)
+print(result)
 
