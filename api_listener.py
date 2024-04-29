@@ -15,7 +15,7 @@ from api_gmail_converting_sender.app import app_api_gmail_converting_sender as s
 from api_tiktok_profile_updater.app import app_api_tiktok_profile_updater as get_profile_stat
 from api_gmail_follow_up_sender.app import app_api_gmail_follow_up_sender as send_follow_up
 from api_mia_reminder.app import app_api_mia_reminder as remind_mia
-
+from api_kpi_checker.app import app_api_kpi_checker as check_kpi
 
 os.path.dirname(sys.modules['__main__'].__file__)
 
@@ -29,6 +29,17 @@ cors = CORS(api)
 # This flask API is only used for the development stage.
 # DO NOT deploy on production
 """
+
+@api.route('/check-kpi', methods=['get'])  # TODO : Insert any URL
+def check_kpi_get():
+    # Get body, headers
+    # body = request.json
+    # headers = request.headers
+
+    result = check_kpi(None)
+
+    return make_response(jsonify(result))
+
 @api.route('/remind-mia', methods=['get'])  # TODO : Insert any URL
 def remind_mia_get():
     # Get body, headers

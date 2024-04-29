@@ -7,12 +7,56 @@ class Query():
         SELECT * FROM mail_contact 
     """
 
+    sql_select_delivery_info_master = """
+        select * from delivery_info_master where issue_date='{today}'
+    """
+
+    sql_select_today_contacts = """
+        select *
+        from (
+            select k.t_key, md.sender_email, k.SENT_count, k.INBOX_count
+            from (
+                select icim.t_key, icim.sender_email
+                from (
+                    select t_key
+                    from mail_contact mc
+                    where created_at >= '{today}' and gmail_label_id='SENT'
+                ) mc
+                join infl_contact_info_master icim on icim.t_key = mc.t_key
+            ) md
+            join (
+                SELECT
+                    mc.t_key,
+                    COUNT(CASE WHEN mc.gmail_label_id = 'SENT' THEN 1 END) AS SENT_count,
+                    COUNT(CASE WHEN mc.gmail_label_id = 'INBOX' THEN 1 END) AS INBOX_count
+                FROM mail_contact mc
+                GROUP BY
+                    mc.gmail_thread_id
+            ) k on k.t_key = md.t_key
+        ) aa
+        where aa.INBOX_count > 0 and aa.sender_email='{sender_email}'
+    """
+
+    sql_select_pic_email_match="""
+        SELECT * FROM pic_email_match
+    """
+
+    sql_insert_pic="""
+        INSERT INTO person_in_charge(t_key, pic) 
+        VALUES('{t_key}','{pic}')
+    """
+
+    sql_insert_infl_contact_info="""
+        INSERT INTO infl_contact_info_master(t_key, author_unique_id, seeding_num, tg_brand, channel, tg_country, receiver_email, tiktok_url, source_type, sender_email) 
+        VALUES('{t_key}','{author_unique_id}','{seeding_num}','{tg_brand}','{channel}', '{tg_country}', '{receiver_email}', '{tiktok_url}', '{source_type}', '{sender_email}')
+    """
+
     sql_select_mia= """
         select *
         from (
             select mc.*, ici.author_unique_id, ici.receiver_email, ici.sender_email, ici.tiktok_url, pic.pic, cs.status, cs.progress
             from mail_contact mc
-            join contact_status cs on cs.t_key = mc.t_key
+            join contact_status cs on cs.gmail_thread_id = mc.gmail_thread_id
             join infl_contact_info_master ici on ici.t_key = mc.t_key
             join person_in_charge pic on pic.t_key = mc.t_key
         ) tg
@@ -97,6 +141,16 @@ class Query():
     #     WHERE gmail_thread_id = '{old_gmail_thread_id}'
     # """
 
+    sql_update_contact_status_thread_id = """
+        UPDATE contact_status SET gmail_thread_id = '{new_gmail_thread_id}'
+        WHERE gmail_thread_id = '{old_gmail_thread_id}'
+    """
+
+    sql_update_slack_thread_id = """
+        UPDATE slack_thread_history SET gmail_thread_id = '{new_gmail_thread_id}'
+        WHERE gmail_thread_id = '{old_gmail_thread_id}'
+    """
+
     sql_update_delivery_master = """
         UPDATE delivery_info_master SET delivery_status = '{delivery_status}'
         WHERE order_id = '{order_id}' AND invoice_id = '{invoice_id}';
@@ -128,7 +182,7 @@ class Query():
             WHERE gmail_label_id = 'INBOX' AND created_at < '{tg_date}'
             GROUP BY gmail_thread_id
         ) mc
-        JOIN contact_status cs ON cs.t_key = mc.t_key
+        JOIN contact_status cs ON cs.gmail_thread_id = mc.gmail_thread_id
         JOIN infl_contact_info_master ic ON ic.t_key = mc.t_key
         JOIN person_in_charge pic ON pic.t_key = mc.t_key
         WHERE cs.status = 'open'
@@ -197,7 +251,7 @@ class Query():
 
     sql_select_slack_thread_history = """
         SELECT * FROM slack_thread_history
-        WHERE t_key='{t_key}'
+        WHERE gmail_thread_id='{gmail_thread_id}'
     """
 
     sql_select_slack_need_info = """
@@ -221,8 +275,8 @@ class Query():
     """
 
     sql_insert_slack_thread_id = """
-        INSERT INTO slack_thread_history(slack_thread_id, t_key, gmail_msg_id, created_at) 
-        VALUES('{slack_thread_id}', '{t_key}', '{gmail_msg_id}', '{created_at}')
+        INSERT INTO slack_thread_history(slack_thread_id, gmail_thread_id, gmail_msg_id, created_at) 
+        VALUES('{slack_thread_id}', '{gmail_thread_id}', '{gmail_msg_id}', '{created_at}')
     """
 
     # INBOX 라벨이 붙지않은 메일 스레드
@@ -235,19 +289,14 @@ class Query():
 			WHERE t2.gmail_label_id IS NULL
 		) m
         JOIN infl_contact_info_master i ON m.t_key = i.t_key
-        JOIN contact_status cs ON cs.t_key = m.t_key
+        JOIN contact_status cs ON cs.gmail_thread_id = m.gmail_thread_id
         JOIN person_in_charge pi ON pi.t_key = m.t_key
         WHERE m.created_at > '2024-03-11'
     """
 
-    sql_select_mail_contact_by_gti = """
+    sql_select_mail_contact = """
         SELECT * FROM mail_contact
         WHERE gmail_thread_id='{gmail_thread_id}'
-    """
-
-    sql_select_mail_contact_by_tkey = """
-        SELECT * FROM mail_contact
-        WHERE t_key='{t_key}'
     """
 
     sql_insert_contents = """
@@ -257,12 +306,12 @@ class Query():
 
     sql_select_contacts_status = """
         SELECT * FROM contact_status
-        WHERE t_key='{t_key}'
+        WHERE gmail_thread_id='{gmail_thread_id}'
     """
 
     sql_insert_contact_status = """
-        INSERT INTO contact_status(t_key, status, progress) 
-        VALUES('{t_key}', '{status}', '{progress}')
+        INSERT INTO contact_status(gmail_thread_id, status, progress) 
+        VALUES('{gmail_thread_id}', '{status}', '{progress}')
     """
 
     sql_insert_contact_history = """
