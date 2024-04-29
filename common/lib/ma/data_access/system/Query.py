@@ -7,6 +7,10 @@ class Query():
         SELECT * FROM mail_contact 
     """
 
+    sql_select_keyword_master = """
+        select * from keyword_master
+    """
+
     sql_select_delivery_info_master = """
         select * from delivery_info_master where issue_date='{today}'
     """
