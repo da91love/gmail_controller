@@ -7,6 +7,50 @@ class Query():
         SELECT * FROM mail_contact 
     """
 
+    sql_select_delivery_info_master = """
+        select * from delivery_info_master where issue_date='{today}'
+    """
+
+    sql_select_today_contacts = """
+        select *
+        from (
+            select k.t_key, md.sender_email, k.SENT_count, k.INBOX_count
+            from (
+                select icim.t_key, icim.sender_email
+                from (
+                    select t_key
+                    from mail_contact mc
+                    where created_at >= '{today}' and gmail_label_id='SENT'
+                ) mc
+                join infl_contact_info_master icim on icim.t_key = mc.t_key
+            ) md
+            join (
+                SELECT
+                    mc.t_key,
+                    COUNT(CASE WHEN mc.gmail_label_id = 'SENT' THEN 1 END) AS SENT_count,
+                    COUNT(CASE WHEN mc.gmail_label_id = 'INBOX' THEN 1 END) AS INBOX_count
+                FROM mail_contact mc
+                GROUP BY
+                    mc.gmail_thread_id
+            ) k on k.t_key = md.t_key
+        ) aa
+        where aa.INBOX_count > 0 and aa.sender_email='{sender_email}'
+    """
+
+    sql_select_pic_email_match="""
+        SELECT * FROM pic_email_match
+    """
+
+    sql_insert_pic="""
+        INSERT INTO person_in_charge(t_key, pic) 
+        VALUES('{t_key}','{pic}')
+    """
+
+    sql_insert_infl_contact_info="""
+        INSERT INTO infl_contact_info_master(t_key, author_unique_id, seeding_num, tg_brand, channel, tg_country, receiver_email, tiktok_url, source_type, sender_email) 
+        VALUES('{t_key}','{author_unique_id}','{seeding_num}','{tg_brand}','{channel}', '{tg_country}', '{receiver_email}', '{tiktok_url}', '{source_type}', '{sender_email}')
+    """
+
     sql_select_mia= """
         select *
         from (
