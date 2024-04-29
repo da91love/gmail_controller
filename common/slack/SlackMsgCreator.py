@@ -176,3 +176,33 @@ class SlackMsgCreator:
                 }
             }
         ])
+
+    @staticmethod
+    def get_slack_kpi_post_block(today, cnct_count, delivery_count):
+        return json.dumps([
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"*이퀄베리 US 팀의 {today} 실적 보고♡*"
+                }
+            },
+            {
+                "type": "divider"
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"・ 컨택회수: *{cnct_count}회*"
+                }
+            }
+            ,
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"・ 신규계약건수: *{delivery_count}회*"
+                }
+            }
+        ])
