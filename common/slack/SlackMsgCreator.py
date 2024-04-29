@@ -113,7 +113,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "*CONTACT REMIND: contact with below user has been over 5days. Please check out the status.*"
+                    "text": "*CONTACT REMIND: contact with below user has been over 3days. Please check out the status.*"
                 }
             },
             {
@@ -173,6 +173,36 @@ class SlackMsgCreator:
                 "text": {
                     "type": "mrkdwn",
                     "text": f"*・ Last contact date* : {created_at}"
+                }
+            }
+        ])
+
+    @staticmethod
+    def get_slack_kpi_post_block(today, cnct_count, delivery_count):
+        return json.dumps([
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"*브랜든 US 팀의 {today} 실적 보고♡*"
+                }
+            },
+            {
+                "type": "divider"
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"・ 컨택회수: *{cnct_count}회*"
+                }
+            }
+            ,
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"・ 신규계약건수: *{delivery_count}회*"
                 }
             }
         ])
