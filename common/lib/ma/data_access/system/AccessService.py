@@ -9,76 +9,6 @@ class AccessService(AccessServiceBase):
     """
 
     @staticmethod
-    def select_delivery_info_master(**bindings):
-        """
-        :param bindings: (tuple)
-        :return: (list) sql query result
-        """
-        try:
-            return AccessServiceBase.execute_sql(
-                sql=Query.sql_select_delivery_info_master,
-                bindings=bindings)
-
-        except Exception as e:
-            raise e
-
-    @staticmethod
-    def select_today_contacts(**bindings):
-        """
-        :param bindings: (tuple)
-        :return: (list) sql query result
-        """
-        try:
-            return AccessServiceBase.execute_sql(
-                sql=Query.sql_select_today_contacts,
-                bindings=bindings)
-
-        except Exception as e:
-            raise e
-
-    @staticmethod
-    def select_pic_email_match(**bindings):
-        """
-        :param bindings: (tuple)
-        :return: (list) sql query result
-        """
-        try:
-            return AccessServiceBase.execute_sql(
-                sql=Query.sql_select_pic_email_match,
-                bindings=bindings)
-
-        except Exception as e:
-            raise e
-
-    @staticmethod
-    def insert_pic(**bindings):
-        """
-        :param bindings: (tuple)
-        :return: (list) sql query result
-        """
-        try:
-            return AccessServiceBase.execute_sql(
-                sql=Query.sql_insert_pic,
-                bindings=bindings)
-
-        except Exception as e:
-            raise e
-
-    @staticmethod
-    def insert_infl_contact_info(**bindings):
-        """
-        :param bindings: (tuple)
-        :return: (list) sql query result
-        """
-        try:
-            return AccessServiceBase.execute_sql(
-                sql=Query.sql_insert_infl_contact_info,
-                bindings=bindings)
-
-        except Exception as e:
-            raise e
-
-    @staticmethod
     def select_mia(**bindings):
         """
         :param bindings: (tuple)
@@ -317,34 +247,6 @@ class AccessService(AccessServiceBase):
             raise e
 
     @staticmethod
-    def update_gmail_contact_status_thread_id(**bindings):
-        """
-        :param bindings: (tuple)
-        :return: (list) sql query result
-        """
-        try:
-            return AccessServiceBase.execute_sql(
-                sql=Query.sql_update_contact_status_thread_id,
-                bindings=bindings)
-
-        except Exception as e:
-            raise e
-
-    @staticmethod
-    def update_slack_thread_id(**bindings):
-        """
-        :param bindings: (tuple)
-        :return: (list) sql query result
-        """
-        try:
-            return AccessServiceBase.execute_sql(
-                sql=Query.sql_update_slack_thread_id,
-                bindings=bindings)
-
-        except Exception as e:
-            raise e
-
-    @staticmethod
     def update_gmail_mail_contact_thread_id(**bindings):
         """
         :param bindings: (tuple)
@@ -569,14 +471,28 @@ class AccessService(AccessServiceBase):
             raise e
 
     @staticmethod
-    def select_contacts(**bindings):
+    def select_contacts_by_gti(**bindings):
         """
         :param bindings: (tuple)
         :return: (list) sql query result
         """
         try:
             return AccessServiceBase.execute_sql(
-                sql=Query.sql_select_mail_contact,
+                sql=Query.sql_select_mail_contact_by_gti,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+    @staticmethod
+    def select_contacts_by_tkey(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_select_mail_contact_by_tkey,
                 bindings=bindings)
 
         except Exception as e:
