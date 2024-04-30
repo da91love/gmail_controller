@@ -9,6 +9,20 @@ class AccessService(AccessServiceBase):
     """
 
     @staticmethod
+    def select_sent_mail_contact(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_select_sent_mail_contact,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+    @staticmethod
     def select_delivery_info_master(**bindings):
         """
         :param bindings: (tuple)

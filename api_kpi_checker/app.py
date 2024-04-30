@@ -56,10 +56,14 @@ def app_api_kpi_checker(event, context=None):
     # 계약횟수 count
     delivery_num = len(AccessService.select_delivery_info_master(today=today))
 
+    # 새로보낸 메일수
+    today_contact_num = len(AccessService.select_sent_mail_contact(today=today))
+
     post_msg = SlackMsgCreator.get_slack_kpi_post_block(
         today=today,
+        today_contact_count=today_contact_num,
         cnct_count=cnct_num_sum,
-        delivery_count=delivery_num
+        delivery_count=delivery_num,
     )
 
     # declare instance
