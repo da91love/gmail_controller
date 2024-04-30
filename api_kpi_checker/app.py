@@ -57,7 +57,7 @@ def app_api_kpi_checker(event, context=None):
     delivery_num = len(AccessService.select_delivery_info_master(today=today))
 
     # 새로보낸 메일수
-    today_contact_num = len(AccessService.select_keyword_master(today=today))
+    today_contact_num = len(AccessService.select_sent_mail_contact(today=today))
 
     post_msg = SlackMsgCreator.get_slack_kpi_post_block(
         today=today,
