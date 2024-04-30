@@ -26,7 +26,8 @@ config = get_config()
 logger = get_logger()
 
 if __name__ == "__main__":
-    tags = ['skin1004','manyo', 'torriden', 'tocobo', 'aestura', 'banilaco', 'mixsoon', 'numbuzin', 'tirtir', 'anua', 'somebymi', 'mediheal']
+    kwds_from_db = AccessService.select_keyword_master()
+    kwds = [k['keyword'] for k in kwds_from_db]
 
     pic_email_match = AccessService.select_pic_email_match()
 
@@ -38,7 +39,7 @@ if __name__ == "__main__":
         # multi process sentiments
         try:
             # Use the pool to send requests to the API URLs
-            args = [(tag,) for tag in tags]
+            args = [(kwd,) for kwd in kwds]
             results = pool.map(get_public_search, args)
         except Exception as e:
             print("Exception in worker processes:", e)
@@ -63,7 +64,7 @@ if __name__ == "__main__":
             if text_extra: [hash_tags.append(t['hashtagName']) for t in text_extra]
 
             day_diff = (datetime.now() - posted_time_as_date).days
-            if day_diff <= 30:
+            if day_diff <= 90:
                 receiver_email = LogicUtil.extract_email(post_stat['author']['signature'])
                 if receiver_email:
                     t_key = "auto" + (str(uuid.uuid4()))[4:]
