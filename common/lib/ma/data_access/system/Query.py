@@ -7,6 +7,21 @@ class Query():
         SELECT * FROM mail_contact 
     """
 
+    sql_select_sent_mail_contact = """
+        select *
+        from (
+              SELECT
+                t_key,
+                created_at,
+                COUNT(CASE WHEN gmail_label_id = 'SENT' THEN 1 END) AS SENT_count,
+                COUNT(CASE WHEN gmail_label_id = 'INBOX' THEN 1 END) AS INBOX_count
+              FROM mail_contact
+              GROUP BY
+                t_key
+        ) s
+        where s.SENT_count=1 and s.INBOX_count=0 and s.created_at >= '{today}'
+    """
+
     sql_select_keyword_master = """
         select * from keyword_master
     """
