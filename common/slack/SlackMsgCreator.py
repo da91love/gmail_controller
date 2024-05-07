@@ -11,7 +11,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"{'~Coversation with <'+tiktok_url+'|'+author_unique_id+'> is started!~' if status == STATUS['CLOSE'] else '*Coversation with <'+tiktok_url+'|'+author_unique_id+'> is started!*'}"
+                    "text": f"{'~Conversation with <'+tiktok_url+'|'+author_unique_id+'> is started!~' if status == STATUS['CLOSE'] else '*Conversation with <'+tiktok_url+'|'+author_unique_id+'> is started!*'}"
                 }
             },
             {
@@ -178,13 +178,14 @@ class SlackMsgCreator:
         ])
 
     @staticmethod
-    def get_slack_kpi_post_block(today, today_contact_count, cnct_count, delivery_count):
+    def get_slack_kpi_post_block(today:str, today_contact_count:int, cnct_count:int, delivery_count:int, post_count: int, post_url: str):
+
         return json.dumps([
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*이퀄베리 EA 팀의 {today} 실적 보고♡*"
+                    "text": f"*이퀄베리 US 팀의 {today} 실적 보고♡*"
                 }
             },
             {
@@ -209,6 +210,13 @@ class SlackMsgCreator:
                 "text": {
                     "type": "mrkdwn",
                     "text": f"・ 신규계약건수: *{delivery_count}건*"
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"・ 신규업로드 포스트: *{post_count}건* ({post_url})"
                 }
             }
         ])
