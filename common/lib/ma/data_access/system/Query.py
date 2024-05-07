@@ -7,6 +7,12 @@ class Query():
         SELECT * FROM mail_contact 
     """
 
+    sql_select_today_post = """
+        select *
+        from post_info_master
+        where posting_date = '{today}'
+    """
+
     sql_select_sent_mail_contact = """
         select *
         from (
