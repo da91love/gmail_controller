@@ -59,11 +59,19 @@ def app_api_kpi_checker(event, context=None):
     # 새로보낸 메일수
     today_contact_num = len(AccessService.select_sent_mail_contact(today=today))
 
+    # 오늘 올린 포스트수
+    posts_info = AccessService.select_today_post(today=today)
+    post_count = len(posts_info)
+    post_url = ', '.join([post_info['tiktok_url'] for post_info in posts_info])
+
+    # create slack msg
     post_msg = SlackMsgCreator.get_slack_kpi_post_block(
         today=today,
         today_contact_count=today_contact_num,
         cnct_count=cnct_num_sum,
         delivery_count=delivery_num,
+        post_count=post_count,
+        post_url=post_url
     )
 
     # declare instance
