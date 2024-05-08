@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
     with Manager() as manager:
         # Create a multiprocessing pool with a specified number of processes
-        num_processes = 10  # Adjust this based on your system's capabilities
+        num_processes = 5  # Adjust this based on your system's capabilities
         pool = Pool(processes=num_processes)
 
         # multi process sentiments
