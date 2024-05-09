@@ -10,27 +10,26 @@ class EmailMsgCreator:
                 <div>Hi {author_unique_id},</div>
                 <br/>
                 <div>This is Grace, I’m a brand manager here in Branden.</div>
-                <div>I’m reaching out to you with an exciting collaboration opportunity that I believe aligns perfectly with your channel and your audience’s interests.</div>
-                <div>Our slogan, “TRAVELING BECOMES EASIER,” aligns seamlessly with your content, reflecting the authenticity and depth that resonate with you and your audience.</div>
+                <div>I’m reaching out to you with an exciting collaboration opportunity that I believe aligns perfectly with your TikTok channel and your audience’s interests. Our slogan, “TRAVELING BECOMES EASIER,” aligns seamlessly with your content, reflecting the authenticity and depth that resonate with you and your audience.</div>
                 <br/>
-                <div><b>Branden is currently the #1 best-selling compression packing cube in Korea😊 </b> </div>
+                <div><b>Branden is currently the #1 best-selling compression packing cube in Korea! </b> </div>
                 <div>We’ve reached 400,000 in sales with 200,000 of 5stars reviews in the market, Also many Korean celebrities and mega-creators have collaborated with us</div>
                 <br/>
                 <div>For several years, we’ve extensively focused on developing compression packing cubes. </div>
-                <div>We pride ourselves with the quality of our products compared to any other competitors out in the market and we’ve also received so many positive reviews and feedback from our consumers as it’s so easy for us.</div>
+                <div>We pride ourselves with the quality of our products compared to any other competitors out in the market. With our product’s unique compression feature and your creative touch, we believe we can create even more compelling and genuine content together.</div>
                 <br/>
-                <div>To help you better understand our product’s unique compression feature, kindly check out our official global tiktok channel below.</div>
-                <div>Or search <b>branden packing cube</b> on Amazon.</div>
-                <br/>
-                <div>With our product’s unique compression feature and your creative touch, we believe we can create even more compelling and genuine content together. </div>
-                <div>If you’re interested in exploring this collaboration further, we’d love to discuss next steps at your earliest convenience. </div>
+                <div>If you’re interested in exploring this collaboration further, we’d love to discuss next steps at your earliest convenience.</div>
                 <div>Please let us know your thoughts and looking forward to speaking with you.</div>
+                <br/>
+                <div>Also, if you want to find out more about our product, kindly check out our Amazon storefront by searching <b>""BRANDEN PACKING CUBE""</b>!</div>
                 <br/>
                 <div>Warmest regards, Grace</div>
                 
                 <span>&nbsp;</span>
                 <div><b>Tiktok: @branden_global</b></div>
                 <div><b>Instagram: branden.seoul</b></div>
+                <div><b>Search On Amazon: Branden Compression Packing Cube</b></div>
+                
             '''
         elif seeding_num == 2:
             subject = 'Re-Collaboration offer with Branden'
