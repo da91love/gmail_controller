@@ -29,14 +29,20 @@ if __name__ == "__main__":
         if post_type == 'video':
             post_history = posts_history_grouped_by_id.get(post_info['post_id'])
             # 2차 필터링 : post history 1개 라도 존재하면 3차필터링으로, 아니면 대상 추가
-            if not post_history:
+            if post_history:
+                posted_time = post_history[0]['posted_time']
+                day_diff = (datetime.now() - posted_time).days
+                # 3차 필터링: 게시날이 7일 이내일 것
+                if day_diff <= 7:
+                    tg_posts_info.append(post_info)
+            else:
                 tg_posts_info.append(post_info)
 
     tg_posts_id = [i['post_id'] for i in tg_posts_info]
 
     with Manager() as manager:
         # Create a multiprocessing pool with a specified number of processes
-        num_processes = 10  # Adjust this based on your system's capabilities
+        num_processes = 5  # Adjust this based on your system's capabilities
         pool = Pool(processes=num_processes)
 
         # multi process sentiments
