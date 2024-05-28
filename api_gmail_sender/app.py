@@ -84,9 +84,6 @@ def app_api_gmail_sender(event, context=None):
             gmail_msg_id = sent_message.get("id")
             formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-            # modify label
-            labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[STATUS['OPEN'], PROGRESS['NEGOTIATING'], pic])
-
             # insert to contact db
             AccessService.insert_contact_history(
                 gmail_thread_id=gmail_thread_id,
@@ -102,6 +99,9 @@ def app_api_gmail_sender(event, context=None):
                 status=STATUS['OPEN'],
                 progress=PROGRESS['NEGOTIATING'],
             )
+
+            # modify label
+            labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[STATUS['OPEN'], PROGRESS['NEGOTIATING'], pic])
 
             # append result
             sent_done_tg.append(sent_message)
