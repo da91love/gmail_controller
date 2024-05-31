@@ -8,5 +8,16 @@ mail_info = [{
             <div>If you have any questions or need more information, feel free to reach out. We value your partnership and look forward to hearing from you soon!</div>
             <div>Best Regard, Grace</div>
         '''
+    },
+    {
+            "mail_subject": "Paid Collaboration with Branden's TikTok ",
+            "mail_body": '''
+                <div>HI! I am Grace😄 Just wanted to follow up on the email below :)</div>
+                <br/>
+                <div>We hope that you would have the time to review our paid collaboration offer.</div>
+                <br/>
+                <div>This is our last reminder that for our creator collaboration program, kindly have a look if this is something you would be interested in! We truly look forward to collaborating with you, and truly look forward to your response!</div>
+                <div>Best Regard, Grace</div>
+            '''
     }
 ]
