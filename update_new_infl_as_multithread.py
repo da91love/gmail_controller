@@ -82,6 +82,7 @@ if __name__ == "__main__":
                             author_unique_id=author_unique_id,
                             seeding_num=1,
                             tg_brand='eqqualberry',
+                            product='toner',
                             channel='tiktok',
                             tg_country='US',
                             receiver_email=receiver_email,
