@@ -5,7 +5,7 @@ class EmailMsgCreator:
         body = None
 
         if seeding_num == 1:
-            subject = 'Paid Opportunity with the Best Kbeauty Toner - Eqqualberry'
+            subject = 'Paid Opportunity with the Best Kbeauty Brand - Eqqualberry'
             body = f'''
                 <div>Hi {author_unique_id},</div>
                 <br/>
@@ -14,19 +14,17 @@ class EmailMsgCreator:
                 <br/>
                 <div>Your TikTok channel recently caught our eye, and we couldn’t help but be captivated by your genuine passion for beauty products. Recently, we went viral and were amazed by how much attention @charinecheungg’s collaboration with us has gotten. It’s not just about the number of views; the huge amount of likes, comments, and saves clearly shows how interested TikTok viewers are in our product.</div>
                 <br/>
-                <div>That being said, we’d love to introduce to you our product <b>“Eqqualberry, Swimming Pool Toner”. Currently ranked 14th overall for toner on Amazon.</b></div>
+                <div>Including top ranked product in Amazon "toner category", We are going to launch a renewed version of Cleanser "Daily Glow Cleanser". </div>
                 <br/>
-                <div>To provide you with a clearer picture, we've attached the key benefits of our product😉</div>
+                <div>To provide you with a clearer picture, we've attached the key benefits of our brand and product😉</div>
                 <br/>
                 <div><b>* Key Benefits:</b></div>
                 <ul>
                 <li>Ideal for sensitive and reactive skin</li>
-                <li>Contain Protease to gently exfoliate skin and keep pores clean</li>
-                <li>Deep hydration with five berry extracts and hyaluronic acid</li>
-                <li>Refines pores and reduces blackheads</li>
-                <li>Fungal acne and acne safe</li>
+                <li>Minimal and only use natural derived ingredients</li>
+                <li>All EWG green level ingredients</li>
                 </ul>
-                <div>Please check out <b>"#eqqualberrySwimmingPoolToner"</b> in Amazon for product details.</div>
+                <div>Please check out <b>"#eqqualberry"</b> in Amazon for product details.</div>
                 <br/>
                 <div>We truly looking forward to potentially collaborating with you, and if you are interested we’d love to speak next steps soon!</div>
                 <br/>
