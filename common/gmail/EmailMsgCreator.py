@@ -54,7 +54,7 @@ class EmailMsgCreator:
                 <div>Instagram: eqqualberry_us</div>
             '''
 
-        elif seeding_num == 3:
+        else:
             subject = 'Re-Collaboration offer with Eqqualberry'
             body = f'''
                 <div>Hi {author_unique_id},</div>
