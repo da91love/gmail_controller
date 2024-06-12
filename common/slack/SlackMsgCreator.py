@@ -178,7 +178,7 @@ class SlackMsgCreator:
         ])
 
     @staticmethod
-    def get_slack_kpi_post_block(today:str, today_contact_count:int, cnct_count:int, delivery_count:int, post_count: int, post_url: str):
+    def get_slack_kpi_post_block(today:str, today_contact_count:int, future_contact_count:int, cnct_count:int, delivery_count:int, post_count: int, post_url: str):
 
         return json.dumps([
             {
@@ -195,7 +195,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"・ 금일 신규 메일 송신 회수: *{today_contact_count}회*"
+                    "text": f"・ 금일 신규 메일 송신 회수: *{today_contact_count}회 (남은 메일: {future_contact_count})*"
                 }
             },
             {
