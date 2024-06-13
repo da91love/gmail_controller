@@ -5,7 +5,7 @@ class EmailMsgCreator:
         body = None
 
         if seeding_num == 1:
-            subject = 'Paid Opportunity with the Best Kbeauty Toner - Eqqualberry'
+            subject = 'Paid Opportunity with the Best Kbeauty Brand - Eqqualberry'
             body = f'''
                 <div>Hi {author_unique_id},</div>
                 <br/>
@@ -29,7 +29,7 @@ class EmailMsgCreator:
                 <div>We truly looking forward to potentially collaborating with you, and if you are interested we’d love to speak next steps soon!</div>
                 <br/>
                 <div>Warmest regards, Jennifer</div>
-                
+
                 <span>&nbsp;</span>
                 <div>Tiktok: @eqqualberry_us</div>
                 <div>Instagram: eqqualberry_us</div>
