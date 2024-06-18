@@ -28,6 +28,10 @@ class Query():
         where s.SENT_count=1 and s.INBOX_count=0 and s.created_at >= '{today}'
     """
 
+    sql_select_keyword_master = """
+        select * from keyword_master
+    """
+
     sql_select_delivery_info_master = """
         select * from delivery_info_master where issue_date='{today}'
     """

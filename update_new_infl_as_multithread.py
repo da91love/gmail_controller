@@ -81,7 +81,7 @@ if __name__ == "__main__":
                             t_key=t_key,
                             author_unique_id=author_unique_id,
                             seeding_num=1,
-                            tg_brand='eqqualberry',
+                            tg_brand='branden',
                             channel='tiktok',
                             tg_country='US',
                             receiver_email=receiver_email,
