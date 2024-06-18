@@ -37,6 +37,20 @@ class AccessService(AccessServiceBase):
             raise e
 
     @staticmethod
+    def select_keyword_master(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_select_keyword_master,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+    @staticmethod
     def select_delivery_info_master(**bindings):
         """
         :param bindings: (tuple)
