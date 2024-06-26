@@ -50,7 +50,6 @@ def app_api_gmail_sender(event, context=None):
     tg_infls = fast_mailing_infls + mailing_tg_infls
 
     sent_done_tg = []
-    loop = 0
     for tg_infl in tg_infls:
 
         # modify label, if pic is not registered process end
@@ -109,7 +108,6 @@ def app_api_gmail_sender(event, context=None):
 
         # append result
         sent_done_tg.append(sent_message)
-        loop += 1
 
         # elif seeding_num == 2:
 
