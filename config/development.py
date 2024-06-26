@@ -6,7 +6,7 @@ config = {
     'DB': {
             'mysql': {
                 'db_host': '13.125.110.215',
-                'db_database': 'brdn_us',
+                'db_database': 'eqb_us',
                 'db_port': '3306',
                 'db_user': 'mna',
                 'db_password': 'mna11!!',
