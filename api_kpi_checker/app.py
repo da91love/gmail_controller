@@ -86,6 +86,6 @@ def app_api_kpi_checker(event, context=None):
 
     return ResType(data={}).get_response()
 
-# result = app_api_kpi_checker(None)
-# print(result)
+result = app_api_kpi_checker(None)
+print(result)
 

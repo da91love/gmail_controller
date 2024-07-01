@@ -96,6 +96,6 @@ def app_api_mia_reminder(event, context=None):
 
     return ResType(data=tg_remind_mia).get_response()
 
-# result = app_api_mia_reminder(None)
-# print(result)
+result = app_api_mia_reminder(None)
+print(result)
 
