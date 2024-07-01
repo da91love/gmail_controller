@@ -48,6 +48,7 @@ def app_api_gmail_sender(event, context=None):
     mailing_tg_infls = all_tg_infls[0:150]
 
     tg_infls = fast_mailing_infls + mailing_tg_infls
+    tg_infls = _.uniq_by(tg_infls, 'id')
 
     sent_done_tg = []
     for tg_infl in tg_infls:
