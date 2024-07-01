@@ -48,12 +48,13 @@ def app_api_gmail_sender(event, context=None):
     mailing_tg_infls = all_tg_infls[0:150]
 
     tg_infls = fast_mailing_infls + mailing_tg_infls
+    tg_infls = _.uniq_by(tg_infls, 'id')
 
     sent_done_tg = []
     for tg_infl in tg_infls:
         # modify label, if pic is not registered process end
-        t_key, author_unique_id, tg_country, seeding_num, receiver_email, sender_email, pic \
-            = itemgetter('t_key', 'author_unique_id', 'tg_country', 'seeding_num', 'receiver_email', 'sender_email', 'pic')(tg_infl)
+        t_key, author_unique_id, tg_country, seeding_num, receiver_email, sender_email, pic, add_to_sys \
+            = itemgetter('t_key', 'author_unique_id', 'tg_country', 'seeding_num', 'receiver_email', 'sender_email', 'pic', 'add_to_sys')(tg_infl)
 
         # declare instance
         labelControl = LabelControl(sender_email)
@@ -63,7 +64,7 @@ def app_api_gmail_sender(event, context=None):
         # 1차 시기에 송신한 메일들 별도로 처리하기 위한 로직 추가
         # msg_subject = mail_subject_4_old if 'old' in t_key else mail_subject
         # msg_body = mail_body_4_old.format(author_unique_id) if 'old' in t_key else mail_body.format(author_unique_id)
-        msg = EmailMsgCreator.get_send_mail_msg(author_unique_id=author_unique_id, seeding_num=seeding_num)
+        msg = EmailMsgCreator.get_send_mail_msg(author_unique_id=author_unique_id, seeding_num=seeding_num, add_to_sys=add_to_sys)
         msg_subject = msg.get('subject')
         msg_body = msg.get('body')
 
