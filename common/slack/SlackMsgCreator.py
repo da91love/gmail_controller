@@ -178,7 +178,7 @@ class SlackMsgCreator:
         ])
 
     @staticmethod
-    def get_slack_kpi_post_block(today:str, today_contact_count:int, future_contact_count:int, cnct_count:int, delivery_count:int, post_count: int, post_url: str):
+    def get_slack_tiktok_kpi_post_block(today:str, today_contact_count:int, future_contact_count:int, cnct_count:int, delivery_count:int, post_count: int, post_url: str):
 
         return json.dumps([
             {
