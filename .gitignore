@@ -7,7 +7,8 @@ log/errorLogfile.log
 /workspace.xml
 /public/output/tiktok_post_list.json
 /public/output/tiktok_cmp_infl_list.json
-/public/input/
+/public/input/Eqqualberry_Toner_Contents_Guideline.pdf
+/public/input/Eqqualberry_Cleanser_Contents_Guideline.pdf
 # Byte-compiled / optimized / DLL files
 __pycache__/
 #*.py[cod]
