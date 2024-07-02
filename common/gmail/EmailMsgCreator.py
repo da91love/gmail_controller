@@ -18,33 +18,25 @@ class EmailMsgCreator:
             '''
         else:
             if seeding_num == 1:
-                subject = 'Paid Opportunity with the Best Kbeauty Brand - Eqqualberry'
+                subject = '[Paid Collaboration] Emerging Kbeauty brand - Eqqualberry'
                 body = f'''
                     <div>Hi {author_unique_id},</div>
                     <br/>
                     <div>This is Jennifer, I’m a brand manager here in Eqqualberry.</div>
-                    <div>Eqqualberry is a distinguished Korean Skincare brand. We at Eqqualberry believe in a strong emphasis on balanced skincare, delving into the depth of quality and user comfort.</div>
+                    <div>Eqqualberry is an emerging Korean Skincare brand for sensitive and reactive skin types. We believe in a conscious skincare with inclusivity and sustainability.</div>
+                    <div>We are happy to suggest a collaboration opportunity for your Tiktok account. <br/>
+                    <div>We currently have two main products 1) <a href="https://www.amazon.com/EQQUALBERRY-Swimming-Protease-Facial-Toner/dp/B0CMC6S4BM/ref=sr_1_1?dib=eyJ2IjoiMSJ9.Ph9WIfj2PPKubaRh0awqmZfsJMqEUL8FXHA5xpxl8YTFfKRj5bS-tOvzcz7MmpY6qL9KsArFMH0BNGEFdBWVI0U0qSHyPR2cvQFl3ioXrkc.I4E5CuXRPTh3YG7qyvFUXwUmAk9LCIpCioKgFO-F4ZM&dib_tag=se&keywords=eqqualberry&qid=1719887953&s=beauty&sr=1-1">Eqqualberry swimming pool toner<a/> which already went viral on Tiktok, and a newly launched 2) <a href="https://www.amazon.com/EQQUALBERRY-Balanced-Cleanser-Moisturizing-Cleaning/dp/B0D4996H1D/ref=sr_1_6?dib=eyJ2IjoiMSJ9.Ph9WIfj2PPKubaRh0awqmZfsJMqEUL8FXHA5xpxl8YTFfKRj5bS-tOvzcz7MmpY6qL9KsArFMH0BNGEFdBWVI0U0qSHyPR2cvQFl3ioXrkc.I4E5CuXRPTh3YG7qyvFUXwUmAk9LCIpCioKgFO-F4ZM&dib_tag=se&keywords=eqqualberry&qid=1719887910&s=beauty&sr=1-6">Eqqualberry daily glow cleanser</a>. </div>
                     <br/>
-                    <div>Your TikTok channel recently caught our eye, and we couldn’t help but be captivated by your genuine passion for beauty products. Recently, we went viral and were amazed by how much attention @charinecheungg’s collaboration with us has gotten. It’s not just about the number of views; the huge amount of likes, comments, and saves clearly shows how interested TikTok viewers are in our product.</div>
+                    <div>To provide you with a clearer picture, we've attached the content guidelines for the two products😉</div>
+                    <div>You may also search <b> "#eqqualberry"</b> on Tiktok to check out our previous collab works.</div>
+                    <div>Clink this link if you want to check out guideline details!: <a href="https://drive.google.com/file/d/1S-3wd675AGQyPq1XaZCcTehxClgU_fSe/view?usp=drive_link">toner guideline</a>, <a href="https://drive.google.com/file/d/1FKwZPNkVFeTJnY-kq6ucUaAOQPyTMyfz/view?usp=drive_link">cleanser guideline</a>.
                     <br/>
-                    <div>Including top ranked product in Amazon "toner category", We are going to launch a renewed version of Cleanser "Daily Glow Cleanser". </div>
+                    <div>If you are interested, please suggest your desired rate for the content. We’d love to speak about the next steps soon!</div>
                     <br/>
-                    <div>To provide you with a clearer picture, we've attached the key benefits of our brand and product:윙크:</div>
-                    <br/>
-                    <div><b>* Key Benefits:</b></div>
-                    <ul>
-                    <li>Ideal for sensitive and reactive skin</li>
-                    <li>Minimal and only use natural derived ingredients</li>
-                    <li>All EWG green level ingredients</li>
-                    </ul>
-                    <div>Please check out <b>"#eqqualberry"</b> in Amazon for product details.</div>
-                    <br/>
-                    <div>We truly looking forward to potentially collaborating with you, and if you are interested we’d love to speak next steps soon!</div>
-                    <br/>
-                    <div>Warmest regards, Jennifer</div>
+                    <div>Thanks and regards, Jennifer</div>
                     <span>&nbsp;</span>
                     <div>Tiktok: @eqqualberry_us</div>
-                    <div>Instagram: eqqualberry_us</div>
+                    <div>Instagram: @eqqualberry_us</div>
                 '''
             elif seeding_num == 2:
                 subject = 'Re-Collaboration offer with Eqqualberry'
