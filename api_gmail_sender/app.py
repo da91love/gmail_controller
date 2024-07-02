@@ -19,8 +19,7 @@ from common.util.get_config import get_config
 from common.gmail.send_email import send_email
 from common.gmail.LabelControl import LabelControl
 from api_gmail_sender.type.ResType import ResType
-from api_gmail_sender.const.mail_info import *
-from common.const.EMAIL import *
+from common.const.LOCAL_PATH import *
 from common.const.STATUS import *
 from common.lib.ma.data_access.system.AccessService import AccessService
 from common.gmail.EmailMsgCreator import EmailMsgCreator
@@ -28,8 +27,8 @@ from common.gmail.EmailMsgCreator import EmailMsgCreator
 # Create instance
 config = get_config()
 
-# get config data
-# s3_bucket_name = config['S3']['s3_bucket_name']
+# declare variable
+root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 @AppBase
 def app_api_gmail_sender(event, context=None):
@@ -78,6 +77,7 @@ def app_api_gmail_sender(event, context=None):
                 mail_subject=msg_subject,
                 mail_body=msg_body,
             )
+
         # mail 잘못됐을 때 에러나는 문제
         except HttpError as e:
             continue

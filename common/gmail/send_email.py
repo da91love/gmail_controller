@@ -1,8 +1,12 @@
 from googleapiclient.discovery import build
 from common.gmail.Authenticate import Authenticate
+import mimetypes
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
 import base64
+from email import encoders
+import os.path
 
 def send_email(sender_email, receiver_email, mail_subject, mail_body):
     """
@@ -40,6 +44,22 @@ def _create_message(sender, to, subject, body):
 
         msg = MIMEText(body, 'html')
         message.attach(msg)
+
+        # for file in files:
+        #     content_type, encoding = mimetypes.guess_type(file)
+        #
+        #     if content_type is None or encoding is not None:
+        #         content_type = 'application/octet-stream'
+        #
+        #     main_type, sub_type = content_type.split('/', 1)
+        #     with open(file, 'rb') as fp:
+        #         msg = MIMEBase(main_type, sub_type)
+        #         msg.set_payload(fp.read())
+        #
+        #     encoders.encode_base64(msg)
+        #     filename = os.path.basename(file)
+        #     msg.add_header('Content-Disposition', 'attachment', filename=filename)
+        #     message.attach(msg)
 
         raw_message = base64.urlsafe_b64encode(message.as_bytes()).decode('utf-8')
 

@@ -1,3 +1,6 @@
 RECIPIENT_MAIL_ADDR_PATH = "/public/input/mail_info.csv"
 CONTENTS_PATH = "/public/input/create_mail_body.py"
 BOOSTERS_IR_PATH = "/public/input/[부스터스]회사소개서.pdf"
+BOOSTERS_IR_PATH = "/public/input/[부스터스]회사소개서.pdf"
+EQB_CLEANSER_GL = "/common/public/input/Eqqualberry_Cleanser_Contents_Guideline.pdf"
+EQB_TONER_GL = "/common/public/input/Eqqualberry_Toner_Contents_Guideline.pdf"
