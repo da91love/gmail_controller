@@ -4,14 +4,14 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 config = {
     'name': 'development',
     'DB': {
-            'mysql': {
-                'db_host': '13.125.110.215',
-                'db_database': 'eqb_us',
-                'db_port': '3306',
-                'db_user': 'mna',
-                'db_password': 'mna11!!',
-                'ssl_disabled': True
-            }
+        'mysql': {
+            'db_host': '13.125.110.215',
+            'db_database': 'eqb_us',
+            'db_port': '3306',
+            'db_user': 'mna',
+            'db_password': 'mna11!!',
+            'ssl_disabled': True
+        }
     },
     'TIKAPI': {
         'api_key': 'enee9qPIfAc0B3INftVKZCMnWvOPqivueTzFM87d4mRmNr1e',
