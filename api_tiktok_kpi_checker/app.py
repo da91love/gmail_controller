@@ -28,7 +28,7 @@ config = get_config()
 # s3_bucket_name = config['S3']['s3_bucket_name']
 
 @AppBase
-def app_api_kpi_checker(event, context=None):
+def api_tiktok_kpi_checker(event, context=None):
     """
     lambda_handler : This functions will be implemented in lambda
     :param event: (dict)

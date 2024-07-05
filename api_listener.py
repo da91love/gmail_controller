@@ -15,7 +15,7 @@ from api_gmail_converting_sender.app import app_api_gmail_converting_sender as s
 from api_tiktok_profile_updater.app import app_api_tiktok_profile_updater as get_profile_stat
 from api_gmail_follow_up_sender.app import app_api_gmail_follow_up_sender as send_follow_up
 from api_mia_reminder.app import app_api_mia_reminder as remind_mia
-from api_kpi_checker.app import app_api_kpi_checker as check_kpi
+from api_tiktok_kpi_checker.app import api_tiktok_kpi_checker as check_kpi
 
 os.path.dirname(sys.modules['__main__'].__file__)
 
