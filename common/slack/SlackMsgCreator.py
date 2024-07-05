@@ -196,7 +196,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*이퀄베리 US(OLD) {today} 실적 보고♡*"
+                    "text": f"*이퀄베리 EA {today} 실적 보고♡*"
                 }
             },
             {
