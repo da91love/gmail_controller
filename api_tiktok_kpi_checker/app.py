@@ -92,9 +92,11 @@ def api_tiktok_kpi_checker(event, context=None):
 
     posting_history_in_all_l_week = AccessService.select_posting_history_in_day(from_date=from_date_l_week, to_date=to_date_l_week)
 
+    filtered_posting_history_in_all_l_week = _.filter_(posting_history_in_all_l_week, lambda x: from_date <= x['created_at'] and x['created_at'] < to_date)
+
     # sort by created at
-    posting_history_in_all_l_week.sort(key=lambda x: x['created_at'], reverse=True)
-    uniq_posting_history_in_all_l_week_by_order = _.uniq_by(posting_history_in_all_l_week,'post_id')
+    filtered_posting_history_in_all_l_week.sort(key=lambda x: x['created_at'], reverse=True)
+    uniq_posting_history_in_all_l_week_by_order = _.uniq_by(filtered_posting_history_in_all_l_week,'post_id')
 
     num_of_post_l_week = len(uniq_posting_history_in_all_l_week_by_order)
     sum_play_count_l_week = _.sum_by(uniq_posting_history_in_all_l_week_by_order, 'play_count')
