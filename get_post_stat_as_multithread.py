@@ -33,7 +33,7 @@ if __name__ == "__main__":
                 posted_time = post_history[0]['posted_time']
                 day_diff = (datetime.now() - posted_time).days
                 # 3차 필터링: 게시날이 7일 이내일 것
-                if day_diff <= 7:
+                if day_diff <= 14:
                     tg_posts_info.append(post_info)
             else:
                 tg_posts_info.append(post_info)
