@@ -4,6 +4,7 @@ import csv
 import uuid
 from datetime import datetime
 from operator import itemgetter
+from datetime import datetime, timedelta, time
 import pydash as _
 from googleapiclient.errors import HttpError
 import os
@@ -20,6 +21,7 @@ from common.lib.ma.data_access.system.AccessService import AccessService
 from common.const.SLACK import *
 from common.slack.Slack import Slack
 from common.slack.SlackMsgCreator import SlackMsgCreator
+from common.util.DateUtil import DateUtil
 
 # Create instance
 config = get_config()
@@ -28,7 +30,7 @@ config = get_config()
 # s3_bucket_name = config['S3']['s3_bucket_name']
 
 @AppBase
-def app_api_kpi_checker(event, context=None):
+def api_tiktok_kpi_checker(event, context=None):
     """
     lambda_handler : This functions will be implemented in lambda
     :param event: (dict)
@@ -67,6 +69,39 @@ def app_api_kpi_checker(event, context=None):
     post_count = len(posts_info)
     post_url = ', '.join([post_info['tiktok_url'] for post_info in posts_info])
 
+    # 금주 컨텐츠 누적
+    # Get the current date
+    today_as_min = datetime.combine(datetime.now(), time.min)
+    to_date = today_as_min + timedelta(days=1)
+    from_date = DateUtil.get_previous_day(tg_date=today_as_min, tg_day='monday')
+
+    to_date_as_str = to_date.strftime('%Y-%m-%d')
+    from_dateas_str = from_date.strftime('%Y-%m-%d')
+
+    posting_history_in_all_t_week = AccessService.select_posting_history_in_day(from_date=from_dateas_str, to_date=to_date_as_str)
+
+    # sort by created at
+    posting_history_in_all_t_week.sort(key=lambda x: x['created_at'], reverse=True)
+    uniq_posting_history_in_all_t_week_by_order = _.uniq_by(posting_history_in_all_t_week,'post_id')
+
+    num_of_post_t_week = len(uniq_posting_history_in_all_t_week_by_order)
+    sum_play_count_t_week = _.sum_by(uniq_posting_history_in_all_t_week_by_order, 'play_count')
+
+    # 지난주 컨텐츠의 지난주 누적분
+    to_date_l_week = from_date
+    from_date_l_week = from_date - timedelta(days=7)
+
+    posting_history_in_all_l_week = AccessService.select_posting_history_in_day(from_date=from_date_l_week, to_date=to_date_l_week)
+
+    filtered_posting_history_in_all_l_week = _.filter_(posting_history_in_all_l_week, lambda x: from_date <= x['created_at'] and x['created_at'] < to_date)
+
+    # sort by created at
+    filtered_posting_history_in_all_l_week.sort(key=lambda x: x['created_at'], reverse=True)
+    uniq_posting_history_in_all_l_week_by_order = _.uniq_by(filtered_posting_history_in_all_l_week,'post_id')
+
+    num_of_post_l_week = len(uniq_posting_history_in_all_l_week_by_order)
+    sum_play_count_l_week = _.sum_by(uniq_posting_history_in_all_l_week_by_order, 'play_count')
+
     # create slack msg
     post_msg = SlackMsgCreator.get_slack_tiktok_kpi_post_block(
         today=today,
@@ -75,8 +110,13 @@ def app_api_kpi_checker(event, context=None):
         cnct_count=cnct_num_sum,
         delivery_count=delivery_num,
         post_count=post_count,
-        post_url=post_url
+        post_url=post_url,
+        this_week_posts=num_of_post_t_week,
+        this_week_play_count=sum_play_count_t_week,
+        last_week_posts=num_of_post_l_week,
+        last_week_play_count=sum_play_count_l_week,
     )
+
 
     # declare instance
     slack = Slack()

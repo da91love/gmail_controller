@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta, time
 import pytz
 
 class DateUtil:
@@ -65,3 +65,28 @@ class DateUtil:
         formatted_date = datetime_seoul.strftime(format)
 
         return formatted_date
+
+    @staticmethod
+    def get_previous_day(tg_date: datetime, tg_day: str):
+        # Map day names to their corresponding weekday numbers
+        days = {
+            'monday': 0,
+            'tuesday': 1,
+            'wednesday': 2,
+            'thursday': 3,
+            'friday': 4,
+            'saturday': 5,
+            'sunday': 6
+        }
+
+        # Get the weekday number for the given day name
+        target_weekday = days[tg_day.lower()]
+
+        # Calculate the number of days to subtract to get to the previous occurrence of the target day
+        days_to_subtract = (tg_date.weekday() - target_weekday) % 7
+
+        # Get the previous occurrence of the target day
+        previous_day = tg_date - timedelta(days=days_to_subtract)
+
+        # Format the date as a string in yyyy-mm-dd format
+        return previous_day

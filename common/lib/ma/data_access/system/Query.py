@@ -7,6 +7,12 @@ class Query():
         SELECT * FROM mail_contact 
     """
 
+    sql_select_posting_history_in_day = """
+        select *
+        from posting_history
+        where '{from_date}' <= posted_time and posted_time < '{to_date}'
+    """
+
     sql_select_today_post = """
         select *
         from post_info_master
