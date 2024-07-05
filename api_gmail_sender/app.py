@@ -7,6 +7,7 @@ from operator import itemgetter
 import pydash as _
 from googleapiclient.errors import HttpError
 import os
+from _mysql_connector import MySQLInterfaceError
 import sys
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 api_root = os.path.dirname(os.path.abspath(__file__))
@@ -44,7 +45,7 @@ def app_api_gmail_sender(event, context=None):
     all_tg_infls = AccessService.select_infl_first_contact()
 
     fast_mailing_infls = _.filter_(all_tg_infls, {'fast_mailing': 1})
-    mailing_tg_infls = all_tg_infls[0:50]
+    mailing_tg_infls = all_tg_infls[0:1]
 
     tg_infls = fast_mailing_infls + mailing_tg_infls
     tg_infls = _.uniq_by(tg_infls, 'id')
@@ -97,11 +98,14 @@ def app_api_gmail_sender(event, context=None):
         )
 
         # insert to status db
-        AccessService.insert_contact_status(
-            t_key=t_key,
-            status=STATUS['OPEN'],
-            progress=PROGRESS['NEGOTIATING'],
-        )
+        try:
+            AccessService.insert_contact_status(
+                t_key=t_key,
+                status=STATUS['OPEN'],
+                progress=PROGRESS['NEGOTIATING'],
+            )
+        except MySQLInterfaceError as e:
+            pass
 
         # modify label
         labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[STATUS['OPEN'], PROGRESS['NEGOTIATING'], pic, tg_country])
