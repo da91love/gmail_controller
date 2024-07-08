@@ -178,14 +178,25 @@ class SlackMsgCreator:
         ])
 
     @staticmethod
-    def get_slack_tiktok_kpi_post_block(today:str, today_contact_count:int, future_contact_count:int, cnct_count:int, delivery_count:int, post_count: int, post_url: str):
-
+    def get_slack_tiktok_kpi_post_block(
+            today: str,
+            today_contact_count: int,
+            future_contact_count: int,
+            cnct_count: int,
+            delivery_count: int,
+            post_count: int,
+            post_url: str,
+            this_week_posts,
+            this_week_play_count,
+            last_week_posts,
+            last_week_play_count,
+    ):
         return json.dumps([
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*브랜든 US 팀의 {today} 실적 보고♡*"
+                    "text": f"*브랜든 US {today} 실적 보고♡*"
                 }
             },
             {
@@ -195,7 +206,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"・ 금일 신규 메일 송신 회수: *{today_contact_count}회(남은 메일: {future_contact_count})*"
+                    "text": f"・ 금일 신규 메일 송신 회수: *{today_contact_count}회 (남은 메일: {future_contact_count})*"
                 }
             },
             {
@@ -216,7 +227,35 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"・ 신규업로드 포스트: *{post_count}건* ({post_url})"
+                    "text": f"・ 금일 업로드 포스트: *{post_count}건* ({post_url})"
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"・ 금주 업로드 포스트수 누적: *{this_week_posts}건*"
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"・ 금주 업로드 뷰수 누적: *{this_week_play_count}회*"
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"・ 지난주 업로드 포스트수 누적: *{last_week_posts}건*"
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"・ 금주 업로드 뷰수 누적: *{last_week_play_count}회*"
                 }
             }
         ])
