@@ -91,16 +91,22 @@ def api_tiktok_kpi_checker(event, context=None):
     to_date_l_week = from_date
     from_date_l_week = from_date - timedelta(days=7)
 
+    # 지난 주에 포스팅된 포스트만 취득
     posting_history_in_all_l_week = AccessService.select_posting_history_in_day(from_date=from_date_l_week, to_date=to_date_l_week)
 
+    # 지난주에 올린 포스트의 최근 created 시간으로 필터링
     filtered_posting_history_in_all_l_week = _.filter_(posting_history_in_all_l_week, lambda x: from_date <= x['created_at'] and x['created_at'] < to_date)
-
-    # sort by created at
     filtered_posting_history_in_all_l_week.sort(key=lambda x: x['created_at'], reverse=True)
     uniq_posting_history_in_all_l_week_by_order = _.uniq_by(filtered_posting_history_in_all_l_week,'post_id')
 
+    # 지난주에 올린 포스트의 저번주까지 누적 조회수 계산
+    filtered_posting_history_in_l_week = _.filter_(posting_history_in_all_l_week, lambda x: from_date_l_week <= x['created_at'] and x['created_at'] < to_date_l_week)
+    filtered_posting_history_in_l_week.sort(key=lambda x: x['created_at'], reverse=True)
+    uniq_posting_history_in_l_week_by_order = _.uniq_by(filtered_posting_history_in_l_week,'post_id')
+
     num_of_post_l_week = len(uniq_posting_history_in_all_l_week_by_order)
     sum_play_count_l_week = _.sum_by(uniq_posting_history_in_all_l_week_by_order, 'play_count')
+    sum_play_count_til_l_week = _.sum_by(uniq_posting_history_in_l_week_by_order, 'play_count')
 
     # create slack msg
     post_msg = SlackMsgCreator.get_slack_tiktok_kpi_post_block(
@@ -114,7 +120,7 @@ def api_tiktok_kpi_checker(event, context=None):
         this_week_posts=num_of_post_t_week,
         this_week_play_count=sum_play_count_t_week,
         last_week_posts=num_of_post_l_week,
-        last_week_play_count=sum_play_count_l_week,
+        last_week_play_count=sum_play_count_l_week - sum_play_count_til_l_week,
     )
 
 
