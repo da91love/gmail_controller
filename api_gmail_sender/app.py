@@ -45,7 +45,7 @@ def app_api_gmail_sender(event, context=None):
     all_tg_infls = AccessService.select_infl_first_contact()
 
     fast_mailing_infls = _.filter_(all_tg_infls, {'fast_mailing': 1})
-    mailing_tg_infls = all_tg_infls[0:1]
+    mailing_tg_infls = all_tg_infls[0:50]
 
     tg_infls = fast_mailing_infls + mailing_tg_infls
     tg_infls = _.uniq_by(tg_infls, 'id')
