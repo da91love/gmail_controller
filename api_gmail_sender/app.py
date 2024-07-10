@@ -7,7 +7,7 @@ from operator import itemgetter
 import pydash as _
 from googleapiclient.errors import HttpError
 import os
-from _mysql_connector import MySQLInterfaceError
+from mysql.connector.errors import IntegrityError
 import sys
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 api_root = os.path.dirname(os.path.abspath(__file__))
@@ -104,7 +104,7 @@ def app_api_gmail_sender(event, context=None):
                 status=STATUS['OPEN'],
                 progress=PROGRESS['NEGOTIATING'],
             )
-        except MySQLInterfaceError as e:
+        except IntegrityError as e:
             pass
 
         # modify label
