@@ -106,6 +106,14 @@ def app_tiktok_api_kpi_checker(event, context=None):
     sum_play_count_l_week = _.sum_by(uniq_posting_history_in_all_l_week_by_order, 'play_count')
     sum_play_count_til_l_week = _.sum_by(uniq_posting_history_in_l_week_by_order, 'play_count')
 
+    # insert to db
+    AccessService.insert_clm_posting_history(
+        this_week_post_num=num_of_post_t_week,
+        this_week_view_count=sum_play_count_t_week,
+        last_week_post_num=num_of_post_l_week,
+        last_week_view_count=sum_play_count_l_week - sum_play_count_til_l_week
+    )
+
     # create slack msg
     post_msg = SlackMsgCreator.get_slack_tiktok_kpi_post_block(
         today=today,

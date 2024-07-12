@@ -7,6 +7,11 @@ class Query():
         SELECT * FROM mail_contact 
     """
 
+    sql_insert_clm_posting_history="""
+        INSERT INTO clm_posting_history(this_week_post_num, this_week_view_count, last_week_post_num, last_week_view_count) 
+        VALUES('{this_week_post_num}','{this_week_view_count}','{last_week_post_num}','{last_week_view_count}')
+    """
+
     sql_select_posting_history_in_day = """
         select *
         from posting_history
