@@ -234,7 +234,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"・ 금주 업로드 포스트수 누적: *{this_week_posts}건*"
+                    "text": f"・ 금주 업로드 포스트수: *{this_week_posts}건*"
                 }
             },
             {
@@ -248,14 +248,14 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"・ 지난주 업로드 포스트수 누적: *{last_week_posts}건*"
+                    "text": f"・ 지난주 업로드 포스트수: *{last_week_posts}건*"
                 }
             },
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"・ 금주 업로드 뷰수 누적: *{last_week_play_count}회*"
+                    "text": f"・ 지난주 업로드 뷰수 누적: *{last_week_play_count}회*"
                 }
             }
         ])
