@@ -9,6 +9,20 @@ class AccessService(AccessServiceBase):
     """
 
     @staticmethod
+    def insert_clm_posting_history(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_insert_clm_posting_history,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+    @staticmethod
     def select_posting_history_in_day(**bindings):
         """
         :param bindings: (tuple)
