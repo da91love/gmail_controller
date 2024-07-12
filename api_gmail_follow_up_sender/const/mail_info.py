@@ -16,6 +16,6 @@ mail_body = '''
 <br/>
 <div>Warmest regards, Eqqualberry</div>
 <br/>
-<div><b>Tiktok: @branden_official</b></div>
-<div><b>Instagram: branden.seoul</b></div>
+<div>Tiktok: @eqqualberry_us</div>
+<div>Instagram: @eqqualberry_us</div>
 '''
