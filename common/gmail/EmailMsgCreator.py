@@ -22,27 +22,23 @@ class EmailMsgCreator:
                 body = f'''
                     <div>Hi {author_unique_id},</div>
                     <br/>
-                    <div>This is Grace, I’m a brand manager here in Branden.</div>
-                    <div>I’m reaching out to you with an exciting collaboration opportunity that I believe aligns perfectly with your TikTok channel and your audience’s interests. Our slogan, “TRAVELING BECOMES EASIER,” aligns seamlessly with your content, reflecting the authenticity and depth that resonate with you and your audience.</div>
+                    <div>This is Grace, brand manager for Branden.</div>
+                    <div>Branden is a travel essential brand that designs packing cubes to maximize space and organize for travels, making packing for efficient and stress-free. We have been looking to work with more influential TikTokers, and I suggested your channel for your successful works with other brands.</div>
                     <br/>
-                    <div><b>Branden is currently the #1 best-selling compression packing cube in Korea! </b> </div>
-                    <div>We’ve reached 400,000 in sales with 200,000 of 5stars reviews in the market, Also many Korean celebrities and mega-creators have collaborated with us</div>
+                    <div>You can take a look at our products here: <a href="https://www.amazon.com/stores/Branden_US/page/FB8BEEC9-1367-4EDB-A93D-000FB0A0AD0A?ref_=ast_bln">Compression Packing Cubes</a></div>
                     <br/>
-                    <div>For several years, we’ve extensively focused on developing compression packing cubes. </div>
-                    <div>We pride ourselves with the quality of our products compared to any other competitors out in the market. With our product’s unique compression feature and your creative touch, we believe we can create even more compelling and genuine content together.</div>
+                    <div>To provide you with a clearer picture, we've attached the collaboration brief here.</div>
+                    <div>You may also search "#branden_global" on Tiktok to check out our previous collaborations.</div>
                     <br/>
-                    <div>If you’re interested in exploring this collaboration further, we’d love to discuss next steps at your earliest convenience.</div>
-                    <div>Please let us know your thoughts and looking forward to speaking with you.</div>
+                    <div>Click this link if you want to check out guideline details! <a href="https://drive.google.com/file/d/1U4dv2QkR4EUGdrpcZkLLW_nzZXme-ivK/view">Branden Packing cubes guideline</a> </div>
                     <br/>
-                    <div>Also, if you want to find out more about our product, kindly check out our Amazon storefront by searching <b>""BRANDEN PACKING CUBE""</b>!</div>
+                    <div>If you are interested, please suggest your desired rate for the content.</div>
+                    <div>We’d love to speak about the next steps soon!</div>
                     <br/>
-                    <div>Warmest regards, Grace</div>
+                    <div>Thanks and regards,, Grace</div>
                     
                     <span>&nbsp;</span>
                     <div><b>Tiktok: @branden_global</b></div>
-                    <div><b>Instagram: branden.seoul</b></div>
-                    <div><b>Search On Amazon: Branden Compression Packing Cube</b></div>
-                    
                 '''
             elif seeding_num == 2:
                 subject = 'Re-Collaboration offer with Branden'
@@ -57,7 +53,6 @@ class EmailMsgCreator:
     
                     <span>&nbsp;</span>
                     <div><b>Tiktok: @branden_global</b></div>
-                    <div><b>Instagram: branden.seoul</b></div>
                 '''
 
             else:
@@ -73,7 +68,6 @@ class EmailMsgCreator:
     
                     <span>&nbsp;</span>
                     <div>Tiktok: @branden_official</div>
-                    <div>Instagram: branden.seoul</div>
                 '''
 
         return {
