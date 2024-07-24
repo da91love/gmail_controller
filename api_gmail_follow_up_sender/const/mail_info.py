@@ -13,7 +13,7 @@ mail_body = '''
 <div>I'll make sure to tag your account when I upload it.</div>
 <div>This would be a huge help for us💖</div>
 <br/>
-<div>Warmest regards, 🌷Jennifer</div>
+<div>Warmest regards, 🌷grace</div>
 <br/>
 <div><b>Tiktok: @branden_official</b></div>
 <div><b>Instagram: branden.seoul</b></div>
