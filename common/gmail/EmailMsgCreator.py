@@ -18,7 +18,7 @@ class EmailMsgCreator:
             '''
         else:
             if seeding_num == 1:
-                subject = '[Paid Collaboration Opportunity with the Best Packing Organizer - Branden]'
+                subject = '[Paid Collaboration] No.1 Packing Organizer -Branden'
                 body = f'''
                     <div>Hi {author_unique_id},</div>
                     <br/>
