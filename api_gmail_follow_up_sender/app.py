@@ -57,7 +57,7 @@ def app_api_gmail_follow_up_sender(event, context=None):
 
             # post 업로드 3일 후 메일
             day_diff = (datetime.now() - (posted_time or datetime.now())).days
-            if day_diff > 3:
+            if day_diff > 1:
                 # t_key로 메일 스레드 추출
                 # follow_up_mail_info가 1보다 작으면 eoeo이나 picky에서 온 인원들로 메일주소 자체가 없어 메일 송신하지 않음
                 follow_up_mail_info = AccessService.select_follow_up_mail_info_by_tkey(t_key=t_key)
