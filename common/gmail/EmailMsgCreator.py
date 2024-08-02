@@ -22,17 +22,19 @@ class EmailMsgCreator:
                 body = f'''
                     <div>Hi {author_unique_id},</div>
                     <br/>
-                    <div>Eqqualberry is an emerging Korean Skincare brand for sensitive and reactive skin types. We believe in a conscious skincare with inclusivity and sustainability.</div>
-                    <div>We are happy to suggest a collaboration opportunity for your Tiktok account. <br/>
-                    <div>We currently have two main products 1) <a href="https://www.amazon.com/EQQUALBERRY-Swimming-Protease-Facial-Toner/dp/B0CMC6S4BM/ref=sr_1_1?dib=eyJ2IjoiMSJ9.Ph9WIfj2PPKubaRh0awqmZfsJMqEUL8FXHA5xpxl8YTFfKRj5bS-tOvzcz7MmpY6qL9KsArFMH0BNGEFdBWVI0U0qSHyPR2cvQFl3ioXrkc.I4E5CuXRPTh3YG7qyvFUXwUmAk9LCIpCioKgFO-F4ZM&dib_tag=se&keywords=eqqualberry&qid=1719887953&s=beauty&sr=1-1">Eqqualberry swimming pool toner<a/> which already went viral on Tiktok, and a newly launched 2) <a href="https://www.amazon.com/EQQUALBERRY-Balanced-Cleanser-Moisturizing-Cleaning/dp/B0D4996H1D/ref=sr_1_6?dib=eyJ2IjoiMSJ9.Ph9WIfj2PPKubaRh0awqmZfsJMqEUL8FXHA5xpxl8YTFfKRj5bS-tOvzcz7MmpY6qL9KsArFMH0BNGEFdBWVI0U0qSHyPR2cvQFl3ioXrkc.I4E5CuXRPTh3YG7qyvFUXwUmAk9LCIpCioKgFO-F4ZM&dib_tag=se&keywords=eqqualberry&qid=1719887910&s=beauty&sr=1-6">Eqqualberry daily glow cleanser</a>. </div>
+                    <div>We are an emerging Korean skincare brand Eqqualberry.</div>
+                    <div>Eqqualberry believes in a conscious and sustainable skincare for everyone. <br/>
+                    <div>We have been looking to work with more influential TikTokers, and we think your audience would love to know more about us!</div>
                     <br/>
-                    <div>To provide you with a clearer picture, we've attached the content guidelines for the two products😉</div>
-                    <div>You may also search <b> "#eqqualberry"</b> on Tiktok to check out our previous collab works.</div>
-                    <div>Clink this link if you want to check out guideline details!: <a href="https://drive.google.com/file/d/1S-3wd675AGQyPq1XaZCcTehxClgU_fSe/view?usp=drive_link">toner guideline</a>, <a href="https://drive.google.com/file/d/1FKwZPNkVFeTJnY-kq6ucUaAOQPyTMyfz/view?usp=drive_link">cleanser guideline</a>.
+                    <div>Product : <a href="https://www.amazon.com/dp/B0CMC6S4BM?ref=cm_sw_r_cp_ud_dp_JEB7GQESK2RY26PHQ691&ref_=cm_sw_r_cp_ud_dp_JEB7GQESK2RY26PHQ691&social_share=cm_sw_r_cp_ud_dp_JEB7GQESK2RY26PHQ691&skipTwisterOG=1">Eqqualberry swimming pool toner</a></div>
+                    <div>To provide you with a clearer picture, we've attached the collaboration brief <a href="https://drive.google.com/drive/u/0/folders/1Lj3mZ4QkuDCMOFzfyYpS2t0lkqWtDcFJ">here</a>.</div>
+                    <div>You may also search #eqqualberry on Tiktok to check out our previous collab works.</div>
                     <br/>
-                    <div>If you are interested, please suggest your desired rate for the content. We’d love to speak about the next steps soon!</div>
+                    <div>If you are interested, please suggest your desired rate for the content.</div>
+                    <div>We’d love to speak about the next steps soon!</div>
                     <br/>
-                    <div>Thanks and regards, Eqqualberry</div>
+                    <div>Thanks and regards,</div>
+                    <div>Eqqualberry</div>
                     <span>&nbsp;</span>
                     <div>Tiktok: @eqqualberry_us</div>
                     <div>Instagram: @eqqualberry_us</div>
