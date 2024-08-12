@@ -27,16 +27,32 @@ if __name__ == "__main__":
         # 1차 필터링: post_type 비디오만 취득
         post_type = post_info['post_type']
         if post_type == 'video':
-            post_history = posts_history_grouped_by_id.get(post_info['post_id'])
-            # 2차 필터링 : post history 1개 라도 존재하면 3차필터링으로, 아니면 대상 추가
-            if post_history:
-                posted_time = post_history[0]['posted_time']
-                day_diff = (datetime.now() - posted_time).days
-                # 3차 필터링: 게시날이 7일 이내일 것
-                if day_diff <= 14:
+
+            # 2차 필터링: spark ads 여부 확인
+            spark_ads_start_date = post_info['spark_ads_start_date']
+
+            if spark_ads_start_date:
+                # sparks ads 유통기한 확인
+                spark_ads_end_date = post_info['spark_ads_end_date']
+                day_diff = (spark_ads_end_date - datetime.now()).days
+
+                if day_diff >= 0:
                     tg_posts_info.append(post_info)
+
             else:
-                tg_posts_info.append(post_info)
+                post_history = posts_history_grouped_by_id.get(post_info['post_id'])
+
+                # 2차 필터링 : post history 1개 라도 존재하면 3차필터링으로, 아니면 대상 추가
+                if post_history:
+                    posted_time = post_history[0]['posted_time']
+                    day_diff = (datetime.now() - posted_time).days
+                    # 3차 필터링: 게시날이 7일 이내일 것
+                    if day_diff <= 14:
+                        tg_posts_info.append(post_info)
+                else:
+                    tg_posts_info.append(post_info)
+
+
 
     tg_posts_id = [i['post_id'] for i in tg_posts_info]
 
