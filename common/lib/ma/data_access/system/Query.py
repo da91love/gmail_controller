@@ -7,6 +7,15 @@ class Query():
         SELECT * FROM mail_contact 
     """
 
+    sql_select_spark_ads_trk_tg = """
+        SELECT pim.*
+        FROM (
+            select * from sa_payment_info_master
+            where spark_ads_start_date <= CURDATE() and CURDATE() < spark_ads_end_date
+        ) spim
+        LEFT JOIN post_info_master pim ON pim.post_id = spim.post_id
+    """
+
     insert_clm_posting_history="""
         INSERT INTO clm_posting_history(this_week_post_num, this_week_view_count, last_week_post_num, last_week_view_count) 
         VALUES('{this_week_post_num}','{this_week_view_count}','{last_week_post_num}','{last_week_view_count}')
