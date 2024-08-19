@@ -8,6 +8,21 @@ class AccessService(AccessServiceBase):
     """
     All function's name should start with below 4 verbs: select insert update delete
     """
+
+    @staticmethod
+    def select_spark_ads_trk_tg(**bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase.execute_sql(
+                sql=Query.sql_select_spark_ads_trk_tg,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
     @staticmethod
     def insert_clm_posting_history(**bindings):
         """
