@@ -115,7 +115,7 @@ def api_tiktok_kpi_checker(event, context=None):
         this_week_post_num=num_of_post_t_week,
         this_week_view_count=sum_play_count_t_week,
         last_week_post_num=num_of_post_l_week,
-        last_week_view_count=sum_play_count_l_week - sum_play_count_til_l_week
+        last_week_view_count=sum_play_count_t_week_of_l
     )
 
     # create slack msg
