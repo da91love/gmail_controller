@@ -41,33 +41,6 @@ def api_tiktok_kpi_checker(event, context=None):
     data = event
     pic_email_matches = AccessService.select_pic_email_match()
 
-    # 연락횟수 count
-    cnct_num_sum = 0
-    today = datetime.now().strftime('%Y-%m-%d')
-    for pic_email_match in pic_email_matches:
-        sender_email = pic_email_match['sender_email']
-
-        contacts_by_sender_email = AccessService.select_today_contacts(
-            today=today,
-            sender_email=sender_email
-        )
-
-        cnct_num_sum += len(contacts_by_sender_email)
-
-    # 계약횟수 count
-    delivery_num = len(AccessService.select_delivery_info_master(today=today))
-
-    # 새로보낸 메일수
-    today_contact_num = len(AccessService.select_sent_mail_contact(today=today))
-
-    # 앞으로 보낼 메일수
-    future_contact_num = len(AccessService.select_infl_first_contact())
-
-    # 오늘 올린 포스트수
-    posts_info = AccessService.select_today_post(today=today)
-    post_count = len(posts_info)
-    post_url = ', '.join([post_info['tiktok_url'] for post_info in posts_info])
-
     # 금주 컨텐츠 누적
     # Get the current date
     tg_date = datetime.combine(datetime.now(), time.min)
@@ -117,27 +90,6 @@ def api_tiktok_kpi_checker(event, context=None):
         last_week_post_num=num_of_post_l_week,
         last_week_view_count=sum_play_count_t_week_of_l
     )
-
-    # create slack msg
-    post_msg = SlackMsgCreator.get_slack_tiktok_kpi_post_block(
-        today=today,
-        today_contact_count=today_contact_num,
-        future_contact_count=future_contact_num,
-        cnct_count=cnct_num_sum,
-        delivery_count=delivery_num,
-        post_count=post_count,
-        post_url=post_url,
-        this_week_posts=num_of_post_t_week,
-        this_week_play_count=sum_play_count_t_week,
-        last_week_posts=num_of_post_l_week,
-        last_week_play_count=sum_play_count_t_week_of_l,
-    )
-
-    # declare instance
-    slack = Slack()
-
-    slack.add_post(SLACK_GLOBAL_SEEDING_CHANNEL_ID, MSG_TYPE['BLOCK'], post_msg)
-
 
     return ResType(data={}).get_response()
 
