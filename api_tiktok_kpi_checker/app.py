@@ -70,14 +70,14 @@ def api_tiktok_kpi_checker(event, context=None):
 
     # 금주 컨텐츠 누적
     # Get the current date
-    today_as_min = datetime.combine(datetime.now(), time.min)
-    to_date = today_as_min + timedelta(days=1)
-    from_date = DateUtil.get_previous_day(tg_date=today_as_min, tg_day='monday')
+    tg_date = datetime.combine(datetime.now(), time.min)
+    from_date = DateUtil.get_previous_day(tg_date=tg_date, tg_day='tuesday')
+    to_date = tg_date + timedelta(days=1)
 
+    from_date_as_str = from_date.strftime('%Y-%m-%d')
     to_date_as_str = to_date.strftime('%Y-%m-%d')
-    from_dateas_str = from_date.strftime('%Y-%m-%d')
 
-    posting_history_in_all_t_week = AccessService.select_posting_history_in_day(from_date=from_dateas_str, to_date=to_date_as_str)
+    posting_history_in_all_t_week = AccessService.select_posting_history_in_day(from_date=from_date_as_str, to_date=to_date_as_str)
 
     # sort by created at
     posting_history_in_all_t_week.sort(key=lambda x: x['created_at'], reverse=True)
@@ -87,8 +87,8 @@ def api_tiktok_kpi_checker(event, context=None):
     sum_play_count_t_week = _.sum_by(uniq_posting_history_in_all_t_week_by_order, 'play_count')
 
     # 지난주 컨텐츠의 지난주 누적분
-    to_date_l_week = from_date
     from_date_l_week = from_date - timedelta(days=7)
+    to_date_l_week = from_date
 
     # 지난 주에 포스팅된 포스트만 취득
     posting_history_in_all_l_week = AccessService.select_posting_history_in_day(from_date=from_date_l_week, to_date=to_date_l_week)
@@ -107,12 +107,15 @@ def api_tiktok_kpi_checker(event, context=None):
     sum_play_count_l_week = _.sum_by(uniq_posting_history_in_all_l_week_by_order, 'play_count')
     sum_play_count_til_l_week = _.sum_by(uniq_posting_history_in_l_week_by_order, 'play_count')
 
+    sum_play_count_t_week_of_l = sum_play_count_l_week - sum_play_count_til_l_week
+
     # insert to db
     AccessService.insert_clm_posting_history(
+        tg_date=tg_date,
         this_week_post_num=num_of_post_t_week,
         this_week_view_count=sum_play_count_t_week,
         last_week_post_num=num_of_post_l_week,
-        last_week_view_count=sum_play_count_l_week - sum_play_count_til_l_week
+        last_week_view_count=sum_play_count_t_week_of_l
     )
 
     # create slack msg
@@ -127,7 +130,7 @@ def api_tiktok_kpi_checker(event, context=None):
         this_week_posts=num_of_post_t_week,
         this_week_play_count=sum_play_count_t_week,
         last_week_posts=num_of_post_l_week,
-        last_week_play_count=sum_play_count_l_week - sum_play_count_til_l_week,
+        last_week_play_count=sum_play_count_t_week_of_l,
     )
 
     # declare instance
