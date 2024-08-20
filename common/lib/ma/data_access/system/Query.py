@@ -17,8 +17,8 @@ class Query():
     """
 
     insert_clm_posting_history="""
-        INSERT INTO clm_posting_history(this_week_post_num, this_week_view_count, last_week_post_num, last_week_view_count) 
-        VALUES('{this_week_post_num}','{this_week_view_count}','{last_week_post_num}','{last_week_view_count}')
+        INSERT INTO clm_posting_history(tg_date, this_week_post_num, this_week_view_count, last_week_post_num, last_week_view_count) 
+        VALUES('{tg_date}', '{this_week_post_num}','{this_week_view_count}','{last_week_post_num}','{last_week_view_count}')
     """
 
     sql_select_posting_history_in_day = """
