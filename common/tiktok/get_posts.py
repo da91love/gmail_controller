@@ -36,6 +36,9 @@ def get_posts(uniq_id: str, day_bf_until: int):
                             createTime = DateUtil.ten_digit_2_Ymd(post_info.get('createTime'))
                             parsed_createTime = datetime.strptime(createTime, "%Y-%m-%d").date()
 
+                            # createTime 형식 변경
+                            post_info['createTime'] = parsed_createTime
+
                             if parsed_createTime >= date_bf:
                                 posts.append(post_info)
                             else:
