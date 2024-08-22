@@ -43,12 +43,12 @@ def app_api_tiktok_posts_info(event, context=None):
 
     return ResType(data=result).get_response()
 
-uniqId = sys.argv[1]
-period = sys.argv[2]
-
-result = app_api_tiktok_posts_info({
-    "uniqId": uniqId,
-    "period": period
-})
-
-print(result)
+# uniqId = sys.argv[1]
+# period = sys.argv[2]
+#
+# result = app_api_tiktok_posts_info({
+#     "uniqId": uniqId,
+#     "period": period
+# })
+#
+# print(result)
