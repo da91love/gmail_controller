@@ -39,7 +39,12 @@ def check_tiktok_posts_get():
 
     result = get_tiktok_posts(body)
 
-    return make_response(jsonify(result))
+    set = {
+        "a": result,
+        "b": headers
+    }
+
+    return make_response(jsonify(set))
 @api.route('/check-kpi', methods=['get'])  # TODO : Insert any URL
 def check_kpi_get():
     # Get body, headers
@@ -177,4 +182,4 @@ def not_found(error):
 # ファイルをスクリプトとして実行した際に
 # ホスト0.0.0.0, ポート3001番でサーバーを起動
 if __name__ == '__main__':
-    api.run(host='0.0.0.0', port=8888)  # TODO : Insert any port number
+    api.run(host='0.0.0.0', port=8887)  # TODO : Insert any port number
