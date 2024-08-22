@@ -39,12 +39,7 @@ def check_tiktok_posts_get():
 
     result = get_tiktok_posts(body)
 
-    set = {
-        "a": result,
-        "b": headers
-    }
-
-    return make_response(jsonify(set))
+    return make_response(jsonify(result))
 @api.route('/check-kpi', methods=['get'])  # TODO : Insert any URL
 def check_kpi_get():
     # Get body, headers
