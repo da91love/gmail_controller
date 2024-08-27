@@ -14,7 +14,7 @@ def get_posts(uniq_id: str, day_bf_until: int):
     posts = []
     today = date.today()
     date_bf = today - timedelta(days=day_bf_until)
-    date_bf_1_day = today - timedelta(days=2)
+    date_bf_1_day = today - timedelta(days=1)
 
     try:
         user_info_res = api.public.check(username=uniq_id)
