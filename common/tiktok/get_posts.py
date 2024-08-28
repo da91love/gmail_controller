@@ -14,6 +14,7 @@ def get_posts(uniq_id: str, day_bf_until: int):
     posts = []
     today = date.today()
     date_bf = today - timedelta(days=day_bf_until)
+    date_bf_1_day = today - timedelta(days=1)
 
     try:
         user_info_res = api.public.check(username=uniq_id)
@@ -36,11 +37,17 @@ def get_posts(uniq_id: str, day_bf_until: int):
                             createTime = DateUtil.ten_digit_2_Ymd(post_info.get('createTime'))
                             parsed_createTime = datetime.strptime(createTime, "%Y-%m-%d").date()
 
-                            if parsed_createTime >= date_bf:
-                                posts.append(post_info)
-                            else:
-                                stop_processing = True
-                                break
+                            # createTime 형식 변경
+                            post_info['createTime'] = parsed_createTime
+
+                            # 코드에서 뽑는 시간은 한국 시간이고 틱톡에서 받는 시간은 PST시간으로 타임라인 상이함에 유의
+                            # 게시후 24시간 이전인 게시글은 수집에서 제외
+                            if parsed_createTime < date_bf_1_day:
+                                if date_bf <= parsed_createTime:
+                                    posts.append(post_info)
+                                else:
+                                    stop_processing = True
+                                    break
 
                     if stop_processing:
                         break  # Breaks out of the while loop

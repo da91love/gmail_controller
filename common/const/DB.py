@@ -1,0 +1,2 @@
+GLOBAL = "global"
+BOOSTERS = "boosters"

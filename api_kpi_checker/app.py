@@ -69,7 +69,7 @@ def app_api_kpi_checker(event, context=None):
     post_url = ', '.join([post_info['tiktok_url'] for post_info in posts_info])
 
     # create slack msg
-    post_msg = SlackMsgCreator.get_slack_tiktok_kpi_post_block(
+    post_msg = SlackMsgCreator.get_slack_kpi_post_block(
         today=today,
         today_contact_count=today_contact_num,
         future_contact_count=future_contact_num,
@@ -87,6 +87,6 @@ def app_api_kpi_checker(event, context=None):
 
     return ResType(data={}).get_response()
 
-result = app_api_kpi_checker(None)
-print(result)
+# result = app_api_kpi_checker(None)
+# print(result)
 

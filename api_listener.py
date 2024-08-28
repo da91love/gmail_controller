@@ -177,4 +177,4 @@ def not_found(error):
 # ファイルをスクリプトとして実行した際に
 # ホスト0.0.0.0, ポート3001番でサーバーを起動
 if __name__ == '__main__':
-    api.run(host='0.0.0.0', port=8888)  # TODO : Insert any port number
+    api.run(host='0.0.0.0', port=8887)  # TODO : Insert any port number

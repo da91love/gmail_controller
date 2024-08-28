@@ -23,6 +23,7 @@ from api_gmail_sender.type.ResType import ResType
 from common.const.LOCAL_PATH import *
 from common.const.STATUS import *
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 from common.gmail.EmailMsgCreator import EmailMsgCreator
 
 # Create instance
@@ -42,7 +43,7 @@ def app_api_gmail_sender(event, context=None):
 
     # Get data from API Gateway
     data = event
-    all_tg_infls = AccessService.select_infl_first_contact()
+    all_tg_infls = AccessService(GLOBAL).select_infl_first_contact()
 
     fast_mailing_infls = _.filter_(all_tg_infls, {'fast_mailing': 1})
     mailing_tg_infls = all_tg_infls[0:50]
@@ -89,7 +90,7 @@ def app_api_gmail_sender(event, context=None):
         formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
         # insert to contact db
-        AccessService.insert_contact_history(
+        AccessService(GLOBAL).insert_contact_history(
             gmail_thread_id=gmail_thread_id,
             gmail_msg_id=gmail_msg_id,
             gmail_label_id='SENT',
@@ -99,7 +100,7 @@ def app_api_gmail_sender(event, context=None):
 
         # insert to status db
         try:
-            AccessService.insert_contact_status(
+            AccessService(GLOBAL).insert_contact_status(
                 t_key=t_key,
                 status=STATUS['OPEN'],
                 progress=PROGRESS['NEGOTIATING'],

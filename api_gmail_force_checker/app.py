@@ -17,6 +17,7 @@ from api_gmail_checker.type.ResType import ResType
 from common.gmail.check_emails import check_emails
 from common.slack.slack_wrapper import slack_wrapper
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 
 # Create instance
 config = get_config()
@@ -47,7 +48,7 @@ def app_api_force_gmail_checker(event, context=None):
     for res in mail_check_res:
         try:
             # insert to contact db
-            AccessService.insert_contact_history(
+            AccessService(GLOBAL).insert_contact_history(
                 gmail_thread_id=res['gmail_thread_id'],
                 gmail_msg_id=res['gmail_msg_id'],
                 gmail_label_id=res['gmail_label_id'],
@@ -55,7 +56,7 @@ def app_api_force_gmail_checker(event, context=None):
                 created_at=res['created_at']
             )
 
-            AccessService.insert_contents(
+            AccessService(GLOBAL).insert_contents(
                 gmail_thread_id=res['gmail_thread_id'],
                 gmail_msg_id=res['gmail_msg_id'],
                 contents=res['contents'],

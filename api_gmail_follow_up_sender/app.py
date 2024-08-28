@@ -24,6 +24,7 @@ from api_gmail_follow_up_sender.const.mail_info import *
 from common.const.SLACK import *
 
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 
 # Create instance
 config = get_config()
@@ -43,7 +44,7 @@ def app_api_gmail_follow_up_sender(event, context=None):
     # post master db에 포함된 인원 추출
     # eoeo이나 피키는 쿼리에서 필터링
     data = event
-    tg_infls = AccessService.select_follow_up_tg_list()
+    tg_infls = AccessService(GLOBAL).select_follow_up_tg_list()
 
     # for loop로 위에서 추출된 인원 중 mail_contents에 follow-up메일 송신한 적 없는 사람 추출
     sent_done_tg = []
@@ -52,7 +53,7 @@ def app_api_gmail_follow_up_sender(event, context=None):
         t_key, tiktok_url, posted_time = itemgetter('t_key', 'tiktok_url', 'posted_time')(tg_infl)
 
         # follow up 유무로 필터링
-        is_follow_up_done = AccessService.select_follow_up_by_thread(t_key=t_key)
+        is_follow_up_done = AccessService(GLOBAL).select_follow_up_by_thread(t_key=t_key)
         if not is_follow_up_done:
 
             # post 업로드 3일 후 메일
@@ -60,7 +61,7 @@ def app_api_gmail_follow_up_sender(event, context=None):
             if day_diff > 3:
                 # t_key로 메일 스레드 추출
                 # follow_up_mail_info가 1보다 작으면 eoeo이나 picky에서 온 인원들로 메일주소 자체가 없어 메일 송신하지 않음
-                follow_up_mail_info = AccessService.select_follow_up_mail_info_by_tkey(t_key=t_key)
+                follow_up_mail_info = AccessService(GLOBAL).select_follow_up_mail_info_by_tkey(t_key=t_key)
                 gmail_thread_id, receiver_email, sender_email \
                     = itemgetter('gmail_thread_id', 'receiver_email', 'sender_email')(follow_up_mail_info[0])
 
@@ -91,10 +92,10 @@ def app_api_gmail_follow_up_sender(event, context=None):
                     gmail_label_id = 'SENT'
 
                     # insert to follow up check db
-                    AccessService.insert_follow_up_check(t_key=t_key)
+                    AccessService(GLOBAL).insert_follow_up_check(t_key=t_key)
 
                     # insert to contact db
-                    AccessService.insert_contact_history(
+                    AccessService(GLOBAL).insert_contact_history(
                         gmail_thread_id=redefined_gmail_thread_id,
                         gmail_msg_id=gmail_msg_id,
                         gmail_label_id=gmail_label_id,

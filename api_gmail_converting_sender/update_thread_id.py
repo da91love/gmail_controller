@@ -23,6 +23,7 @@ from common.const.EMAIL import *
 from common.const.STATUS import *
 
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 
 # Create instance
 config = get_config()
@@ -31,7 +32,7 @@ config = get_config()
 # s3_bucket_name = config['S3']['s3_bucket_name']
 
 # 모든 mail contact 검색
-all_contact = AccessService.select_temp()
+all_contact = AccessService(GLOBAL).select_temp()
 contact_history_by_group = _.group_by(all_contact, 't_key')
 
 loop = 0
@@ -50,10 +51,10 @@ for t_key in contact_history_by_group:
             print('old_gmail_thread_id: '+old_gmail_thread_id)
 
             # mail contents
-            AccessService.update_gmail_mail_contents_thread_id(new_gmail_thread_id=new_gmail_thread_id, old_gmail_thread_id=old_gmail_thread_id)
+            AccessService(GLOBAL).update_gmail_mail_contents_thread_id(new_gmail_thread_id=new_gmail_thread_id, old_gmail_thread_id=old_gmail_thread_id)
 
             # mail contact
-            AccessService.update_gmail_mail_contact_thread_id(new_gmail_thread_id=new_gmail_thread_id, old_gmail_thread_id=old_gmail_thread_id)
+            AccessService(GLOBAL).update_gmail_mail_contact_thread_id(new_gmail_thread_id=new_gmail_thread_id, old_gmail_thread_id=old_gmail_thread_id)
 
             loop += 1
             print(loop)

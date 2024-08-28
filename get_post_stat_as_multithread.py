@@ -13,6 +13,7 @@ from common.tiktok.get_post_stat import get_post_stat
 from common.util.get_config import get_config
 from common.util.logger_get import get_logger
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 from common.util.DateUtil import DateUtil
 
 # Create instance
@@ -21,8 +22,8 @@ logger = get_logger()
 
 if __name__ == "__main__":
     tg_posts_info = []
-    posts_info = AccessService.select_post_info()
-    posts_history_grouped_by_id = _.group_by(AccessService.select_posting_history(), 'post_id')
+    posts_info = AccessService(GLOBAL).select_post_info()
+    posts_history_grouped_by_id = _.group_by(AccessService(GLOBAL).select_posting_history(), 'post_id')
 
     # 시딩 포스트 중 트래킹 대상 선정
     for post_info in posts_info:
@@ -41,7 +42,7 @@ if __name__ == "__main__":
                 tg_posts_info.append(post_info)
 
     # 스파크에즈 포스트 중 트래킹 대상 선정
-    spark_ads_post_info = AccessService.select_spark_ads_trk_tg()
+    spark_ads_post_info = AccessService(GLOBAL).select_spark_ads_trk_tg()
     tg_posts_info += spark_ads_post_info
 
     tg_posts_id = [i['post_id'] for i in tg_posts_info]
@@ -81,7 +82,7 @@ if __name__ == "__main__":
                 share_count = payload['stats']['shareCount']
                 tags = ','.join([d['hashtagName'] for d in payload.get('textExtra')]) if payload.get('textExtra') else ''
 
-                AccessService.insert_posting_history(
+                AccessService(GLOBAL).insert_posting_history(
                     post_id=post_id,
                     posted_time=posted_time,
                     collect_count=collect_count,

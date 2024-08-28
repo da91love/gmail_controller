@@ -18,6 +18,7 @@ from common.scm.TrackingWrapper import TrackingWrapper
 from common.scm.amazon.Amazon import Amazon
 from common.scm.rincos.Rincos import Rincos
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 from common.const.SCM import COURIER
 
 # Create instance
@@ -39,7 +40,7 @@ def app_api_delivery_tracker(event, context=None):
     # Get data from API Gateway
     eventdata = event
 
-    tracking_tg_invoices = AccessService.select_delivery_info()
+    tracking_tg_invoices = AccessService(GLOBAL).select_delivery_info()
 
     result = []
     try:

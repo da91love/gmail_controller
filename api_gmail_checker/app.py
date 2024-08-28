@@ -20,6 +20,7 @@ from api_gmail_checker.type.ResType import ResType
 from common.gmail.check_emails import check_emails
 from common.slack.slack_wrapper import slack_wrapper
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 from common.util.StrUtil import StrUtil
 
 # Create instance
@@ -55,7 +56,7 @@ def app_api_gmail_checker(event, context=None):
             # create slack thread
             slack_wrapper(slack_info=res, slack_chn_id=SLACK_CONTACT_CHANNEL_ID)
 
-            AccessService.insert_contents(
+            AccessService(GLOBAL).insert_contents(
                 gmail_thread_id=res['gmail_thread_id'],
                 gmail_msg_id=res['gmail_msg_id'],
                 contents=StrUtil.clean_mail_body(res['contents']),
@@ -63,7 +64,7 @@ def app_api_gmail_checker(event, context=None):
             )
 
             # insert to contact db
-            AccessService.insert_contact_history(
+            AccessService(GLOBAL).insert_contact_history(
                 gmail_thread_id=res['gmail_thread_id'],
                 gmail_msg_id=res['gmail_msg_id'],
                 gmail_label_id=res['gmail_label_id'],

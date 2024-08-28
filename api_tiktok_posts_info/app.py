@@ -51,4 +51,3 @@ def app_api_tiktok_posts_info(event, context=None):
 #     "period": period
 # })
 # print(result)
-

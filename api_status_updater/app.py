@@ -21,6 +21,7 @@ from common.const.SLACK import *
 from common.slack.SlackMsgCreator import SlackMsgCreator
 from common.gmail.LabelControl import LabelControl
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 
 # Create instance
 config = get_config()
@@ -44,7 +45,7 @@ def app_api_status_updater(event, context=None):
     slack = Slack()
 
     # 20분이내 업데이트된 status 데이터 취득
-    status_data = AccessService.select_status_in_x_min()
+    status_data = AccessService(GLOBAL).select_status_in_x_min()
 
     updated_data = []
     if len(status_data) > 0:
@@ -56,14 +57,14 @@ def app_api_status_updater(event, context=None):
 
 
             # 아직 답장이 안온 경우는 Slack 존재하지 않으므로 pass
-            slack_id_info = AccessService.select_slack_thread_history(t_key=t_key)
+            slack_id_info = AccessService(GLOBAL).select_slack_thread_history(t_key=t_key)
             if len(slack_id_info) > 0:
                 # gmail 및 slack 공통 데이터 미리 취득
                 ## gmail label은 gmail_msg_id 별로 걸려 있는데, 가장 처음 메일에 걸려있는 라벨 삭제해야하므로 contact_data[0]
-                contact_data = AccessService.select_contacts_by_tkey(t_key=t_key)
+                contact_data = AccessService(GLOBAL).select_contacts_by_tkey(t_key=t_key)
                 gmail_msg_id = itemgetter('gmail_msg_id')(contact_data[0])
 
-                slack_need_info = AccessService.select_slack_need_info(t_key=t_key)[0]
+                slack_need_info = AccessService(GLOBAL).select_slack_need_info(t_key=t_key)[0]
                 author_unique_id, receiver_email, sender_email, tiktok_url, pic \
                     = itemgetter('author_unique_id', 'receiver_email', 'sender_email', 'tiktok_url', 'pic')(
                     slack_need_info)

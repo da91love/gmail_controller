@@ -23,6 +23,7 @@ from api_gmail_sender.type.ResType import ResType
 from common.const.EMAIL import *
 from common.const.SLACK import *
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 
 # Create instance
 config = get_config()
@@ -42,7 +43,7 @@ def app_api_mia_reminder(event, context=None):
 
     # Get data from API Gateway
     data = event
-    tgs_mia = AccessService.select_mia()
+    tgs_mia = AccessService(GLOBAL).select_mia()
     grouped_tgs_mia = _.group_by(tgs_mia, 't_key')
 
     # declare instance
