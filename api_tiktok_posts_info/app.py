@@ -50,6 +50,5 @@ def app_api_tiktok_posts_info(event, context=None):
 #     "uniqId": uniqId,
 #     "period": period
 # })
-#
 # print(result)
 
