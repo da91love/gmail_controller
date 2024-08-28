@@ -35,7 +35,7 @@ class Mysql:
             logger.info('mysql connection pool starts')
 
             # Get configuration of DB
-            pgConf = config['DB']['mysql']
+            pgConf = config['DB']['mysql'][db]
 
             rds_host = pgConf['db_host']
             rds_database = pgConf['db_database']

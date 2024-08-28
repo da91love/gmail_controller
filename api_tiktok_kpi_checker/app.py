@@ -17,6 +17,7 @@ from common.AppBase import AppBase
 from common.util.get_config import get_config
 from api_gmail_sender.type.ResType import ResType
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 from common.const.SLACK import *
 from common.slack.Slack import Slack
 from common.slack.SlackMsgCreator import SlackMsgCreator
@@ -49,7 +50,7 @@ def api_tiktok_kpi_checker(event, context=None):
     from_date_as_str = from_date.strftime('%Y-%m-%d')
     to_date_as_str = to_date.strftime('%Y-%m-%d')
 
-    posting_history_in_all_t_week = AccessService.select_posting_history_in_day(from_date=from_date_as_str, to_date=to_date_as_str)
+    posting_history_in_all_t_week = AccessService(GLOBAL).select_posting_history_in_day(from_date=from_date_as_str, to_date=to_date_as_str)
 
     # sort by created at
     posting_history_in_all_t_week.sort(key=lambda x: x['created_at'], reverse=True)
@@ -63,7 +64,7 @@ def api_tiktok_kpi_checker(event, context=None):
     to_date_l_week = from_date
 
     # 지난 주에 포스팅된 포스트만 취득
-    posting_history_in_all_l_week = AccessService.select_posting_history_in_day(from_date=from_date_l_week, to_date=to_date_l_week)
+    posting_history_in_all_l_week = AccessService(GLOBAL).select_posting_history_in_day(from_date=from_date_l_week, to_date=to_date_l_week)
 
     # 지난주에 올린 포스트의 최근 created 시간으로 필터링
     filtered_posting_history_in_all_l_week = _.filter_(posting_history_in_all_l_week, lambda x: from_date <= x['created_at'] and x['created_at'] < to_date)
@@ -82,7 +83,7 @@ def api_tiktok_kpi_checker(event, context=None):
     sum_play_count_t_week_of_l = sum_play_count_l_week - sum_play_count_til_l_week
 
     # insert to db
-    AccessService.insert_clm_posting_history(
+    AccessService(GLOBAL).insert_clm_posting_history(
         tg_date=tg_date,
         this_week_post_num=num_of_post_t_week,
         this_week_view_count=sum_play_count_t_week,

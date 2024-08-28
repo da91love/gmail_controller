@@ -5,8 +5,13 @@ config = {
     'name': 'development',
     'DB': {
         'mysql': {
-            'selector': {
-
+            'boosters': {
+                'db_host': '3.39.231.5',
+                'db_database': 'boosters',
+                'db_port': '3306',
+                'db_user': 'selector',
+                'db_password': 'selector11!!',
+                'ssl_disabled': True
             },
             'global': {
                 'db_host': '13.125.110.215',

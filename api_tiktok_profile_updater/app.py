@@ -17,6 +17,7 @@ from common.tiktok.get_profile_stat import get_profile_stat
 from common.util.get_config import get_config
 from common.util.logger_get import get_logger
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 
 # Create instance
 config = get_config()
@@ -48,7 +49,7 @@ def app_api_tiktok_profile_updater(event, context=None):
             = itemgetter('diggCount', 'followerCount', 'followingCount', 'friendCount', 'heart', 'heartCount', 'videoCount')(stats)
 
 
-    AccessService.insert_profile_stats(
+    AccessService(GLOBAL).insert_profile_stats(
         id=id,
         author_unique_id=author_unique_id,
         digg_count=digg_count,

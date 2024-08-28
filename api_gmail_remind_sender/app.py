@@ -22,6 +22,7 @@ from api_gmail_sender.type.ResType import ResType
 from common.gmail.LabelControl import LabelControl
 
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 from api_gmail_remind_sender.const.mail_info import mail_info
 from common.const.EMAIL import *
 from common.const.STATUS import *
@@ -45,8 +46,8 @@ def app_api_gmail_remind_sender(event, context=None):
     data = event
 
     # get thread_id
-    tg_contacts = AccessService.select_sent_thread_id()
-    cnt_num_by_tkey = AccessService.select_contact_num_by_tkey()
+    tg_contacts = AccessService(GLOBAL).select_sent_thread_id()
+    cnt_num_by_tkey = AccessService(GLOBAL).select_contact_num_by_tkey()
 
     # Group data by threadId
     cnts_grouped_by_tid = _.group_by(tg_contacts, "gmail_thread_id")
@@ -91,7 +92,7 @@ def app_api_gmail_remind_sender(event, context=None):
                                     sent_message = send_re_email(sender_email, receiver_email, mail_subject, mail_body, gmail_thread_id)
 
                                     # insert to contact db
-                                    AccessService.insert_contact_history(
+                                    AccessService(GLOBAL).insert_contact_history(
                                         gmail_thread_id=gmail_thread_id,
                                         gmail_msg_id=sent_message.get('id'),
                                         gmail_label_id='SENT',
@@ -110,13 +111,13 @@ def app_api_gmail_remind_sender(event, context=None):
                                     labelControl.add_label(gmail_msg_id=gmail_msg_id, add_label_names=[status, progress, pic])
 
                                     # update contact
-                                    AccessService.update_gmail_mail_contact_thread_id(
+                                    AccessService(GLOBAL).update_gmail_mail_contact_thread_id(
                                         new_gmail_thread_id=new_gmail_thread_id,
                                         old_gmail_thread_id=gmail_thread_id
                                     )
 
                                     # insert to contact db
-                                    AccessService.insert_contact_history(
+                                    AccessService(GLOBAL).insert_contact_history(
                                         gmail_thread_id=new_gmail_thread_id,
                                         gmail_msg_id=gmail_msg_id,
                                         gmail_label_id='SENT',

@@ -15,7 +15,7 @@ class I18n:
             # rの結果とi18n_tの結果を紐づける
             df_row = pd.DataFrame(r)
             for data in self.datas:
-                i18n_t = AccessService.translate(
+                i18n_t = AccessService(GLOBAL).translate(
                     table_name=data['table_name'], key_name=data['key_name'], lang=lang)
                 df_i18n_t = pd.DataFrame(i18n_t)
 

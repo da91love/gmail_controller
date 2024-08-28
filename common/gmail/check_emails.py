@@ -8,6 +8,7 @@ import base64
 from common.util.logger_get import get_logger
 
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 from common.gmail.Authenticate import Authenticate
 from common.gmail.get_gmail_contents import get_gmail_contents
 from common.util.DateUtil import DateUtil
@@ -40,7 +41,7 @@ def check_emails(label_id, sender_email):
             for gmail_thread_id in gmail_thread_ids:
                 try:
                     # db에서 thread_id로 contact 횟수 검색
-                    contact_history = AccessService.select_contacts_by_gti(gmail_thread_id=gmail_thread_id)
+                    contact_history = AccessService(GLOBAL).select_contacts_by_gti(gmail_thread_id=gmail_thread_id)
 
                     # db에 등록된 메일 처리
                     # db에 등록되지 않을 mail이 검색됐을 때 무시하기위해 len(contact_history) > 0 조건 추가
@@ -97,8 +98,8 @@ def check_emails(label_id, sender_email):
 
                         if sender_in_mail_thread in SENDER_EMAILS:
                             # 기존 thread id 검색
-                            old_gmail_thread_info = AccessService.select_thread_id_by_email(receiver_email=receiver_in_mail_thread)
-                            infl_contact_info = AccessService.select_infl_info_by_email(receiver_email=receiver_in_mail_thread)
+                            old_gmail_thread_info = AccessService(GLOBAL).select_thread_id_by_email(receiver_email=receiver_in_mail_thread)
+                            infl_contact_info = AccessService(GLOBAL).select_infl_info_by_email(receiver_email=receiver_in_mail_thread)
 
                             # old_gmail_thread_info 0일 경우: db에서 이메일 검색이 안될 시 우리가 컨택한적 없는 외부 컨택이므로 무시 혹은 시스템 구축 전 수동으로 보낸 메일이므로 무시
                             # old_gmail_thread_info 1보다 클 경우: 정상적인 플로우라면 old_gmail_thread_info 한 건만 검색되어야 하는데 복수건 검색될 경우 update시 primary에러 발생하므로 무시
@@ -106,16 +107,16 @@ def check_emails(label_id, sender_email):
                                 old_gmail_thread_id, t_key = itemgetter('gmail_thread_id', 't_key')(old_gmail_thread_info[0])
 
                                 # 기존 thread id update
-                                AccessService.update_gmail_mail_contact_thread_id(new_gmail_thread_id=gmail_thread_id, old_gmail_thread_id=old_gmail_thread_id)
+                                AccessService(GLOBAL).update_gmail_mail_contact_thread_id(new_gmail_thread_id=gmail_thread_id, old_gmail_thread_id=old_gmail_thread_id)
 
                                 # gmail label update
                                 # modify label
                                 new_gmail_msg_id = _.last(msgs_in_thread).get('id')
 
-                                status_data = AccessService.select_contacts_status(t_key=t_key)
+                                status_data = AccessService(GLOBAL).select_contacts_status(t_key=t_key)
                                 status, progress = itemgetter('status', 'progress')(status_data[0])
 
-                                pic = (AccessService.select_pic(t_key=t_key)[0])['pic']
+                                pic = (AccessService(GLOBAL).select_pic(t_key=t_key)[0])['pic']
 
                                 labelcontrol = LabelControl(sender_email)
                                 labelcontrol.add_label(gmail_msg_id=new_gmail_msg_id, add_label_names=[status, progress, pic])
@@ -146,7 +147,7 @@ def check_emails(label_id, sender_email):
                                 gmail_thread_id = msgs_in_thread[0].get('threadId')
 
                                 # DB 신규 등록
-                                AccessService.insert_contact_status(
+                                AccessService(GLOBAL).insert_contact_status(
                                     t_key=t_key,
                                     status=STATUS['OPEN'],
                                     progress=PROGRESS['NEGOTIATING']

@@ -23,6 +23,7 @@ from common.const.EMAIL import *
 from common.const.STATUS import *
 
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 
 # Create instance
 config = get_config()
@@ -31,17 +32,17 @@ config = get_config()
 # s3_bucket_name = config['S3']['s3_bucket_name']
 
 # 과거에 답장온 회수가 1회 이상이고, status가 open인 대상에게 메일 변경 안내 메일 송신
-all_contact = AccessService.select_temp()
+all_contact = AccessService(GLOBAL).select_temp()
 contact_history_by_group = _.group_by(all_contact, 't_key')
 
 loop = 0
 for t_key in contact_history_by_group:
     # status
     ## 기존꺼 삭제
-    status_info = AccessService.select_contacts_status(t_key=t_key)
+    status_info = AccessService(GLOBAL).select_contacts_status(t_key=t_key)
     if len(status_info) == 0:
         ## 새로운거 없으면 추가
-        AccessService.insert_contact_status(t_key=t_key, status='open', progress='negotiating')
+        AccessService(GLOBAL).insert_contact_status(t_key=t_key, status='open', progress='negotiating')
 
         loop += 1
         print(loop)

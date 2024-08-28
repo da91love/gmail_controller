@@ -17,6 +17,7 @@ from common.tiktok.get_public_hashtag import get_public_hashtag
 from common.util.get_config import get_config
 from common.util.logger_get import get_logger
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 from common.util.DateUtil import DateUtil
 from common.util.LogicUtil import LogicUtil
 from config.development import *
@@ -26,10 +27,10 @@ config = get_config()
 logger = get_logger()
 
 if __name__ == "__main__":
-    kwds_from_db = AccessService.select_keyword_master()
+    kwds_from_db = AccessService(GLOBAL).select_keyword_master()
     kwds = [k['keyword'] for k in kwds_from_db]
 
-    pic_email_match = AccessService.select_pic_email_match()
+    pic_email_match = AccessService(GLOBAL).select_pic_email_match()
 
     with Manager() as manager:
         # Create a multiprocessing pool with a specified number of processes
@@ -77,7 +78,7 @@ if __name__ == "__main__":
                     pic = pic_email_match[ran_num]['pic']
 
                     try:
-                        AccessService.insert_infl_contact_info(
+                        AccessService(GLOBAL).insert_infl_contact_info(
                             t_key=t_key,
                             author_unique_id=author_unique_id,
                             seeding_num=1,
@@ -90,7 +91,7 @@ if __name__ == "__main__":
                             sender_email=sender_email,
                         )
 
-                        AccessService.insert_pic(
+                        AccessService(GLOBAL).insert_pic(
                             t_key=t_key,
                             pic=pic
                         )

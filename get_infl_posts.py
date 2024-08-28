@@ -13,6 +13,7 @@ from common.tiktok.get_post_stat import get_post_stat
 from common.util.get_config import get_config
 from common.util.logger_get import get_logger
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 from common.util.DateUtil import DateUtil
 
 # Create instance

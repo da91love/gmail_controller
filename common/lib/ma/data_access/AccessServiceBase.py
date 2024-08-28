@@ -38,7 +38,7 @@ class AccessServiceBase:
                 conn.commit()
 
                 # Close cursor, connection close
-                cls.__close(conn, cursor)
+                self.__close(conn, cursor)
 
                 logger.info('executeSql ends')
 
@@ -50,7 +50,7 @@ class AccessServiceBase:
                 conn.commit()
 
                 # Close cursor, connection close
-                cls.__close(conn, cursor)
+                self.__close(conn, cursor)
 
                 logger.info('executeSql ends')
                 pass
@@ -59,12 +59,11 @@ class AccessServiceBase:
             conn.rollback()
 
             # Close cursor, connection close
-            cls.__close(conn, cursor)
+            self.__close(conn, cursor)
 
             raise e
 
-    @classmethod
-    def __close(cls, conn, cursor):
+    def __close(self, conn, cursor):
         try:
             # Close cursor, connection close
             cursor.close()
