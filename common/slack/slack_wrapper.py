@@ -5,6 +5,7 @@ import pydash as _
 from common.util.logger_get import get_logger
 from common.type.Errors import *
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 from common.slack.SlackMsgCreator import SlackMsgCreator
 from common.slack.Slack import Slack
 from common.const.SLACK import *
@@ -25,16 +26,16 @@ def slack_wrapper(slack_info, slack_chn_id):
         slack = Slack()
 
         # Slack history 데이터 취득
-        slack_thread_history = AccessService.select_slack_thread_history(t_key=t_key)
+        slack_thread_history = AccessService(GLOBAL).select_slack_thread_history(t_key=t_key)
 
         # Slack에 채워넣을 데이터 취득
         ## 메일, 틱톡 url 등
-        slack_need_info = AccessService.select_slack_need_info(t_key=t_key)[0]
+        slack_need_info = AccessService(GLOBAL).select_slack_need_info(t_key=t_key)[0]
         author_unique_id, receiver_email, sender_email, tiktok_url, pic \
             = itemgetter('author_unique_id', 'receiver_email', 'sender_email', 'tiktok_url', 'pic')(slack_need_info)
 
         ## status 데이터 취득
-        contact_status = AccessService.select_contacts_status(t_key=t_key)[0]
+        contact_status = AccessService(GLOBAL).select_contacts_status(t_key=t_key)[0]
         status, progress = itemgetter('status', 'progress')(contact_status)
 
         ## is reply done
@@ -72,7 +73,7 @@ def slack_wrapper(slack_info, slack_chn_id):
                             raise SlackApiInternalException(msg=slack_reply_res.text)
 
                     # if slack reply does not have error
-                    AccessService.insert_slack_thread_id(
+                    AccessService(GLOBAL).insert_slack_thread_id(
                         slack_thread_id=slack_thread_id,
                         t_key=t_key,
                         gmail_msg_id=gmail_msg_id,
@@ -111,7 +112,7 @@ def slack_wrapper(slack_info, slack_chn_id):
                         raise SlackApiInternalException(msg=slack_reply_res.text)
 
                 # if slack reply does not have error
-                AccessService.insert_slack_thread_id(
+                AccessService(GLOBAL).insert_slack_thread_id(
                     slack_thread_id=slack_thread_id,
                     t_key=t_key,
                     gmail_msg_id=gmail_msg_id,

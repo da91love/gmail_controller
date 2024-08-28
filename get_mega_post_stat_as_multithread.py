@@ -13,6 +13,7 @@ from common.tiktok.get_post_stat import get_post_stat
 from common.util.get_config import get_config
 from common.util.logger_get import get_logger
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 from common.util.DateUtil import DateUtil
 
 # Create instance
@@ -21,8 +22,8 @@ logger = get_logger()
 
 if __name__ == "__main__":
     tg_posts_info = []
-    posts_info = AccessService.select_mega_post_info()
-    posts_history_grouped_by_id = _.group_by(AccessService.select_mega_posting_history(), 'post_id')
+    posts_info = AccessService(GLOBAL).select_mega_post_info()
+    posts_history_grouped_by_id = _.group_by(AccessService(GLOBAL).select_mega_posting_history(), 'post_id')
     for post_info in posts_info:
         # 1차 필터링: post_type 비디오만 취득
         post_type = post_info['post_type']
@@ -75,7 +76,7 @@ if __name__ == "__main__":
                 share_count = payload['stats']['shareCount']
                 tags = ','.join([d['hashtagName'] for d in payload.get('textExtra')]) if payload.get('textExtra') else ''
 
-                AccessService.insert_mega_posting_history(
+                AccessService(GLOBAL).insert_mega_posting_history(
                     post_id=post_id,
                     posted_time=posted_time,
                     collect_count=collect_count,

@@ -23,6 +23,7 @@ from common.const.EMAIL import *
 from common.const.STATUS import *
 
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 
 # Create instance
 config = get_config()
@@ -42,8 +43,8 @@ def app_api_gmail_converting_sender(event, context=None):
     # Get data from API Gateway
     data = event
     # 과거에 답장온 회수가 1회 이상이고, status가 open인 대상에게 메일 변경 안내 메일 송신
-    tg_infls = AccessService.select_past_on_contact_infl(tg_date='2024-03-11')
-    old_thread_id_by_tkey = _.group_by(AccessService.select_latest_thread_id_by_tkey(), "t_key")
+    tg_infls = AccessService(GLOBAL).select_past_on_contact_infl(tg_date='2024-03-11')
+    old_thread_id_by_tkey = _.group_by(AccessService(GLOBAL).select_latest_thread_id_by_tkey(), "t_key")
 
     sent_done_tg = []
     for tg_infl in tg_infls:
@@ -76,13 +77,13 @@ def app_api_gmail_converting_sender(event, context=None):
         old_gmail_thread_id = old_thread_id_by_tkey[t_key][0]['gmail_thread_id']
 
         # update mail contents
-        AccessService.update_gmail_mail_contents_thread_id(
+        AccessService(GLOBAL).update_gmail_mail_contents_thread_id(
             new_gmail_thread_id=gmail_thread_id,
             old_gmail_thread_id=old_gmail_thread_id
         )
 
         # update mail contact
-        AccessService.update_gmail_mail_contact_thread_id(
+        AccessService(GLOBAL).update_gmail_mail_contact_thread_id(
             new_gmail_thread_id=gmail_thread_id,
             old_gmail_thread_id=old_gmail_thread_id
         )
@@ -94,7 +95,7 @@ def app_api_gmail_converting_sender(event, context=None):
         )
 
         # insert to contact db
-        AccessService.insert_contact_history(
+        AccessService(GLOBAL).insert_contact_history(
             gmail_thread_id=gmail_thread_id,
             gmail_msg_id=gmail_msg_id,
             gmail_label_id='SENT',

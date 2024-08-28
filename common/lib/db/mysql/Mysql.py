@@ -19,10 +19,10 @@ class Mysql:
     connectionPoolInstance = None
 
     @classmethod
-    def getConnectionPool(cls):
+    def getConnectionPool(cls, db):
         try:
             if cls.connectionPoolInstance is None:
-                cls.__setConnectionPool()
+                cls.__setConnectionPool(db)
 
             return cls.connectionPoolInstance
 
@@ -30,12 +30,12 @@ class Mysql:
             raise e
 
     @classmethod
-    def __setConnectionPool(cls):
+    def __setConnectionPool(cls, db):
         try:
             logger.info('mysql connection pool starts')
 
             # Get configuration of DB
-            pgConf = config['DB']['mysql']
+            pgConf = config['DB']['mysql'][db]
 
             rds_host = pgConf['db_host']
             rds_database = pgConf['db_database']

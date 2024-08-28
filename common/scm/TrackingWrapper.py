@@ -2,6 +2,7 @@ import pydash as _
 from mysql.connector.errors import *
 
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 from common.scm.amazon.Amazon import Amazon
 from common.scm.rincos.Rincos import Rincos
 from common.util.logger_get import get_logger
@@ -24,13 +25,13 @@ class TrackingWrapper:
 
             data = self.instance.convert_2_bsts_db(tracking_history)
 
-            delivery_history = AccessService.select_delivery_history(invoice_id=invoice_id)
+            delivery_history = AccessService(GLOBAL).select_delivery_history(invoice_id=invoice_id)
 
             if len(delivery_history) < len(data):
                 # insert to data into delivery history tb
                 for d in data:
                     try:
-                        AccessService.insert_delivery_history(
+                        AccessService(GLOBAL).insert_delivery_history(
                             order_id=order_id,
                             invoice_id=invoice_id,
                             delivery_status=d['delivery_status'],
@@ -42,7 +43,7 @@ class TrackingWrapper:
                         continue
 
                 # update data in delivery master
-                AccessService.update_delivery_master(
+                AccessService(GLOBAL).update_delivery_master(
                     order_id=order_id,
                     invoice_id=invoice_id,
                     delivery_status=data[-1]['delivery_status'],

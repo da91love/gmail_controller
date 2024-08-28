@@ -6,6 +6,7 @@ import pydash as _
 from common.util.logger_get import get_logger
 
 from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 from common.gmail.Authenticate import Authenticate
 from common.gmail.get_gmail_contents import get_gmail_contents
 from common.util.DateUtil import DateUtil
@@ -41,7 +42,7 @@ def force_check_emails(label_id, gmail_thread_ids, sender_email):
             for gmail_thread_id in thread_ids:
                 try:
                     # db에서 thread_id로 contact 횟수 검색
-                    contact_history = AccessService.select_contacts_by_gti(gmail_thread_id=gmail_thread_id)
+                    contact_history = AccessService(GLOBAL).select_contacts_by_gti(gmail_thread_id=gmail_thread_id)
 
                     # db에 등록되지 않은 메일 처리
                     # 우리가 보낸 메일 말고 다른 메일 스레드로 송신되는 이슈 발생
@@ -96,7 +97,7 @@ def force_check_emails(label_id, gmail_thread_ids, sender_email):
 
                         if sender_in_mail_thread == SENDER_EMAIL:
                             # 기존 thread id 검색
-                            old_gmail_thread_info = AccessService.select_thread_id_by_email(receiver_email=receiver_in_mail_thread)
+                            old_gmail_thread_info = AccessService(GLOBAL).select_thread_id_by_email(receiver_email=receiver_in_mail_thread)
 
                             # db에서 이메일 검색이 안될 시 우리가 컨택한적 없는 외부 컨택이므로 무시
                             # 혹은 시스템 구축 전 수동으로 보낸 메일이므로 무시
@@ -105,16 +106,16 @@ def force_check_emails(label_id, gmail_thread_ids, sender_email):
                                     itemgetter('t_key', 'gmail_thread_id', 'author_unique_id', 'seeding_num', 'tg_brand')(old_gmail_thread_info[0])
 
                                 # 기존 thread id update
-                                AccessService.update_gmail_mail_contact_thread_id(new_gmail_thread_id=gmail_thread_id, old_gmail_thread_id=old_gmail_thread_id)
+                                AccessService(GLOBAL).update_gmail_mail_contact_thread_id(new_gmail_thread_id=gmail_thread_id, old_gmail_thread_id=old_gmail_thread_id)
 
                                 # gmail label update
                                 # modify label
                                 new_gmail_msg_id = _.last(msgs_in_thread).get('id')
 
-                                status_data = AccessService.select_contacts_status(t_key=t_key)
+                                status_data = AccessService(GLOBAL).select_contacts_status(t_key=t_key)
                                 status, progress = itemgetter('status', 'progress')(status_data[0])
 
-                                pic = (AccessService.select_pic(author_unique_id=author_unique_id, seeding_num=seeding_num,
+                                pic = (AccessService(GLOBAL).select_pic(author_unique_id=author_unique_id, seeding_num=seeding_num,
                                                                 tg_brand=tg_brand)[0])['pic']
 
                                 LabelControl().add_label(gmail_msg_id=new_gmail_msg_id, add_label_names=[status, progress, pic])

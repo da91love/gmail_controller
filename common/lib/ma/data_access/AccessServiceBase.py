@@ -6,8 +6,10 @@ logger = logging.getLogger()
 
 class AccessServiceBase:
 
-    @classmethod
-    def execute_sql(cls, sql, bindings=None):
+    def __init__(self, db):
+        self.db = db
+
+    def execute_sql(self, sql, bindings=None):
         """
         :param sql:
         :param bindings:
@@ -17,7 +19,7 @@ class AccessServiceBase:
             logger.info('executeSql starts')
 
             # Create connection instance
-            connection_pool = Mysql.getConnectionPool()
+            connection_pool = Mysql.getConnectionPool(self.db)
             conn = connection_pool.get_connection()
 
             # Create a cursor instance
@@ -36,7 +38,7 @@ class AccessServiceBase:
                 conn.commit()
 
                 # Close cursor, connection close
-                cls.__close(conn, cursor)
+                self.__close(conn, cursor)
 
                 logger.info('executeSql ends')
 
@@ -48,7 +50,7 @@ class AccessServiceBase:
                 conn.commit()
 
                 # Close cursor, connection close
-                cls.__close(conn, cursor)
+                self.__close(conn, cursor)
 
                 logger.info('executeSql ends')
                 pass
@@ -57,12 +59,11 @@ class AccessServiceBase:
             conn.rollback()
 
             # Close cursor, connection close
-            cls.__close(conn, cursor)
+            self.__close(conn, cursor)
 
             raise e
 
-    @classmethod
-    def __close(cls, conn, cursor):
+    def __close(self, conn, cursor):
         try:
             # Close cursor, connection close
             cursor.close()
