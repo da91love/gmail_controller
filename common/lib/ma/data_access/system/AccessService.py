@@ -3,20 +3,22 @@ from common.lib.ma.data_access.AccessServiceBase import AccessServiceBase
 from .Query import Query
 
 
-class AccessService(AccessServiceBase):
+class AccessService():
+
+    def __init__(self, db):
+        self.db = db
     
     """
     All function's name should start with below 4 verbs: select insert update delete
     """
 
-    @staticmethod
-    def select_spark_ads_trk_tg(**bindings):
+    def select_spark_ads_trk_tg(self, **bindings):
         """
         :param bindings: (tuple)
         :return: (list) sql query result
         """
         try:
-            return AccessServiceBase.execute_sql(
+            return AccessServiceBase(self.db).execute_sql(
                 sql=Query.sql_select_spark_ads_trk_tg,
                 bindings=bindings)
 

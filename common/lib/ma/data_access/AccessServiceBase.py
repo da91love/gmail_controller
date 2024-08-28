@@ -6,8 +6,10 @@ logger = logging.getLogger()
 
 class AccessServiceBase:
 
-    @classmethod
-    def execute_sql(cls, sql, bindings=None):
+    def __init__(self, db):
+        self.db = db
+
+    def execute_sql(self, sql, bindings=None):
         """
         :param sql:
         :param bindings:
@@ -17,7 +19,7 @@ class AccessServiceBase:
             logger.info('executeSql starts')
 
             # Create connection instance
-            connection_pool = Mysql.getConnectionPool()
+            connection_pool = Mysql.getConnectionPool(self.db)
             conn = connection_pool.get_connection()
 
             # Create a cursor instance

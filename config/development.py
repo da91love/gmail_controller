@@ -5,12 +5,17 @@ config = {
     'name': 'development',
     'DB': {
         'mysql': {
-            'db_host': '13.125.110.215',
-            'db_database': 'eqb_us',
-            'db_port': '3306',
-            'db_user': 'mna',
-            'db_password': 'mna11!!',
-            'ssl_disabled': True
+            'selector': {
+
+            },
+            'global': {
+                'db_host': '13.125.110.215',
+                'db_database': 'eqb_us',
+                'db_port': '3306',
+                'db_user': 'mna',
+                'db_password': 'mna11!!',
+                'ssl_disabled': True
+            }
         }
     },
     'TIKAPI': {
