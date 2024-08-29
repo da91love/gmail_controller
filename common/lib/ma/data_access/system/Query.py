@@ -3,8 +3,16 @@ class Query():
         DELETE FROM contact_status where gmail_thread_id='{old_gmail_thread_id}';
     """
 
-    sql_temp = """
-        SELECT * FROM mail_contact 
+    sql_select_all_orders = """
+        SELECT real_purchase_date, address_json
+        FROM amazon_seller_report_order_infos asro
+        LEFT JOIN amazon_seller_report_order_detail_infos asr on asr.amazon_seller_report_order_info_id = asro.id
+        WHERE marketplaceid = 'ATVPDKIKX0DER'
+          AND asin = 'B0CMC6S4BM'
+          AND item_price > 0
+          AND '{start_date}' <= real_purchase_date
+        AND real_purchase_date < '{end_date}'
+        ORDER BY real_purchase_date desc
     """
 
     sql_select_spark_ads_trk_tg = """

@@ -17,6 +17,7 @@ from api_gmail_follow_up_sender.app import app_api_gmail_follow_up_sender as sen
 from api_mia_reminder.app import app_api_mia_reminder as remind_mia
 from api_tiktok_kpi_checker.app import api_tiktok_kpi_checker as check_kpi
 from api_tiktok_posts_info.app import app_api_tiktok_posts_info as get_tiktok_posts
+from api_repurchase_rate_getter.app import app_api_repurchase_rate_getter as get_repurchase_rate
 
 os.path.dirname(sys.modules['__main__'].__file__)
 
@@ -31,6 +32,15 @@ cors = CORS(api)
 # DO NOT deploy on production
 """
 
+@api.route('/get-repurchase-rate-post', methods=['post'])  # TODO : Insert any URL
+def get_repurchase_rate_get():
+    # Get body, headers
+    body = request.json
+    headers = request.headers
+
+    result = get_repurchase_rate(body)
+
+    return make_response(jsonify(result))
 @api.route('/get-tiktok-posts', methods=['post'])  # TODO : Insert any URL
 def check_tiktok_posts_get():
     # Get body, headers
