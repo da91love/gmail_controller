@@ -17,7 +17,7 @@ from common.AppBase import AppBase
 from common.util.get_config import get_config
 from api_tiktok_posts_info.type.ResType import ResType
 from common.tiktok.get_posts import get_posts
-
+from common.tiktok.get_post_stat import get_post_stat
 
 # Create instance
 config = get_config()
@@ -38,8 +38,20 @@ def app_api_tiktok_posts_info(event, context=None):
     data = event
     uniq_id: str = data.get('uniqId')
     period: int = data.get('period')
+    post_ids: list = data.get('postIds')
 
-    result = get_posts(uniq_id=uniq_id, day_bf_until=period)
+    result = None
+    if post_ids:
+        r = []
+        for post_id in post_ids:
+            res = get_post_stat(id_set=(post_id,))
+
+            if res.get('data'):
+                r.append(res.get('data').get('itemInfo').get('itemStruct'))
+
+        result = r
+    else:
+        result = get_posts(uniq_id=uniq_id, day_bf_until=period)
 
     return ResType(data=result).get_response()
 

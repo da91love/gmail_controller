@@ -7,15 +7,13 @@ logger = get_logger()
 
 def get_post_stat(id_set: set):
     api_key = config['TIKAPI']['api_key']
-    account_key = config['TIKAPI']['account_key']
     api = TikAPI(api_key)
-    User = api.user(accountKey=account_key)
 
     id = id_set[0]
     logger.info('get post info via Tikapi done: ' + str(id))
 
     try:
-        response = User.posts.video(id=id)
+        response = api.public.video(id=id)
 
         # if response.status == 'success':
         if response.status_code == 200:

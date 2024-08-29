@@ -12,6 +12,20 @@ class AccessService():
     All function's name should start with below 4 verbs: select insert update delete
     """
 
+    def select_all_orders(self, **bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase(self.db).execute_sql(
+                sql=Query.sql_select_all_orders,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+
     def select_spark_ads_trk_tg(self, **bindings):
         """
         :param bindings: (tuple)
