@@ -20,6 +20,7 @@ from api_tiktok_posts_info.type.ResType import ResType
 from common.tiktok.get_posts import get_posts
 from common.lib.ma.data_access.system.AccessService import AccessService
 from common.const.DB import *
+from common.util.FsUtil import *
 
 # Create instance
 config = get_config()
@@ -43,7 +44,7 @@ def app_api_repurchase_rate_getter(event, context=None):
 
     tg_period = 24
     start_date = '2024-02-01'
-    end_date = '2024-08-28'
+    end_date = '2024-09-02'
 
     # calculate month diff
     # Define the two dates
@@ -58,19 +59,24 @@ def app_api_repurchase_rate_getter(event, context=None):
         end_date=end_date
     )
 
+    # get amazon order id with buyer name data
+    amz_buyer_names = FsUtil.open_json_2_json_file(project_root + "/common/public/input/amz_order_cstm_name.json")
+
     # create id
     order_with_id = {}
     if len(all_orders) > 0:
         for order in all_orders:
             addr_json = json.loads(order.get('address_json'))
+            amz_order_id = order.get('amazon_order_id')
 
-            # create address
+            # create primary key
+            name = amz_buyer_names.get(amz_order_id) or 'None'
             country = addr_json.get('Country') or 'None'
             state = addr_json.get('State') or 'None'
             city = addr_json.get('City') or 'None'
             postal_code = addr_json.get('PostalCode') or 'None'
 
-            id = f'{country}_{state}_{city}_{postal_code}'
+            id = f'{name}_{country}_{state}_{city}_{postal_code}'
 
             date_obj = order.get('real_purchase_date')
             date_as_yyyymm = date_obj.strftime("%Y") + date_obj.strftime("%m")
@@ -79,6 +85,7 @@ def app_api_repurchase_rate_getter(event, context=None):
                 (order_with_id[id]).append(date_as_yyyymm)
             else:
                 order_with_id[id] = [date_as_yyyymm]
+
 
     #
     date_clct = {}

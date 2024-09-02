@@ -4,7 +4,7 @@ class Query():
     """
 
     sql_select_all_orders = """
-        SELECT real_purchase_date, address_json
+        SELECT amazon_order_id, real_purchase_date, address_json
         FROM amazon_seller_report_order_infos asro
         LEFT JOIN amazon_seller_report_order_detail_infos asr on asr.amazon_seller_report_order_info_id = asro.id
         WHERE marketplaceid = 'ATVPDKIKX0DER'
