@@ -124,7 +124,7 @@ def app_api_repurchase_rate_getter(event, context=None):
 
                 sum_by_period += count
 
-            d_name = f'D+{j}'
+            d_name = f'M+{j}'
 
             m_d_clct[d_name] = sum_by_period
 
@@ -132,8 +132,8 @@ def app_api_repurchase_rate_getter(event, context=None):
         for id in ids_including_prd:
             del order_with_id[id]
 
-        # D+0 수 조정
-        m_d_clct['D+0'] = m_d_clct['D+0'] - m_d_clct['init_sales']
+        # M+0 수 조정
+        m_d_clct['M+0'] = m_d_clct['M+0'] - m_d_clct['init_sales']
 
         # 데이터 갈아끼우기
         date_clct[tg_date_as_yyyymm] = m_d_clct
