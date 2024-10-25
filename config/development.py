@@ -24,7 +24,7 @@ config = {
         }
     },
     'TIKAPI': {
-        'api_key': 'enee9qPIfAc0B3INftVKZCMnWvOPqivueTzFM87d4mRmNr1e',
+        'api_key': 'GFy5EwoUpn186Noz1ZBByNIw0bzEzCyWoFzN5iAzibNpzlqz',
         'account_key': 'wNogFsixDbUYEZNpEoXrCzgla84cazl7YiXZ4U9e91MvhsWJ'
     },
     'AMZN': {
