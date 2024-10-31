@@ -10,6 +10,11 @@ def get_post_stat(id_set: set):
     api = TikAPI(api_key)
 
     id = id_set[0]
+
+    # validation int
+    if isinstance(id, int):
+        id = str(id)
+
     logger.info('get post info via Tikapi done: ' + str(id))
 
     try:
