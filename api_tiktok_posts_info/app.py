@@ -36,7 +36,6 @@ def app_api_tiktok_posts_info(event, context=None):
 
     # Get data from API Gateway
     data = event
-    print(data)
     uniq_id: str = data.get('uniqId')
     period: int = data.get('period')
     post_ids: list = data.get('postIds')
