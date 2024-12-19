@@ -40,6 +40,7 @@ def app_api_new_buyer_alerter(event, context=None):
 
     # Get data from API Gateway
     data: list = event
+    print(data)
 
     for d in data:
         corporate_name: str = d.get('corporate_name')
