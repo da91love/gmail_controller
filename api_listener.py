@@ -45,7 +45,7 @@ def alert_new_buyer_post():
     return make_response(jsonify(result))
 
 
-@api.route('/get-repurchase-rate-post', methods=['post'])  # TODO : Insert any URL
+@api.route('/get-repurchase-rate', methods=['post'])  # TODO : Insert any URL
 def get_repurchase_rate_get():
     # Get body, headers
     body = request.json
@@ -54,6 +54,7 @@ def get_repurchase_rate_get():
     result = get_repurchase_rate(body)
 
     return make_response(jsonify(result))
+
 @api.route('/get-tiktok-posts', methods=['post'])  # TODO : Insert any URL
 def check_tiktok_posts_get():
     # Get body, headers
