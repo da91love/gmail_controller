@@ -40,6 +40,8 @@ def alert_new_buyer_post():
     body = request.json
     headers = request.headers
 
+    print(body)
+
     result = alert_new_buyer(body)
 
     return make_response(jsonify(result))
