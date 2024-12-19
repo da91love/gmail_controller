@@ -5,6 +5,64 @@ from common.const.STATUS import *
 
 class SlackMsgCreator:
     @staticmethod
+    def get_slack_new_buyer_post_block(corporate_name, business_name, country, url, mau, pic):
+
+        return json.dumps([
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "신규 B2B 업체가 추가되었어요 🤩"
+                }
+            },
+            {
+                "type": "divider"
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"*・ 법인명:* {corporate_name}"
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"*・ 상호명:* {business_name}"
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"*・ 국가:* {country}"
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"*・ URL* : {url}"
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"*・ MAU* : {mau}"
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"*・ 담당자* : {pic}"
+                }
+            }
+        ])
+
+    @staticmethod
     def get_slack_contact_post_block(tiktok_url, author_unique_id, receiver_email, sender_email, status, progress, pic, is_reply_done):
         return json.dumps([
             {
