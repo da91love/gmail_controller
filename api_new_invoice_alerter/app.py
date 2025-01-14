@@ -49,7 +49,7 @@ def app_api_new_invoice_alerter(event, context=None):
         pi_request_date, export_no = itemgetter('piRequestDate', 'exportNo')(grouped_by_export_no[export_no][0])
 
         slack_post_msg = SlackMsgCreator.get_slack_new_invoice_post_block(
-            shipment_request_date=pi_request_date,
+            pi_request_date=pi_request_date,
             pi_no=('BSTSPI' + export_no[-11:]),
             export_no=export_no
         )
