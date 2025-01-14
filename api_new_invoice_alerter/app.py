@@ -46,7 +46,6 @@ def app_api_new_invoice_alerter(event, context=None):
 
     # declare instance
     slack = Slack()
-
     for export_no in grouped_by_export_no:
         shipment_request_date, export_no = itemgetter('shipmentRequestDate', 'exportNo')(grouped_by_export_no[export_no][0])
 
@@ -80,4 +79,4 @@ def app_api_new_invoice_alerter(event, context=None):
                 thread_ts=thread_ts
             )
 
-        return ResType(data={}).get_response()
+    return ResType(data={}).get_response()
