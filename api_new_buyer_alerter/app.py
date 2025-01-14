@@ -58,12 +58,10 @@ def app_api_new_buyer_alerter(event, context=None):
         pic=pic
     )
 
-
     slack.add_post(
         channel_id=SLACK_GLOBAL_EQB_CHANNEL_ID,
         msg_type=MSG_TYPE['BLOCK'],
         msg_body=slack_msg
     )
-
 
     return ResType(data={}).get_response()
