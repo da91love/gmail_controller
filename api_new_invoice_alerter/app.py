@@ -42,7 +42,6 @@ def app_api_new_invoice_alerter(event, context=None):
     # Get data from API Gateway
     data: dict = event
     grouped_by_export_no = _.group_by(data, 'exportNo')
-    print(grouped_by_export_no)
 
     # declare instance
     slack = Slack()
