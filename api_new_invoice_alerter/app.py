@@ -46,14 +46,19 @@ def app_api_new_invoice_alerter(event, context=None):
     # declare instance
     slack = Slack()
     for export_no in grouped_by_export_no:
-        pi_request_date, export_no, buyer_name, country = itemgetter('piRequestDate', 'exportNo', 'buyerName', 'country')(grouped_by_export_no[export_no][0])
+        invoices = grouped_by_export_no[export_no]
+        pi_request_date, export_no, buyer_name, country, currency = itemgetter('piRequestDate', 'exportNo', 'buyerName', 'country', 'currency')(invoices[0])
+
+        summed_amount = _.sum_by(invoices, lambda x: int(float((x.get('amount')).replace(",", ""))))
+        parsed_amount = f"{summed_amount:,} {currency}"
 
         slack_post_msg = SlackMsgCreator.get_slack_new_invoice_post_block(
             pi_request_date=pi_request_date,
             pi_no=('BSTSPI' + export_no[-11:]),
             export_no=export_no,
             buyer_name=buyer_name,
-            country=country
+            country=country,
+            summed_amount=parsed_amount
         )
 
         res = slack.add_post(

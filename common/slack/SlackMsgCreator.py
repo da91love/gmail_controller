@@ -19,7 +19,7 @@ class SlackMsgCreator:
         ])
 
     @staticmethod
-    def get_slack_new_invoice_post_block(pi_request_date, pi_no, export_no, buyer_name, country):
+    def get_slack_new_invoice_post_block(pi_request_date, pi_no, export_no, buyer_name, country, summed_amount):
 
         return json.dumps([
             {
@@ -36,7 +36,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"`PI 발행일` : {pi_request_date}\n`PI No` : {pi_no}\n`Export No` : {export_no}\n`Buyer Name` : {buyer_name}\n`Country` : {country}\n"
+                    "text": f"`PI 발행일` : {pi_request_date}\n`PI No` : {pi_no}\n`Export No` : {export_no}\n`Buyer Name` : {buyer_name}\n`Country` : {country}\n`Invoice Amount` : {summed_amount}\n"
                 }
             },
             {
