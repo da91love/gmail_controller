@@ -26,7 +26,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "신규 Invoice가 생성되었습니다.\n<@U07B2HY3E3F><@U036VMJAX2N><@U070KTKCD5L><@U06ECHJP7GV><@U05B5G8BK6C>"
+                    "text": "신규 Invoice가 생성되었습니다.\n<@U086W2H95K4><@U07B2HY3E3F><@U036VMJAX2N><@U070KTKCD5L><@U06ECHJP7GV><@U05B5G8BK6C>"
                 }
             },
             {
