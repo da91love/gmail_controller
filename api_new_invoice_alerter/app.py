@@ -62,7 +62,7 @@ def app_api_new_invoice_alerter(event, context=None):
         )
 
         res = slack.add_post(
-            channel_id=SLACK_GLOBAL_RETAIL_B2B_ID,
+            channel_id=SLACK_GLOBAL_B2B_INVOICE_ID,
             msg_type=MSG_TYPE['BLOCK'],
             msg_body=slack_post_msg
         )
@@ -79,7 +79,7 @@ def app_api_new_invoice_alerter(event, context=None):
             )
 
             slack.add_reply(
-                channel_id=SLACK_GLOBAL_RETAIL_B2B_ID,
+                channel_id=SLACK_GLOBAL_B2B_INVOICE_ID,
                 msg_type=MSG_TYPE['BLOCK'],
                 msg_body=slack_reply_msg,
                 thread_ts=thread_ts
