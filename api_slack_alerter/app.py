@@ -44,7 +44,7 @@ def app_api_slack_alerter(event, context=None):
     if slack_alerter_type == NEW_BUYER_ALERTER:
         alert_new_buyer(payload)
     elif slack_alerter_type == NEW_INVOICE_ALERTER:
-        alert_new_invoice()
+        alert_new_invoice(payload)
     elif slack_alerter_type == NEW_DELIVERY_REQUEST_ALERTER:
         pass
 
