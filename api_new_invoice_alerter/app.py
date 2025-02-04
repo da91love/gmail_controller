@@ -17,9 +17,12 @@ import pydash as _
 from common.AppBase import AppBase
 from common.util.get_config import get_config
 from api_tiktok_posts_info.type.ResType import ResType
-from api_slack_alerter.const.SLACK_ALERTER_TYPE import *
-from api_slack_alerter.alerters.alert_new_invoice import alert_new_invoice
-from api_slack_alerter.alerters.alert_new_buyer import alert_new_buyer
+from common.tiktok.get_posts import get_posts
+from common.tiktok.get_post_stat import get_post_stat
+from common.slack.Slack import Slack
+from common.slack.SlackMsgCreator import SlackMsgCreator
+from common.const.SLACK import *
+
 
 # Create instance
 config = get_config()
@@ -38,14 +41,48 @@ def app_api_new_invoice_alerter(event, context=None):
 
     # Get data from API Gateway
     data: dict = event
+    grouped_by_export_no = _.group_by(data, 'exportNo')
 
-    slack_alerter_type, payload = itemgetter('slack_alerter_type', 'payload')(data)
+    # declare instance
+    slack = Slack()
+    for export_no in grouped_by_export_no:
+        invoices = grouped_by_export_no[export_no]
+        pi_request_date, export_no, buyer_name, country, currency = itemgetter('piRequestDate', 'exportNo', 'buyerName', 'country', 'currency')(invoices[0])
 
-    if slack_alerter_type == NEW_BUYER_ALERTER:
-        alert_new_buyer(payload)
-    elif slack_alerter_type == NEW_INVOICE_ALERTER:
-        alert_new_invoice()
-    elif slack_alerter_type == NEW_DELIVERY_REQUEST_ALERTER:
-        pass
+        summed_amount = _.sum_by(invoices, lambda x: int(float((x.get('amount')).replace(",", ""))))
+        parsed_amount = f"{summed_amount:,} {currency}"
+
+        slack_post_msg = SlackMsgCreator.get_slack_new_invoice_post_block(
+            pi_request_date=pi_request_date,
+            pi_no=('BSTSPI' + export_no[-11:]),
+            export_no=export_no,
+            buyer_name=buyer_name,
+            country=country,
+            summed_amount=parsed_amount
+        )
+
+        res = slack.add_post(
+            channel_id=SLACK_GLOBAL_B2B_INVOICE_ID,
+            msg_type=MSG_TYPE['BLOCK'],
+            msg_body=slack_post_msg
+        )
+
+        thread_ts = res.text
+
+        for export_info in grouped_by_export_no[export_no]:
+            productName, productCode, quantity = itemgetter('productName', 'productCode', 'quantity')(export_info)
+
+            slack_reply_msg = SlackMsgCreator.get_slack_new_invoice_details_reply_block(
+                productName=productName,
+                productCode=productCode,
+                quantity=quantity
+            )
+
+            slack.add_reply(
+                channel_id=SLACK_GLOBAL_B2B_INVOICE_ID,
+                msg_type=MSG_TYPE['BLOCK'],
+                msg_body=slack_reply_msg,
+                thread_ts=thread_ts
+            )
 
     return ResType(data={}).get_response()
