@@ -5,7 +5,7 @@ from common.const.STATUS import *
 
 class SlackMsgCreator:
     @staticmethod
-    def get_slack_new_order_post_block(pic, buyer_name, address, recipient, phone_num, requested_arrival_date, bill_type, related_docs, remark):
+    def get_slack_delivery_request_post_block(pic, buyer_name, address, recipient, phone_num, requested_arrival_date, bill_type, related_docs, remark):
 
         return json.dumps([
             {

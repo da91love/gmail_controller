@@ -15,7 +15,7 @@ def alert_new_order(data):
             remark: str = d.get('remark')
 
             slack = Slack()
-            slack_msg = SlackMsgCreator.get_slack_new_order_post_block(
+            slack_msg = SlackMsgCreator.get_slack_delivery_request_post_block(
                 pic=pic,
                 buyer_name=buyer_name,
                 address=address,
