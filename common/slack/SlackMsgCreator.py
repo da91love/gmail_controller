@@ -4,6 +4,31 @@ import html
 from common.const.STATUS import *
 
 class SlackMsgCreator:
+    @staticmethod
+    def get_slack_new_order_post_block(pic, buyer_name, address, recipient, phone_num, requested_arrival_date, bill_type, related_docs, remark):
+
+        return json.dumps([
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "신규 출고 요청이 생성되었습니다.\n<@U070KTKCD5L><@U07B2HY3E3F>"
+                }
+            },
+            {
+                "type": "divider"
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"`요청자` : {pic}\n`업체명` : {buyer_name}\n`입고지` : {address}\n`입고지담당자` : {recipient}\n`담당자연락처` : {phone_num}\n`출고요청일` : {requested_arrival_date}\n`필요서류` : {bill_type}\n`출고요청서 링크` : https://drive.google.com/drive/folders/{related_docs}\n`특이사항` : {remark}"
+                }
+            },
+            {
+                "type": "divider"
+            }
+        ])
 
     @staticmethod
     def get_slack_new_invoice_details_reply_block(productName, productCode, quantity):

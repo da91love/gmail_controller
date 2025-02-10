@@ -20,6 +20,7 @@ from api_tiktok_posts_info.type.ResType import ResType
 from api_slack_alerter.const.SLACK_ALERTER_TYPE import *
 from api_slack_alerter.alerters.alert_new_invoice import alert_new_invoice
 from api_slack_alerter.alerters.alert_new_buyer import alert_new_buyer
+from api_slack_alerter.alerters.alert_new_order import alert_new_order
 
 # Create instance
 config = get_config()
@@ -46,6 +47,6 @@ def app_api_slack_alerter(event, context=None):
     elif slack_alerter_type == NEW_INVOICE_ALERTER:
         alert_new_invoice(payload)
     elif slack_alerter_type == NEW_DELIVERY_REQUEST_ALERTER:
-        pass
+        alert_new_order(payload)
 
     return ResType(data={}).get_response()
