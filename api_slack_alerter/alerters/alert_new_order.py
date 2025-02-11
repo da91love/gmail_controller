@@ -5,7 +5,8 @@ def alert_new_order(data):
     try:
         for d in data:
             pic: str = d.get('pic')
-            buyer_name: int = d.get('buyerName')
+            export_no: str = d.get('exportNo')
+            buyer_name: str = d.get('buyerName')
             address: str = d.get('address')
             recipient: str = d.get('recipient')
             phone_num:str = d.get('phoneNum')
@@ -17,6 +18,7 @@ def alert_new_order(data):
             slack = Slack()
             slack_msg = SlackMsgCreator.get_slack_delivery_request_post_block(
                 pic=pic,
+                export_no=export_no,
                 buyer_name=buyer_name,
                 address=address,
                 recipient=recipient,
