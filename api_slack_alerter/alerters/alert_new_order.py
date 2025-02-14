@@ -64,7 +64,17 @@ def alert_new_order(data):
                 AccessService(GLOBAL).update_slack_history(
                     export_id=export_no,
                     slack_post_block_id=slack_post_block_id,
-                    body=slack_msg
+                    pic=pic,
+                    export_no=export_no,
+                    buyer_name=buyer_name,
+                    address=address,
+                    recipient=recipient,
+                    recipient_phone_num=phone_num,
+                    requested_arrival_date=requested_arrival_date,
+                    bill_type=bill_type,
+                    related_docs=related_docs,
+                    delivery=delivery,
+                    remark=remark
                 )
 
             else:
@@ -81,7 +91,17 @@ def alert_new_order(data):
                 AccessService(GLOBAL).insert_slack_history(
                     export_id=export_no,
                     slack_post_block_id=slack_post_block_id,
-                    body=slack_msg
+                    pic=pic,
+                    export_no=export_no,
+                    buyer_name=buyer_name,
+                    address=address,
+                    recipient=recipient,
+                    recipient_phone_num=phone_num,
+                    requested_arrival_date=requested_arrival_date,
+                    bill_type=bill_type,
+                    related_docs=related_docs,
+                    delivery=delivery,
+                    remark=remark
                 )
 
     except Exception as e:
