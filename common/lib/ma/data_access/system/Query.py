@@ -1,4 +1,20 @@
 class Query():
+    sql_update_slack_history = """
+        insert into slack_thread_history set body='{body}' 
+        where id='{export_id}' and slack_post_block_id='{slack_post_block_id}';
+    """
+
+    sql_insert_slack_history = """
+        insert into slack_thread_history (export_id, slack_post_block_id, body) 
+        values ('{export_id}', '{slack_post_block_id}', '{body}')
+    """
+
+    sql_select_slack_history = """
+        SELECT *
+        FROM slack_thread_history
+        WHERE export_id = '{export_id}'
+    """
+
     sql_delete_temp = """
         DELETE FROM contact_status where gmail_thread_id='{old_gmail_thread_id}';
     """

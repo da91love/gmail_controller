@@ -11,6 +11,44 @@ class AccessService():
     """
     All function's name should start with below 4 verbs: select insert update delete
     """
+    def update_slack_history(self, **bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase(self.db).execute_sql(
+                sql=Query.sql_update_slack_history,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+    def insert_slack_history(self, **bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase(self.db).execute_sql(
+                sql=Query.sql_insert_slack_history,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+    def select_slack_history(self, **bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase(self.db).execute_sql(
+                sql=Query.sql_select_slack_history,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
 
     def select_all_orders(self, **bindings):
         """

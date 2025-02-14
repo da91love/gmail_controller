@@ -5,6 +5,19 @@ from common.const.STATUS import *
 
 class SlackMsgCreator:
     @staticmethod
+    def get_slack_updated_shipment_request():
+
+        return json.dumps([
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "출고 요청이 업데이트 되었습니다.\n<@U070KTKCD5L><@U07B2HY3E3F>"
+                }
+            }
+        ])
+
+    @staticmethod
     def get_slack_delivery_request_post_block(pic, export_no, buyer_name, address, recipient, phone_num, requested_arrival_date, bill_type, related_docs, remark):
 
         return json.dumps([

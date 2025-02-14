@@ -18,9 +18,8 @@ from api_mia_reminder.app import app_api_mia_reminder as remind_mia
 from api_tiktok_kpi_checker.app import api_tiktok_kpi_checker as check_kpi
 from api_tiktok_posts_info.app import app_api_tiktok_posts_info as get_tiktok_posts
 from api_repurchase_rate_getter.app import app_api_repurchase_rate_getter as get_repurchase_rate
-from api_new_buyer_alerter.app import app_api_new_buyer_alerter as alert_new_buyer
-from api_new_invoice_alerter.app import app_api_new_invoice_alerter as alert_new_invoice
 from api_slack_alerter.app import app_api_slack_alerter as alert_slack
+from api_packing_calculator.app import app_api_packing_calculator as calculate_packing
 
 
 os.path.dirname(sys.modules['__main__'].__file__)
@@ -35,6 +34,17 @@ cors = CORS(api)
 # This flask API is only used for the development stage.
 # DO NOT deploy on production
 """
+@api.route('/calculate-packing', methods=['post'])  # TODO : Insert any URL
+def calculate_packing_post():
+    # Get body, headers
+    body = request.json
+    headers = request.headers
+
+    result = calculate_packing(body)
+
+    return make_response(jsonify(result))
+
+
 @api.route('/alert-slack', methods=['post'])  # TODO : Insert any URL
 def alert_slack_post():
     # Get body, headers
@@ -42,27 +52,6 @@ def alert_slack_post():
     headers = request.headers
 
     result = alert_slack(body)
-
-    return make_response(jsonify(result))
-
-
-@api.route('/alert-new-invoice', methods=['post'])  # TODO : Insert any URL
-def alert_new_invoice_post():
-    # Get body, headers
-    body = request.json
-    headers = request.headers
-
-    result = alert_new_invoice(body)
-
-    return make_response(jsonify(result))
-
-@api.route('/alert-new-buyer', methods=['post'])  # TODO : Insert any URL
-def alert_new_buyer_post():
-    # Get body, headers
-    body = request.json
-    headers = request.headers
-
-    result = alert_new_buyer(body)
 
     return make_response(jsonify(result))
 

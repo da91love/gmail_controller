@@ -1,8 +1,13 @@
+from datetime import datetime
+from common.lib.ma.data_access.system.AccessService import AccessService
 from common.slack.Slack import Slack
 from common.slack.SlackMsgCreator import SlackMsgCreator
 from common.const.SLACK import *
+from common.const.DB import *
 def alert_new_order(data):
     try:
+        slack = Slack()
+
         for d in data:
             pic: str = d.get('pic')
             export_no: str = d.get('exportNo')
@@ -15,7 +20,7 @@ def alert_new_order(data):
             related_docs: str = d.get('relatedDocs')
             remark: str = d.get('remark')
 
-            slack = Slack()
+            # 메세지 생성
             slack_msg = SlackMsgCreator.get_slack_delivery_request_post_block(
                 pic=pic,
                 export_no=export_no,
@@ -29,10 +34,52 @@ def alert_new_order(data):
                 remark=remark
             )
 
-            slack.add_post(
-                channel_id=SLACK_GLOBAL_B2B_DELIVERY_REQUEST_ID,
-                msg_type=MSG_TYPE['BLOCK'],
-                msg_body=slack_msg
-            )
+            # 이미 생성된 export_id인지 확인
+            slack_history_of_export_id = AccessService(GLOBAL).select_slack_history(export_id=export_no)
+
+            # 이미 생성되어 있으면
+            if len(slack_history_of_export_id) > 0:
+                # 기존 slack id 취득
+                slack_post_block_id = slack_history_of_export_id[0].get('slack_post_block_id')
+
+                # 기존 slack update
+                slack.update_post(
+                    channel_id=SLACK_GLOBAL_B2B_DELIVERY_REQUEST_ID,
+                    msg_type=MSG_TYPE['BLOCK'],
+                    msg_body=slack_msg,
+                    thread_ts=slack_post_block_id
+                )
+
+                # 업데이트 문구 리플라이
+                slack.add_reply(
+                    channel_id=SLACK_GLOBAL_B2B_DELIVERY_REQUEST_ID,
+                    msg_type=MSG_TYPE['BLOCK'],
+                    msg_body=SlackMsgCreator.get_slack_updated_shipment_request(),
+                    thread_ts = slack_post_block_id
+                )
+
+                # DB에 저장된 기존 slack 내용 수정
+                AccessService(GLOBAL).update_slack_history(
+                    export_id=export_no,
+                    slack_post_block_id=slack_post_block_id,
+                    update=datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    body=slack_msg
+                )
+
+            else:
+                # 신규 Slack post 작성
+                slack_post_block_id = slack.add_post(
+                    channel_id=SLACK_GLOBAL_B2B_DELIVERY_REQUEST_ID,
+                    msg_type=MSG_TYPE['BLOCK'],
+                    msg_body=slack_msg
+                )
+
+                # DB 등록
+                AccessService(GLOBAL).insert_slack_history(
+                    export_id=export_no,
+                    slack_post_block_id=slack_post_block_id,
+                    body=slack_msg
+                )
+
     except Exception as e:
         raise e

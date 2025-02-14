@@ -1,0 +1,1 @@
+BIN_PACKING_API_URL = 'https://global-api.3dbinpacking.com/packer/packIntoMany'
