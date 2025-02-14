@@ -5,6 +5,8 @@ def alert_new_buyer(data):
     try:
         corporate_name: str = data.get('corporate_name')
         business_name: int = data.get('business_name')
+        buyer_type: int = data.get('buyer_type')
+        is_exclusive: int = data.get('is_exclusive')
         country: str = data.get('country')
         pic: str = data.get('pic')
         url: str = data.get('url')
@@ -14,6 +16,8 @@ def alert_new_buyer(data):
         slack_msg = SlackMsgCreator.get_slack_new_buyer_post_block(
             corporate_name=corporate_name,
             business_name=business_name,
+            buyer_type=buyer_type,
+            is_exclusive=is_exclusive,
             country=country,
             url=url,
             mau=mau,

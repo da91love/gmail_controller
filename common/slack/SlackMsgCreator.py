@@ -83,7 +83,7 @@ class SlackMsgCreator:
         ])
 
     @staticmethod
-    def get_slack_new_buyer_post_block(corporate_name, business_name, country, url, mau, pic):
+    def get_slack_new_buyer_post_block(corporate_name, business_name, buyer_type, is_exclusive, country, url, mau, pic):
 
         return json.dumps([
             {
@@ -108,6 +108,20 @@ class SlackMsgCreator:
                 "text": {
                     "type": "mrkdwn",
                     "text": f"*・ 상호명:* {business_name}"
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"*・ 바이어 구분:* {buyer_type}"
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"*・ 독점여부:* {is_exclusive}"
                 }
             },
             {
