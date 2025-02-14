@@ -18,6 +18,7 @@ def alert_new_order(data):
             requested_arrival_date: str = d.get('requestedArrivalDate')
             bill_type: str = d.get('billType')
             related_docs: str = d.get('relatedDocs')
+            delivery: str = d.get('delivery')
             remark: str = d.get('remark')
 
             # 메세지 생성
@@ -31,6 +32,7 @@ def alert_new_order(data):
                 requested_arrival_date=requested_arrival_date,
                 bill_type=bill_type,
                 related_docs=related_docs,
+                delivery=delivery,
                 remark=remark
             )
 
