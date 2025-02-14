@@ -55,24 +55,25 @@ def alert_new_order(data):
                     channel_id=SLACK_GLOBAL_B2B_DELIVERY_REQUEST_ID,
                     msg_type=MSG_TYPE['BLOCK'],
                     msg_body=SlackMsgCreator.get_slack_updated_shipment_request(),
-                    thread_ts = slack_post_block_id
+                    thread_ts=slack_post_block_id
                 )
 
                 # DB에 저장된 기존 slack 내용 수정
                 AccessService(GLOBAL).update_slack_history(
                     export_id=export_no,
                     slack_post_block_id=slack_post_block_id,
-                    update=datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                     body=slack_msg
                 )
 
             else:
                 # 신규 Slack post 작성
-                slack_post_block_id = slack.add_post(
+                res = slack.add_post(
                     channel_id=SLACK_GLOBAL_B2B_DELIVERY_REQUEST_ID,
                     msg_type=MSG_TYPE['BLOCK'],
                     msg_body=slack_msg
                 )
+
+                slack_post_block_id = res.text
 
                 # DB 등록
                 AccessService(GLOBAL).insert_slack_history(

@@ -1,7 +1,7 @@
 class Query():
     sql_update_slack_history = """
-        insert into slack_thread_history set body='{body}' 
-        where id='{export_id}' and slack_post_block_id='{slack_post_block_id}';
+        update slack_thread_history set body='{body}', updated_at=NOW() 
+        where export_id='{export_id}' and slack_post_block_id='{slack_post_block_id}';
     """
 
     sql_insert_slack_history = """
