@@ -18,7 +18,7 @@ class SlackMsgCreator:
         ])
 
     @staticmethod
-    def get_slack_delivery_request_post_block(pic, export_no, buyer_name, address, recipient, phone_num, requested_arrival_date, bill_type, related_docs, delivery, remark):
+    def get_slack_delivery_request_post_block(pic, export_no, buyer_name, address, recipient, phone_num, requested_arrival_date, bill_type, folder_id, delivery, remark):
 
         return json.dumps([
             {
@@ -35,7 +35,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"`요청자` : {pic}\n`수출번호` : {export_no}\n`업체명` : {buyer_name}\n`입고지` : {address}\n`입고지담당자` : {recipient}\n`담당자연락처` : {phone_num}\n`출고요청일` : {requested_arrival_date}\n`필요서류` : {bill_type}\n`배송방법` : {delivery}\n`출고요청서 링크` : https://drive.google.com/drive/folders/{related_docs}\n`특이사항` : {remark}"
+                    "text": f"`요청자` : {pic}\n`수출번호` : {export_no}\n`업체명` : {buyer_name}\n`입고지` : {address}\n`입고지담당자` : {recipient}\n`담당자연락처` : {phone_num}\n`출고요청일` : {requested_arrival_date}\n`필요서류` : {bill_type}\n`배송방법` : {delivery}\n`출고요청서 링크` : https://drive.google.com/drive/folders/{folder_id}\n`특이사항` : {remark}"
                 }
             },
             {

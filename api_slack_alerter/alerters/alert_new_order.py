@@ -17,7 +17,7 @@ def alert_new_order(data):
             phone_num:str = d.get('phoneNum')
             requested_arrival_date: str = d.get('requestedArrivalDate')
             bill_type: str = d.get('billType')
-            related_docs: str = d.get('relatedDocs')
+            folder_id: str = d.get('folderId')
             delivery: str = d.get('delivery')
             remark: str = d.get('remark')
 
@@ -31,7 +31,7 @@ def alert_new_order(data):
                 phone_num=phone_num,
                 requested_arrival_date=requested_arrival_date,
                 bill_type=bill_type,
-                related_docs=related_docs,
+                folder_id=folder_id,
                 delivery=delivery,
                 remark=remark
             )
@@ -72,7 +72,7 @@ def alert_new_order(data):
                     recipient_phone_num=phone_num,
                     requested_arrival_date=requested_arrival_date,
                     bill_type=bill_type,
-                    related_docs=related_docs,
+                    folder_id=folder_id,
                     delivery=delivery,
                     remark=remark
                 )
@@ -99,7 +99,7 @@ def alert_new_order(data):
                     recipient_phone_num=phone_num,
                     requested_arrival_date=requested_arrival_date,
                     bill_type=bill_type,
-                    related_docs=related_docs,
+                    folder_id=folder_id,
                     delivery=delivery,
                     remark=remark
                 )
