@@ -19,7 +19,7 @@ class Query():
 
     sql_insert_slack_history = """
         insert into slack_thread_history (export_id, slack_post_block_id, pic, buyer_name, address, recipient, recipient_phone_num, requested_arrival_date, bill_type, folder_id, delivery, delivery_type, remark) 
-        values ('{export_id}', '{slack_post_block_id}', '{pic}',　'{buyer_name}','{address}','{recipient}','{recipient_phone_num}','{requested_arrival_date}','{bill_type}','{folder_id}','{delivery}','{delivery_type}','{remark}')
+        values ('{export_id}','{slack_post_block_id}','{pic}','{buyer_name}','{address}','{recipient}','{recipient_phone_num}','{requested_arrival_date}','{bill_type}','{folder_id}','{delivery}','{delivery_type}','{remark}')
     """
 
     sql_select_slack_history = """
