@@ -10,7 +10,7 @@ class Packing:
     def __init__(self):
         self.boxes_info = {}
         self.packing_smr = {}
-        self.result = None
+        self.pallet_packing = None
 
     def calculate_box_packing(self, order_info):
         # item code
@@ -147,7 +147,7 @@ class Packing:
             elif res.status_code == 401:
                 raise Exception
 
-        self.result = bins_packed
+        self.pallet_packing = bins_packed
 
         # bins_packed = []
         # req = {
