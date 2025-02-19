@@ -2,13 +2,13 @@ PALLET_SPEC = [
     {
       "id": "pallet",
       "w": 1.1,
-      "h": 1.4,
+      "h": 1.37,
       "d": 1.1,
       "max_wg": 0
     }
   ]
 
-MAX_BOX_D_IN_pallet = {
+MAX_BOX_D_IN_PALLET = {
     'BA10001': 42,
     'BA00023': 42,
     'BA00024': 42,

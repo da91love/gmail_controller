@@ -1,4 +1,5 @@
 VISUAL_CONF = {
+    "optimization_mode": "bins_number",
     "images_background_color": "255,255,255",
     "images_bin_border_color": "59,59,59",
     "images_bin_fill_color": "230,230,230",
@@ -6,6 +7,7 @@ VISUAL_CONF = {
     "images_item_back_border_color": "215,103,103",
     "images_sbs_last_item_fill_color": "99,93,93",
     "images_sbs_last_item_border_color": "145,133,133",
+    "images_version":2,
     "images_width": 200,
     "images_height": 200,
     "images_sbs": 1,

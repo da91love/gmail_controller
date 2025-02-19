@@ -1,9 +1,16 @@
 import pydash as _
+import requests
+
+from const.AUTH import *
+from const.API import *
 from const.PACKING_SPEC import *
+from const.VISUAL_CONF import *
+
 class Packing:
     def __init__(self):
         self.boxes_info = {}
         self.packing_smr = {}
+        self.result = None
 
     def calculate_box_packing(self, order_info):
         # item code
@@ -29,10 +36,14 @@ class Packing:
         left_num_of_prd = order_vol % max_vol_of_box_d
 
         num_of_prd_by_box = [max_vol_of_box_d for i in range(0, num_of_box_d)]
-        num_of_prd_by_box.append(left_num_of_prd)
+        if left_num_of_prd > 0: num_of_prd_by_box.append(left_num_of_prd)
 
         boxes_info = []
         for idx, prd_num in enumerate(num_of_prd_by_box):
+            if idx == 48:
+                pass
+
+            print(f'{item_code}_{idx}')
             # 어떤 박스인지 찾아내기
             which_box = None
             if prd_num == max_vol_of_box_d:
@@ -43,13 +54,14 @@ class Packing:
                     which_box = 'BOX_D'
                 else:
                     # Otherwise, iterate through the available comm boxes to find a match
-                    for box, comm_box_info in comm_box_info.items():
-                        if (comm_box_info["MIN_VOLUME"] <= left_num_of_prd and left_num_of_prd <= comm_box_info["MAX_VOLUME"]):
+                    for box, box_value in comm_box_info.items():
+                        if (box_value["MIN_VOLUME"] <= left_num_of_prd and left_num_of_prd <= box_value["MAX_VOLUME"]):
                             which_box = box
                             break
 
-            box_weight = item_info["BOX_INFO"].get(which_box, {})['WEIGHT'] or comm_box_info.get(which_box, {})['WEIGHT']
-            box_scale = item_info["BOX_INFO"].get(which_box, {})['SCALE'] or comm_box_info.get(which_box, {})['SCALE']
+            d = {'BOX_D': box_d_info} | comm_box_info
+            box_weight = d.get(which_box)['WEIGHT']
+            box_scale = d.get(which_box)['SCALE']
 
             box_info = {
                 'box_id': idx,
@@ -57,7 +69,10 @@ class Packing:
                 'volume': prd_num,
                 'net_weight': item_info['PRDT_UNIT_WEIGHT'] * prd_num,
                 'gross_weight': item_info['PRDT_UNIT_WEIGHT'] * prd_num + box_weight,
-                'msmt': box_scale['WIDTH'] * box_scale['LENGTH'] * box_scale['HEIGHT']
+                'msmt': box_scale['WIDTH'] * box_scale['LENGTH'] * box_scale['HEIGHT'],
+                'width': box_scale['WIDTH'],
+                'length': box_scale['LENGTH'],
+                'height': box_scale['HEIGHT']
             }
 
             boxes_info.append(box_info)
@@ -83,21 +98,28 @@ class Packing:
         self.packing_smr[item_code] = smr
 
     def caculate_pallet_packing(self, data):
+
+        box_d = []
+        leftBoxes = []
         # 팔레트의 최대 수량으로 나누어 나머지 박스들 리스트에 적재
         for box_info in data:
             item_code = box_info['group']
-            max_box_d_in_pallet = MAX_BOX_D_IN_pallet[item_code]
+            max_box_d_in_pallet = MAX_BOX_D_IN_PALLET[item_code]
             box_q = box_info['q']
 
-            if (box_q / max_box_d_in_pallet) > 1 and box_info['box_type'] == 'BOX_D':
-                box_info['q'] = box_q - (box_q % max_box_d_in_pallet)
+            if (box_q / max_box_d_in_pallet) >= 1 and box_info['box_type'] == 'BOX_D':
+                surplus_boxes = box_q % max_box_d_in_pallet
 
-                copied_box_info = _.clone_deep(box_info)
-                copied_box_info['q'] = box_q % max_box_d_in_pallet
-                del copied_box_info['group']
+                if surplus_boxes == 0:
+                    box_d.append(box_info)
+                else:
+                    box_info['q'] = box_q - surplus_boxes
+                    copied_box_info = _.clone_deep(box_info)
+                    copied_box_info['q'] = surplus_boxes
+                    del copied_box_info['group']
 
-                box_d.append(box_info)
-                leftBoxes.append(copied_box_info)
+                    box_d.append(box_info)
+                    leftBoxes.append(copied_box_info)
             else:
                 del box_info['group']
                 leftBoxes.append(box_info)
@@ -125,16 +147,23 @@ class Packing:
             elif res.status_code == 401:
                 raise Exception
 
-        bins_packed_smr = []
-        for bin_packed in bins_packed:
-            bins_packed_smr.append({
-                'stack_width': 1.1,
-                'stack_length': 1.1,
-                'stack_height': bin_packed['bin_data']['stack_height'] + 0.13,
-                'image_complete': bin_packed['image_complete'],
-                'cartons': len(bin_packed['items'])
-            })
+        self.result = bins_packed
 
-        bins_packed_details = []
-
-        print('1')
+        # bins_packed = []
+        # req = {
+        #     "username": USER_NAME,
+        #     "api_key": API_KEY,
+        #     "bins": PALLET_SPEC,
+        #     "items": data,
+        #     "params": VISUAL_CONF
+        # }
+        #
+        # res = requests.post(BIN_PACKING_API_URL, json=req)
+        #
+        # if res.status_code == 200:
+        #     json_res = res.json()
+        #     bins_packed = json_res['response']['bins_packed']
+        #
+        # elif res.status_code == 401:
+        #     raise Exception
+        # self.result = bins_packed

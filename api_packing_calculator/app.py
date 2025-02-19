@@ -17,13 +17,8 @@ import pydash as _
 from common.AppBase import AppBase
 from common.util.get_config import get_config
 from api_tiktok_posts_info.type.ResType import ResType
-import requests
 
 from Packing import Packing
-from const.AUTH import *
-from const.API import *
-from const.PACKING_SPEC import *
-from const.VISUAL_CONF import *
 
 from common.tiktok.get_post_stat import get_post_stat
 from common.slack.Slack import Slack
@@ -55,6 +50,23 @@ def app_api_packing_calculator(event, context=None):
     for order_info in data:
         packing.calculate_box_packing(order_info)
 
-    test = packing.packing_smr
+    boxes_info = packing.boxes_info
+    boxes_info_by_box_type = []
+    for item_code in boxes_info:
+        boxes_gby_box_name = _.group_by(boxes_info[item_code], 'box_name')
+        for box_name in boxes_gby_box_name:
+            boxes_info_by_box_type.append({
+                "id": item_code,
+                "box_type": box_name,
+                "group": item_code,
+                "q": len(boxes_gby_box_name[box_name]),
+                "w": boxes_gby_box_name[box_name][0]['width'],
+                "d": boxes_gby_box_name[box_name][0]['length'],
+                "h": boxes_gby_box_name[box_name][0]['height'],
+                "wg": boxes_gby_box_name[box_name][0]['gross_weight'],
+                "vr": 0,
+            })
 
-    return ResType(data={}).get_response()
+    packing.caculate_pallet_packing(boxes_info_by_box_type)
+
+    return ResType(data=packing.result).get_response()

@@ -10,7 +10,7 @@ def alert_new_order(data):
 
         for d in data:
             pic: str = d.get('pic')
-            export_no: str = d.get('exportNo')
+            export_id: str = d.get('exportNo')
             buyer_name: str = d.get('buyerName')
             address: str = d.get('address')
             recipient: str = d.get('recipient')
@@ -19,12 +19,13 @@ def alert_new_order(data):
             bill_type: str = d.get('billType')
             folder_id: str = d.get('folderId')
             delivery: str = d.get('delivery')
+            delivery_type: str = d.get('deliveryType')
             remark: str = d.get('remark')
 
             # 메세지 생성
             slack_msg = SlackMsgCreator.get_slack_delivery_request_post_block(
                 pic=pic,
-                export_no=export_no,
+                export_no=export_id,
                 buyer_name=buyer_name,
                 address=address,
                 recipient=recipient,
@@ -33,11 +34,12 @@ def alert_new_order(data):
                 bill_type=bill_type,
                 folder_id=folder_id,
                 delivery=delivery,
+                delivery_type=delivery_type,
                 remark=remark
             )
 
             # 이미 생성된 export_id인지 확인
-            slack_history_of_export_id = AccessService(GLOBAL).select_slack_history(export_id=export_no)
+            slack_history_of_export_id = AccessService(GLOBAL).select_slack_history(export_id=export_id)
 
             # 이미 생성되어 있으면
             if len(slack_history_of_export_id) > 0:
@@ -62,10 +64,9 @@ def alert_new_order(data):
 
                 # DB에 저장된 기존 slack 내용 수정
                 AccessService(GLOBAL).update_slack_history(
-                    export_id=export_no,
+                    export_id=export_id,
                     slack_post_block_id=slack_post_block_id,
                     pic=pic,
-                    export_no=export_no,
                     buyer_name=buyer_name,
                     address=address,
                     recipient=recipient,
@@ -74,6 +75,7 @@ def alert_new_order(data):
                     bill_type=bill_type,
                     folder_id=folder_id,
                     delivery=delivery,
+                    delivery_type=delivery_type,
                     remark=remark
                 )
 
@@ -89,10 +91,9 @@ def alert_new_order(data):
 
                 # DB 등록
                 AccessService(GLOBAL).insert_slack_history(
-                    export_id=export_no,
+                    export_id=export_id,
                     slack_post_block_id=slack_post_block_id,
                     pic=pic,
-                    export_no=export_no,
                     buyer_name=buyer_name,
                     address=address,
                     recipient=recipient,
@@ -101,6 +102,7 @@ def alert_new_order(data):
                     bill_type=bill_type,
                     folder_id=folder_id,
                     delivery=delivery,
+                    delivery_type=delivery_type,
                     remark=remark
                 )
 
