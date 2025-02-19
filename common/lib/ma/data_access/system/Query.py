@@ -25,7 +25,7 @@ class Query():
     sql_select_slack_history = """
         SELECT *
         FROM slack_thread_history
-        WHERE export_id = '{export_id}'
+        WHERE export_id = '{export_id}' and delivery_type = '{delivery_type}';
     """
 
     sql_delete_temp = """

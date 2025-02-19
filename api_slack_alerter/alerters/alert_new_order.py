@@ -25,7 +25,7 @@ def alert_new_order(data):
             # 메세지 생성
             slack_msg = SlackMsgCreator.get_slack_delivery_request_post_block(
                 pic=pic,
-                export_no=export_id,
+                export_id=export_id,
                 buyer_name=buyer_name,
                 address=address,
                 recipient=recipient,
@@ -39,7 +39,7 @@ def alert_new_order(data):
             )
 
             # 이미 생성된 export_id인지 확인
-            slack_history_of_export_id = AccessService(GLOBAL).select_slack_history(export_id=export_id)
+            slack_history_of_export_id = AccessService(GLOBAL).select_slack_history(export_id=export_id, delivery_type=delivery_type)
 
             # 이미 생성되어 있으면
             if len(slack_history_of_export_id) > 0:
