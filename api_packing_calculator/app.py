@@ -47,8 +47,8 @@ def app_api_packing_calculator(event, context=None):
     # declare instance
     packing = Packing()
 
-    for order_info in data:
-        packing.calculate_box_packing(order_info)
+
+    packing.calculate_box_packing(data)
 
     boxes_info = packing.boxes_info
     boxes_info_by_box_type = []
