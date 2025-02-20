@@ -190,3 +190,94 @@ BOX_D_SPEC = {
           }
     }
   }
+
+BOX_COMM_PRDT_NUM = {
+    'BA10001': {
+        'BOX1': {
+            'MIN_VOLUME': 1,
+            'MAX_VOLUME': 12,
+        },
+        'BOX2': {
+            'MIN_VOLUME': 13,
+            'MAX_VOLUME': 18,
+        }
+    },
+    'BA00023': {
+        'BOX1': {
+            'MIN_VOLUME': 1,
+            'MAX_VOLUME': 12,
+        },
+        'BOX2': {
+            'MIN_VOLUME': 13,
+            'MAX_VOLUME': 18,
+        }
+    },
+    'BA00024': {
+        'BOX1': {
+            'MIN_VOLUME': 1,
+            'MAX_VOLUME': 15,
+        },
+        'BOX2': {
+            'MIN_VOLUME': 16,
+            'MAX_VOLUME': 26,
+        }
+    },
+    'BA00025': {
+        'BOX1': {
+            'MIN_VOLUME': 1,
+            'MAX_VOLUME': 4,
+        },
+        'BOX2': {
+            'MIN_VOLUME': 5,
+            'MAX_VOLUME': 8,
+        },
+        'BOX3': {
+            'MIN_VOLUME': 9,
+            'MAX_VOLUME': 12,
+        }
+    },
+    'BA00026': {
+        'BOX1': {
+            'MIN_VOLUME': 1,
+            'MAX_VOLUME': 20,
+        },
+        'BOX2': {
+            'MIN_VOLUME': 21,
+            'MAX_VOLUME': 32,
+        },
+        'BOX3': {
+            'MIN_VOLUME': 33,
+            'MAX_VOLUME': 39,
+        }
+    },
+    'BA00021': {
+        'BOX1': {
+            'MIN_VOLUME': 1,
+            'MAX_VOLUME': 20,
+        },
+        'BOX2': {
+            'MIN_VOLUME': 21,
+            'MAX_VOLUME': 53,
+        }
+    },
+    'BA00022': {
+        'BOX1': {
+            'MIN_VOLUME': 1,
+            'MAX_VOLUME': 20,
+        },
+        'BOX2': {
+            'MIN_VOLUME': 21,
+            'MAX_VOLUME': 53,
+        },
+    },
+    'BA10022': {
+        'BOX1': {
+            'MIN_VOLUME': 1,
+            'MAX_VOLUME': 20,
+        },
+        'BOX2': {
+            'MIN_VOLUME': 21,
+            'MAX_VOLUME': 53,
+        }
+    }
+}
