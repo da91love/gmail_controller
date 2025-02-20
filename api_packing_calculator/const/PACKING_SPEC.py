@@ -19,6 +19,100 @@ MAX_BOX_D_IN_PALLET = {
     'BA10022': 63
 }
 
+PRDT_SPEC = {
+	"BA10001": {
+		'WEIGHT': 0.35,
+		'SCALE': {
+			'WIDTH': 0.06,
+			'LENGTH': 0.06,
+			'HEIGHT': 0.14
+		}
+	},
+	"BA00023": {
+		'WEIGHT': 0.364,
+		'SCALE': {
+			'WIDTH': 0.06,
+			'LENGTH': 0.06,
+			'HEIGHT': 0.15
+		}
+	},
+	"BA00024": {
+		'WEIGHT': 0.205,
+		'SCALE': {
+			'WIDTH': 0.05,
+			'LENGTH': 0.50,
+			'HEIGHT': 0.124
+		}
+	},
+	"BA00025": {
+		'WEIGHT': 0.357,
+		'SCALE': {
+			'WIDTH': 0.087,
+			'LENGTH': 0.087,
+			'HEIGHT': 0.103
+		}
+	},
+	"BA00026": {
+		'WEIGHT': 0.187,
+		'SCALE': {
+			'WIDTH': 0.044,
+			'LENGTH': 0.044,
+			'HEIGHT': 0.132
+		}
+	},
+	"BA00021": {
+		'WEIGHT': 0.140,
+		'SCALE': {
+			'WIDTH': 0.054,
+			'LENGTH': 0.035,
+			'HEIGHT': 0.10
+		}
+	},
+	"BA00022": {
+		'WEIGHT': 0.140,
+		'SCALE': {
+			'WIDTH': 0.054,
+			'LENGTH': 0.035,
+			'HEIGHT': 0.1
+		}
+	},
+	"BA10022": {
+		'WEIGHT': 0.140,
+		'SCALE': {
+			'WIDTH': 0.054,
+			'LENGTH': 0.035,
+			'HEIGHT': 0.1
+		}
+	}
+}
+
+BOX_SPEC = {
+	'BOX1': {
+		'WEIGHT': 0.5,
+		'SCALE': {
+			'WIDTH': 0.255,
+			'LENGTH': 0.19,
+			'HEIGHT': 0.165
+		}
+	},
+	'BOX2': {
+		'WEIGHT': 0.5,
+		'SCALE': {
+			'WIDTH': 0.215,
+			'LENGTH': 0.215,
+			'HEIGHT': 0.305
+		}
+	},
+	'BOX3': {
+		'WEIGHT': 0.5,
+		'SCALE': {
+			'WIDTH': 0.37,
+			'LENGTH': 0.28,
+			'HEIGHT': 0.195
+		}
+	}
+}
+
 BOX_INFO = {
     'BA10001': {
       'BOX_INFO': {
