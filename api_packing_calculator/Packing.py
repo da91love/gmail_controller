@@ -189,7 +189,7 @@ class Packing:
                     smr["all_prd_volume"] = all_prd_volume
                     smr["group"] = group
                     smr["item_code"] = ic
-                    smr["box_type"] = box_name
+                    smr["box_name"] = box_name
                     smr["box_quantity"] = box_quantity
                     smr["net_weight"] = net_weight
                     smr["gross_weight"] = gross_weight
