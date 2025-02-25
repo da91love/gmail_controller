@@ -228,9 +228,9 @@ class Packing:
                 del box_info['group']
                 leftBoxes.append(box_info)
 
-        all_calc_target_boxes = [box_d, leftBoxes]
+        all_calc_target_boxes = box_d + leftBoxes
 
-        bins_packed = []
+        bins_packed = [box_d + leftBoxes]
         for tg_box in all_calc_target_boxes:
             req = {
                 "username": USER_NAME,
