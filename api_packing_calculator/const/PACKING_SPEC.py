@@ -50,7 +50,7 @@ PRDT_SPEC = {
 		'WEIGHT': 0.205,
 		'SCALE': {
 			'WIDTH': 0.05,
-			'LENGTH': 0.50,
+			'LENGTH': 0.05,
 			'HEIGHT': 0.124
 		}
 	},
