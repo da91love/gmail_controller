@@ -69,7 +69,7 @@ def app_api_packing_calculator(event, context=None):
                 "vr": 0,
             })
 
-    packing.caculate_pallet_packing(boxes_info_by_box_type)
+    packing.calculate_pallet_packing(boxes_info_by_box_type)
     res = {
         'packing_smr': packing.packing_smr,
         'pallet_packing': packing.pallet_packing

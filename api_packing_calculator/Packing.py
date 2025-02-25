@@ -201,14 +201,22 @@ class Packing:
         self.boxes_info = boxes_info
         self.packing_smr = _.group_by(packing_smr, 'group')
 
-    def caculate_pallet_packing(self, data):
+    def calculate_pallet_packing(self, data):
 
         box_d = []
         leftBoxes = []
         # 팔레트의 최대 수량으로 나누어 나머지 박스들 리스트에 적재
         for box_info in data:
             item_code = box_info['group']
-            max_box_d_in_pallet = MAX_BOX_D_IN_PALLET[item_code]
+
+            # 합포장되어 단독박스에 들어있을 때는 left box로 격리
+            try:
+                max_box_d_in_pallet = MAX_BOX_D_IN_PALLET[item_code]
+            except KeyError:
+                del box_info['group']
+                leftBoxes.append(box_info)
+                continue
+
             box_q = box_info['q']
 
             if (box_q / max_box_d_in_pallet) >= 1 and box_info['box_type'] == 'BOX_D':
@@ -228,9 +236,9 @@ class Packing:
                 del box_info['group']
                 leftBoxes.append(box_info)
 
-        all_calc_target_boxes = box_d + leftBoxes
+        all_calc_target_boxes = [box_d + leftBoxes]
 
-        bins_packed = [box_d + leftBoxes]
+        bins_packed = []
         for tg_box in all_calc_target_boxes:
             req = {
                 "username": USER_NAME,
