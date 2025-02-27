@@ -203,71 +203,45 @@ class Packing:
         self.packing_smr = _.group_by(packing_smr, 'group')
 
     def calculate_pallet_packing(self, data):
-        #
-        # box_d = []
-        # leftBoxes = []
-        # # 팔레트의 최대 수량으로 나누어 나머지 박스들 리스트에 적재
-        # for box_info in data:
-        #     item_code = box_info['group']
-        #
-        #     # 합포장되어 단독박스에 들어있을 때는 left box로 격리
-        #     try:
-        #         max_box_d_in_pallet = MAX_BOX_D_IN_PALLET[item_code]
-        #     except KeyError:
-        #         del box_info['group']
-        #         leftBoxes.append(box_info)
-        #         continue
-        #
-        #     box_q = box_info['q']
-        #
-        #     if (box_q / max_box_d_in_pallet) >= 1 and box_info['box_type'] == 'BOX_D':
-        #         surplus_boxes = box_q % max_box_d_in_pallet
-        #
-        #         if surplus_boxes == 0:
-        #             box_d.append(box_info)
-        #         else:
-        #             box_info['q'] = box_q - surplus_boxes
-        #             copied_box_info = _.clone_deep(box_info)
-        #             copied_box_info['q'] = surplus_boxes
-        #             del copied_box_info['group']
-        #
-        #             box_d.append(box_info)
-        #             leftBoxes.append(copied_box_info)
-        #     else:
-        #         del box_info['group']
-        #         leftBoxes.append(box_info)
-        #
-        # all_calc_target_boxes = [box_d + leftBoxes]
-        #
-        # # 업체에 따라 상이한 팔레트 설정
-        # bins = None
-        # if self.buyer_name in EURO_PALLET_TG:
-        #     bins = PALLET_SPEC['EURO']
-        # else:
-        #     bins = PALLET_SPEC['COMM']
-        #
-        #
-        # bins_packed = []
-        # req = {
-        #     "username": USER_NAME,
-        #     "api_key": API_KEY,
-        #     "bins": bins,
-        #     "items": all_calc_target_boxes,
-        #     "params": VISUAL_CONF
-        # }
-        #
-        # res = requests.post(BIN_PACKING_PACK_SHIPMENT_API_URL, json=req)
-        #
-        # if res.status_code == 200:
-        #     json_res = res.json()
-        #
-        #     for bin_packed in json_res['response']['bins_packed']:
-        #         bins_packed.append(bin_packed)
-        #
-        # elif res.status_code == 401:
-        #     raise Exception
-        #
-        # self.pallet_packing = bins_packed
+
+        box_d = []
+        leftBoxes = []
+        # 팔레트의 최대 수량으로 나누어 나머지 박스들 리스트에 적재
+        for box_info in data:
+            item_code = box_info['group']
+
+            # 합포장되어 단독박스에 들어있을 때는 left box로 격리
+            try:
+                max_box_d_in_pallet = None
+                if self.buyer_name in EURO_PALLET_TG:
+                    max_box_d_in_pallet = MAX_BOX_D_IN_PALLET['EURO'][item_code]
+                else:
+                    max_box_d_in_pallet = MAX_BOX_D_IN_PALLET['COMM'][item_code]
+            except KeyError:
+                del box_info['group']
+                leftBoxes.append(box_info)
+                continue
+
+            box_q = box_info['q']
+
+            if (box_q / max_box_d_in_pallet) >= 1 and box_info['box_type'] == 'BOX_D':
+                surplus_boxes = box_q % max_box_d_in_pallet
+
+                if surplus_boxes == 0:
+                    box_d.append(box_info)
+                else:
+                    box_info['q'] = box_q - surplus_boxes
+                    copied_box_info = _.clone_deep(box_info)
+                    copied_box_info['q'] = surplus_boxes
+                    del copied_box_info['group']
+
+                    box_d.append(box_info)
+                    leftBoxes.append(copied_box_info)
+            else:
+                del box_info['group']
+                leftBoxes.append(box_info)
+
+        all_calc_target_boxes = [box_d + leftBoxes]
 
         # 업체에 따라 상이한 팔레트 설정
         bins = None
@@ -276,12 +250,13 @@ class Packing:
         else:
             bins = PALLET_SPEC['COMM']
 
+
         bins_packed = []
         req = {
             "username": USER_NAME,
             "api_key": API_KEY,
             "bins": bins,
-            "items": data,
+            "items": all_calc_target_boxes,
             "params": VISUAL_CONF
         }
 
@@ -289,9 +264,38 @@ class Packing:
 
         if res.status_code == 200:
             json_res = res.json()
-            bins_packed = json_res['response']['bins_packed']
+
+            for bin_packed in json_res['response']['bins_packed']:
+                bins_packed.append(bin_packed)
 
         elif res.status_code == 401:
             raise Exception
 
         self.pallet_packing = bins_packed
+
+        # # 업체에 따라 상이한 팔레트 설정
+        # bins = None
+        # if self.buyer_name in EURO_PALLET_TG:
+        #     bins = PALLET_SPEC['EURO']
+        # else:
+        #     bins = PALLET_SPEC['COMM']
+        #
+        # bins_packed = []
+        # req = {
+        #     "username": USER_NAME,
+        #     "api_key": API_KEY,
+        #     "bins": bins,
+        #     "items": data,
+        #     "params": VISUAL_CONF
+        # }
+        #
+        # res = requests.post(BIN_PACKING_PACK_SHIPMENT_API_URL, json=req)
+        #
+        # if res.status_code == 200:
+        #     json_res = res.json()
+        #     bins_packed = json_res['response']['bins_packed']
+        #
+        # elif res.status_code == 401:
+        #     raise Exception
+        #
+        # self.pallet_packing = bins_packed
