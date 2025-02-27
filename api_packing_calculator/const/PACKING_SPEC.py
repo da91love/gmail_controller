@@ -1,11 +1,23 @@
-PALLET_SPEC = [
+PALLET_SPEC = {
+    "EURO": [
+        {
+          "id": "pallet",
+          "w": 0.8,
+          "h": 1.4,
+          "d": 1.2,
+        }
+      ],
+    "COMM": [
     {
       "id": "pallet",
       "w": 1.1,
-      "h": 1.37,
+      "h": 1.42,
       "d": 1.1,
     }
   ]
+}
+
+EURO_PALLET_TG = ['SKIN CUPID LIMITED']
 
 MAX_BOX_D_IN_PALLET = {
     'BA10001': 42,
@@ -13,6 +25,17 @@ MAX_BOX_D_IN_PALLET = {
     'BA00024': 42,
     'BA00025': 36,
     'BA00026': 42,
+    'BA00021': 63,
+    'BA00022': 63,
+    'BA10022': 63
+}
+
+MAX_BOX_D_IN_PALLET_EU= {
+    'BA10001': 28,
+    'BA00023': 28,
+    'BA00024': 32,
+    'BA00025': 24,
+    'BA00026': 32,
     'BA00021': 63,
     'BA00022': 63,
     'BA10022': 63

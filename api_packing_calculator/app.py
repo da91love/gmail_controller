@@ -44,11 +44,13 @@ def app_api_packing_calculator(event, context=None):
     # Get data from API Gateway
     data: dict = event
 
+    buyer_name = data.get('buyer_name')
+    input = data.get('data')
+
     # declare instance
-    packing = Packing()
+    packing = Packing(buyer_name=buyer_name)
 
-
-    packing.calculate_box_packing(data)
+    packing.calculate_box_packing(input)
 
     boxes_info = packing.boxes_info
     boxes_info_by_box_type = []
