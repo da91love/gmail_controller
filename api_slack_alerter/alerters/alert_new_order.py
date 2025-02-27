@@ -57,7 +57,7 @@ def alert_new_order(data):
                         bf = slack_post_block_fr_db[key]
                         aft = slack_post_block_fr_api[key]
 
-                        diff_col_as_text += f'"{key}: {bf} → {aft}" '
+                        diff_col_as_text += f'"{key}: {bf} → {aft}"\n'
 
                 # 기존 slack update
                 slack.update_post(
