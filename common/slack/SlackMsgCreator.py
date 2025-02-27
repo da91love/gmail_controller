@@ -5,20 +5,20 @@ from common.const.STATUS import *
 
 class SlackMsgCreator:
     @staticmethod
-    def get_slack_updated_shipment_request():
+    def get_slack_updated_shipment_request(diff):
 
         return json.dumps([
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "출고 요청이 업데이트 되었습니다.\n<@U070KTKCD5L><@U07B2HY3E3F>"
+                    "text": f"출고 요청이 업데이트 되었습니다.\n{diff}\n<@U070KTKCD5L><@U07B2HY3E3F>"
                 }
             }
         ])
 
     @staticmethod
-    def get_slack_delivery_request_post_block(pic, export_id, buyer_name, address, recipient, phone_num, requested_arrival_date, bill_type, folder_id, delivery, delivery_type, remark):
+    def get_slack_delivery_request_post_block(pic, export_id, buyer_name, address, recipient, recipient_phone_num, requested_arrival_date, bill_type, folder_id, delivery, delivery_type, remark):
 
         return json.dumps([
             {
@@ -35,7 +35,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"`요청자` : {pic}\n`수출번호` : {export_id}\n`업체명` : {buyer_name}\n`입고지` : {address}\n`입고지담당자` : {recipient}\n`담당자연락처` : {phone_num}\n`출고요청일` : {requested_arrival_date}\n`필요서류` : {bill_type}\n`배송방법` : {delivery}\n`배송타입` : {delivery_type}\n`출고요청서 링크` : https://drive.google.com/drive/folders/{folder_id}\n`특이사항` : {remark}"
+                    "text": f"`요청자` : {pic}\n`수출번호` : {export_id}\n`업체명` : {buyer_name}\n`입고지` : {address}\n`입고지담당자` : {recipient}\n`담당자연락처` : {recipient_phone_num}\n`출고요청일` : {requested_arrival_date}\n`필요서류` : {bill_type}\n`배송방법` : {delivery}\n`배송타입` : {delivery_type}\n`출고요청서 링크` : https://drive.google.com/drive/folders/{folder_id}\n`특이사항` : {remark}"
                 }
             },
             {
