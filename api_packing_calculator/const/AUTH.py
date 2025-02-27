@@ -1,2 +1,2 @@
-USER_NAME = "th.lee@boosters.kr"
-API_KEY = "78b2b0d095b5a5ab386aa61343edadcb"
+USER_NAME = "eqqualberry@boosters.kr"
+API_KEY = "ec009d5ea92556b367a3c7b51c89527b"
