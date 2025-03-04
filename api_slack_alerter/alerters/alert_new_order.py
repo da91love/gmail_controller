@@ -10,7 +10,8 @@ def alert_new_order(data):
 
         for d in data:
             slack_post_block_fr_api = {}
-            
+
+            slack_post_block_fr_api['brand'] = d.get('brand')
             slack_post_block_fr_api['pic'] = d.get('pic')
             slack_post_block_fr_api['export_id'] = d.get('exportNo')
             slack_post_block_fr_api['buyer_name'] = d.get('buyerName')
@@ -26,6 +27,7 @@ def alert_new_order(data):
 
             # 메세지 생성
             slack_msg = SlackMsgCreator.get_slack_delivery_request_post_block(
+                brand=slack_post_block_fr_api['brand'],
                 pic=slack_post_block_fr_api['pic'],
                 export_id=slack_post_block_fr_api['export_id'],
                 buyer_name=slack_post_block_fr_api['buyer_name'],
@@ -80,6 +82,7 @@ def alert_new_order(data):
                     export_id=slack_post_block_fr_api['export_id'],
                     slack_post_block_id=slack_post_block_id,
                     pic=slack_post_block_fr_api['pic'],
+                    brand=slack_post_block_fr_api['brand'],
                     buyer_name=slack_post_block_fr_api['buyer_name'],
                     address=slack_post_block_fr_api['address'],
                     recipient=slack_post_block_fr_api['recipient'],
@@ -107,6 +110,7 @@ def alert_new_order(data):
                     export_id=slack_post_block_fr_api['export_id'],
                     slack_post_block_id=slack_post_block_id,
                     pic=slack_post_block_fr_api['pic'],
+                    brand=slack_post_block_fr_api['brand'],
                     buyer_name=slack_post_block_fr_api['buyer_name'],
                     address=slack_post_block_fr_api['address'],
                     recipient=slack_post_block_fr_api['recipient'],
