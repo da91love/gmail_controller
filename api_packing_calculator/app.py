@@ -52,26 +52,26 @@ def app_api_packing_calculator(event, context=None):
 
     packing.calculate_box_packing(input)
 
-    # boxes_info = packing.boxes_info
-    # boxes_info_by_box_type = []
-    #
-    # boxes_gby_group = _.group_by(boxes_info, 'group')
-    # for item_code in boxes_gby_group:
-    #     boxes_gby_box_name = _.group_by(boxes_gby_group[item_code], 'box_name')
-    #     for box_name in boxes_gby_box_name:
-    #         boxes_info_by_box_type.append({
-    #             "id": item_code,
-    #             "box_type": box_name,
-    #             "group": item_code,
-    #             "q": len(boxes_gby_box_name[box_name]),
-    #             "w": boxes_gby_box_name[box_name][0]['width'],
-    #             "d": boxes_gby_box_name[box_name][0]['length'],
-    #             "h": boxes_gby_box_name[box_name][0]['height'],
-    #             "wg": boxes_gby_box_name[box_name][0]['gross_weight'],
-    #             "vr": 0,
-    #         })
-    #
-    # packing.calculate_pallet_packing(boxes_info_by_box_type)
+    boxes_info = packing.boxes_info
+    boxes_info_by_box_type = []
+
+    boxes_gby_group = _.group_by(boxes_info, 'group')
+    for item_code in boxes_gby_group:
+        boxes_gby_box_name = _.group_by(boxes_gby_group[item_code], 'box_name')
+        for box_name in boxes_gby_box_name:
+            boxes_info_by_box_type.append({
+                "id": item_code,
+                "box_type": box_name,
+                "group": item_code,
+                "q": len(boxes_gby_box_name[box_name]),
+                "w": boxes_gby_box_name[box_name][0]['width'],
+                "d": boxes_gby_box_name[box_name][0]['length'],
+                "h": boxes_gby_box_name[box_name][0]['height'],
+                "wg": boxes_gby_box_name[box_name][0]['gross_weight'],
+                "vr": 0,
+            })
+
+    packing.calculate_pallet_packing(boxes_info_by_box_type)
     res = {
         'packing_smr': packing.packing_smr,
         'pallet_packing': packing.pallet_packing

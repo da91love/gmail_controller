@@ -241,7 +241,7 @@ class Packing:
                 del box_info['group']
                 leftBoxes.append(box_info)
 
-        all_calc_target_boxes = [box_d + leftBoxes]
+        all_calc_target_boxes = box_d + leftBoxes
 
         # 업체에 따라 상이한 팔레트 설정
         bins = None
