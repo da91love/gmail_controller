@@ -11,8 +11,9 @@ class Packing:
     def __init__(self, buyer_name):
         self.buyer_name = buyer_name
         self.boxes_info = {}
-        self.packing_smr = {}
+        self.box_packing_smr = {}
         self.pallet_packing = None
+        self.pallet_packing_smr = None
 
     def calculate_box_packing(self, data):
 
@@ -146,9 +147,15 @@ class Packing:
         elif res.status_code == 401:
             raise Exception
 
+        # save as property
+        self.boxes_info = boxes_info
+
+
+    def set_box_packing_summary(self):
+
         # Calculate the smr
         packing_smr = []
-        grouped_by_group = _.group_by(boxes_info, 'group')
+        grouped_by_group = _.group_by(self.boxes_info, 'group')
         for group in grouped_by_group:
             group_info = grouped_by_group[group]
 
@@ -199,8 +206,7 @@ class Packing:
                     packing_smr.append(smr)
 
         # save into property
-        self.boxes_info = boxes_info
-        self.packing_smr = _.group_by(packing_smr, 'group')
+        self.box_packing_smr = _.group_by(packing_smr, 'group')
 
     def calculate_pallet_packing(self, data):
 
@@ -299,3 +305,23 @@ class Packing:
         #     raise Exception
         #
         # self.pallet_packing = bins_packed
+
+    def set_pallet_packing_smr(self):
+        pallet_packing = self.pallet_packing
+
+        packing_summary = []
+        for idx, pp in enumerate(pallet_packing):
+            bin_data = pp.get('bin_data')
+
+            packing_summary.append({
+                'width': bin_data['w'],
+                'length': bin_data['d'],
+                'height': bin_data['stack_height'],
+                'net_weight': bin_data['weight'],
+                'gross_weight': bin_data['gross_weight']
+            })
+
+        self.pallet_packing_smr = packing_summary
+
+    def set_pallet_packing_details_smr(self):
+        pass

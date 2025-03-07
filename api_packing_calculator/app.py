@@ -50,19 +50,21 @@ def app_api_packing_calculator(event, context=None):
     # declare instance
     packing = Packing(buyer_name=buyer_name)
 
+    # calculate box packing
     packing.calculate_box_packing(input)
 
-    boxes_info = packing.boxes_info
-    boxes_info_by_box_type = []
+    # set summary
+    packing.set_box_packing_summary()
 
-    boxes_gby_group = _.group_by(boxes_info, 'group')
-    for item_code in boxes_gby_group:
-        boxes_gby_box_name = _.group_by(boxes_gby_group[item_code], 'box_name')
+    boxes_info_by_box_type = []
+    boxes_gby_group = _.group_by(packing.boxes_info, 'group')
+    for group in boxes_gby_group:
+        boxes_gby_box_name = _.group_by(boxes_gby_group[group], 'box_name')
         for box_name in boxes_gby_box_name:
             boxes_info_by_box_type.append({
-                "id": item_code,
+                "id": group,
                 "box_type": box_name,
-                "group": item_code,
+                "group": group,
                 "q": len(boxes_gby_box_name[box_name]),
                 "w": boxes_gby_box_name[box_name][0]['width'],
                 "d": boxes_gby_box_name[box_name][0]['length'],
@@ -71,11 +73,18 @@ def app_api_packing_calculator(event, context=None):
                 "vr": 0,
             })
 
+    # calculate pallet packing
     packing.calculate_pallet_packing(boxes_info_by_box_type)
+
+    # set pallet packing
+    packing.calculate_box_packing(input)
+
+    # set pallet packing
+    packing.set_pallet_packing_smr()
+
     res = {
-        'boxes_info': packing.boxes_info,
-        'packing_smr': packing.packing_smr,
-        'pallet_packing': packing.pallet_packing
+        'box_packing_smr': packing.box_packing_smr,
+        'pallet_packing_smr': packing.pallet_packing_smr
     }
 
     return ResType(data=res).get_response()
