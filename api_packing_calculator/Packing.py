@@ -14,6 +14,7 @@ class Packing:
         self.box_packing_smr = {}
         self.pallet_packing = None
         self.pallet_packing_smr = None
+        self.pallet_packing_detail_smr = None
 
     def calculate_box_packing(self, data):
 
@@ -130,10 +131,11 @@ class Packing:
                 for item_code in grouped_by_item_code:
                     contents[item_code] = len(grouped_by_item_code[item_code])
 
+                box_id = str(uuid.uuid4())
                 boxes_info.append({
-                    'box_id': str(uuid.uuid4()),
+                    'box_id': box_id,
                     'box_name': box_name,
-                    'group': str(uuid.uuid4()),
+                    'group': box_id,
                     'volume': len(items),
                     'net_weight': box_weight,
                     'gross_weight': box_weight + BOX_COMM_SPEC[box_name]['WEIGHT'],
@@ -324,4 +326,38 @@ class Packing:
         self.pallet_packing_smr = packing_summary
 
     def set_pallet_packing_details_smr(self):
-        pass
+        pallet_packing = self.pallet_packing
+
+        pallet_packing_detail_smr = []
+        for idx1, pl in enumerate(pallet_packing):
+            bin_data = pl.get('bin_data')
+            items = pl.get('items')
+
+            for idx2, item in enumerate(items):
+                # 완박스 인지 확인
+                if item['id'] in PRODUCT_NAME.keys():
+                    pallet_packing_detail_smr.append({
+                        'pallet_id': idx1 + 1,
+                        'box_id': idx2 + 1,
+                        'product': PRODUCT_NAME[item['id']],
+                        'box_name': 'BOX_D',
+                        'q': int(_.round_((item['wg'] - (BOX_D_SPEC[item['id']])['WEIGHT']) / (PRDT_SPEC[item['id']])['WEIGHT'], 0)),
+                    })
+
+                # 완박스가 아닌 혼합박스인 경우
+                else:
+                    # 혼합박스의 내용물 가져오기
+                    box_info = _.find(self.boxes_info, {'box_id': item['id']})
+                    contents = box_info['contents']
+                    box_name = box_info['box_name']
+
+                    for content in contents:
+                        pallet_packing_detail_smr.append({
+                            'pallet_id': idx1 + 1,
+                            'box_id': idx2 + 1,
+                            'product': PRODUCT_NAME[content],
+                            'box_name': box_name,
+                            'q': contents[content]
+                        })
+
+        self.pallet_packing_detail_smr = pallet_packing_detail_smr

@@ -77,14 +77,15 @@ def app_api_packing_calculator(event, context=None):
     packing.calculate_pallet_packing(boxes_info_by_box_type)
 
     # set pallet packing
-    packing.calculate_box_packing(input)
-
-    # set pallet packing
     packing.set_pallet_packing_smr()
+
+    # set pallet detail packing
+    packing.set_pallet_packing_details_smr()
 
     res = {
         'box_packing_smr': packing.box_packing_smr,
-        'pallet_packing_smr': packing.pallet_packing_smr
+        'pallet_packing_smr': packing.pallet_packing_smr,
+        'pallet_packing_detail_smr': packing.pallet_packing_detail_smr
     }
 
     return ResType(data=res).get_response()

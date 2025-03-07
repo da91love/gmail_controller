@@ -1,3 +1,14 @@
+PRODUCT_NAME = {
+    'BA10001': 'Eqqualberry - Toner [300ml/-]',
+    'BA00023': 'Eqqualberry - Toner [300ml/-]',
+    'BA00024': 'Eqqualberry - Toner [155ml/-]',
+    'BA00025': 'Eqqualberry - Toner Pad [220ml|70 sheets/-]',
+    'BA00026': 'Eqqualberry - Ampoule [50ml/-]',
+    'BA00021': 'Eqqualberry - Bakuchiol Plumping Serum [30ml/-]',
+    'BA00022': 'Eqqualberry - Vitamin Illuminating Serum [30ml/-]',
+    'BA10022': 'Eqqualberry - Vitamin Illuminating Serum [30ml/-]'
+}
+
 PALLET_SPEC = {
     "EURO": [
         {
