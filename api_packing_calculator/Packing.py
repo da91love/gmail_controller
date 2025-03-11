@@ -332,8 +332,9 @@ class Packing:
         for idx1, pl in enumerate(pallet_packing):
             bin_data = pl.get('bin_data')
             items = pl.get('items')
+            sorted_items = _.sort_by(items, 'id', True)
 
-            for idx2, item in enumerate(items):
+            for idx2, item in enumerate(sorted_items):
                 # 완박스 인지 확인
                 if item['id'] in PRODUCT_NAME.keys():
                     pallet_packing_detail_smr.append({
@@ -360,4 +361,5 @@ class Packing:
                             'q': contents[content]
                         })
 
+        # box
         self.pallet_packing_detail_smr = pallet_packing_detail_smr
