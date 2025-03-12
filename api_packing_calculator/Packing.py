@@ -329,8 +329,8 @@ class Packing:
         pallet_packing = self.pallet_packing
 
         pallet_packing_detail_smr = []
+        box_id = 1
         for idx1, pl in enumerate(pallet_packing):
-            bin_data = pl.get('bin_data')
             items = pl.get('items')
             sorted_items = _.sort_by(items, 'id', True)
 
@@ -339,11 +339,13 @@ class Packing:
                 if item['id'] in PRODUCT_NAME.keys():
                     pallet_packing_detail_smr.append({
                         'pallet_id': idx1 + 1,
-                        'box_id': idx2 + 1,
+                        'box_id': box_id,
                         'product': PRODUCT_NAME[item['id']],
                         'box_name': 'BOX_D',
                         'q': int(_.round_((item['wg'] - (BOX_D_SPEC[item['id']])['WEIGHT']) / (PRDT_SPEC[item['id']])['WEIGHT'], 0)),
                     })
+
+                    box_id += 1
 
                 # 완박스가 아닌 혼합박스인 경우
                 else:
@@ -355,11 +357,13 @@ class Packing:
                     for content in contents:
                         pallet_packing_detail_smr.append({
                             'pallet_id': idx1 + 1,
-                            'box_id': idx2 + 1,
+                            'box_id': box_id,
                             'product': PRODUCT_NAME[content],
                             'box_name': box_name,
                             'q': contents[content]
                         })
+
+                        box_id += 1
 
         # box
         self.pallet_packing_detail_smr = pallet_packing_detail_smr
