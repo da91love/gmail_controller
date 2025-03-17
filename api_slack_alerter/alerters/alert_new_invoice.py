@@ -33,7 +33,7 @@ def alert_new_invoice(data):
             thread_ts = res.text
 
             for invoice in data[dt]:
-                product_name, product_code, quantity = itemgetter('productName', 'productCode', 'quantity')(invoice)
+                product_name, product_code, quantity = itemgetter('itemName', 'itemCode', 'volume')(invoice)
 
                 slack_reply_msg = SlackMsgCreator.get_slack_new_invoice_details_reply_block(
                     productName=product_name,
