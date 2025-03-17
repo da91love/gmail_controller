@@ -363,5 +363,7 @@ class Packing:
                             'q': contents[content]
                         })
 
+                    box_id += 1
+
         # box
         self.pallet_packing_detail_smr = pallet_packing_detail_smr
