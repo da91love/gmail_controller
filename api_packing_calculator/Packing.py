@@ -48,17 +48,42 @@ class Packing:
                 else:
                     # Use the leftover volume to decide if an extra BOX_D is needed
                     if prd_num > max_vol_of_biggest_comm_box:
-                        which_box = 'BOX_D'
+                        which_box = 'BOX_D_NOT_FULL'
 
                 if which_box == 'BOX_D':
                     box_weight = BOX_D_SPEC[item_code]['WEIGHT']
                     box_scale = BOX_D_SPEC[item_code]['SCALE']
                     prdt_unit_weight = PRDT_SPEC[item_code]['WEIGHT']
+                    box_id = str(uuid.uuid4())
 
                     box_info = {
-                        'box_id': str(uuid.uuid4()),
+                        'box_id': box_id,
                         'box_name': 'BOX_D',
                         'group': item_code,
+                        'volume': prd_num,
+                        'net_weight': prdt_unit_weight * prd_num,
+                        'gross_weight': prdt_unit_weight * prd_num + box_weight,
+                        'msmt': box_scale['WIDTH'] * box_scale['LENGTH'] * box_scale['HEIGHT'],
+                        'width': box_scale['WIDTH'],
+                        'length': box_scale['LENGTH'],
+                        'height': box_scale['HEIGHT'],
+                        'contents': {item_code: prd_num}
+                    }
+
+                    boxes_info.append(box_info)
+
+                # 완박스에 들어가지만 꽉 차지 않은 완박스의 경우, Pallet 계산 로직에서 수량이 안맞는 문제 발생할 수 있기때문에
+                # group을 일반 박스처럼 기재
+                elif which_box == 'BOX_D_NOT_FULL':
+                    box_weight = BOX_D_SPEC[item_code]['WEIGHT']
+                    box_scale = BOX_D_SPEC[item_code]['SCALE']
+                    prdt_unit_weight = PRDT_SPEC[item_code]['WEIGHT']
+                    box_id = str(uuid.uuid4())
+
+                    box_info = {
+                        'box_id': box_id,
+                        'box_name': 'BOX_D',
+                        'group': box_id,
                         'volume': prd_num,
                         'net_weight': prdt_unit_weight * prd_num,
                         'gross_weight': prdt_unit_weight * prd_num + box_weight,
@@ -286,7 +311,7 @@ class Packing:
         # if self.buyer_name in EURO_PALLET_TG:
         #     bins = PALLET_SPEC['EURO']
         # else:
-        #     bins = PALLET_SPEC['COMM']
+        #     bins = PALLET_SPEC['C29 = {dict: 6} {'d': 0.36, 'h': 0.19, 'id': 'BA00023', 'image_sbs': 'http://images-asia1.api.3dbinpacking.com/0b3b4645a497fa0fa76508feb9121e46/20250317/4287e30389fb877fcdb02f1ef0a2379b/1742195490-3769-1961972.png', 'w': 0.5, 'wg': 13.66}OMM']
         #
         # bins_packed = []
         # req = {
