@@ -186,7 +186,7 @@ class Packing:
         for group in grouped_by_group:
             group_info = grouped_by_group[group]
 
-            if group_info[0]['box_name'] == "BOX_D":
+            if group in PRODUCT_NAME.keys():
                 all_prd_volume = _.sum_by(group_info, 'volume')
                 group = group_info[0]['group']
                 box_name = 'BOX_D'
