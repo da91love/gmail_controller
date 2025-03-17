@@ -13,7 +13,7 @@ def alert_new_invoice(data):
             pi_request_date, export_no, buyer_name, country_code, currency, delivery_type = itemgetter('piDate', 'exportNo', 'buyerName',
                                                                                    'countryCode', 'currency', 'deliveryType')(invoices[0])
 
-            summed_amount = _.sum_by(invoices, lambda x: int(float((x.get('amount')).replace(",", ""))))
+            summed_amount = _.sum_by(invoices, lambda x: int(x.get('amount')))
             parsed_amount = f"{summed_amount:,} {currency}"
 
             slack_post_msg = SlackMsgCreator.get_slack_new_invoice_post_block(
