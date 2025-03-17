@@ -390,5 +390,8 @@ class Packing:
 
                     box_id += 1
 
+        # group by box_id
+        grouped_by_box_id = _.group_by(pallet_packing_detail_smr, 'box_id')
+
         # box
-        self.pallet_packing_detail_smr = pallet_packing_detail_smr
+        self.pallet_packing_detail_smr = grouped_by_box_id
