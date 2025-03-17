@@ -6,7 +6,9 @@ PRODUCT_NAME = {
     'BA00026': 'Eqqualberry - Ampoule [50ml/-]',
     'BA00021': 'Eqqualberry - Bakuchiol Plumping Serum [30ml/-]',
     'BA00022': 'Eqqualberry - Vitamin Illuminating Serum [30ml/-]',
-    'BA10022': 'Eqqualberry - Vitamin Illuminating Serum [30ml/-]'
+    'BA10022': 'Eqqualberry - Vitamin Illuminating Serum [30ml/-]',
+    'BA00033': 'Eqqualberry - Toner Sachet [2ml/-]',
+    'BA00034': 'Eqqualberry - Bakuchiol Plumping Serum Sachet [2ml/-]'
 }
 
 PALLET_SPEC = {
@@ -54,9 +56,6 @@ MAX_BOX_D_IN_PALLET = {
         'BA10022': 54
     }
 }
-
-
-
 
 MAX_PRDT_D_IN_BOX = {
     'BA10001': 35,
@@ -228,7 +227,7 @@ BOX_D_SPEC = {
             'HEIGHT': 0.235
           }
     }
-  }
+}
 
 BOX_COMM_PRDT_NUM = {
     'BA10001': {
