@@ -18,7 +18,6 @@ def alert_new_invoice(data):
 
             slack_post_msg = SlackMsgCreator.get_slack_new_invoice_post_block(
                 pi_request_date=pi_request_date,
-                pi_no=('BSTSPI' + export_no[-11:]),
                 export_no=export_no,
                 buyer_name=buyer_name,
                 country=country_code,
