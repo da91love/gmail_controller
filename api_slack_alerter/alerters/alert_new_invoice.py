@@ -6,15 +6,12 @@ from common.const.SLACK import *
 
 def alert_new_invoice(data):
     try:
-        # Get data from API Gateway
-        grouped_by_export_no = _.group_by(data, 'exportNo')
-
         # declare instance
         slack = Slack()
-        for export_no in grouped_by_export_no:
-            invoices = grouped_by_export_no[export_no]
-            pi_request_date, export_no, buyer_name, country, currency = itemgetter('piRequestDate', 'exportNo', 'buyerName',
-                                                                                   'country', 'currency')(invoices[0])
+        for dt in data:
+            invoices = data[dt]
+            pi_request_date, export_no, buyer_name, country_code, currency, delivery_type = itemgetter('piDate', 'exportNo', 'buyerName',
+                                                                                   'countryCode', 'currency', 'deliveryType')(invoices[0])
 
             summed_amount = _.sum_by(invoices, lambda x: int(float((x.get('amount')).replace(",", ""))))
             parsed_amount = f"{summed_amount:,} {currency}"
@@ -24,7 +21,7 @@ def alert_new_invoice(data):
                 pi_no=('BSTSPI' + export_no[-11:]),
                 export_no=export_no,
                 buyer_name=buyer_name,
-                country=country,
+                country=country_code,
                 summed_amount=parsed_amount
             )
 
@@ -36,12 +33,12 @@ def alert_new_invoice(data):
 
             thread_ts = res.text
 
-            for export_info in grouped_by_export_no[export_no]:
-                productName, productCode, quantity = itemgetter('productName', 'productCode', 'quantity')(export_info)
+            for invoice in data[dt]:
+                product_name, product_code, quantity = itemgetter('productName', 'productCode', 'quantity')(invoice)
 
                 slack_reply_msg = SlackMsgCreator.get_slack_new_invoice_details_reply_block(
-                    productName=productName,
-                    productCode=productCode,
+                    productName=product_name,
+                    productCode=product_code,
                     quantity=quantity
                 )
 
