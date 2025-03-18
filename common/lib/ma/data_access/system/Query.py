@@ -2,6 +2,7 @@ class Query():
     sql_update_slack_history = """
         update slack_thread_history set 
             pic='{pic}',
+            requester='{requester}',
             brand='{brand}',
             export_id='{export_id}', 
             buyer_name='{buyer_name}', 
@@ -19,8 +20,8 @@ class Query():
     """
 
     sql_insert_slack_history = """
-        insert into slack_thread_history (export_id, slack_post_block_id, pic, brand, buyer_name, address, recipient, recipient_phone_num, requested_arrival_date, bill_type, folder_id, delivery, delivery_type, remark) 
-        values ('{export_id}','{slack_post_block_id}','{pic}','{brand}','{buyer_name}','{address}','{recipient}','{recipient_phone_num}','{requested_arrival_date}','{bill_type}','{folder_id}','{delivery}','{delivery_type}','{remark}')
+        insert into slack_thread_history (export_id, slack_post_block_id, pic, requester, brand, buyer_name, address, recipient, recipient_phone_num, requested_arrival_date, bill_type, folder_id, delivery, delivery_type, remark) 
+        values ('{export_id}','{slack_post_block_id}','{pic}', '{requester}', '{brand}','{buyer_name}','{address}','{recipient}','{recipient_phone_num}','{requested_arrival_date}','{bill_type}','{folder_id}','{delivery}','{delivery_type}','{remark}')
     """
 
     sql_select_slack_history = """
