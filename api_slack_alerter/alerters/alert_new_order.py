@@ -14,6 +14,7 @@ def alert_new_order(data):
 
             slack_post_block_fr_api['brand'] = d.get('brand')
             slack_post_block_fr_api['pic'] = d.get('pic')
+            slack_post_block_fr_api['requester'] = d.get('requester')
             slack_post_block_fr_api['export_id'] = d.get('exportNo')
             slack_post_block_fr_api['buyer_name'] = d.get('buyerName')
             slack_post_block_fr_api['address'] = d.get('address')
@@ -30,6 +31,7 @@ def alert_new_order(data):
             slack_msg = SlackMsgCreator.get_slack_delivery_request_post_block(
                 brand=slack_post_block_fr_api['brand'],
                 pic=slack_post_block_fr_api['pic'],
+                requester=slack_post_block_fr_api['requester'],
                 export_id=slack_post_block_fr_api['export_id'],
                 buyer_name=slack_post_block_fr_api['buyer_name'],
                 address=slack_post_block_fr_api['address'],
