@@ -2,6 +2,7 @@ import json
 import html
 
 from common.const.STATUS import *
+from api_slack_alerter.const.SLACK_ID import *
 
 class SlackMsgCreator:
     @staticmethod
@@ -25,7 +26,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "#요청: 신규 출고 요청이 생성되었습니다.\n<@U070KTKCD5L><@U07B2HY3E3F>"
+                    "text": f"#요청: 신규 출고 요청이 생성되었습니다.\n<@U070KTKCD5L><@U07B2HY3E3F><{SLACK_ID.get(pic)}>"
                 }
             },
             {
@@ -64,7 +65,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "신규 Invoice가 생성되었습니다.\n<@U086W2H95K4><@U07B2HY3E3F><@U036VMJAX2N><@U070KTKCD5L><@U06ECHJP7GV><@U05B5G8BK6C>"
+                    "text": "신규 Invoice가 생성되었습니다.\n<@U052TJ9T371><@U083T4Y1N07><@U08DGQWC90D><@U07N2DCT9N2><@U081G1NU7LY><@U086W2H95K4><@U07B2HY3E3F><@U070KTKCD5L><@U06ECHJP7GV><@U05B5G8BK6C>"
                 }
             },
             {

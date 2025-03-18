@@ -4,6 +4,7 @@ from common.slack.Slack import Slack
 from common.slack.SlackMsgCreator import SlackMsgCreator
 from common.const.SLACK import *
 from common.const.DB import *
+
 def alert_new_order(data):
     try:
         slack = Slack()
