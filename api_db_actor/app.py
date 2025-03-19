@@ -17,8 +17,8 @@ import pydash as _
 from common.AppBase import AppBase
 from common.util.get_config import get_config
 from api_tiktok_posts_info.type.ResType import ResType
-from api_db_inserter.const.DB_TYPE import *
-from api_db_inserter.distributor.insert_invoice_master import insert_invoice_master
+from api_db_actor.const.DB_TYPE import *
+from api_db_actor.actor.insert_invoice_master import insert_invoice_master
 
 # Create instance
 config = get_config()
@@ -27,7 +27,7 @@ config = get_config()
 # s3_bucket_name = config['S3']['s3_bucket_name']
 
 @AppBase
-def app_api_slack_alerter(event, context=None):
+def api_db_actor(event, context=None):
     """
     lambda_handler : This functions will be implemented in lambda
     :param event: (dict)

@@ -20,6 +20,7 @@ from api_tiktok_posts_info.app import app_api_tiktok_posts_info as get_tiktok_po
 from api_repurchase_rate_getter.app import app_api_repurchase_rate_getter as get_repurchase_rate
 from api_slack_alerter.app import app_api_slack_alerter as alert_slack
 from api_packing_calculator.app import app_api_packing_calculator as calculate_packing
+from api_db_actor.app import api_db_actor as act_db
 
 
 os.path.dirname(sys.modules['__main__'].__file__)
@@ -34,6 +35,18 @@ cors = CORS(api)
 # This flask API is only used for the development stage.
 # DO NOT deploy on production
 """
+
+
+@api.route('/act-db', methods=['post'])  # TODO : Insert any URL
+def act_db_post():
+    # Get body, headers
+    body = request.json
+    headers = request.headers
+
+    result = act_db(body)
+
+    return make_response(jsonify(result))
+
 @api.route('/calculate-packing', methods=['post'])  # TODO : Insert any URL
 def calculate_packing_post():
     # Get body, headers
