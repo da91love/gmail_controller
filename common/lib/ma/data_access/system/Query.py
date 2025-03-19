@@ -1,4 +1,9 @@
 class Query():
+    sql_insert_invoice_master = """
+        INSERT INTO invoice_master (export_no, customer, product_name, country, product_code, quantity, currency, price)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+    """
+
     sql_update_slack_history = """
         update slack_thread_history set 
             pic='{pic}',

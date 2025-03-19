@@ -7,8 +7,8 @@ PRODUCT_NAME = {
     'BA00021': 'Eqqualberry - Bakuchiol Plumping Serum [30ml/-]',
     'BA00022': 'Eqqualberry - Vitamin Illuminating Serum [30ml/-]',
     'BA10022': 'Eqqualberry - Vitamin Illuminating Serum [30ml/-]',
-    'BA00033': 'Eqqualberry - Toner Sachet [2ml/-]',
-    'BA00034': 'Eqqualberry - Bakuchiol Plumping Serum Sachet [2ml/-]'
+    'BA00033_SET': 'Eqqualberry - Toner Sachet [2ml/100EA]',
+    'BA00034_SET': 'Eqqualberry - Bakuchiol Plumping Serum Sachet [2ml/100EA]'
 }
 
 PALLET_SPEC = {
@@ -132,7 +132,23 @@ PRDT_SPEC = {
 			'LENGTH': 0.035,
 			'HEIGHT': 0.1
 		}
-	}
+	},
+    "BA00033_SET": {
+        'WEIGHT': 0.5,
+        'SCALE': {
+            'WIDTH': 0.2,
+            'LENGTH': 0.13,
+            'HEIGHT': 0.11
+        }
+    },
+    "BA00034_SET": {
+        'WEIGHT': 0.5,
+        'SCALE': {
+            'WIDTH': 0.2,
+            'LENGTH': 0.13,
+            'HEIGHT': 0.11
+        }
+    }
 }
 
 BOX_COMM_SPEC = {
@@ -226,6 +242,24 @@ BOX_D_SPEC = {
             'LENGTH': 0.348,
             'HEIGHT': 0.235
           }
+    },
+    # 샤쉐의 완박스는 박스3로 함
+    'BA00033_SET': {
+        'WEIGHT': 0.5,
+        'SCALE': {
+            'WIDTH': 0.37,
+            'LENGTH': 0.28,
+            'HEIGHT': 0.195
+        }
+    },
+    # 샤쉐의 완박스는 박스3로 함
+    'BA00034_SET': {
+        'WEIGHT': 0.5,
+        'SCALE': {
+            'WIDTH': 0.37,
+            'LENGTH': 0.28,
+            'HEIGHT': 0.195
+        }
     }
 }
 
