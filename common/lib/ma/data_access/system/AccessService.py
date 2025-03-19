@@ -11,6 +11,20 @@ class AccessService():
     """
     All function's name should start with below 4 verbs: select insert update delete
     """
+    def truncate_invoice_master(self, **bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase(self.db).execute_sql(
+                sql=Query.sql_truncate_invoice_master,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
+
     def insert_invoice_master(self, data):
         """
         :param bindings: (tuple)

@@ -1,4 +1,8 @@
 class Query():
+    sql_truncate_invoice_master = """
+        TRUNCATE invoice_master
+    """
+
     sql_insert_invoice_master = """
         INSERT INTO invoice_master (export_no, customer, product_name, country, product_code, quantity, currency, price)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)

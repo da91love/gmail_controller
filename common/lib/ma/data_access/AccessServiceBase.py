@@ -48,6 +48,14 @@ class AccessServiceBase:
                 logger.info('executeSql ends')
                 pass
 
+        except Exception as e:
+            conn.rollback()
+
+            # Close cursor, connection close
+            self.__close(conn, cursor)
+
+            raise e
+
     def execute_sql(self, sql, bindings=None):
         """
         :param sql:

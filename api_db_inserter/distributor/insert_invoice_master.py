@@ -3,6 +3,7 @@ from common.const.DB import *
 
 def insert_invoice_master(data):
     try:
-       AccessService(GLOBAL).insert_invoice_master(data)
+        AccessService(GLOBAL).truncate_invoice_master()
+        AccessService(GLOBAL).insert_invoice_master(data)
     except Exception as e:
         raise e
