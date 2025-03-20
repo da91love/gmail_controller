@@ -7,8 +7,14 @@ PRODUCT_NAME = {
     'BA00021': 'Eqqualberry - Bakuchiol Plumping Serum [30ml/-]',
     'BA00022': 'Eqqualberry - Vitamin Illuminating Serum [30ml/-]',
     'BA10022': 'Eqqualberry - Vitamin Illuminating Serum [30ml/-]',
+    'BA00030': 'Eqqualberry - Collagen Pore Tight Up Hydrogel Mask [4PCS]',
+    'BA00031': 'Eqqualberry - Collagen Soothe Up Hydrogel Mask [4PCS]',
+    'BA00032': 'Eqqualberry - Collagen Glow Up Hydrogel Mask [4PCS]',
+    'BA00027': 'Eqqualberry - Purple Rice Pore Purifying Pack Cleaser [130g]',
+    'BA00028': 'Eqqualberry - Purple PDRN Pore Minimizing Serum [30ml]',
+    'BA00029': 'Eqqualberry - Purple Rice Pore Smoothing Cleansing Oil [200ml]',
     'BA00033_SET': 'Eqqualberry - Toner Sachet [2ml/100EA]',
-    'BA00034_SET': 'Eqqualberry - Bakuchiol Plumping Serum Sachet [2ml/100EA]'
+    'BA00034_SET': 'Eqqualberry - Bakuchiol Plumping Serum Sachet [2ml/100EA]',
 }
 
 PALLET_SPEC = {
@@ -43,7 +49,15 @@ MAX_BOX_D_IN_PALLET = {
         'BA00026': 32,
         'BA00021': 30,
         'BA00022': 30,
-        'BA10022': 30
+        'BA10022': 30,
+        'BA00030': 20,
+        'BA00031': 20,
+        'BA00032': 20,
+        'BA00027': 28,
+        'BA00028': 192,
+        'BA00029': 28,
+        'BA00033_SET': 56,
+        'BA00034_SET': 56,
     },
     "COMM": {
         'BA10001': 42,
@@ -53,11 +67,19 @@ MAX_BOX_D_IN_PALLET = {
         'BA00026': 54,
         'BA00021': 54,
         'BA00022': 54,
-        'BA10022': 54
+        'BA10022': 54,
+        'BA00030': 32,
+        'BA00031': 32,
+        'BA00032': 32,
+        'BA00027': 42,
+        'BA00028': 180,
+        'BA00029': 42,
+        'BA00033_SET': 56,
+        'BA00034_SET': 56,
     }
 }
 
-MAX_PRDT_D_IN_BOX = {
+MAX_PRDT_IN_D_BOX = {
     'BA10001': 35,
     'BA00023': 35,
     'BA00024': 54,
@@ -65,7 +87,15 @@ MAX_PRDT_D_IN_BOX = {
     'BA00026': 77,
     'BA00021': 108,
     'BA00022': 108,
-    'BA10022': 108
+    'BA10022': 108,
+    'BA00030': 40,
+    'BA00031': 40,
+    'BA00032': 40,
+    'BA00027': 60,
+    'BA00028': 40,
+    'BA00029': 77,
+    'BA00033_SET': 12,
+    'BA00034_SET': 12,
 }
 
 PRDT_SPEC = {
@@ -133,6 +163,54 @@ PRDT_SPEC = {
 			'HEIGHT': 0.1
 		}
 	},
+    "BA00030": {
+        'WEIGHT': 0.2,
+        'SCALE': {
+            'WIDTH': 0.16,
+            'LENGTH': 0.025,
+            'HEIGHT': 0.18
+        }
+    },
+    "BA00031": {
+        'WEIGHT': 0.2,
+        'SCALE': {
+            'WIDTH': 0.16,
+            'LENGTH': 0.025,
+            'HEIGHT': 0.18
+        }
+    },
+    "BA00032": {
+        'WEIGHT': 0.2,
+        'SCALE': {
+            'WIDTH': 0.16,
+            'LENGTH': 0.025,
+            'HEIGHT': 0.18
+        }
+    },
+    "BA00027": {
+        'WEIGHT': 0.17,
+        'SCALE': {
+            'WIDTH': 0.052,
+            'LENGTH': 0.052,
+            'HEIGHT': 0.165
+        }
+    },
+    "BA00028": {
+        'WEIGHT': 0.123,
+        'SCALE': {
+            'WIDTH': 0.042,
+            'LENGTH': 0.042,
+            'HEIGHT': 0.106
+        }
+    },
+    "BA00029": {
+        'WEIGHT': 0.242,
+        'SCALE': {
+            'WIDTH': 0.048,
+            'LENGTH': 0.048,
+            'HEIGHT': 0.185
+        }
+    },
     "BA00033_SET": {
         'WEIGHT': 0.5,
         'SCALE': {
@@ -180,7 +258,7 @@ BOX_COMM_SPEC = {
 
 BOX_D_SPEC = {
     'BA10001': {
-          'WEIGHT': 0.75,
+          'WEIGHT': 13,
           'SCALE': {
             'WIDTH': 0.5,
             'LENGTH': 0.36,
@@ -188,15 +266,15 @@ BOX_D_SPEC = {
           }
     },
     'BA00023': {
-          'WEIGHT': 0.92,
+          'WEIGHT': 13.66,
           'SCALE': {
             'WIDTH': 0.5,
-            'LENGTH': 0.36,
+            'LENGTH': 0.35,
             'HEIGHT': 0.19
           }
     },
     'BA00024': {
-          'WEIGHT': 0.73,
+          'WEIGHT': 11.8,
           'SCALE': {
             'WIDTH': 0.5,
             'LENGTH': 0.35,
@@ -204,7 +282,7 @@ BOX_D_SPEC = {
           }
     },
     'BA00025': {
-          'WEIGHT': 1.05,
+          'WEIGHT': 11.76,
           'SCALE': {
             'WIDTH': 0.5,
             'LENGTH': 0.35,
@@ -212,7 +290,7 @@ BOX_D_SPEC = {
           }
     },
     'BA00026': {
-          'WEIGHT': 0.78,
+          'WEIGHT': 15.17,
           'SCALE': {
             'WIDTH': 0.5,
             'LENGTH': 0.35,
@@ -220,7 +298,7 @@ BOX_D_SPEC = {
           }
     },
     'BA00021': {
-          'WEIGHT': 0.38,
+          'WEIGHT': 15.5,
           'SCALE': {
             'WIDTH': 0.351,
             'LENGTH': 0.348,
@@ -228,7 +306,7 @@ BOX_D_SPEC = {
           }
     },
     'BA00022': {
-          'WEIGHT': 0.38,
+          'WEIGHT': 15.5,
           'SCALE': {
             'WIDTH': 0.351,
             'LENGTH': 0.348,
@@ -236,12 +314,60 @@ BOX_D_SPEC = {
           }
     },
     'BA10022': {
-          'WEIGHT': 0.38,
+          'WEIGHT': 15.5,
           'SCALE': {
             'WIDTH': 0.351,
             'LENGTH': 0.348,
             'HEIGHT': 0.235
           }
+    },
+    "BA00030": {
+        'WEIGHT': 8.7,
+        'SCALE': {
+            'WIDTH': 0.47,
+            'LENGTH': 0.35,
+            'HEIGHT': 0.265
+        }
+    },
+    "BA00031": {
+        'WEIGHT': 8.7,
+        'SCALE': {
+            'WIDTH': 0.47,
+            'LENGTH': 0.35,
+            'HEIGHT': 0.265
+        }
+    },
+    "BA00032": {
+        'WEIGHT': 8.7,
+        'SCALE': {
+            'WIDTH': 0.47,
+            'LENGTH': 0.35,
+            'HEIGHT': 0.265
+        }
+    },
+    "BA00027": {
+        'WEIGHT': 11,
+        'SCALE': {
+            'WIDTH': 0.53,
+            'LENGTH': 0.35,
+            'HEIGHT': 0.20
+        }
+    },
+    "BA00028": {
+        'WEIGHT': 5.72,
+        'SCALE': {
+            'WIDTH': 0.22,
+            'LENGTH': 0.18,
+            'HEIGHT': 0.22
+        }
+    },
+    "BA00029": {
+        'WEIGHT': 19.45,
+        'SCALE': {
+            'WIDTH': 0.55,
+            'LENGTH': 0.355,
+            'HEIGHT': 0.20
+        }
     },
     # 샤쉐의 완박스는 박스3로 함
     'BA00033_SET': {

@@ -19,6 +19,7 @@ from common.util.get_config import get_config
 from api_tiktok_posts_info.type.ResType import ResType
 from api_db_actor.const.DB_TYPE import *
 from api_db_actor.actor.insert_invoice_master import insert_invoice_master
+from api_db_actor.actor.insert_opration_prcs import insert_opration_prcs
 
 # Create instance
 config = get_config()
@@ -42,5 +43,7 @@ def api_db_actor(event, context=None):
 
     if db_type == INVOICE_MASTER:
         insert_invoice_master(payload)
+    elif db_type == OPERATION_PROCESS_MASTER:
+        insert_opration_prcs(payload)
 
     return ResType(data={}).get_response()

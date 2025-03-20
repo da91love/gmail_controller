@@ -58,14 +58,14 @@ class SlackMsgCreator:
         ])
 
     @staticmethod
-    def get_slack_new_invoice_post_block(pi_request_date, export_no, buyer_name, country, summed_amount):
+    def get_slack_new_invoice_post_block(pic, pi_request_date, export_no, buyer_name, country, summed_amount):
 
         return json.dumps([
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "신규 Invoice가 생성되었습니다.\n<@U052TJ9T371><@U083T4Y1N07><@U08DGQWC90D><@U07N2DCT9N2><@U081G1NU7LY><@U086W2H95K4><@U07B2HY3E3F><@U070KTKCD5L><@U06ECHJP7GV><@U05B5G8BK6C>"
+                    "text": "신규 Invoice가 생성되었습니다.\n<@U08HEMUQEAV><@U086W2H95K4><@U07B2HY3E3F><@U070KTKCD5L><@U06ECHJP7GV><@U05B5G8BK6C>"
                 }
             },
             {
@@ -75,7 +75,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"`PI 발행일` : {pi_request_date}\n`Export No` : {export_no}\n`Buyer Name` : {buyer_name}\n`Country` : {country}\n`Invoice Amount` : {summed_amount}\n"
+                    "text": f"`담당자` : <@{pic}>\nPI 발행일` : {pi_request_date}\n`Export No` : {export_no}\n`Buyer Name` : {buyer_name}\n`Country` : {country}\n`Invoice Amount` : {summed_amount}\n"
                 }
             },
             {
