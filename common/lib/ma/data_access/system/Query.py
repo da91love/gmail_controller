@@ -1,4 +1,9 @@
 class Query():
+    sql_insert_op_process = """
+        insert into slack_thread_history (export_id, doc_type, requester) 
+        values ('{export_id}','{doc_type}','{requester}')
+    """
+
     sql_truncate_invoice_master = """
         TRUNCATE invoice_master
     """
