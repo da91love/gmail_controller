@@ -75,7 +75,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"`담당자` : <@{SLACK_ID.get(pic)}>\nPI 발행일` : {pi_request_date}\n`Export No` : {export_no}\n`Buyer Name` : {buyer_name}\n`Country` : {country}\n`Invoice Amount` : {summed_amount}\n"
+                    "text": f"`담당자` : <{SLACK_ID.get(pic)}>\nPI 발행일` : {pi_request_date}\n`Export No` : {export_no}\n`Buyer Name` : {buyer_name}\n`Country` : {country}\n`Invoice Amount` : {summed_amount}\n"
                 }
             },
             {
