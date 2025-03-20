@@ -9,23 +9,25 @@ def alert_new_order(data):
     try:
         slack = Slack()
 
-        for d in data:
+        for dt in data:
+            tg = data[dt][0]
+            
             slack_post_block_fr_api = {}
 
-            slack_post_block_fr_api['brand'] = d.get('brand')
-            slack_post_block_fr_api['pic'] = d.get('pic')
-            slack_post_block_fr_api['requester'] = d.get('requester')
-            slack_post_block_fr_api['export_id'] = d.get('exportNo')
-            slack_post_block_fr_api['buyer_name'] = d.get('buyerName')
-            slack_post_block_fr_api['address'] = d.get('address')
-            slack_post_block_fr_api['recipient'] = d.get('recipient')
-            slack_post_block_fr_api['recipient_phone_num'] = d.get('phoneNum')
-            slack_post_block_fr_api['requested_arrival_date']= d.get('requestedArrivalDate')
-            slack_post_block_fr_api['bill_type'] = d.get('billType')
-            slack_post_block_fr_api['folder_id'] = d.get('folderId')
-            slack_post_block_fr_api['delivery'] = d.get('delivery')
-            slack_post_block_fr_api['delivery_type'] = d.get('deliveryType')
-            slack_post_block_fr_api['remark'] = d.get('remark')
+            slack_post_block_fr_api['brand'] = tg.get('brand')
+            slack_post_block_fr_api['pic'] = tg.get('pic')
+            slack_post_block_fr_api['requester'] = tg.get('requester')
+            slack_post_block_fr_api['export_id'] = tg.get('exportNo')
+            slack_post_block_fr_api['buyer_name'] = tg.get('buyerName')
+            slack_post_block_fr_api['address'] = tg.get('address')
+            slack_post_block_fr_api['recipient'] = tg.get('recipient')
+            slack_post_block_fr_api['recipient_phone_num'] = tg.get('phoneNum')
+            slack_post_block_fr_api['requested_arrival_date']= tg.get('requestedArrivalDate')
+            slack_post_block_fr_api['bill_type'] = tg.get('billType')
+            slack_post_block_fr_api['folder_id'] = tg.get('folderId')
+            slack_post_block_fr_api['delivery'] = tg.get('delivery')
+            slack_post_block_fr_api['delivery_type'] = tg.get('deliveryType')
+            slack_post_block_fr_api['remark'] = tg.get('remark')
 
             # 메세지 생성
             slack_msg = SlackMsgCreator.get_slack_delivery_request_post_block(
