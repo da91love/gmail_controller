@@ -216,7 +216,7 @@ PRDT_SPEC = {
         'SCALE': {
             'WIDTH': 0.2,
             'LENGTH': 0.13,
-            'HEIGHT': 0.11
+            'HEIGHT': 0.085
         }
     },
     "BA00034_SET": {
@@ -224,14 +224,14 @@ PRDT_SPEC = {
         'SCALE': {
             'WIDTH': 0.2,
             'LENGTH': 0.13,
-            'HEIGHT': 0.11
+            'HEIGHT': 0.085
         }
     }
 }
 
 BOX_COMM_SPEC = {
 	'BOX1': {
-		'WEIGHT': 0.3,
+		'WEIGHT': 0.1,
 		'SCALE': {
 			'WIDTH': 0.23,
 			'LENGTH': 0.13,
@@ -239,7 +239,7 @@ BOX_COMM_SPEC = {
 		}
 	},
 	'BOX2': {
-		'WEIGHT': 0.3,
+		'WEIGHT': 0.12,
 		'SCALE': {
 			'WIDTH': 0.25,
 			'LENGTH': 0.17,
@@ -247,7 +247,7 @@ BOX_COMM_SPEC = {
 		}
 	},
 	'BOX3': {
-		'WEIGHT': 0.3,
+		'WEIGHT': 0.2,
 		'SCALE': {
 			'WIDTH': 0.28,
 			'LENGTH': 0.22,
