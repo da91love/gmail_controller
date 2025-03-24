@@ -266,7 +266,7 @@ BOX_COMM_SPEC = {
 
 BOX_D_SPEC = {
     'BA10001': {
-          'WEIGHT': 13,
+          'WEIGHT': 0.35,
           'SCALE': {
             'WIDTH': 0.5,
             'LENGTH': 0.36,
@@ -274,7 +274,7 @@ BOX_D_SPEC = {
           }
     },
     'BA00023': {
-          'WEIGHT': 13.66,
+          'WEIGHT': 0.364,
           'SCALE': {
             'WIDTH': 0.5,
             'LENGTH': 0.35,
@@ -282,7 +282,7 @@ BOX_D_SPEC = {
           }
     },
     'BA00024': {
-          'WEIGHT': 11.8,
+          'WEIGHT': 0.205,
           'SCALE': {
             'WIDTH': 0.5,
             'LENGTH': 0.35,
@@ -290,7 +290,7 @@ BOX_D_SPEC = {
           }
     },
     'BA00025': {
-          'WEIGHT': 11.76,
+          'WEIGHT': 0.357,
           'SCALE': {
             'WIDTH': 0.5,
             'LENGTH': 0.35,
@@ -298,7 +298,7 @@ BOX_D_SPEC = {
           }
     },
     'BA00026': {
-          'WEIGHT': 15.17,
+          'WEIGHT': 0.1,
           'SCALE': {
             'WIDTH': 0.5,
             'LENGTH': 0.35,
@@ -306,7 +306,7 @@ BOX_D_SPEC = {
           }
     },
     'BA00021': {
-          'WEIGHT': 15.5,
+          'WEIGHT': 0.14,
           'SCALE': {
             'WIDTH': 0.351,
             'LENGTH': 0.348,
@@ -314,7 +314,7 @@ BOX_D_SPEC = {
           }
     },
     'BA00022': {
-          'WEIGHT': 15.5,
+          'WEIGHT': 0.14,
           'SCALE': {
             'WIDTH': 0.351,
             'LENGTH': 0.348,
@@ -322,7 +322,7 @@ BOX_D_SPEC = {
           }
     },
     'BA10022': {
-          'WEIGHT': 15.5,
+          'WEIGHT': 0.14,
           'SCALE': {
             'WIDTH': 0.351,
             'LENGTH': 0.348,
@@ -330,7 +330,7 @@ BOX_D_SPEC = {
           }
     },
     "BA00030": {
-        'WEIGHT': 8.7,
+        'WEIGHT': 0.5,
         'SCALE': {
             'WIDTH': 0.47,
             'LENGTH': 0.35,
@@ -338,7 +338,7 @@ BOX_D_SPEC = {
         }
     },
     "BA00031": {
-        'WEIGHT': 8.7,
+        'WEIGHT': 0.5,
         'SCALE': {
             'WIDTH': 0.47,
             'LENGTH': 0.35,
@@ -346,7 +346,7 @@ BOX_D_SPEC = {
         }
     },
     "BA00032": {
-        'WEIGHT': 8.7,
+        'WEIGHT': 0.5,
         'SCALE': {
             'WIDTH': 0.47,
             'LENGTH': 0.35,
@@ -354,7 +354,7 @@ BOX_D_SPEC = {
         }
     },
     "BA00027": {
-        'WEIGHT': 11,
+        'WEIGHT': 0.5,
         'SCALE': {
             'WIDTH': 0.53,
             'LENGTH': 0.35,
@@ -362,7 +362,7 @@ BOX_D_SPEC = {
         }
     },
     "BA00028": {
-        'WEIGHT': 5.72,
+        'WEIGHT': 0.5,
         'SCALE': {
             'WIDTH': 0.235,
             'LENGTH': 0.20,
@@ -370,7 +370,7 @@ BOX_D_SPEC = {
         }
     },
     "BA00029": {
-        'WEIGHT': 19.45,
+        'WEIGHT': 0.5,
         'SCALE': {
             'WIDTH': 0.55,
             'LENGTH': 0.355,

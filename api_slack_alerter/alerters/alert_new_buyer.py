@@ -29,5 +29,7 @@ def alert_new_buyer(data):
             msg_type=MSG_TYPE['BLOCK'],
             msg_body=slack_msg
         )
+
+        return
     except Exception as e:
         raise e
