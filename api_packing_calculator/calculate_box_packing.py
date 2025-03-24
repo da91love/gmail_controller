@@ -11,8 +11,10 @@ def calculate_box_packing_spec(order_info):
 
     # Get the maximum volume from BOX3 if available, otherwise use BOX2
     max_vol_of_biggest_comm_box = (
-        comm_box.get("BOX3", {}).get("MAX_VOLUME")
+        comm_box.get("BOX4", {}).get("MAX_VOLUME")
+        or comm_box.get("BOX3", {}).get("MAX_VOLUME")
         or comm_box.get("BOX2", {}).get("MAX_VOLUME")
+        or comm_box.get("BOX1", {}).get("MAX_VOLUME")
     )
 
     boxes = {}

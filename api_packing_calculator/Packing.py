@@ -28,8 +28,10 @@ class Packing:
 
             max_vol_of_box_d = MAX_PRDT_IN_D_BOX[item_code]
             max_vol_of_biggest_comm_box = (
-                BOX_COMM_PRDT_NUM[item_code].get("BOX3", {}).get("MAX_VOLUME")
+                BOX_COMM_PRDT_NUM[item_code].get("BOX4", {}).get("MAX_VOLUME")
+                or BOX_COMM_PRDT_NUM[item_code].get("BOX3", {}).get("MAX_VOLUME")
                 or BOX_COMM_PRDT_NUM[item_code].get("BOX2", {}).get("MAX_VOLUME")
+                or BOX_COMM_PRDT_NUM[item_code].get("BOX1", {}).get("MAX_VOLUME")
             )
 
             # Calculate number of full BOX_D and the leftover volume
