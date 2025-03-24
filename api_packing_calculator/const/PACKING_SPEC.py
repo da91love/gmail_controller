@@ -231,7 +231,7 @@ PRDT_SPEC = {
 
 BOX_COMM_SPEC = {
 	'BOX1': {
-		'WEIGHT': 0.5,
+		'WEIGHT': 0.3,
 		'SCALE': {
 			'WIDTH': 0.23,
 			'LENGTH': 0.13,
@@ -239,7 +239,7 @@ BOX_COMM_SPEC = {
 		}
 	},
 	'BOX2': {
-		'WEIGHT': 0.5,
+		'WEIGHT': 0.3,
 		'SCALE': {
 			'WIDTH': 0.25,
 			'LENGTH': 0.17,
@@ -247,7 +247,7 @@ BOX_COMM_SPEC = {
 		}
 	},
 	'BOX3': {
-		'WEIGHT': 0.5,
+		'WEIGHT': 0.3,
 		'SCALE': {
 			'WIDTH': 0.28,
 			'LENGTH': 0.22,
@@ -255,7 +255,7 @@ BOX_COMM_SPEC = {
 		}
 	},
     'BOX4': {
-        'WEIGHT': 0.5,
+        'WEIGHT': 0.3,
         'SCALE': {
             'WIDTH': 0.37,
             'LENGTH': 0.28,
@@ -330,7 +330,7 @@ BOX_D_SPEC = {
           }
     },
     "BA00030": {
-        'WEIGHT': 0.5,
+        'WEIGHT': 0.3,
         'SCALE': {
             'WIDTH': 0.47,
             'LENGTH': 0.35,
@@ -338,7 +338,7 @@ BOX_D_SPEC = {
         }
     },
     "BA00031": {
-        'WEIGHT': 0.5,
+        'WEIGHT': 0.3,
         'SCALE': {
             'WIDTH': 0.47,
             'LENGTH': 0.35,
@@ -346,7 +346,7 @@ BOX_D_SPEC = {
         }
     },
     "BA00032": {
-        'WEIGHT': 0.5,
+        'WEIGHT': 0.3,
         'SCALE': {
             'WIDTH': 0.47,
             'LENGTH': 0.35,
@@ -354,7 +354,7 @@ BOX_D_SPEC = {
         }
     },
     "BA00027": {
-        'WEIGHT': 0.5,
+        'WEIGHT': 0.3,
         'SCALE': {
             'WIDTH': 0.53,
             'LENGTH': 0.35,
@@ -362,7 +362,7 @@ BOX_D_SPEC = {
         }
     },
     "BA00028": {
-        'WEIGHT': 0.5,
+        'WEIGHT': 0.3,
         'SCALE': {
             'WIDTH': 0.235,
             'LENGTH': 0.20,
@@ -370,7 +370,7 @@ BOX_D_SPEC = {
         }
     },
     "BA00029": {
-        'WEIGHT': 0.5,
+        'WEIGHT': 0.3,
         'SCALE': {
             'WIDTH': 0.55,
             'LENGTH': 0.355,
@@ -378,7 +378,7 @@ BOX_D_SPEC = {
         }
     },
     'BA00033_SET': {
-        'WEIGHT': 0.5,
+        'WEIGHT': 0.3,
         'SCALE': {
             'WIDTH': 0.410,
             'LENGTH': 0.310,
@@ -386,7 +386,7 @@ BOX_D_SPEC = {
         }
     },
     'BA00034_SET': {
-        'WEIGHT': 0.5,
+        'WEIGHT': 0.3,
         'SCALE': {
             'WIDTH': 0.410,
             'LENGTH': 0.310,
