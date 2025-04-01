@@ -16,7 +16,7 @@ def alert_new_ci(data):
             invoices = data[dt]
 
             # get value from payload
-            export_no, delivery_type, requester = itemgetter('exportNo','requester','deliveryType')(invoices[0])
+            export_no, requester, delivery_type = itemgetter('exportNo','requester','deliveryType')(invoices[0])
             # define doc type
             doc_type = CI
 
