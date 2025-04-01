@@ -36,7 +36,7 @@ def alert_new_invoice(data):
             )
 
             # get process history from db
-            slack_block_ids = AccessService(GLOBAL).select_is_in_process_history(doc_type=doc_type, delivery_type=delivery_type, export_id=export_no)
+            slack_block_ids = AccessService(GLOBAL).select_is_in_process_history(delivery_type=delivery_type, export_id=export_no)
 
             if len(slack_block_ids) > 0:
                 slack_block_id = slack_block_ids[0].get('slack_post_block_id')

@@ -21,7 +21,7 @@ def alert_new_ci(data):
             doc_type = CI
 
             # get process history from db
-            slack_block_ids = AccessService(GLOBAL).select_is_in_process_history(doc_type=doc_type, export_id=export_no)
+            slack_block_ids = AccessService(GLOBAL).select_is_in_process_history(export_id=export_no, delivery_type=delivery_type)
             slack_block_id = slack_block_ids[0].get('slack_post_block_id')
 
             # insert into operation process

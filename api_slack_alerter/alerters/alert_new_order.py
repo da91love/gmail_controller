@@ -114,6 +114,28 @@ def alert_new_order(data):
                     slack_post_block_id=slack_post_block_id
                 )
 
+                # get process history from db
+                slack_block_ids = AccessService(GLOBAL).select_is_in_process_history(delivery_type=slack_post_block_fr_api['delivery_type'],
+                                                                                     export_id=slack_post_block_fr_api['export_id'])
+                slack_block_id = slack_block_ids[0].get('slack_post_block_id')
+
+                # insert into operation process
+                AccessService(GLOBAL).insert_op_process(
+                    export_id=slack_post_block_fr_api['export_id'],
+                    doc_type=doc_type,
+                    delivery_type=slack_post_block_fr_api['delivery_type'],
+                    requester=slack_post_block_fr_api['requester'],
+                    slack_post_block_id=slack_block_id
+                )
+
+                # 업데이트 문구 리플라이
+                slack.add_reply(
+                    channel_id=SLACK_GLOBAL_B2B_DELIVERY_REQUEST_ID,
+                    msg_type=MSG_TYPE['BLOCK'],
+                    msg_body=SlackMsgCreator.get_slack_new_doc_reply_block(requester=slack_post_block_fr_api['requester'], doc_type=doc_type),
+                    thread_ts=slack_block_id
+                )
+
             else:
                 # 신규 Slack post 작성
                 res = slack.add_post(
@@ -143,13 +165,26 @@ def alert_new_order(data):
                     remark=slack_post_block_fr_api['remark']
                 )
 
+                # get process history from db
+                slack_block_ids = AccessService(GLOBAL).select_is_in_process_history(delivery_type=slack_post_block_fr_api['delivery_type'],
+                                                                                     export_id=slack_post_block_fr_api['export_id'])
+                slack_block_id = slack_block_ids[0].get('slack_post_block_id')
+
                 # insert into operation process
                 AccessService(GLOBAL).insert_op_process(
                     export_id=slack_post_block_fr_api['export_id'],
-                    delivery_type=slack_post_block_fr_api['delivery_type'],
                     doc_type=doc_type,
+                    delivery_type=slack_post_block_fr_api['delivery_type'],
                     requester=slack_post_block_fr_api['requester'],
-                    slack_post_block_id=slack_post_block_id
+                    slack_post_block_id=slack_block_id
+                )
+
+                # 업데이트 문구 리플라이
+                slack.add_reply(
+                    channel_id=SLACK_GLOBAL_B2B_DELIVERY_REQUEST_ID,
+                    msg_type=MSG_TYPE['BLOCK'],
+                    msg_body=SlackMsgCreator.get_slack_new_doc_reply_block(requester=slack_post_block_fr_api['requester'], doc_type=doc_type),
+                    thread_ts=slack_block_id
                 )
 
     except Exception as e:
