@@ -30,6 +30,5 @@ def alert_new_buyer(data):
             msg_body=slack_msg
         )
 
-        return
     except Exception as e:
         raise e

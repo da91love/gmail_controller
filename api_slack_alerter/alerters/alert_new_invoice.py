@@ -1,8 +1,12 @@
 from operator import itemgetter
 import pydash as _
+
+from common.lib.ma.data_access.system.AccessService import AccessService
+from common.const.DB import *
 from common.slack.Slack import Slack
 from common.slack.SlackMsgCreator import SlackMsgCreator
 from common.const.SLACK import *
+from ..const.DOC_TYPE import *
 
 def alert_new_invoice(data):
     try:
@@ -10,8 +14,13 @@ def alert_new_invoice(data):
         slack = Slack()
         for dt in data:
             invoices = data[dt]
-            pi_request_date, export_no, buyer_name, country_code, currency, delivery_type, pic = itemgetter('piDate', 'exportNo', 'buyerName',
-                                                                                   'countryCode', 'currency', 'deliveryType', 'pic')(invoices[0])
+
+            # get value from payload
+            pi_request_date, export_no, buyer_name, country_code, currency, delivery_type, pic, requester = itemgetter('piDate', 'exportNo', 'buyerName',
+                                                                                   'countryCode', 'currency', 'deliveryType', 'pic', 'requester')(invoices[0])
+
+            # define doc type
+            doc_type = PI
 
             summed_amount = _.sum_by(invoices, lambda x: int(x.get('amount')))
             parsed_amount = f"{summed_amount:,} {currency}"
@@ -25,28 +34,74 @@ def alert_new_invoice(data):
                 summed_amount=parsed_amount
             )
 
-            res = slack.add_post(
-                channel_id=SLACK_GLOBAL_B2B_INVOICE_ID,
-                msg_type=MSG_TYPE['BLOCK'],
-                msg_body=slack_post_msg
-            )
+            # get process history from db
+            slack_block_ids = AccessService(GLOBAL).select_is_in_process_history(doc_type=doc_type, export_id=export_no)
 
-            thread_ts = res.text
+            if len(slack_block_ids) > 0:
+                slack_block_id = slack_block_ids[0].get('slack_post_block_id')
 
-            for invoice in data[dt]:
-                product_name, product_code, quantity = itemgetter('itemName', 'itemCode', 'volume')(invoice)
-
-                slack_reply_msg = SlackMsgCreator.get_slack_new_invoice_details_reply_block(
-                    productName=product_name,
-                    productCode=product_code,
-                    quantity=quantity
+                slack.update_post(
+                    msg_type=MSG_TYPE['BLOCK'],
+                    channel_id=SLACK_GLOBAL_B2B_INVOICE_ID,
+                    msg_body=slack_post_msg,
+                    thread_ts=slack_block_id
                 )
 
-                slack.add_reply(
+                for invoice in data[dt]:
+                    product_name, product_code, quantity = itemgetter('itemName', 'itemCode', 'volume')(invoice)
+
+                    slack_reply_msg = SlackMsgCreator.get_slack_new_invoice_details_reply_block(
+                        productName=product_name,
+                        productCode=product_code,
+                        quantity=quantity
+                    )
+
+                    slack.add_reply(
+                        channel_id=SLACK_GLOBAL_B2B_INVOICE_ID,
+                        msg_type=MSG_TYPE['BLOCK'],
+                        msg_body=slack_reply_msg,
+                        thread_ts=slack_block_id
+                    )
+
+                # insert into operation process
+                AccessService(GLOBAL).insert_op_process(
+                    export_id=export_no,
+                    doc_type='PI',
+                    requester=requester,
+                    slack_post_block_id=slack_block_id
+                )
+
+            else:
+                res = slack.add_post(
                     channel_id=SLACK_GLOBAL_B2B_INVOICE_ID,
                     msg_type=MSG_TYPE['BLOCK'],
-                    msg_body=slack_reply_msg,
-                    thread_ts=thread_ts
+                    msg_body=slack_post_msg
+                )
+
+                thread_ts = res.text
+
+                for invoice in data[dt]:
+                    product_name, product_code, quantity = itemgetter('itemName', 'itemCode', 'volume')(invoice)
+
+                    slack_reply_msg = SlackMsgCreator.get_slack_new_invoice_details_reply_block(
+                        productName=product_name,
+                        productCode=product_code,
+                        quantity=quantity
+                    )
+
+                    slack.add_reply(
+                        channel_id=SLACK_GLOBAL_B2B_INVOICE_ID,
+                        msg_type=MSG_TYPE['BLOCK'],
+                        msg_body=slack_reply_msg,
+                        thread_ts=thread_ts
+                    )
+
+                # insert into operation process
+                AccessService(GLOBAL).insert_op_process(
+                    export_id=export_no,
+                    doc_type='PI',
+                    requester=requester,
+                    slack_post_block_id=thread_ts
                 )
     except Exception as e:
         raise e

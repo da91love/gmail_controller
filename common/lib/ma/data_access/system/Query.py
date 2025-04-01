@@ -1,4 +1,9 @@
 class Query():
+    sql_select_is_in_process_history = """
+        SELECT slack_post_block_id FROM operation_process
+        WHERE doc_type = '{doc_type}' and export_id = '{export_id}' and slack_post_block_id is not null;
+    """
+
     sql_insert_op_process = """
         insert into operation_process (export_id, doc_type, requester) 
         values ('{export_id}','{doc_type}','{requester}')
