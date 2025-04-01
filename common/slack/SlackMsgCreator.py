@@ -13,7 +13,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"{doc_type}이 작성 되었습니다.<@U08HEMUQEAV> \n`작성자` : {requester}"
+                    "text": f"{doc_type}이 작성 되었습니다.\n`작성자` : {requester}"
                 }
             }
         ])
