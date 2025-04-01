@@ -5,8 +5,8 @@ class Query():
     """
 
     sql_insert_op_process = """
-        insert into operation_process (export_id, doc_type, requester) 
-        values ('{export_id}','{doc_type}','{requester}')
+        insert into operation_process (export_id, doc_type, requester, slack_post_block_id) 
+        values ('{export_id}','{doc_type}','{requester}','{slack_post_block_id}')
     """
 
     sql_truncate_invoice_master = """

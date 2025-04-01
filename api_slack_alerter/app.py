@@ -21,6 +21,9 @@ from api_slack_alerter.const.SLACK_ALERTER_TYPE import *
 from api_slack_alerter.alerters.alert_new_invoice import alert_new_invoice
 from api_slack_alerter.alerters.alert_new_buyer import alert_new_buyer
 from api_slack_alerter.alerters.alert_new_order import alert_new_order
+from api_slack_alerter.alerters.alert_new_pl import alert_new_pl
+from api_slack_alerter.alerters.alert_new_ci import alert_new_ci
+
 
 # Create instance
 config = get_config()
@@ -44,9 +47,13 @@ def app_api_slack_alerter(event, context=None):
 
     if slack_alerter_type == NEW_BUYER_ALERTER:
         alert_new_buyer(payload)
-    elif slack_alerter_type == NEW_INVOICE_ALERTER:
+    elif slack_alerter_type == NEW_PI_ALERTER:
         alert_new_invoice(payload)
-    elif slack_alerter_type == NEW_DELIVERY_REQUEST_ALERTER:
+    elif slack_alerter_type == NEW_OS_ALERTER:
         alert_new_order(payload)
+    elif slack_alerter_type == NEW_PL_ALERTER:
+        alert_new_pl(payload)
+    elif slack_alerter_type == NEW_CI_ALERTER:
+        alert_new_ci(payload)
 
     return ResType(data={}).get_response()

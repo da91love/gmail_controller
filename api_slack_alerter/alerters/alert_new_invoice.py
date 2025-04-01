@@ -18,7 +18,6 @@ def alert_new_invoice(data):
             # get value from payload
             pi_request_date, export_no, buyer_name, country_code, currency, delivery_type, pic, requester = itemgetter('piDate', 'exportNo', 'buyerName',
                                                                                    'countryCode', 'currency', 'deliveryType', 'pic', 'requester')(invoices[0])
-
             # define doc type
             doc_type = PI
 
@@ -31,7 +30,8 @@ def alert_new_invoice(data):
                 export_no=export_no,
                 buyer_name=buyer_name,
                 country=country_code,
-                summed_amount=parsed_amount
+                summed_amount=parsed_amount,
+                invoices=invoices
             )
 
             # get process history from db
@@ -47,26 +47,10 @@ def alert_new_invoice(data):
                     thread_ts=slack_block_id
                 )
 
-                for invoice in data[dt]:
-                    product_name, product_code, quantity = itemgetter('itemName', 'itemCode', 'volume')(invoice)
-
-                    slack_reply_msg = SlackMsgCreator.get_slack_new_invoice_details_reply_block(
-                        productName=product_name,
-                        productCode=product_code,
-                        quantity=quantity
-                    )
-
-                    slack.add_reply(
-                        channel_id=SLACK_GLOBAL_B2B_INVOICE_ID,
-                        msg_type=MSG_TYPE['BLOCK'],
-                        msg_body=slack_reply_msg,
-                        thread_ts=slack_block_id
-                    )
-
                 # insert into operation process
                 AccessService(GLOBAL).insert_op_process(
                     export_id=export_no,
-                    doc_type='PI',
+                    doc_type=doc_type,
                     requester=requester,
                     slack_post_block_id=slack_block_id
                 )
@@ -80,26 +64,10 @@ def alert_new_invoice(data):
 
                 thread_ts = res.text
 
-                for invoice in data[dt]:
-                    product_name, product_code, quantity = itemgetter('itemName', 'itemCode', 'volume')(invoice)
-
-                    slack_reply_msg = SlackMsgCreator.get_slack_new_invoice_details_reply_block(
-                        productName=product_name,
-                        productCode=product_code,
-                        quantity=quantity
-                    )
-
-                    slack.add_reply(
-                        channel_id=SLACK_GLOBAL_B2B_INVOICE_ID,
-                        msg_type=MSG_TYPE['BLOCK'],
-                        msg_body=slack_reply_msg,
-                        thread_ts=thread_ts
-                    )
-
                 # insert into operation process
                 AccessService(GLOBAL).insert_op_process(
                     export_id=export_no,
-                    doc_type='PI',
+                    doc_type=doc_type,
                     requester=requester,
                     slack_post_block_id=thread_ts
                 )

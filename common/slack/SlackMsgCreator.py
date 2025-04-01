@@ -6,6 +6,19 @@ from api_slack_alerter.const.SLACK_ID import *
 
 class SlackMsgCreator:
     @staticmethod
+    def get_slack_new_doc_reply_block(requester, doc_type):
+
+        return json.dumps([
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"{doc_type}이 작성 되었습니다.<@U08HEMUQEAV> \n`작성자` : <{requester}"
+                }
+            }
+        ])
+
+    @staticmethod
     def get_slack_updated_shipment_request(diff):
 
         return json.dumps([
@@ -58,9 +71,8 @@ class SlackMsgCreator:
         ])
 
     @staticmethod
-    def get_slack_new_invoice_post_block(pic, pi_request_date, export_no, buyer_name, country, summed_amount):
-
-        return json.dumps([
+    def get_slack_new_invoice_post_block(pic, pi_request_date, export_no, buyer_name, country, summed_amount, invoices):
+        default_msg = [
             {
                 "type": "section",
                 "text": {
@@ -81,7 +93,19 @@ class SlackMsgCreator:
             {
                 "type": "divider"
             }
-        ])
+        ]
+
+        prd_msg = [{
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"\n`품목명` : {invoice.get('itemName')}\n`품목코드` : {invoice.get('itemCode')}\n`수량` : {invoice.get('volume')}\n"
+                }
+            } for invoice in invoices]
+
+        msg = default_msg + prd_msg
+
+        return json.dumps(msg)
 
     @staticmethod
     def get_slack_new_buyer_post_block(corporate_name, business_name, buyer_type, is_exclusive, country, url, mau, pic):

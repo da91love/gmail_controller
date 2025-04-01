@@ -4,10 +4,14 @@ from common.slack.Slack import Slack
 from common.slack.SlackMsgCreator import SlackMsgCreator
 from common.const.SLACK import *
 from common.const.DB import *
+from ..const.DOC_TYPE import *
 
 def alert_new_order(data):
     try:
         slack = Slack()
+
+        # define doc type
+        doc_type = OS
 
         for dt in data:
             tg = data[dt][0]
@@ -101,6 +105,14 @@ def alert_new_order(data):
                     remark=slack_post_block_fr_api['remark']
                 )
 
+                # insert into operation process
+                AccessService(GLOBAL).insert_op_process(
+                    export_id=slack_post_block_fr_api['export_id'],
+                    doc_type=doc_type,
+                    requester=slack_post_block_fr_api['requester'],
+                    slack_post_block_id=slack_post_block_id
+                )
+
             else:
                 # 신규 Slack post 작성
                 res = slack.add_post(
@@ -128,6 +140,14 @@ def alert_new_order(data):
                     delivery=slack_post_block_fr_api['delivery'],
                     delivery_type=slack_post_block_fr_api['delivery_type'],
                     remark=slack_post_block_fr_api['remark']
+                )
+
+                # insert into operation process
+                AccessService(GLOBAL).insert_op_process(
+                    export_id=slack_post_block_fr_api['export_id'],
+                    doc_type=doc_type,
+                    requester=slack_post_block_fr_api['requester'],
+                    slack_post_block_id=slack_post_block_id
                 )
 
     except Exception as e:
