@@ -71,7 +71,7 @@ class SlackMsgCreator:
         ])
 
     @staticmethod
-    def get_slack_new_invoice_post_block(pic, pi_request_date, export_no, buyer_name, country, summed_amount, invoices):
+    def get_slack_new_invoice_post_block(pic, pi_request_date, export_no, delivery_type, buyer_name, country, summed_amount, invoices):
         default_msg = [
             {
                 "type": "section",
@@ -87,7 +87,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"`담당자` : <{SLACK_ID.get(pic)}>\n`PI 발행일` : {pi_request_date}\n`Export No` : {export_no}\n`Buyer Name` : {buyer_name}\n`Country` : {country}\n`Invoice Amount` : {summed_amount}\n"
+                    "text": f"`담당자` : <{SLACK_ID.get(pic)}>\n`PI 발행일` : {pi_request_date}\n`Export No` : {export_no}\n`delivery_type` : {delivery_type}\n`Buyer Name` : {buyer_name}\n`Country` : {country}\n`Invoice Amount` : {summed_amount}\n"
                 }
             },
             {

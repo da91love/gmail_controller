@@ -108,6 +108,7 @@ def alert_new_order(data):
                 # insert into operation process
                 AccessService(GLOBAL).insert_op_process(
                     export_id=slack_post_block_fr_api['export_id'],
+                    delivery_type=slack_post_block_fr_api['delivery_type'],
                     doc_type=doc_type,
                     requester=slack_post_block_fr_api['requester'],
                     slack_post_block_id=slack_post_block_id
@@ -145,6 +146,7 @@ def alert_new_order(data):
                 # insert into operation process
                 AccessService(GLOBAL).insert_op_process(
                     export_id=slack_post_block_fr_api['export_id'],
+                    delivery_type=slack_post_block_fr_api['delivery_type'],
                     doc_type=doc_type,
                     requester=slack_post_block_fr_api['requester'],
                     slack_post_block_id=slack_post_block_id

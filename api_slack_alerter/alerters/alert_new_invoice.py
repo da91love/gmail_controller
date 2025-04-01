@@ -28,6 +28,7 @@ def alert_new_invoice(data):
                 pic=pic,
                 pi_request_date=pi_request_date,
                 export_no=export_no,
+                delivery_type=delivery_type,
                 buyer_name=buyer_name,
                 country=country_code,
                 summed_amount=parsed_amount,
@@ -50,6 +51,7 @@ def alert_new_invoice(data):
                 # insert into operation process
                 AccessService(GLOBAL).insert_op_process(
                     export_id=export_no,
+                    delivery_type=delivery_type,
                     doc_type=doc_type,
                     requester=requester,
                     slack_post_block_id=slack_block_id
@@ -67,6 +69,7 @@ def alert_new_invoice(data):
                 # insert into operation process
                 AccessService(GLOBAL).insert_op_process(
                     export_id=export_no,
+                    delivery_type=delivery_type,
                     doc_type=doc_type,
                     requester=requester,
                     slack_post_block_id=thread_ts

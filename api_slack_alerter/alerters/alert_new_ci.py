@@ -16,7 +16,7 @@ def alert_new_ci(data):
             invoices = data[dt]
 
             # get value from payload
-            export_no, requester = itemgetter('exportNo','requester')(invoices[0])
+            export_no, delivery_type, requester = itemgetter('exportNo','requester','delivery_type')(invoices[0])
             # define doc type
             doc_type = CI
 
@@ -27,6 +27,7 @@ def alert_new_ci(data):
             # insert into operation process
             AccessService(GLOBAL).insert_op_process(
                 export_id=export_no,
+                delivery_type=delivery_type,
                 doc_type=doc_type,
                 requester=requester,
                 slack_post_block_id=slack_block_id
