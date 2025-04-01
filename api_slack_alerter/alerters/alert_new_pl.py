@@ -35,7 +35,7 @@ def alert_new_pl(data):
 
             # 업데이트 문구 리플라이
             slack.add_reply(
-                channel_id=SLACK_GLOBAL_B2B_DELIVERY_REQUEST_ID,
+                channel_id=SLACK_GLOBAL_B2B_INVOICE_ID,
                 msg_type=MSG_TYPE['BLOCK'],
                 msg_body=SlackMsgCreator.get_slack_new_doc_reply_block(requester=requester, doc_type=doc_type),
                 thread_ts=slack_block_id
