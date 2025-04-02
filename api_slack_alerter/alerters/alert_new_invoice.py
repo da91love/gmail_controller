@@ -8,7 +8,7 @@ from common.slack.SlackMsgCreator import SlackMsgCreator
 from common.const.SLACK import *
 from ..const.DOC_TYPE import *
 
-def alert_new_invoice(data):
+def alert_new_invoice(brand_name, data):
     try:
         # declare instance
         slack = Slack()
@@ -43,7 +43,7 @@ def alert_new_invoice(data):
 
                 slack.update_post(
                     msg_type=MSG_TYPE['BLOCK'],
-                    channel_id=SLACK_GLOBAL_B2B_INVOICE_ID,
+                    channel_id=SLACK_GLOBAL_B2B_INVOICE_ID[brand_name],
                     msg_body=slack_post_msg,
                     thread_ts=slack_block_id
                 )
@@ -59,7 +59,7 @@ def alert_new_invoice(data):
 
             else:
                 res = slack.add_post(
-                    channel_id=SLACK_GLOBAL_B2B_INVOICE_ID,
+                    channel_id=SLACK_GLOBAL_B2B_INVOICE_ID[brand_name],
                     msg_type=MSG_TYPE['BLOCK'],
                     msg_body=slack_post_msg
                 )

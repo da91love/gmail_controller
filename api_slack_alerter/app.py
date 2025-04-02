@@ -47,8 +47,10 @@ def app_api_slack_alerter(event, context=None):
 
     if slack_alerter_type == NEW_BUYER_ALERTER:
         alert_new_buyer(payload)
-    elif slack_alerter_type == NEW_PI_ALERTER:
-        alert_new_invoice(payload)
+    elif slack_alerter_type == NEW_EQB_PI_ALERTER:
+        alert_new_invoice('EQB', payload)
+    elif slack_alerter_type == NEW_BRDN_PI_ALERTER:
+        alert_new_invoice('BRDN', payload)
     elif slack_alerter_type == NEW_OS_ALERTER:
         alert_new_order(payload)
     elif slack_alerter_type == NEW_PL_ALERTER:
