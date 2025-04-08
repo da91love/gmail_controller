@@ -13,18 +13,17 @@ class Mysql:
 
     '''
     getConnInstance 은 하나의 db connection만을 생성하기 위해, 싱글톤으로 작성됨.
-    하지만 하나의 connection에서 작업을 하다보니, 여러 에러가 수반되게 되어 매 sql마다 새로운 connection을 생성하는 방법으로 변경
-    https://stackoverflow.com/questions/65169638/mysqlconnector-python-new-db-connection-for-each-query-vs-one-single-connect
+    복수개의 db 접속시에는 dict로 만들어진 connectionPoolInstance에서 db conn 선택
     '''
-    connectionPoolInstance = None
+    connectionPoolInstance: dict = {}
 
     @classmethod
     def getConnectionPool(cls, db):
         try:
-            if cls.connectionPoolInstance is None:
-                cls.__setConnectionPool(db)
+            if (cls.connectionPoolInstance).get(db) is None:
+                (cls.connectionPoolInstance)[db] = cls.__setConnectionPool(db)
 
-            return cls.connectionPoolInstance
+            return (cls.connectionPoolInstance).get(db)
 
         except Exception as e:
             raise e
@@ -57,7 +56,7 @@ class Mysql:
 
             logger.info('mysql connection pool ends')
 
-            cls.connectionPoolInstance = connection_pool
+            return connection_pool
 
         except Exception as e:
             raise e

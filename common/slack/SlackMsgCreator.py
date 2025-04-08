@@ -1,5 +1,6 @@
 import json
 import html
+import pydash as _
 
 from common.const.STATUS import *
 from api_slack_alerter.const.SLACK_ID import *
@@ -71,7 +72,7 @@ class SlackMsgCreator:
         ])
 
     @staticmethod
-    def get_slack_new_invoice_post_block(pic, pi_request_date, export_no, delivery_type, buyer_name, country, summed_amount, invoices):
+    def get_slack_new_invoice_post_block(pic, pi_request_date, export_no, delivery_type, buyer_name, country, summed_amount, invoices, inventory):
         default_msg = [
             {
                 "type": "section",
@@ -99,7 +100,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"\n`품목명` : {invoice.get('itemName')}\n`품목코드` : {invoice.get('itemCode')}\n`수량` : {invoice.get('volume')}\n"
+                    "text": f"\n`품목명` : {invoice.get('itemName')}\n`품목코드` : {invoice.get('itemCode')}\n`수량` : {invoice.get('volume')}\n`現가용재고` : {_.sum_by(inventory[invoice.get('itemCode')], 'stock')}\n"
                 }
             } for invoice in invoices]
 

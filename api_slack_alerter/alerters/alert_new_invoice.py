@@ -12,6 +12,13 @@ def alert_new_invoice(brand_name, data):
     try:
         # declare instance
         slack = Slack()
+        accessService_bsts = AccessService(BOOSTERS)
+        accessService_glbl = AccessService(GLOBAL)
+
+        # get inventory data
+        invt_by_prd = accessService_bsts.select_inventory()
+        invt_by_prd_code = _.group_by(invt_by_prd, 'product_code')
+
         for dt in data:
             invoices = data[dt]
 
@@ -32,11 +39,12 @@ def alert_new_invoice(brand_name, data):
                 buyer_name=buyer_name,
                 country=country_code,
                 summed_amount=parsed_amount,
-                invoices=invoices
+                invoices=invoices,
+                inventory=invt_by_prd_code
             )
 
             # get process history from db
-            slack_block_ids = AccessService(GLOBAL).select_is_in_process_history(delivery_type=delivery_type, export_id=export_no)
+            slack_block_ids = accessService_glbl.select_is_in_process_history(delivery_type=delivery_type, export_id=export_no)
 
             if len(slack_block_ids) > 0:
                 slack_block_id = slack_block_ids[0].get('slack_post_block_id')
@@ -49,7 +57,7 @@ def alert_new_invoice(brand_name, data):
                 )
 
                 # insert into operation process
-                AccessService(GLOBAL).insert_op_process(
+                accessService_glbl.insert_op_process(
                     export_id=export_no,
                     delivery_type=delivery_type,
                     doc_type=doc_type,
@@ -67,7 +75,7 @@ def alert_new_invoice(brand_name, data):
                 thread_ts = res.text
 
                 # insert into operation process
-                AccessService(GLOBAL).insert_op_process(
+                accessService_glbl.insert_op_process(
                     export_id=export_no,
                     delivery_type=delivery_type,
                     doc_type=doc_type,

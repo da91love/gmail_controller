@@ -12,6 +12,19 @@ class AccessService():
     All function's name should start with below 4 verbs: select insert update delete
     """
 
+    def select_inventory(self, **bindings):
+        """
+        :param bindings: (tuple)
+        :return: (list) sql query result
+        """
+        try:
+            return AccessServiceBase(self.db).execute_sql(
+                sql=Query.sql_select_inventory,
+                bindings=bindings)
+
+        except Exception as e:
+            raise e
+
     def select_is_in_process_history(self, **bindings):
         """
         :param bindings: (tuple)

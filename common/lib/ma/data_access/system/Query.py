@@ -1,4 +1,39 @@
 class Query():
+    sql_select_inventory = """
+    SELECT 
+         updated_at,
+        standard_date,
+        product_code,
+        product_name,
+        barcode,
+        lot,
+        DATE_FORMAT(expiration_date, '%Y-%m-%d') AS EXP_DATE,
+        CASE
+            WHEN warehouse_lname LIKE '%출고창고%'
+              OR warehouse_lname LIKE '%적치%' 
+              THEN end_inventory
+            ELSE 0
+        END AS stock
+    FROM 
+        nansoft_get_inventory_history_infos
+    WHERE 
+        standard_date = CURDATE()
+        AND (warehouse_lname LIKE '%출고창고%'
+            OR warehouse_lname LIKE '%적치%')
+        AND end_inventory != 0
+        AND product_name LIKE '%이퀄베리%'
+    GROUP BY 
+         updated_at,
+        standard_date,
+        product_code,
+        product_name,
+        barcode,
+        lot,
+        DATE_FORMAT(expiration_date, '%Y-%m-%d'),
+        warehouse_lname, 
+        end_inventory
+    """
+
     sql_select_is_in_process_history = """
         SELECT slack_post_block_id FROM operation_process
         WHERE export_id = '{export_id}' and delivery_type = '{delivery_type}' and slack_post_block_id is not null;
