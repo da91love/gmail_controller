@@ -100,7 +100,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"\n`품목명` : {invoice.get('itemName')}\n`품목코드` : {invoice.get('itemCode')}\n`수량` : {invoice.get('volume')}\n`現가용재고` : {_.sum_by(inventory[invoice.get('itemCode')], 'stock')}\n"
+                    "text": f"\n`품목명` : {invoice.get('itemName')}\n`품목코드` : {invoice.get('itemCode')}\n`수량` : {invoice.get('volume')}\n`現가용재고` : {_.sum_by(inventory.get(invoice.get('itemCode')), 'stock')}\n"
                 }
             } for invoice in invoices]
 
