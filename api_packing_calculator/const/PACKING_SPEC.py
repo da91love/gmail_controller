@@ -27,6 +27,15 @@ PALLET_SPEC = {
             "wg": 22,
         }
       ],
+    "YS": [
+        {
+            "id": "pallet",
+            "w": 1.1,
+            "d": 1.1,
+            "h": 1.37,
+            "wg": 11,
+        }
+    ],
     "COMM": [
         {
             "id": "pallet",
@@ -39,6 +48,8 @@ PALLET_SPEC = {
 }
 
 EURO_PALLET_TG = ['SKIN CUPID LIMITED']
+
+YS_PALLET_TG = ['예스아시아닷컴코리아']
 
 MAX_BOX_D_IN_PALLET = {
     "EURO": {

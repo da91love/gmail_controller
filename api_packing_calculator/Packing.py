@@ -250,6 +250,8 @@ class Packing:
                 max_box_d_in_pallet = None
                 if self.buyer_name in EURO_PALLET_TG:
                     max_box_d_in_pallet = MAX_BOX_D_IN_PALLET['EURO'][item_code]
+                elif self.buyer_name in YS_PALLET_TG:
+                    max_box_d_in_pallet = MAX_BOX_D_IN_PALLET['YS'][item_code]
                 else:
                     max_box_d_in_pallet = MAX_BOX_D_IN_PALLET['COMM'][item_code]
             except KeyError:
