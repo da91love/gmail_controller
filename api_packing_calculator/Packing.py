@@ -284,6 +284,8 @@ class Packing:
         bins = None
         if self.buyer_name in EURO_PALLET_TG:
             bins = PALLET_SPEC['EURO']
+        elif self.buyer_name in YS_PALLET_TG:
+            bins = PALLET_SPEC['YS']
         else:
             bins = PALLET_SPEC['COMM']
 
