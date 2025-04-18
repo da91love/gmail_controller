@@ -10,7 +10,7 @@ PRODUCT_NAME = {
     'BA00030': 'Eqqualberry - Collagen Pore Tight Up Hydrogel Mask [4PCS]',
     'BA00031': 'Eqqualberry - Collagen Soothe Up Hydrogel Mask [4PCS]',
     'BA00032': 'Eqqualberry - Collagen Glow Up Hydrogel Mask [4PCS]',
-    'BA00027': 'Eqqualberry - Purple Rice Pore Purifying Pack Cleaser [130g]',
+    'BA00027': 'Eqqualberry - Purple Rice Pore Purifying Pack Cleanser [130g]',
     'BA00028': 'Eqqualberry - Purple PDRN Pore Minimizing Serum [30ml]',
     'BA00029': 'Eqqualberry - Purple Rice Pore Smoothing Cleansing Oil [200ml]',
     'BA00033_SET': 'Eqqualberry - Toner Sachet [2ml/100EA]',
