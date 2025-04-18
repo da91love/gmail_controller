@@ -36,6 +36,15 @@ PALLET_SPEC = {
             "wg": 11,
         }
     ],
+    "OY": [
+        {
+            "id": "pallet",
+            "w": 1.1,
+            "d": 1.1,
+            "h": 1.05,
+            "wg": 11,
+        }
+    ],
     "COMM": [
         {
             "id": "pallet",
@@ -50,6 +59,8 @@ PALLET_SPEC = {
 EURO_PALLET_TG = ['SKIN CUPID LIMITED']
 
 YS_PALLET_TG = ['예스아시아닷컴코리아']
+
+OY_PALLET_TG = ['씨제이올리브영']
 
 MAX_BOX_D_IN_PALLET = {
     "EURO": {
@@ -105,6 +116,24 @@ MAX_BOX_D_IN_PALLET = {
         'BA00029': 36,
         'BA00033_SET': 28,
         'BA00034_SET': 28,
+    },
+    "OY": {
+        'BA10001': 30,
+        'BA00023': 30,
+        'BA00024': 36,
+        'BA00025': 24,
+        'BA00026': 36,
+        'BA00021': 36,
+        'BA00022': 36,
+        'BA10022': 36,
+        'BA00030': 18,
+        'BA00031': 18,
+        'BA00032': 18,
+        'BA00027': 30,
+        'BA00028': 80,
+        'BA00029': 30,
+        'BA00033_SET': 21,
+        'BA00034_SET': 21,
     }
 }
 
