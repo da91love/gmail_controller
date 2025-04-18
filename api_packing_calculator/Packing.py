@@ -26,7 +26,12 @@ class Packing:
             item_code = order_info['itemCode']
             order_vol = order_info["volume"]
 
-            max_vol_of_box_d = MAX_PRDT_IN_D_BOX[item_code]
+            max_vol_of_box_d = None
+            if self.buyer_name in OY_PALLET_TG:
+                max_vol_of_box_d = MAX_PRDT_IN_D_BOX['OY'][item_code]
+            else:
+                max_vol_of_box_d = MAX_PRDT_IN_D_BOX['COMM'][item_code]
+
             max_vol_of_biggest_comm_box = (
                 BOX_COMM_PRDT_NUM[item_code].get("BOX4", {}).get("MAX_VOLUME")
                 or BOX_COMM_PRDT_NUM[item_code].get("BOX3", {}).get("MAX_VOLUME")
