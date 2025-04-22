@@ -22,7 +22,7 @@ def alert_new_order(data):
             slack_post_block_fr_api['pic'] = tg.get('pic')
             slack_post_block_fr_api['requester'] = tg.get('requester')
             slack_post_block_fr_api['export_id'] = tg.get('exportNo')
-            slack_post_block_fr_api['buyer_name'] = tg.get('buyerName').replace("'", "''")
+            slack_post_block_fr_api['buyer_name'] = tg.get('buyerName')
             slack_post_block_fr_api['address'] = tg.get('address')
             slack_post_block_fr_api['recipient'] = tg.get('recipient')
             slack_post_block_fr_api['recipient_phone_num'] = tg.get('phoneNum')
@@ -93,7 +93,7 @@ def alert_new_order(data):
                     pic=slack_post_block_fr_api['pic'],
                     requester=slack_post_block_fr_api['requester'],
                     brand=slack_post_block_fr_api['brand'],
-                    buyer_name=slack_post_block_fr_api['buyer_name'],
+                    buyer_name=(slack_post_block_fr_api['buyer_name']).replace("'", "''"),
                     address=slack_post_block_fr_api['address'],
                     recipient=slack_post_block_fr_api['recipient'],
                     recipient_phone_num=slack_post_block_fr_api['recipient_phone_num'],
@@ -156,7 +156,7 @@ def alert_new_order(data):
                     pic=slack_post_block_fr_api['pic'],
                     requester=slack_post_block_fr_api['requester'],
                     brand=slack_post_block_fr_api['brand'],
-                    buyer_name=slack_post_block_fr_api['buyer_name'],
+                    buyer_name=(slack_post_block_fr_api['buyer_name']).replace("'", "''"),
                     address=slack_post_block_fr_api['address'],
                     recipient=slack_post_block_fr_api['recipient'],
                     recipient_phone_num=slack_post_block_fr_api['recipient_phone_num'],
