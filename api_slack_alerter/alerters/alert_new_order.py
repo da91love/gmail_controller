@@ -22,7 +22,7 @@ def alert_new_order(data):
             slack_post_block_fr_api['pic'] = tg.get('pic')
             slack_post_block_fr_api['requester'] = tg.get('requester')
             slack_post_block_fr_api['export_id'] = tg.get('exportNo')
-            slack_post_block_fr_api['buyer_name'] = tg.get('buyerName')
+            slack_post_block_fr_api['buyer_name'] = tg.get('buyerName').replace("'", "''")
             slack_post_block_fr_api['address'] = tg.get('address')
             slack_post_block_fr_api['recipient'] = tg.get('recipient')
             slack_post_block_fr_api['recipient_phone_num'] = tg.get('phoneNum')
