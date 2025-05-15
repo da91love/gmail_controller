@@ -10,6 +10,8 @@ PRODUCT_NAME = {
     'BA00030': 'Eqqualberry - Collagen Pore Tight Up Hydrogel Mask [4PCS]',
     'BA00031': 'Eqqualberry - Collagen Glow Up Hydrogel Mask [4PCS]',
     'BA00032': 'Eqqualberry - Collagen Soothe Up Hydrogel Mask [4PCS]',
+    'BA00042': 'Eqqualberry - Collagen Pore Tight Up Hydrogel Mask [1PCS]',
+    'BA00043 ': 'Eqqualberry - Collagen Glow Up Hydrogel Mask [1PCS]',
     'BA00027': 'Eqqualberry - Purple Rice Pore Purifying Pack Cleanser [130g]',
     'BA00028': 'Eqqualberry - Purple PDRN Pore Minimizing Serum [30ml]',
     'BA00029': 'Eqqualberry - Purple Rice Pore Smoothing Cleansing Oil [200ml]',
@@ -150,6 +152,8 @@ MAX_PRDT_IN_D_BOX = {
         'BA00030': 40,
         'BA00031': 40,
         'BA00032': 40,
+        'BA00042': 3,
+        'BA00043': 3,
         'BA00027': 60,
         'BA00028': 40,
         'BA00029': 77,
@@ -168,6 +172,8 @@ MAX_PRDT_IN_D_BOX = {
         'BA00030': 40,
         'BA00031': 40,
         'BA00032': 40,
+        'BA00042': 3,
+        'BA00043': 3,
         'BA00027': 60,
         'BA00028': 40,
         'BA00029': 77,
@@ -263,6 +269,22 @@ PRDT_SPEC = {
             'WIDTH': 0.16,
             'LENGTH': 0.025,
             'HEIGHT': 0.18
+        }
+    },
+    "BA00042": {
+        'WEIGHT': 0.43,
+        'SCALE': {
+            'WIDTH': 0.2,
+            'LENGTH': 0.17,
+            'HEIGHT': 0.03
+        }
+    },
+    "BA00043": {
+        'WEIGHT': 0.43,
+        'SCALE': {
+            'WIDTH': 0.5,
+            'LENGTH': 0.17,
+            'HEIGHT': 0.03
         }
     },
     "BA00027": {
@@ -429,6 +451,22 @@ BOX_D_SPEC = {
             'WIDTH': 0.47,
             'LENGTH': 0.35,
             'HEIGHT': 0.265
+        }
+    },
+    "BA00042": {
+        'WEIGHT': 0.3,
+        'SCALE': {
+            'WIDTH': 0.2,
+            'LENGTH': 0.2,
+            'HEIGHT': 0.1
+        }
+    },
+    "BA00043": {
+        'WEIGHT': 0.3,
+        'SCALE': {
+            'WIDTH': 0.2,
+            'LENGTH': 0.2,
+            'HEIGHT': 0.1
         }
     },
     "BA00027": {
@@ -698,16 +736,16 @@ BOX_COMM_PRDT_NUM = {
             'MAX_VOLUME': 19,
         }
     },
+    'BA00042': {
+        # 공통박스에 넣지 않고 모두 완박스 처리하므로 비워둠
+    },
+    'BA00043': {
+        # 공통박스에 넣지 않고 모두 완박스 처리하므로 비워둠
+    },
     'BA00033_SET': {
-        'BOX4': {
-            'MIN_VOLUME': 1,
-            'MAX_VOLUME': 3,
-        }
+        # 공통박스에 넣지 않고 모두 완박스 처리하므로 비워둠
     },
     'BA00034_SET': {
-        'BOX4': {
-            'MIN_VOLUME': 1,
-            'MAX_VOLUME': 3,
-        }
+        # 공통박스에 넣지 않고 모두 완박스 처리하므로 비워둠
     }
 }
