@@ -10,8 +10,8 @@ PRODUCT_NAME = {
     'BA00030': 'Eqqualberry - Collagen Pore Tight Up Hydrogel Mask [4PCS]',
     'BA00031': 'Eqqualberry - Collagen Glow Up Hydrogel Mask [4PCS]',
     'BA00032': 'Eqqualberry - Collagen Soothe Up Hydrogel Mask [4PCS]',
-    'BA00042': 'Eqqualberry - Collagen Pore Tight Up Hydrogel Mask [1PCS]',
-    'BA00043 ': 'Eqqualberry - Collagen Glow Up Hydrogel Mask [1PCS]',
+    'BA00042': 'Eqqualberry - Collagen Pore Tight Up Hydrogel Mask [10PCS]',
+    'BA00043 ': 'Eqqualberry - Collagen Glow Up Hydrogel Mask [10PCS]',
     'BA00027': 'Eqqualberry - Purple Rice Pore Purifying Pack Cleanser [130g]',
     'BA00028': 'Eqqualberry - Purple PDRN Pore Minimizing Serum [30ml]',
     'BA00029': 'Eqqualberry - Purple Rice Pore Smoothing Cleansing Oil [200ml]',
@@ -77,8 +77,8 @@ MAX_BOX_D_IN_PALLET = {
         'BA00030': 20,
         'BA00031': 20,
         'BA00032': 20,
-        'BA00042': 25,
-        'BA00043': 25,
+        'BA00042': 56,
+        'BA00043': 56,
         'BA00027': 28,
         'BA00028': 100,
         'BA00029': 28,
@@ -97,8 +97,8 @@ MAX_BOX_D_IN_PALLET = {
         'BA00030': 30,
         'BA00031': 30,
         'BA00032': 30,
-        'BA00042': 28,
-        'BA00043': 28,
+        'BA00042': 56,
+        'BA00043': 56,
         'BA00027': 36,
         'BA00028': 100,
         'BA00029': 36,
@@ -117,8 +117,8 @@ MAX_BOX_D_IN_PALLET = {
         'BA00030': 18,
         'BA00031': 18,
         'BA00032': 18,
-        'BA00042': 21,
-        'BA00043': 21,
+        'BA00042': 40,
+        'BA00043': 40,
         'BA00027': 30,
         'BA00028': 80,
         'BA00029': 30,
@@ -137,8 +137,8 @@ MAX_BOX_D_IN_PALLET = {
         'BA00030': 30,
         'BA00031': 30,
         'BA00032': 30,
-        'BA00042': 35,
-        'BA00043': 35,
+        'BA00042': 56,
+        'BA00043': 56,
         'BA00027': 42,
         'BA00028': 100,
         'BA00029': 42,
@@ -751,9 +751,15 @@ BOX_COMM_PRDT_NUM = {
         # 공통박스에 넣지 않고 모두 완박스 처리하므로 비워둠
     },
     'BA00033_SET': {
-        # 공통박스에 넣지 않고 모두 완박스 처리하므로 비워둠
+        'BOX4': {
+            'MIN_VOLUME': 1,
+            'MAX_VOLUME': 3,
+        }
     },
     'BA00034_SET': {
-        # 공통박스에 넣지 않고 모두 완박스 처리하므로 비워둠
+        'BOX4': {
+            'MIN_VOLUME': 1,
+            'MAX_VOLUME': 3,
+        }
     }
 }
