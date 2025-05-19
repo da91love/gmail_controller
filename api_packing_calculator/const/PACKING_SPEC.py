@@ -114,6 +114,8 @@ MAX_BOX_D_IN_PALLET = {
         'BA00029': 28,
         'BA00033_SET': 25,
         'BA00034_SET': 25,
+        'BA00035': 30,
+        'BA00036': 30,
     },
     "YS": {
         'BA10001': 42,
@@ -134,6 +136,8 @@ MAX_BOX_D_IN_PALLET = {
         'BA00029': 36,
         'BA00033_SET': 28,
         'BA00034_SET': 28,
+        'BA00035': 20,
+        'BA00036': 20,
     },
     "OY": {
         'BA10001': 30,
@@ -154,6 +158,8 @@ MAX_BOX_D_IN_PALLET = {
         'BA00029': 30,
         'BA00033_SET': 21,
         'BA00034_SET': 21,
+        'BA00035': 16,
+        'BA00036': 16,
     },
     "COMM": {
         'BA10001': 42,
@@ -174,6 +180,8 @@ MAX_BOX_D_IN_PALLET = {
         'BA00029': 42,
         'BA00033_SET': 35,
         'BA00034_SET': 35,
+        'BA00035': 20,
+        'BA00036': 20,
     }
 }
 
@@ -197,6 +205,8 @@ MAX_PRDT_IN_D_BOX = {
         'BA00029': 77,
         'BA00033_SET': 12,
         'BA00034_SET': 12,
+        'BA00035': 48,
+        'BA00036': 48,
     },
     'OY': {
         'BA10001': 35,
@@ -217,6 +227,8 @@ MAX_PRDT_IN_D_BOX = {
         'BA00029': 77,
         'BA00033_SET': 12,
         'BA00034_SET': 12,
+        'BA00035': 48,
+        'BA00036': 48,
     }
 }
 
@@ -363,6 +375,22 @@ PRDT_SPEC = {
             'WIDTH': 0.2,
             'LENGTH': 0.13,
             'HEIGHT': 0.085
+        }
+    },
+    "BA00035": {
+        'WEIGHT': 0.3,
+        'SCALE': {
+            'WIDTH': 0.091,
+            'LENGTH': 0.091,
+            'HEIGHT': 0.077
+        }
+    },
+    "BA00036": {
+        'WEIGHT': 0.3,
+        'SCALE': {
+            'WIDTH': 0.091,
+            'LENGTH': 0.091,
+            'HEIGHT': 0.077
         }
     }
 }
@@ -545,6 +573,22 @@ BOX_D_SPEC = {
             'WIDTH': 0.410,
             'LENGTH': 0.310,
             'HEIGHT': 0.280
+        }
+    },
+    'BA00035': {
+        'WEIGHT': 0.3,
+        'SCALE': {
+            'WIDTH': 0.39,
+            'LENGTH': 0.385,
+            'HEIGHT': 0.26
+        }
+    },
+    'BA00036': {
+        'WEIGHT': 0.3,
+        'SCALE': {
+            'WIDTH': 0.39,
+            'LENGTH': 0.385,
+            'HEIGHT': 0.26
         }
     }
 }
@@ -790,6 +834,34 @@ BOX_COMM_PRDT_NUM = {
         'BOX4': {
             'MIN_VOLUME': 1,
             'MAX_VOLUME': 3,
+        }
+    },
+    'BA00035': {
+        'BOX2': {
+            'MIN_VOLUME': 1,
+            'MAX_VOLUME': 2,
+        },
+        'BOX3': {
+            'MIN_VOLUME': 3,
+            'MAX_VOLUME': 12,
+        },
+        'BOX4': {
+            'MIN_VOLUME': 13,
+            'MAX_VOLUME': 18,
+        }
+    },
+    'BA00036': {
+        'BOX2': {
+            'MIN_VOLUME': 1,
+            'MAX_VOLUME': 2,
+        },
+        'BOX3': {
+            'MIN_VOLUME': 3,
+            'MAX_VOLUME': 12,
+        },
+        'BOX4': {
+            'MIN_VOLUME': 13,
+            'MAX_VOLUME': 18,
         }
     }
 }
