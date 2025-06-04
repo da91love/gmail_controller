@@ -70,7 +70,7 @@ class Query():
             delivery_type='{delivery_type}',
             remark='{remark}',
             updated_at=NOW() 
-        where export_id='{export_id}' and slack_post_block_id='{slack_post_block_id}';
+        where export_id='{export_id}' and slack_post_block_id='{slack_post_block_id}' and brand='{brand}';
     """
 
     sql_insert_slack_history = """
@@ -81,7 +81,7 @@ class Query():
     sql_select_slack_history = """
         SELECT *
         FROM slack_thread_history
-        WHERE export_id = '{export_id}' and delivery_type = '{delivery_type}';
+        WHERE export_id = '{export_id}' and delivery_type = '{delivery_type}' and brand = '{brand}';
     """
 
     sql_delete_temp = """
