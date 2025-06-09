@@ -51,7 +51,7 @@ PRODUCT_NAME = {
 
 EURO_PALLET_TG = ['SKIN CUPID LIMITED']
 
-YS_PALLET_TG = ['예스아시아닷컴코리아']
+YS_PALLET_TG = ['예스아시아닷컴코리아', '아시안뷰티홀세일코리아']
 
 OY_PALLET_TG = ['씨제이올리브영']
 
