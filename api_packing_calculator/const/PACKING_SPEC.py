@@ -49,7 +49,7 @@ PRODUCT_NAME = {
   "BA10021": "Eqqualberry - Bakuchiol Plumping Serum [30ml/-]"
 }
 
-EURO_PALLET_TG = ['SKIN CUPID LIMITED']
+EURO_PALLET_TG = ['SKIN CUPID LIMITED', 'MIIN COSMETICS SL']
 
 YS_PALLET_TG = ['예스아시아닷컴코리아', '아시안뷰티홀세일코리아']
 
