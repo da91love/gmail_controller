@@ -116,6 +116,7 @@ MAX_BOX_D_IN_PALLET = {
         'BA00034_SET': 25,
         'BA00035': 30,
         'BA00036': 30,
+        'BA00039': 42
     },
     "YS": {
         'BA10001': 42,
@@ -138,6 +139,7 @@ MAX_BOX_D_IN_PALLET = {
         'BA00034_SET': 28,
         'BA00035': 20,
         'BA00036': 20,
+        'BA00039': 56
     },
     "OY": {
         'BA10001': 30,
@@ -160,6 +162,7 @@ MAX_BOX_D_IN_PALLET = {
         'BA00034_SET': 21,
         'BA00035': 16,
         'BA00036': 16,
+        'BA00039': 40,
     },
     "COMM": {
         'BA10001': 42,
@@ -182,6 +185,7 @@ MAX_BOX_D_IN_PALLET = {
         'BA00034_SET': 35,
         'BA00035': 20,
         'BA00036': 20,
+        'BA00039': 56,
     }
 }
 
@@ -207,6 +211,7 @@ MAX_PRDT_IN_D_BOX = {
         'BA00034_SET': 12,
         'BA00035': 48,
         'BA00036': 48,
+        'BA00039': 60,
     },
     'OY': {
         'BA10001': 35,
@@ -229,6 +234,7 @@ MAX_PRDT_IN_D_BOX = {
         'BA00034_SET': 12,
         'BA00035': 48,
         'BA00036': 48,
+        'BA00039': 60,
     }
 }
 
@@ -391,6 +397,14 @@ PRDT_SPEC = {
             'WIDTH': 0.091,
             'LENGTH': 0.091,
             'HEIGHT': 0.077
+        }
+    },
+    "BA00039": {
+        'WEIGHT': 0.245,
+        'SCALE': {
+            'WIDTH': 0.071,
+            'LENGTH': 0.071,
+            'HEIGHT': 0.054
         }
     }
 }
@@ -589,6 +603,14 @@ BOX_D_SPEC = {
             'WIDTH': 0.39,
             'LENGTH': 0.385,
             'HEIGHT': 0.26
+        }
+    },
+    'BA00039': {
+        'WEIGHT': 0.3,
+        'SCALE': {
+            'WIDTH': 0.38,
+            'LENGTH': 0.315,
+            'HEIGHT': 0.192
         }
     }
 }
@@ -862,6 +884,24 @@ BOX_COMM_PRDT_NUM = {
         'BOX4': {
             'MIN_VOLUME': 13,
             'MAX_VOLUME': 18,
+        }
+    },
+    'BA00039': {
+        'BOX1': {
+            'MIN_VOLUME': 1,
+            'MAX_VOLUME': 3,
+        },
+        'BOX2': {
+            'MIN_VOLUME': 4,
+            'MAX_VOLUME': 12,
+        },
+        'BOX3': {
+            'MIN_VOLUME': 13,
+            'MAX_VOLUME': 16,
+        },
+        'BOX4': {
+            'MIN_VOLUME': 17,
+            'MAX_VOLUME': 30,
         }
     }
 }
