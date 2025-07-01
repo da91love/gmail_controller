@@ -35,6 +35,7 @@ PRODUCT_NAME = {
   "BA00022_SET01": "#N/A",
   "BA00033_SET": "Eqqualberry - Toner Sachet [2ml/100EA]",
   "BA00034_SET": "Eqqualberry - Bakuchiol Plumping Serum Sachet [2ml/100EA]",
+  "BA00041_SET": "Eqqualberry - Vitamin Illuminating Serum Sachet [2ml/100EA]",
   "BA00042": "Eqqualberry - Collagen Pore Tight Up Hydrogel Mask [10PCS]",
   "BA00043": "Eqqualberry - Collagen Glow Up Hydrogel Mask [10PCS]",
   "BA10001": "Eqqualberry - Toner [300ml/-]",
@@ -114,6 +115,7 @@ MAX_BOX_D_IN_PALLET = {
         'BA00029': 28,
         'BA00033_SET': 25,
         'BA00034_SET': 25,
+        'BA00041_SET': 25,
         'BA00035': 30,
         'BA00036': 30,
         'BA00039': 42
@@ -137,6 +139,7 @@ MAX_BOX_D_IN_PALLET = {
         'BA00029': 36,
         'BA00033_SET': 28,
         'BA00034_SET': 28,
+        'BA00041_SET': 28,
         'BA00035': 20,
         'BA00036': 20,
         'BA00039': 56
@@ -160,6 +163,7 @@ MAX_BOX_D_IN_PALLET = {
         'BA00029': 30,
         'BA00033_SET': 21,
         'BA00034_SET': 21,
+        'BA00041_SET': 28,
         'BA00035': 16,
         'BA00036': 16,
         'BA00039': 40,
@@ -183,6 +187,7 @@ MAX_BOX_D_IN_PALLET = {
         'BA00029': 42,
         'BA00033_SET': 35,
         'BA00034_SET': 35,
+        'BA00041_SET': 28,
         'BA00035': 20,
         'BA00036': 20,
         'BA00039': 56,
@@ -209,6 +214,7 @@ MAX_PRDT_IN_D_BOX = {
         'BA00029': 77,
         'BA00033_SET': 12,
         'BA00034_SET': 12,
+        'BA00041_SET': 12,
         'BA00035': 48,
         'BA00036': 48,
         'BA00039': 60,
@@ -232,6 +238,7 @@ MAX_PRDT_IN_D_BOX = {
         'BA00029': 77,
         'BA00033_SET': 12,
         'BA00034_SET': 12,
+        'BA00041_SET': 12,
         'BA00035': 48,
         'BA00036': 48,
         'BA00039': 60,
@@ -376,6 +383,14 @@ PRDT_SPEC = {
         }
     },
     "BA00034_SET": {
+        'WEIGHT': 0.3,
+        'SCALE': {
+            'WIDTH': 0.2,
+            'LENGTH': 0.13,
+            'HEIGHT': 0.085
+        }
+    },
+    "BA00041_SET": {
         'WEIGHT': 0.3,
         'SCALE': {
             'WIDTH': 0.2,
@@ -582,6 +597,14 @@ BOX_D_SPEC = {
         }
     },
     'BA00034_SET': {
+        'WEIGHT': 0.3,
+        'SCALE': {
+            'WIDTH': 0.410,
+            'LENGTH': 0.310,
+            'HEIGHT': 0.280
+        }
+    },
+    'BA00041_SET': {
         'WEIGHT': 0.3,
         'SCALE': {
             'WIDTH': 0.410,
@@ -853,6 +876,12 @@ BOX_COMM_PRDT_NUM = {
         }
     },
     'BA00034_SET': {
+        'BOX4': {
+            'MIN_VOLUME': 1,
+            'MAX_VOLUME': 3,
+        }
+    },
+    'BA00041_SET': {
         'BOX4': {
             'MIN_VOLUME': 1,
             'MAX_VOLUME': 3,
