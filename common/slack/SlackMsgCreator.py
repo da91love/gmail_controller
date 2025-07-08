@@ -40,7 +40,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"#요청: 신규 출고 요청이 생성되었습니다.\n<@U070KTKCD5L><@U07B2HY3E3F>"
+                    "text": f"#요청: 신규 출고 요청이 생성되었습니다.\n<@U070KTKCD5L><@U07B2HY3E3F><@U093Y8ED2F3>"
                 }
             },
             {
@@ -78,7 +78,7 @@ class SlackMsgCreator:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "신규 Invoice가 생성되었습니다.\n<@U08HEMUQEAV><@U086W2H95K4><@U07B2HY3E3F><@U070KTKCD5L><@U06ECHJP7GV><@U05B5G8BK6C>"
+                    "text": "신규 Invoice가 생성되었습니다.\n<@U08HEMUQEAV><@U086W2H95K4><@U07B2HY3E3F><@U070KTKCD5L><@U093Y8ED2F3>"
                 }
             },
             {
