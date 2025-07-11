@@ -113,9 +113,9 @@ MAX_BOX_D_IN_PALLET = {
         'BA00027': 28,
         'BA00028': 100,
         'BA00029': 28,
-        'BA00033_SET': 25,
-        'BA00034_SET': 25,
-        'BA00041_SET': 25,
+        'BA00033_SET': 24,
+        'BA00034_SET': 24,
+        'BA00041_SET': 24,
         'BA00035': 30,
         'BA00036': 30,
         'BA00039': 42
@@ -163,7 +163,7 @@ MAX_BOX_D_IN_PALLET = {
         'BA00029': 30,
         'BA00033_SET': 21,
         'BA00034_SET': 21,
-        'BA00041_SET': 28,
+        'BA00041_SET': 21,
         'BA00035': 16,
         'BA00036': 16,
         'BA00039': 40,
@@ -185,8 +185,8 @@ MAX_BOX_D_IN_PALLET = {
         'BA00027': 42,
         'BA00028': 100,
         'BA00029': 42,
-        'BA00033_SET': 35,
-        'BA00034_SET': 35,
+        'BA00033_SET': 28,
+        'BA00034_SET': 28,
         'BA00041_SET': 28,
         'BA00035': 20,
         'BA00036': 20,
@@ -379,7 +379,7 @@ PRDT_SPEC = {
         'SCALE': {
             'WIDTH': 0.2,
             'LENGTH': 0.13,
-            'HEIGHT': 0.085
+            'HEIGHT': 0.110
         }
     },
     "BA00034_SET": {
@@ -387,7 +387,7 @@ PRDT_SPEC = {
         'SCALE': {
             'WIDTH': 0.2,
             'LENGTH': 0.13,
-            'HEIGHT': 0.085
+            'HEIGHT': 0.110
         }
     },
     "BA00041_SET": {
@@ -395,7 +395,7 @@ PRDT_SPEC = {
         'SCALE': {
             'WIDTH': 0.2,
             'LENGTH': 0.13,
-            'HEIGHT': 0.085
+            'HEIGHT': 0.110
         }
     },
     "BA00035": {
@@ -591,25 +591,25 @@ BOX_D_SPEC = {
     'BA00033_SET': {
         'WEIGHT': 0.3,
         'SCALE': {
-            'WIDTH': 0.410,
+            'WIDTH': 0.400,
             'LENGTH': 0.310,
-            'HEIGHT': 0.280
+            'HEIGHT': 0.310
         }
     },
     'BA00034_SET': {
         'WEIGHT': 0.3,
         'SCALE': {
-            'WIDTH': 0.410,
+            'WIDTH': 0.400,
             'LENGTH': 0.310,
-            'HEIGHT': 0.280
+            'HEIGHT': 0.310
         }
     },
     'BA00041_SET': {
         'WEIGHT': 0.3,
         'SCALE': {
-            'WIDTH': 0.410,
+            'WIDTH': 0.400,
             'LENGTH': 0.310,
-            'HEIGHT': 0.280
+            'HEIGHT': 0.310
         }
     },
     'BA00035': {
