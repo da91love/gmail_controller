@@ -7,5 +7,6 @@ SLACK_ID = {
     'dasom.lee@boosters.kr': '@U08DGQWC90D',
     'yura.kim@boosters.kr': '@U08EXGWJFV2',
     'ek.lee@boosters.kr': '@U08NNJN0U7N',
-    'dh.jang@boosters.kr': '@U090TJ7V58Q'
+    'dh.jang@boosters.kr': '@U090TJ7V58Q',
+    'ej.oh@boosters.kr': '@U096J2ZAYM9',
 }
