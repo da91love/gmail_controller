@@ -15,8 +15,8 @@ api = TikAPI(api_key)
 User = api.user(accountKey=account_key)
 
 try:
-    response = User.posts.video(
-        id="7338573931630038277"
+    response = api.public.video(
+        id="7528849718160510215"
     )
 
     data = response.json()
